@@ -1,10 +1,20 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { AuthProvider, useAuth } from './context/AuthContext';
+
+// Pages
 import LandingPage from './pages/LandingPage';
 import AuthPage from './pages/AuthPage';
 import DashboardPage from './pages/DashboardPage';
+import PetsPage from './pages/PetsPage';
+import AIPage from './pages/AIPage';
+import VaccinationsPage from './pages/VaccinationsPage';
+import SubscriptionsPage from './pages/SubscriptionsPage';
+import DonationsPage from './pages/DonationsPage';
+import ProductsPage from './pages/ProductsPage';
 import PetDetailPage from './pages/PetDetailPage';
+
+// Components
 import BottomNav from './components/BottomNav';
 
 function ProtectedRoute({ children }) {
@@ -27,8 +37,14 @@ function AppLayout() {
       <main className="main-content" style={{ marginLeft: 0, padding: 0 }}>
         <Routes>
           <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/pets" element={<PetsPage />} />
           <Route path="/pet/:id" element={<PetDetailPage />} />
-          {/* We'll add the new routes here */}
+          <Route path="/ai" element={<AIPage />} />
+          <Route path="/health" element={<AIPage />} />
+          <Route path="/vaccinations" element={<VaccinationsPage />} />
+          <Route path="/subscriptions" element={<SubscriptionsPage />} />
+          <Route path="/donate" element={<DonationsPage />} />
+          <Route path="/products" element={<ProductsPage />} />
           <Route path="*" element={<Navigate to="/dashboard" />} />
         </Routes>
       </main>
