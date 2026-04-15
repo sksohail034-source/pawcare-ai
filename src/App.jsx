@@ -33,7 +33,7 @@ function PublicRoute({ children }) {
 
 function AppLayout() {
   return (
-    <div className="app-layout" style={{ display: 'block', minHeight: '100vh', paddingBottom: '80px' }}>
+    <div className="app-wrapper app-layout" style={{ display: 'block', minHeight: '100vh', paddingBottom: '80px' }}>
       <main className="main-content" style={{ marginLeft: 0, padding: 0 }}>
         <Routes>
           <Route path="/dashboard" element={<DashboardPage />} />

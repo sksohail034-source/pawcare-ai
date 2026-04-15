@@ -63,12 +63,19 @@ body {
 
 #root {
   width: 100%;
-  max-width: 480px; /* Mobile First Constraint */
   background: var(--bg-app);
   min-height: 100vh;
   position: relative;
   overflow-x: hidden;
+}
+
+.app-wrapper {
+  max-width: 480px;
+  margin: 0 auto;
+  background: var(--bg-card);
+  min-height: 100vh;
   box-shadow: 0 0 40px rgba(0,0,0,0.1);
+  position: relative;
 }
 
 a {
