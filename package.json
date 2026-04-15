@@ -10,7 +10,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "start": "node server/index.js",
-    "render-build": "npm install && npm run build"
+    "render-build": "npm install --include=dev && npm run build"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^6.0.1",
