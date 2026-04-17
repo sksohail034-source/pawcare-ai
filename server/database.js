@@ -24,9 +24,11 @@ export async function initDatabase() {
     id TEXT PRIMARY KEY,
     name TEXT NOT NULL,
     email TEXT UNIQUE NOT NULL,
+    phone TEXT DEFAULT '',
     password TEXT NOT NULL,
     avatar TEXT DEFAULT '',
     subscription TEXT DEFAULT 'free_trial',
+    scans_used INTEGER DEFAULT 0,
     trial_ends_at TEXT,
     created_at TEXT DEFAULT (datetime('now'))
   )`);
@@ -92,6 +94,22 @@ export async function initDatabase() {
     created_at TEXT DEFAULT (datetime('now')),
     FOREIGN KEY (user_id) REFERENCES users(id)
   )`);
+
+  db.run(`CREATE TABLE IF NOT EXISTS routines (
+    id TEXT PRIMARY KEY,
+    user_id TEXT NOT NULL,
+    pet_id TEXT NOT NULL,
+    title TEXT NOT NULL,
+    type TEXT NOT NULL, -- morning, afternoon, evening, weekly
+    time TEXT NOT NULL, -- HH:MM format
+    enabled INTEGER DEFAULT 1,
+    created_at TEXT DEFAULT (datetime('now')),
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (pet_id) REFERENCES pets(id)
+  )`);
+
+  db.run(`INSERT OR IGNORE INTO users (id, name, email, phone, password, subscription, scans_used, trial_ends_at) 
+          VALUES ('test-user-id', 'Test User', 'test@gmail.com', '', '$2b$10$wwHNKYQ3ZYb4ygA4OvPSeOD0YfQjgZh6mJrNTIfFm/7jeqs1Ig1ym', 'premium', 0, '2099-12-31T00:00:00.000Z')`);
 
   saveDatabase();
   console.log('Database initialized successfully');

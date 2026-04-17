@@ -67,6 +67,19 @@ const healthTips = {
 router.post('/style/:petId', authenticateToken, (req, res) => {
   try {
     const db = getDb();
+    
+    // Check usage limits
+    const userResult = db.exec(`SELECT subscription, scans_used FROM users WHERE id = '${req.user.id}'`);
+    if (userResult.length === 0) return res.status(404).json({ error: 'User not found' });
+    const user = {
+      subscription: userResult[0].values[0][0],
+      scans_used: userResult[0].values[0][1]
+    };
+
+    if (user.subscription === 'free_trial' && user.scans_used >= 3) {
+       return res.status(403).json({ error: 'Free trial limit reached. Please upgrade to continue.' });
+    }
+
     const result = db.exec(`SELECT * FROM pets WHERE id = '${req.params.petId}' AND user_id = '${req.user.id}'`);
 
     if (result.length === 0 || result[0].values.length === 0) {
@@ -93,6 +106,9 @@ router.post('/style/:petId', authenticateToken, (req, res) => {
     const resultId = uuidv4();
     db.run(`INSERT INTO ai_results (id, pet_id, user_id, type, result) VALUES (?, ?, ?, 'styling', ?)`,
       [resultId, req.params.petId, req.user.id, JSON.stringify(selectedStyles)]);
+      
+    // Increment scans_used
+    db.run(`UPDATE users SET scans_used = scans_used + 1 WHERE id = ?`, [req.user.id]);
     saveDatabase();
 
     res.json({
@@ -111,6 +127,19 @@ router.post('/style/:petId', authenticateToken, (req, res) => {
 router.post('/health/:petId', authenticateToken, (req, res) => {
   try {
     const db = getDb();
+    
+    // Check usage limits
+    const userResult = db.exec(`SELECT subscription, scans_used FROM users WHERE id = '${req.user.id}'`);
+    if (userResult.length === 0) return res.status(404).json({ error: 'User not found' });
+    const user = {
+      subscription: userResult[0].values[0][0],
+      scans_used: userResult[0].values[0][1]
+    };
+
+    if (user.subscription === 'free_trial' && user.scans_used >= 3) {
+       return res.status(403).json({ error: 'Free trial limit reached. Please upgrade to continue.' });
+    }
+
     const result = db.exec(`SELECT * FROM pets WHERE id = '${req.params.petId}' AND user_id = '${req.user.id}'`);
 
     if (result.length === 0 || result[0].values.length === 0) {
@@ -135,11 +164,19 @@ router.post('/health/:petId', authenticateToken, (req, res) => {
     const resultId = uuidv4();
     db.run(`INSERT INTO ai_results (id, pet_id, user_id, type, result) VALUES (?, ?, ?, 'health', ?)`,
       [resultId, req.params.petId, req.user.id, JSON.stringify(personalizedTips)]);
+      
+    // Increment scans_used
+    db.run(`UPDATE users SET scans_used = scans_used + 1 WHERE id = ?`, [req.user.id]);
     saveDatabase();
 
     res.json({
       pet: { name: pet.name, type: pet.type, breed: pet.breed },
       tips: personalizedTips,
+      analysis: {
+        furCondition: 'healthy',
+        skinIssues: 'none',
+        bodyCondition: 'healthy'
+      },
       resultId,
       generatedAt: new Date().toISOString()
     });

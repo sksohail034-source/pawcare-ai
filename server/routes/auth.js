@@ -10,7 +10,7 @@ const router = Router();
 // Register
 router.post('/register', async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, phone, password } = req.body;
     if (!name || !email || !password) {
       return res.status(400).json({ error: 'Name, email, and password are required' });
     }
@@ -25,15 +25,15 @@ router.post('/register', async (req, res) => {
     const id = uuidv4();
     const trialEnds = new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString();
 
-    db.run(`INSERT INTO users (id, name, email, password, subscription, trial_ends_at) VALUES (?, ?, ?, ?, 'free_trial', ?)`,
-      [id, name, email, hashedPassword, trialEnds]);
+    db.run(`INSERT INTO users (id, name, email, phone, password, subscription, scans_used, trial_ends_at) VALUES (?, ?, ?, ?, ?, 'free_trial', 0, ?)`,
+      [id, name, email, phone || '', hashedPassword, trialEnds]);
     saveDatabase();
 
     const token = jwt.sign({ id, email, name }, process.env.JWT_SECRET, { expiresIn: '7d' });
 
     res.status(201).json({
       token,
-      user: { id, name, email, subscription: 'free_trial', trial_ends_at: trialEnds }
+      user: { id, name, email, phone, subscription: 'free_trial', scans_used: 0, trial_ends_at: trialEnds }
     });
   } catch (err) {
     console.error('Register error:', err);
@@ -78,7 +78,9 @@ router.post('/login', async (req, res) => {
         id: user.id,
         name: user.name,
         email: user.email,
+        phone: user.phone,
         subscription: user.subscription,
+        scans_used: user.scans_used,
         trial_ends_at: user.trial_ends_at,
         avatar: user.avatar
       }
@@ -93,7 +95,7 @@ router.post('/login', async (req, res) => {
 router.get('/me', authenticateToken, (req, res) => {
   try {
     const db = getDb();
-    const result = db.exec(`SELECT id, name, email, avatar, subscription, trial_ends_at, created_at FROM users WHERE id = '${req.user.id}'`);
+    const result = db.exec(`SELECT id, name, email, phone, avatar, subscription, scans_used, trial_ends_at, created_at FROM users WHERE id = '${req.user.id}'`);
 
     if (result.length === 0 || result[0].values.length === 0) {
       return res.status(404).json({ error: 'User not found' });
