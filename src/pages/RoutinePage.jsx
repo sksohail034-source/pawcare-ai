@@ -1,6 +1,118 @@
 import { useState, useEffect } from 'react';
-import { Bell, Clock, Sun, Moon, Sunset, CheckCircle, XCircle, Plus, Trash2 } from 'lucide-react';
+import { Bell, Clock, Sun, Moon, Sunset, CheckCircle, XCircle, Plus, Trash2, Calendar, ChevronLeft, ChevronRight } from 'lucide-react';
 import toast from 'react-hot-toast';
+
+function CalendarView({ routines }) {
+  const [currentDate, setCurrentDate] = useState(new Date());
+  
+  const getDaysInMonth = (date) => {
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    const firstDay = new Date(year, month, 1);
+    const lastDay = new Date(year, month + 1, 0);
+    const days = [];
+    const startPadding = firstDay.getDay();
+    
+    for (let i = 0; i < startPadding; i++) {
+      days.push(null);
+    }
+    for (let i = 1; i <= lastDay.getDate(); i++) {
+      days.push(new Date(year, month, i));
+    }
+    return days;
+  };
+
+  const formatTime = (time) => time || '';
+  
+  const getRoutinesForDate = (date) => {
+    if (!date) return [];
+    const dayOfWeek = date.getDay();
+    const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
+    
+    return routines.filter(r => {
+      if (r.type === 'weekly') {
+        return dayOfWeek === 0;
+      }
+      if (r.type === 'morning' || r.type === 'afternoon' || r.type === 'evening') {
+        return true;
+      }
+      return false;
+    }).filter(r => r.enabled);
+  };
+
+  const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const days = getDaysInMonth(currentDate);
+  const today = new Date();
+  const isCurrentMonth = currentDate.getMonth() === today.getMonth() && currentDate.getFullYear() === today.getFullYear();
+
+  return (
+    <div style={{ marginBottom: 24 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+        <button 
+          onClick={() => setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1))}
+          style={{ padding: 8, background: 'var(--bg-card)', borderRadius: 8, border: '1px solid var(--border)' }}
+        >
+          <ChevronLeft size={20} />
+        </button>
+        <h3 style={{ fontSize: 18, fontWeight: 600 }}>
+          {monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}
+        </h3>
+        <button 
+          onClick={() => setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1))}
+          style={{ padding: 8, background: 'var(--bg-card)', borderRadius: 8, border: '1px solid var(--border)' }}
+        >
+          <ChevronRight size={20} />
+        </button>
+      </div>
+      
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: 4, marginBottom: 8 }}>
+        {dayNames.map(day => (
+          <div key={day} style={{ textAlign: 'center', fontSize: 12, fontWeight: 600, color: 'var(--text-muted)', padding: 8 }}>
+            {day}
+          </div>
+        ))}
+      </div>
+      
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: 4 }}>
+        {days.map((date, idx) => {
+          const dayRoutines = getRoutinesForDate(date);
+          const isToday = date && date.toDateString() === today.toDateString();
+          
+          return (
+            <div 
+              key={idx}
+              style={{
+                minHeight: 60,
+                padding: 4,
+                background: isToday ? 'var(--primary-light)' : date ? 'var(--bg-card)' : 'transparent',
+                borderRadius: 8,
+                opacity: date && isCurrentMonth ? 1 : 0.3,
+                border: '1px solid var(--border)'
+              }}
+            >
+              {date && (
+                <>
+                  <div style={{ fontSize: 12, fontWeight: isToday ? 700 : 500, marginBottom: 4 }}>
+                    {date.getDate()}
+                  </div>
+                  {dayRoutines.slice(0, 2).map(r => (
+                    <div key={r.id} style={{ fontSize: 9, background: 'var(--bg-app)', padding: '2px 4px', borderRadius: 4, marginBottom: 2, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                      {r.icon} {r.time}
+                    </div>
+                  ))}
+                  {dayRoutines.length > 2 && (
+                    <div style={{ fontSize: 9, color: 'var(--text-muted)' }}>+{dayRoutines.length - 2}</div>
+                  )}
+                </>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
 
 const defaultRoutines = [
   { id: 'morning-feed', title: 'Morning Feeding', time: '07:00', type: 'morning', enabled: true, icon: '🌅', message: '🐾 Time to feed your pet!' },
@@ -20,6 +132,7 @@ export default function RoutinePage() {
   const [editingRoutine, setEditingRoutine] = useState(null);
   const [newRoutine, setNewRoutine] = useState({ title: '', time: '08:00', type: 'morning', icon: '🔔', message: '' });
   const [permissionRequested, setPermissionRequested] = useState(false);
+  const [showCalendar, setShowCalendar] = useState(false);
 
   useEffect(() => {
     loadRoutines();
@@ -208,13 +321,12 @@ export default function RoutinePage() {
         </div>
       </div>
 
-      <div style={{ marginBottom: 24 }}>
+<div style={{ marginBottom: 24 }}>
+        {showCalendar && <CalendarView routines={routines} />}
+        {!showCalendar && (
+        <div>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
           <h3>📅 Daily Schedule</h3>
-          <button className="btn btn-primary btn-sm" onClick={() => setShowAddModal(true)}>
-            <Plus size={16} /> Add
-          </button>
-        </div>
 
         <div className="routine-section">
           <div className="section-header">
@@ -246,23 +358,11 @@ export default function RoutinePage() {
           <Bell size={18} />
           <span>Weekly Tasks</span>
         </div>
-        {weeklyRoutines.map(routine => <RoutineCard key={routine.id} routine={routine} />)}
+{weeklyRoutines.map(routine => <RoutineCard key={routine.id} routine={routine} />)}
+        </div>
+        </div>
+        )}
       </div>
-
-      {showAddModal && (
-        <div className="modal-overlay" onClick={() => setShowAddModal(false)}>
-          <div className="modal-content" onClick={e => e.stopPropagation()}>
-            <h3>Add New Routine</h3>
-            <div className="form-group">
-              <label className="form-label">Title</label>
-              <input 
-                type="text" 
-                className="form-input" 
-                placeholder="e.g., Morning Walk"
-                value={newRoutine.title}
-                onChange={e => setNewRoutine({...newRoutine, title: e.target.value})}
-              />
-            </div>
             <div className="form-group">
               <label className="form-label">Time</label>
               <input 

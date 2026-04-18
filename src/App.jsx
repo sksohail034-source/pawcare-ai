@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { AuthProvider, useAuth } from './context/AuthContext';
+import { ThemeProvider } from './context/ThemeContext';
 
 // Pages
 import LandingPage from './pages/LandingPage';
@@ -15,6 +16,9 @@ import ProductsPage from './pages/ProductsPage';
 import PetDetailPage from './pages/PetDetailPage';
 import RoutinePage from './pages/RoutinePage';
 import CareProtocolsPage from './pages/CareProtocolsPage';
+import EmergencyVetPage from './pages/EmergencyVetPage';
+import MedicationsPage from './pages/MedicationsPage';
+import HealthChartsPage from './pages/HealthChartsPage';
 
 // Components
 import BottomNav from './components/BottomNav';
@@ -49,6 +53,9 @@ function AppLayout() {
           <Route path="/routine" element={<RoutinePage />} />
           <Route path="/care" element={<CareProtocolsPage />} />
           <Route path="/products" element={<ProductsPage />} />
+          <Route path="/emergency" element={<EmergencyVetPage />} />
+          <Route path="/medications" element={<MedicationsPage />} />
+          <Route path="/health/charts" element={<HealthChartsPage />} />
           <Route path="*" element={<Navigate to="/dashboard" />} />
         </Routes>
       </main>
@@ -60,25 +67,27 @@ function AppLayout() {
 export default function App() {
   return (
     <BrowserRouter>
-      <AuthProvider>
-        <Toaster
-          position="top-center"
-          toastOptions={{
-            style: {
-              background: '#ffffff',
-              color: '#1f2937',
-              border: '1px solid rgba(34, 197, 94, 0.2)',
-              borderRadius: '16px',
-            },
-          }}
-        />
-        <Routes>
-          <Route path="/" element={<PublicRoute><LandingPage /></PublicRoute>} />
-          <Route path="/login" element={<PublicRoute><AuthPage mode="login" /></PublicRoute>} />
-          <Route path="/register" element={<PublicRoute><AuthPage mode="register" /></PublicRoute>} />
-          <Route path="/*" element={<ProtectedRoute><AppLayout /></ProtectedRoute>} />
-        </Routes>
-      </AuthProvider>
+      <ThemeProvider>
+        <AuthProvider>
+          <Toaster
+            position="top-center"
+            toastOptions={{
+              style: {
+                background: '#ffffff',
+                color: '#1f2937',
+                border: '1px solid rgba(34, 197, 94, 0.2)',
+                borderRadius: '16px',
+              },
+            }}
+          />
+          <Routes>
+            <Route path="/" element={<PublicRoute><LandingPage /></PublicRoute>} />
+            <Route path="/login" element={<PublicRoute><AuthPage mode="login" /></PublicRoute>} />
+            <Route path="/register" element={<PublicRoute><AuthPage mode="register" /></PublicRoute>} />
+            <Route path="/*" element={<ProtectedRoute><AppLayout /></ProtectedRoute>} />
+          </Routes>
+        </AuthProvider>
+      </ThemeProvider>
     </BrowserRouter>
   );
 }

@@ -1,13 +1,15 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Bell, Search, MapPin, ArrowUpRight, Activity, Cpu, Gift, Star } from 'lucide-react';
+import { Bell, Search, MapPin, ArrowUpRight, Activity, Cpu, Gift, Star, Moon, Sun } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { useTheme } from '../context/ThemeContext';
 import { api } from '../api';
 import { getPetEmoji, daysUntil } from '../utils';
 import DonationBanner from '../components/DonationBanner';
 
 export default function DashboardPage() {
   const { user } = useAuth();
+  const { darkMode, toggleDarkMode } = useTheme();
   const navigate = useNavigate();
   
   const [pets, setPets] = useState([]);
@@ -98,8 +100,8 @@ export default function DashboardPage() {
             )}
           </div>
         </div>
-        <button className="btn-icon" style={{ width: '40px', height: '40px', background: 'transparent' }}>
-          <Bell size={20} />
+        <button className="btn-icon" style={{ width: '40px', height: '40px', background: 'transparent' }} onClick={toggleDarkMode}>
+          {darkMode ? <Sun size={20} /> : <Moon size={20} />}
         </button>
       </div>
 
