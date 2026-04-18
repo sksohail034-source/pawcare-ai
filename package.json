@@ -29,7 +29,7 @@
     "react-dom": "^19.1.0",
     "react-hot-toast": "^2.6.0",
     "react-router-dom": "^7.14.0",
-    "recharts": "^2.15.4",
+    "recharts": "^2.15.0",
     "sql.js": "^1.14.1",
     "uuid": "^13.0.0"
   },
