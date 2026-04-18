@@ -22,12 +22,9 @@ function CalendarView({ routines }) {
     return days;
   };
 
-  const formatTime = (time) => time || '';
-  
   const getRoutinesForDate = (date) => {
     if (!date) return [];
     const dayOfWeek = date.getDay();
-    const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
     
     return routines.filter(r => {
       if (r.type === 'weekly') {
@@ -129,9 +126,7 @@ export default function RoutinePage() {
   const [routines, setRoutines] = useState([]);
   const [notificationsEnabled, setNotificationsEnabled] = useState(false);
   const [showAddModal, setShowAddModal] = useState(false);
-  const [editingRoutine, setEditingRoutine] = useState(null);
   const [newRoutine, setNewRoutine] = useState({ title: '', time: '08:00', type: 'morning', icon: '🔔', message: '' });
-  const [permissionRequested, setPermissionRequested] = useState(false);
   const [showCalendar, setShowCalendar] = useState(false);
 
   useEffect(() => {
@@ -151,7 +146,6 @@ export default function RoutinePage() {
       return;
     }
     
-    setPermissionRequested(true);
     const permission = await Notification.requestPermission();
     setNotificationsEnabled(permission === 'granted');
     
@@ -169,15 +163,12 @@ export default function RoutinePage() {
       setRoutines(JSON.parse(saved));
     } else {
       setRoutines(defaultRoutines);
-      saveRoutines(defaultRoutines);
+      localStorage.setItem('pawcare_routines', JSON.stringify(defaultRoutines));
     }
   }
 
   function saveRoutines(data) {
     localStorage.setItem('pawcare_routines', JSON.stringify(data));
-    if (notificationsEnabled) {
-      scheduleAllReminders();
-    }
   }
 
   function scheduleAllReminders() {
@@ -321,36 +312,47 @@ export default function RoutinePage() {
         </div>
       </div>
 
-<div style={{ marginBottom: 24 }}>
+      <div style={{ marginBottom: 24 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+          <h3>📅 {showCalendar ? 'Calendar' : 'Daily Schedule'}</h3>
+          <button 
+            className="btn btn-secondary btn-sm" 
+            onClick={() => setShowCalendar(!showCalendar)}
+            style={{ padding: '8px 12px' }}
+          >
+            <Calendar size={16} /> {showCalendar ? 'List' : 'Calendar'}
+          </button>
+        </div>
+
         {showCalendar && <CalendarView routines={routines} />}
+
         {!showCalendar && (
         <div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-          <h3>📅 Daily Schedule</h3>
-
-        <div className="routine-section">
-          <div className="section-header">
-            <Sun size={18} />
-            <span>Morning</span>
+          <div className="routine-section">
+            <div className="section-header">
+              <Sun size={18} />
+              <span>Morning</span>
+            </div>
+            {morningRoutines.map(routine => <RoutineCard key={routine.id} routine={routine} />)}
           </div>
-          {morningRoutines.map(routine => <RoutineCard key={routine.id} routine={routine} />)}
-        </div>
 
-        <div className="routine-section">
-          <div className="section-header">
-            <Sunset size={18} />
-            <span>Afternoon</span>
+          <div className="routine-section">
+            <div className="section-header">
+              <Sunset size={18} />
+              <span>Afternoon</span>
+            </div>
+            {afternoonRoutines.map(routine => <RoutineCard key={routine.id} routine={routine} />)}
           </div>
-          {afternoonRoutines.map(routine => <RoutineCard key={routine.id} routine={routine} />)}
-        </div>
 
-        <div className="routine-section">
-          <div className="section-header">
-            <Moon size={18} />
-            <span>Evening</span>
+          <div className="routine-section">
+            <div className="section-header">
+              <Moon size={18} />
+              <span>Evening</span>
+            </div>
+            {eveningRoutines.map(routine => <RoutineCard key={routine.id} routine={routine} />)}
           </div>
-          {eveningRoutines.map(routine => <RoutineCard key={routine.id} routine={routine} />)}
         </div>
+        )}
       </div>
 
       <div className="routine-section">
@@ -358,11 +360,31 @@ export default function RoutinePage() {
           <Bell size={18} />
           <span>Weekly Tasks</span>
         </div>
-{weeklyRoutines.map(routine => <RoutineCard key={routine.id} routine={routine} />)}
-        </div>
-        </div>
-        )}
+        {weeklyRoutines.map(routine => <RoutineCard key={routine.id} routine={routine} />)}
       </div>
+
+      <button 
+        className="btn btn-primary" 
+        onClick={() => setShowAddModal(true)}
+        style={{ position: 'fixed', bottom: 100, right: 24, borderRadius: '50%', width: 56, height: 56, boxShadow: 'var(--shadow-float)' }}
+      >
+        <Plus size={24} />
+      </button>
+
+      {showAddModal && (
+        <div className="modal-overlay" onClick={() => setShowAddModal(false)}>
+          <div className="modal-content" onClick={e => e.stopPropagation()}>
+            <h3>Add New Routine</h3>
+            <div className="form-group">
+              <label className="form-label">Title</label>
+              <input 
+                type="text" 
+                className="form-input" 
+                placeholder="e.g., Morning Walk"
+                value={newRoutine.title}
+                onChange={e => setNewRoutine({...newRoutine, title: e.target.value})}
+              />
+            </div>
             <div className="form-group">
               <label className="form-label">Time</label>
               <input 
