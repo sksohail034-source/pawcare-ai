@@ -1,8 +1,0 @@
-build:
-  command: npm run build
-  publish: dist
-
-services:
-  - type: static
-    buildCommand: npm run build
-    publishDir: dist
