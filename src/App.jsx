@@ -1,26 +1,10 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { AuthProvider, useAuth } from './context/AuthContext';
-import { ThemeProvider } from './context/ThemeContext';
-
-// Pages
 import LandingPage from './pages/LandingPage';
 import AuthPage from './pages/AuthPage';
 import DashboardPage from './pages/DashboardPage';
-import PetsPage from './pages/PetsPage';
-import AIPage from './pages/AIPage';
-import VaccinationsPage from './pages/VaccinationsPage';
-import SubscriptionsPage from './pages/SubscriptionsPage';
-import DonationsPage from './pages/DonationsPage';
-import ProductsPage from './pages/ProductsPage';
 import PetDetailPage from './pages/PetDetailPage';
-import RoutinePage from './pages/RoutinePage';
-import CareProtocolsPage from './pages/CareProtocolsPage';
-import EmergencyVetPage from './pages/EmergencyVetPage';
-import MedicationsPage from './pages/MedicationsPage';
-import HealthChartsPage from './pages/HealthChartsPage';
-
-// Components
 import BottomNav from './components/BottomNav';
 
 function ProtectedRoute({ children }) {
@@ -39,23 +23,12 @@ function PublicRoute({ children }) {
 
 function AppLayout() {
   return (
-    <div className="app-wrapper app-layout" style={{ display: 'block', minHeight: '100vh', paddingBottom: '80px' }}>
+    <div className="app-layout" style={{ display: 'block', minHeight: '100vh', paddingBottom: '80px' }}>
       <main className="main-content" style={{ marginLeft: 0, padding: 0 }}>
         <Routes>
           <Route path="/dashboard" element={<DashboardPage />} />
-          <Route path="/pets" element={<PetsPage />} />
           <Route path="/pet/:id" element={<PetDetailPage />} />
-          <Route path="/ai" element={<AIPage />} />
-          <Route path="/health" element={<AIPage />} />
-          <Route path="/vaccinations" element={<VaccinationsPage />} />
-          <Route path="/subscriptions" element={<SubscriptionsPage />} />
-          <Route path="/donate" element={<DonationsPage />} />
-          <Route path="/routine" element={<RoutinePage />} />
-          <Route path="/care" element={<CareProtocolsPage />} />
-          <Route path="/products" element={<ProductsPage />} />
-          <Route path="/emergency" element={<EmergencyVetPage />} />
-          <Route path="/medications" element={<MedicationsPage />} />
-          <Route path="/health/charts" element={<HealthChartsPage />} />
+          {/* We'll add the new routes here */}
           <Route path="*" element={<Navigate to="/dashboard" />} />
         </Routes>
       </main>
@@ -67,27 +40,25 @@ function AppLayout() {
 export default function App() {
   return (
     <BrowserRouter>
-      <ThemeProvider>
-        <AuthProvider>
-          <Toaster
-            position="top-center"
-            toastOptions={{
-              style: {
-                background: '#ffffff',
-                color: '#1f2937',
-                border: '1px solid rgba(34, 197, 94, 0.2)',
-                borderRadius: '16px',
-              },
-            }}
-          />
-          <Routes>
-            <Route path="/" element={<PublicRoute><LandingPage /></PublicRoute>} />
-            <Route path="/login" element={<PublicRoute><AuthPage mode="login" /></PublicRoute>} />
-            <Route path="/register" element={<PublicRoute><AuthPage mode="register" /></PublicRoute>} />
-            <Route path="/*" element={<ProtectedRoute><AppLayout /></ProtectedRoute>} />
-          </Routes>
-        </AuthProvider>
-      </ThemeProvider>
+      <AuthProvider>
+        <Toaster
+          position="top-center"
+          toastOptions={{
+            style: {
+              background: '#ffffff',
+              color: '#1f2937',
+              border: '1px solid rgba(34, 197, 94, 0.2)',
+              borderRadius: '16px',
+            },
+          }}
+        />
+        <Routes>
+          <Route path="/" element={<PublicRoute><LandingPage /></PublicRoute>} />
+          <Route path="/login" element={<PublicRoute><AuthPage mode="login" /></PublicRoute>} />
+          <Route path="/register" element={<PublicRoute><AuthPage mode="register" /></PublicRoute>} />
+          <Route path="/*" element={<ProtectedRoute><AppLayout /></ProtectedRoute>} />
+        </Routes>
+      </AuthProvider>
     </BrowserRouter>
   );
 }

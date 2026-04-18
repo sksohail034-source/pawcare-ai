@@ -1,85 +1,29 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Bell, Search, MapPin, ArrowUpRight, Activity, Cpu, Gift, Star, Moon, Sun } from 'lucide-react';
+import { Bell, Search, MapPin, ArrowUpRight } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
-import { useTheme } from '../context/ThemeContext';
-import { api } from '../api';
-import { getPetEmoji, daysUntil } from '../utils';
 import DonationBanner from '../components/DonationBanner';
 
 export default function DashboardPage() {
   const { user } = useAuth();
-  const { darkMode, toggleDarkMode } = useTheme();
   const navigate = useNavigate();
-  
-  const [pets, setPets] = useState([]);
-  const [stats, setStats] = useState({ petsCount: 0, aiUsage: 0, vaccinations: 0, donations: 0 });
-  const [location, setLocation] = useState(null);
-  const [locationLoading, setLocationLoading] = useState(true);
-  const [locationError, setLocationError] = useState(null);
+  const [activeCategory, setActiveCategory] = useState('Dogs');
 
-  useEffect(() => {
-    loadData();
-    getUserLocation();
-  }, []);
+  const categories = [
+    { id: 'Dogs', icon: '🐶', label: 'Dogs' },
+    { id: 'Cats', icon: '🐱', label: 'Cats' },
+    { id: 'Birds', icon: '🐦', label: 'Birds' },
+    { id: 'Fishes', icon: '🐠', label: 'Fishes' },
+    { id: 'Rabbits', icon: '🐰', label: 'Rabbits' },
+  ];
 
-  async function loadData() {
-    try {
-      const [petsData, aiData, donData] = await Promise.all([
-        api.getPets(),
-        api.getAIHistory(),
-        api.getDonationHistory()
-      ]);
-      setPets(petsData.pets || []);
-      setStats({
-        petsCount: petsData.pets?.length || 0,
-        aiUsage: aiData.history?.length || 0,
-        vaccinations: 0, // Placeholder
-        donations: donData.totalDonated || 0
-      });
-    } catch (err) {
-      console.error(err);
-    }
-  }
+  const pets = [
+    { id: 1, name: 'Golden Retriever', category: 'Dogs', distance: 'Distance (Near 15km)', img: 'https://images.unsplash.com/photo-1552053831-71594a27632d?fit=crop&w=600&h=400' },
+    { id: 2, name: 'Persian Cat', category: 'Cats', distance: 'Distance (Near 5km)', img: 'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?fit=crop&w=600&h=400' },
+    { id: 3, name: 'Macaw Parrot', category: 'Birds', distance: 'Distance (Near 8km)', img: 'https://images.unsplash.com/photo-1552728089-571ebd13ba3b?fit=crop&w=600&h=400' }
+  ];
 
-  async function getUserLocation() {
-    if (!navigator.geolocation) {
-      setLocation('Location unavailable');
-      setLocationLoading(false);
-      return;
-    }
-
-    try {
-      const position = await new Promise((resolve, reject) => {
-        navigator.geolocation.getCurrentPosition(resolve, reject, {
-          timeout: 10000,
-          enableHighAccuracy: false
-        });
-      });
-
-      const { latitude, longitude } = position.coords;
-      
-      // Use reverse geocoding to get city/country
-      try {
-        const response = await fetch(
-          `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
-        );
-        const data = await response.json();
-        const city = data.address?.city || data.address?.town || data.address?.village || '';
-        const country = data.address?.country || '';
-        setLocation(city && country ? `${city}, ${country}` : `${latitude.toFixed(2)}, ${longitude.toFixed(2)}`);
-      } catch {
-        setLocation(`${latitude.toFixed(2)}°, ${longitude.toFixed(2)}°`);
-      }
-    } catch (err) {
-      setLocationError('Location access denied');
-      setLocation('Set your location');
-    } finally {
-      setLocationLoading(false);
-    }
-  }
-
-  const trialDays = user?.trial_ends_at ? daysUntil(user.trial_ends_at) : null;
+  const filteredPets = pets.filter(p => p.category === activeCategory);
 
   return (
     <div className="page-container">
@@ -89,42 +33,15 @@ export default function DashboardPage() {
           {user?.name?.charAt(0) || 'U'}
         </div>
         <div className="flex-col items-center">
-          <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>📍 Location</span>
+          <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>Location</span>
           <div className="flex-row items-center gap-2" style={{ fontWeight: 600, fontSize: '14px' }}>
-            {locationLoading ? (
-              <span style={{ fontSize: 12, color: 'var(--text-muted)' }}>Detecting...</span>
-            ) : locationError ? (
-              <span style={{ fontSize: 12, color: 'var(--text-muted)' }}>{locationError}</span>
-            ) : (
-              <span>{location}</span>
-            )}
+            Chicago, US
           </div>
         </div>
-        <button className="btn-icon" style={{ width: '40px', height: '40px', background: 'transparent' }} onClick={toggleDarkMode}>
-          {darkMode ? <Sun size={20} /> : <Moon size={20} />}
+        <button className="btn-icon" style={{ width: '40px', height: '40px', background: 'transparent' }}>
+          <Bell size={20} />
         </button>
       </div>
-
-      {/* Greeting */}
-      <div style={{ marginBottom: '24px' }}>
-        <h2 style={{ fontSize: '24px', fontWeight: 800 }}>Welcome back, {user?.name?.split(' ')[0]}! 👋</h2>
-        <p style={{ color: 'var(--text-muted)' }}>Here's what's happening with your pets today.</p>
-      </div>
-
-      {/* Free Trial Banner */}
-      {user?.subscription === 'free_trial' && trialDays !== null && (
-        <div className="card animate-fade-in" style={{ marginBottom: 24, background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(134, 239, 172, 0.2))', border: '1px solid var(--primary-light)' }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <div>
-              <strong style={{ color: 'var(--primary-dark)' }}>Free Trial Active</strong>
-              <p style={{ color: 'var(--text-muted)', fontSize: 13, marginTop: 4 }}>
-                {trialDays > 0 ? `${trialDays} days remaining` : 'Trial expired'}
-              </p>
-            </div>
-            <button onClick={() => navigate('/subscriptions')} className="btn btn-primary" style={{ padding: '8px 16px', fontSize: '14px' }}>Upgrade Now</button>
-          </div>
-        </div>
-      )}
 
       {/* Search */}
       <div className="search-container">
@@ -138,90 +55,50 @@ export default function DashboardPage() {
 
       <DonationBanner />
 
-      {/* Stats Grid */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '16px', marginTop: '24px', marginBottom: '32px' }}>
-        <div className="card flex-col items-center justify-center p-4">
-          <Activity size={24} color="var(--primary)" style={{ marginBottom: '8px' }} />
-          <div style={{ fontSize: '20px', fontWeight: 700 }}>{stats.petsCount}</div>
-          <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>My Pets</div>
-        </div>
-        <div className="card flex-col items-center justify-center p-4">
-          <Cpu size={24} color="#8b5cf6" style={{ marginBottom: '8px' }} />
-          <div style={{ fontSize: '20px', fontWeight: 700 }}>{stats.aiUsage}</div>
-          <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>AI Analyses</div>
-        </div>
-        <div className="card flex-col items-center justify-center p-4">
-          <Gift size={24} color="#ec4899" style={{ marginBottom: '8px' }} />
-          <div style={{ fontSize: '20px', fontWeight: 700 }}>${stats.donations.toFixed(2)}</div>
-          <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>Donated</div>
-        </div>
-        <div className="card flex-col items-center justify-center p-4">
-          <Star size={24} color="#f59e0b" style={{ marginBottom: '8px' }} />
-          <div style={{ fontSize: '16px', fontWeight: 700, textTransform: 'capitalize' }}>{user?.subscription?.replace('_', ' ')}</div>
-          <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>Plan</div>
-        </div>
+      {/* Categories */}
+      <div className="flex-row justify-between items-center" style={{ marginTop: '32px', marginBottom: '16px' }}>
+        <h3 style={{ fontSize: '18px', fontWeight: 700 }}>Categories</h3>
+        <span style={{ fontSize: '13px', color: 'var(--text-primary)', opacity: 0.6 }}>See All</span>
       </div>
 
-      {/* Quick Actions (Replacing Horizontal Categories conceptually) */}
-      <div className="flex-row justify-between items-center" style={{ marginTop: '32px', marginBottom: '16px' }}>
-        <h3 style={{ fontSize: '18px', fontWeight: 700 }}>Quick Actions</h3>
-      </div>
       <div className="flex-row gap-3" style={{ overflowX: 'auto', paddingBottom: '8px', WebkitOverflowScrolling: 'touch' }}>
-        {[
-          { icon: '➕', label: 'Add Pet', path: '/pets' },
-          { icon: '🤖', label: 'AI Health', path: '/ai' },
-          { icon: '💉', label: 'Vaccines', path: '/vaccinations' },
-          { icon: '🛍️', label: 'Shop', path: '/products' },
-        ].map(action => (
+        {categories.map(cat => (
           <div 
-            key={action.label} 
-            onClick={() => navigate(action.path)}
-            style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', cursor: 'pointer', minWidth: '70px' }}
+            key={cat.id} 
+            onClick={() => setActiveCategory(cat.id)}
+            style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', cursor: 'pointer', minWidth: '60px' }}
           >
             <div style={{ 
               width: '56px', height: '56px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '24px',
-              background: 'var(--bg-card)', border: '1px solid var(--border)', boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
+              background: activeCategory === cat.id ? 'var(--primary-light)' : 'var(--bg-card)',
+              border: `1px solid ${activeCategory === cat.id ? 'var(--primary)' : 'var(--border)'}`,
+              boxShadow: activeCategory === cat.id ? 'none' : '0 2px 8px rgba(0,0,0,0.05)',
+              transition: 'all 0.2s'
             }}>
-              {action.icon}
+              {cat.icon}
             </div>
-            <span style={{ fontSize: '12px', fontWeight: 500, color: 'var(--text-main)', textAlign: 'center' }}>
-              {action.label}
+            <span style={{ fontSize: '12px', fontWeight: activeCategory === cat.id ? 600 : 500, color: activeCategory === cat.id ? 'var(--primary-dark)' : 'var(--text-main)' }}>
+              {cat.label}
             </span>
           </div>
         ))}
       </div>
 
-      {/* Real Pets Feed */}
-      <div className="flex-row justify-between items-center" style={{ marginTop: '32px', marginBottom: '16px' }}>
-        <h3 style={{ fontSize: '18px', fontWeight: 700 }}>My Pets</h3>
-        <span style={{ fontSize: '13px', color: 'var(--primary)', fontWeight: 600 }} onClick={() => navigate('/pets')}>View All</span>
-      </div>
-
-      <div style={{ marginTop: '16px' }}>
-        {pets.length === 0 ? (
-          <div className="card" style={{ textAlign: 'center', padding: '40px 20px' }}>
-            <div style={{ fontSize: '40px', marginBottom: '16px' }}>🐾</div>
-            <h3 style={{ marginBottom: '8px' }}>No pets yet</h3>
-            <p style={{ color: 'var(--text-muted)', marginBottom: '24px', fontSize: '14px' }}>Add your first pet to get started with AI-powered care</p>
-            <button className="btn btn-primary" onClick={() => navigate('/pets')}>Add Your Pet</button>
-          </div>
+      {/* Pets Feed */}
+      <div style={{ marginTop: '24px' }}>
+        {filteredPets.length === 0 ? (
+          <p style={{ textAlign: 'center', color: 'var(--text-muted)', margin: '40px 0' }}>No pets found in this category.</p>
         ) : (
-          pets.map(pet => (
-            <div key={pet.id} className="card animate-fade-in" style={{ padding: '0', overflow: 'hidden', marginBottom: '20px' }} onClick={() => navigate(`/pets`)}>
-              <div style={{ 
-                height: '140px', background: 'var(--primary-light)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '60px'
-              }}>
-                {getPetEmoji(pet.type)}
-              </div>
+          filteredPets.map(pet => (
+            <div key={pet.id} className="card animate-fade-in" style={{ padding: '0', overflow: 'hidden', marginBottom: '20px' }} onClick={() => navigate(`/pet/${pet.id}`)}>
+              <img src={pet.img} alt={pet.name} style={{ width: '100%', height: '200px', objectFit: 'cover' }} />
               <div style={{ padding: '16px', position: 'relative' }}>
-                <h3 style={{ fontSize: '18px', fontWeight: 700, marginBottom: '8px' }}>{pet.name}</h3>
-                
-                <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '8px' }}>
-                  <span style={{ background: 'var(--bg-app)', padding: '4px 10px', borderRadius: '12px', fontSize: '12px', fontWeight: 600 }}>{pet.type}</span>
-                  {pet.breed && <span style={{ background: 'var(--bg-app)', padding: '4px 10px', borderRadius: '12px', fontSize: '12px' }}>{pet.breed}</span>}
-                  {pet.age > 0 && <span style={{ background: 'var(--bg-app)', padding: '4px 10px', borderRadius: '12px', fontSize: '12px' }}>{pet.age} yrs</span>}
+                <h3 style={{ fontSize: '16px', fontWeight: 700, marginBottom: '4px' }}>{pet.name}</h3>
+                <div className="flex-row items-center gap-2" style={{ color: 'var(--text-muted)', fontSize: '13px' }}>
+                  <MapPin size={14} /> {pet.distance}
                 </div>
                 
+                {/* Floating Action Button inside card */}
                 <button style={{
                   position: 'absolute', right: '16px', top: '50%', transform: 'translateY(-50%)',
                   width: '40px', height: '40px', borderRadius: '50%', background: 'var(--text-main)', color: 'white',

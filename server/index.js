@@ -12,7 +12,6 @@ import vaccinationRoutes from './routes/vaccinations.js';
 import subscriptionRoutes from './routes/subscriptions.js';
 import donationRoutes from './routes/donations.js';
 import productRoutes from './routes/products.js';
-import routineRoutes from './routes/routines.js';
 
 dotenv.config();
 
@@ -38,7 +37,6 @@ app.use('/api/vaccinations', vaccinationRoutes);
 app.use('/api/subscriptions', subscriptionRoutes);
 app.use('/api/donations', donationRoutes);
 app.use('/api/products', productRoutes);
-app.use('/api/routines', routineRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => {
