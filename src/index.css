@@ -11,7 +11,7 @@
 .pet-notes { margin-top: 12px; font-size: 13px; color: var(--text-muted); font-style: italic; }
 .pet-card-footer { display: block; padding: 16px 20px; text-align: center; background: var(--bg-app); color: var(--primary); font-weight: 600; }
 .pet-card-footer:hover { background: var(--primary); color: white; }
-.pet-type-selector { display: grid; grid-template-columns: repeat(5, 1fr)); gap: 8px; }
+.pet-type-selector { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
 .pet-type-btn { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 12px 8px; border: 2px solid var(--border); border-radius: var(--radius-md); background: var(--bg-card); cursor: pointer; font-size: 13px; }
 .pet-selector { display: flex; gap: 12px; flex-wrap: wrap; }
 .pet-selector-btn { display: flex; align-items: center; gap: 8px; padding: 10px 16px; border: 2px solid var(--border); border-radius: var(--radius-full); background: var(--bg-card); cursor: pointer; font-weight: 500; }

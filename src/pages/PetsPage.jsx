@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { api } from '../api';
 import { getPetEmoji } from '../utils';
 import toast from 'react-hot-toast';
-import { Plus, Edit, Trash2, Paw, Bone, Bird, Fish, Rabbit, Horse, Cow, Bug, Settings } from 'lucide-react';
+import { Plus, Edit, Trash2, Settings } from 'lucide-react';
 
 const petTypes = [
   { id: 'dog', name: 'Dog', emoji: '🐕', color: '#8B5CF6' },
