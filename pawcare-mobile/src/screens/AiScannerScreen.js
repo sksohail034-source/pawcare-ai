@@ -121,7 +121,7 @@ export default function AiScannerScreen({ navigation }) {
   ];
 
   return (
-    <ScrollView style={styles.container} contentContainerStyle={{ padding: 20 }}>
+    <ScrollView style={styles.container} contentContainerStyle={{ padding: 20, flexGrow: 1, paddingBottom: 80 }} showsVerticalScrollIndicator={false}>
       <Text style={styles.title}>🤖 AI Pet Analysis</Text>
       <Text style={styles.subtitle}>Get personalized styling, health & exercise recommendations</Text>
 
