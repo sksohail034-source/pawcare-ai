@@ -30,8 +30,8 @@ export function AuthProvider({ children }) {
     return data;
   };
 
-  const register = async (name, email, password) => {
-    const data = await api.register({ name, email, password });
+  const register = async (name, email, password, phone = '', countryCode = '+1') => {
+    const data = await api.register({ name, email, password, phone, countryCode });
     localStorage.setItem('pawcare_token', data.token);
     setToken(data.token);
     setUser(data.user);
@@ -44,12 +44,16 @@ export function AuthProvider({ children }) {
     setUser(null);
   };
 
+  const forgotPassword = async (email) => {
+    return await api.forgotPassword({ email });
+  };
+
   const updateUser = (updates) => {
     setUser(prev => ({ ...prev, ...updates }));
   };
 
   return (
-    <AuthContext.Provider value={{ user, token, loading, login, register, logout, updateUser }}>
+    <AuthContext.Provider value={{ user, token, loading, login, register, logout, updateUser, forgotPassword }}>
       {children}
     </AuthContext.Provider>
   );

@@ -12,9 +12,13 @@ export default function DashboardPage() {
   
   const [pets, setPets] = useState([]);
   const [stats, setStats] = useState({ petsCount: 0, aiUsage: 0, vaccinations: 0, donations: 0 });
+  const [location, setLocation] = useState(null);
+  const [locationLoading, setLocationLoading] = useState(true);
+  const [locationError, setLocationError] = useState(null);
 
   useEffect(() => {
     loadData();
+    getUserLocation();
   }, []);
 
   async function loadData() {
@@ -36,6 +40,43 @@ export default function DashboardPage() {
     }
   }
 
+  async function getUserLocation() {
+    if (!navigator.geolocation) {
+      setLocation('Location unavailable');
+      setLocationLoading(false);
+      return;
+    }
+
+    try {
+      const position = await new Promise((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(resolve, reject, {
+          timeout: 10000,
+          enableHighAccuracy: false
+        });
+      });
+
+      const { latitude, longitude } = position.coords;
+      
+      // Use reverse geocoding to get city/country
+      try {
+        const response = await fetch(
+          `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
+        );
+        const data = await response.json();
+        const city = data.address?.city || data.address?.town || data.address?.village || '';
+        const country = data.address?.country || '';
+        setLocation(city && country ? `${city}, ${country}` : `${latitude.toFixed(2)}, ${longitude.toFixed(2)}`);
+      } catch {
+        setLocation(`${latitude.toFixed(2)}°, ${longitude.toFixed(2)}°`);
+      }
+    } catch (err) {
+      setLocationError('Location access denied');
+      setLocation('Set your location');
+    } finally {
+      setLocationLoading(false);
+    }
+  }
+
   const trialDays = user?.trial_ends_at ? daysUntil(user.trial_ends_at) : null;
 
   return (
@@ -46,9 +87,15 @@ export default function DashboardPage() {
           {user?.name?.charAt(0) || 'U'}
         </div>
         <div className="flex-col items-center">
-          <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>Location</span>
+          <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>📍 Location</span>
           <div className="flex-row items-center gap-2" style={{ fontWeight: 600, fontSize: '14px' }}>
-            London, UK
+            {locationLoading ? (
+              <span style={{ fontSize: 12, color: 'var(--text-muted)' }}>Detecting...</span>
+            ) : locationError ? (
+              <span style={{ fontSize: 12, color: 'var(--text-muted)' }}>{locationError}</span>
+            ) : (
+              <span>{location}</span>
+            )}
           </div>
         </div>
         <button className="btn-icon" style={{ width: '40px', height: '40px', background: 'transparent' }}>

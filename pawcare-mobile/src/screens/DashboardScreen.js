@@ -2,15 +2,19 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/native';
+import * as Location from 'expo-location';
 import api from '../services/api';
 import { colors } from '../theme/colors';
 
 export default function DashboardScreen({ navigation }) {
   const [user, setUser] = useState(null);
+  const [location, setLocation] = useState(null);
+  const [locationLoading, setLocationLoading] = useState(true);
 
   useFocusEffect(
     React.useCallback(() => {
       fetchUser();
+      getUserLocation();
     }, [])
   );
 
@@ -20,6 +24,28 @@ export default function DashboardScreen({ navigation }) {
       setUser(resp.data.user);
     } catch (e) {
       console.log('Error fetching user', e);
+    }
+  };
+
+  const getUserLocation = async () => {
+    try {
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        setLocation('Location denied');
+        setLocationLoading(false);
+        return;
+      }
+      
+      const loc = await Location.getCurrentPositionAsync({});
+      const address = await Location.reverseGeocodeAsync(loc.coords);
+      
+      const city = address[0]?.city || address[0]?.district || '';
+      const country = address[0]?.country || '';
+      setLocation(city && country ? `${city}, ${country}` : `${loc.coords.latitude.toFixed(2)}°, ${loc.coords.longitude.toFixed(2)}°`);
+    } catch (e) {
+      setLocation('Unable to get location');
+    } finally {
+      setLocationLoading(false);
     }
   };
 
@@ -34,21 +60,36 @@ export default function DashboardScreen({ navigation }) {
       {user && (
         <View style={styles.header}>
           <Text style={styles.greeting}>Hello, {user.name}!</Text>
-          <Text style={styles.subtext}>Free Scans Used: {user.scans_used} / 3</Text>
+          <Text style={styles.subtext}>📍 {locationLoading ? 'Detecting...' : location}</Text>
         </View>
       )}
 
       <Text style={styles.sectionTitle}>What do you want to do?</Text>
       
       <View style={styles.grid}>
+        <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('Pets')}>
+          <Text style={styles.cardTitle}>🐾 My Pets</Text>
+          <Text style={styles.cardDesc}>View your registered pets</Text>
+        </TouchableOpacity>
+
         <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('AiScanner')}>
-          <Text style={styles.cardTitle}>🐾 AI Pet Scan</Text>
+          <Text style={styles.cardTitle}>🤖 AI Pet Scan</Text>
           <Text style={styles.cardDesc}>Analyze health & styling</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('Routines')}>
           <Text style={styles.cardTitle}>⏰ Routines</Text>
-          <Text style={styles.cardDesc}>Set smart care alarms</Text>
+          <Text style={styles.cardDesc}>Set smart custom alarms</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('Vaccinations')}>
+          <Text style={styles.cardTitle}>🏥 Health</Text>
+          <Text style={styles.cardDesc}>Vaccination records</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('Products')}>
+          <Text style={styles.cardTitle}>🛍️ Pet Store</Text>
+          <Text style={styles.cardDesc}>Recommended products</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('Location')}>
@@ -59,6 +100,16 @@ export default function DashboardScreen({ navigation }) {
         <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('Donation')}>
           <Text style={styles.cardTitle}>❤️ Donate</Text>
           <Text style={styles.cardDesc}>Support stray animals</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('Subscriptions')}>
+          <Text style={styles.cardTitle}>👑 Premium</Text>
+          <Text style={styles.cardDesc}>Manage subscription</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('CareProtocols')}>
+          <Text style={styles.cardTitle}>🌿 Natural Care</Text>
+          <Text style={styles.cardDesc}>Skin, hygiene & nutrition</Text>
         </TouchableOpacity>
       </View>
 

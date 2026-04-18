@@ -13,6 +13,8 @@ import SubscriptionsPage from './pages/SubscriptionsPage';
 import DonationsPage from './pages/DonationsPage';
 import ProductsPage from './pages/ProductsPage';
 import PetDetailPage from './pages/PetDetailPage';
+import RoutinePage from './pages/RoutinePage';
+import CareProtocolsPage from './pages/CareProtocolsPage';
 
 // Components
 import BottomNav from './components/BottomNav';
@@ -44,6 +46,8 @@ function AppLayout() {
           <Route path="/vaccinations" element={<VaccinationsPage />} />
           <Route path="/subscriptions" element={<SubscriptionsPage />} />
           <Route path="/donate" element={<DonationsPage />} />
+          <Route path="/routine" element={<RoutinePage />} />
+          <Route path="/care" element={<CareProtocolsPage />} />
           <Route path="/products" element={<ProductsPage />} />
           <Route path="*" element={<Navigate to="/dashboard" />} />
         </Routes>

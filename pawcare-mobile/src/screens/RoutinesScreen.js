@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Alert, Switch } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Alert, Switch, TextInput } from 'react-native';
 import api from '../services/api';
 import { requestNotificationPermissions, scheduleRoutineAlarm, cancelAlarm } from '../services/notifications';
 import { colors } from '../theme/colors';
@@ -7,6 +7,9 @@ import { colors } from '../theme/colors';
 export default function RoutinesScreen() {
   const [routines, setRoutines] = useState([]);
   const [petId, setPetId] = useState(null);
+
+  const [newTitle, setNewTitle] = useState('');
+  const [newTime, setNewTime] = useState('');
 
   useEffect(() => {
     requestNotificationPermissions();
@@ -19,40 +22,45 @@ export default function RoutinesScreen() {
       const pet = pResp.data.pets?.[0];
       if (pet) {
         setPetId(pet.id);
-        const rResp = await api.get('/routines');
-        setRoutines(rResp.data.routines || []);
       }
+      // fetch routines regardless of pet right now to ensure alarms show up
+      const rResp = await api.get('/routines');
+      setRoutines(rResp.data.routines || []);
     } catch (err) {
       console.log('Error fetching routines', err);
     }
   };
 
-  const addDefaultRoutines = async () => {
-    if (!petId) return;
+  const addCustomAlarm = async () => {
+    if (!newTitle || !newTime) {
+      Alert.alert('Missing Info', 'Please enter a title and a time (HH:MM).');
+      return;
+    }
     try {
-      const timeStr = '08:00';
-      const d = new Date(); d.setHours(8,0,0,0);
+      const [hour, min] = newTime.split(':');
+      if (!hour || !min || isNaN(hour) || isNaN(min)) {
+        Alert.alert('Invalid Format', 'Please use HH:MM format like 08:30 or 14:00');
+        return;
+      }
       
-      await scheduleRoutineAlarm('🐾 Time to feed your pet!', 'Morning feeding routine', d);
+      const d = new Date(); 
+      d.setHours(parseInt(hour), parseInt(min), 0, 0);
+      
+      await scheduleRoutineAlarm('🐾 ' + newTitle, 'It is time for your custom routine.', d);
+      
       await api.post('/routines', {
-        pet_id: petId,
-        title: 'Morning Feeding',
-        type: 'morning',
-        time: timeStr
+        pet_id: petId || 'default-device-pet',
+        title: newTitle,
+        type: 'custom',
+        time: newTime
       });
 
-      const eveningTime = new Date(); eveningTime.setHours(18,0,0,0);
-      await scheduleRoutineAlarm('🚿 Grooming time for your pet!', 'Evening grooming routine', eveningTime);
-      await api.post('/routines', {
-        pet_id: petId,
-        title: 'Evening Walk & Grooming',
-        type: 'evening',
-        time: '18:00'
-      });
-
+      setNewTitle('');
+      setNewTime('');
       fetchData();
+      Alert.alert('Alarm Set', `Your alarm for ${newTitle} at ${newTime} has been scheduled!`);
     } catch (err) {
-      Alert.alert('Error', 'Could not create routines.');
+      Alert.alert('Error', 'Could not create routine alarm.');
     }
   };
 
@@ -67,16 +75,34 @@ export default function RoutinesScreen() {
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={{ padding: 20 }}>
+      
+      <View style={styles.addSection}>
+        <Text style={styles.heading}>➕ Add Custom Alarm</Text>
+        <TextInput 
+          style={styles.input} 
+          placeholder="Alarm Title (e.g., Feeding time)" 
+          value={newTitle}
+          onChangeText={setNewTitle}
+        />
+        <TextInput 
+          style={styles.input} 
+          placeholder="Time (HH:MM) - 24 hour" 
+          value={newTime}
+          onChangeText={setNewTime}
+          keyboardType="numeric"
+          maxLength={5}
+        />
+        <TouchableOpacity style={styles.btn} onPress={addCustomAlarm}>
+          <Text style={styles.btnText}>Set Alarm</Text>
+        </TouchableOpacity>
+      </View>
+
+      <Text style={[styles.heading, { marginTop: 30 }]}>Your Smart Care Protocol</Text>
+      
       {routines.length === 0 ? (
-        <View style={styles.emptyState}>
-          <Text style={styles.emptyText}>No routines setup yet.</Text>
-          <TouchableOpacity style={styles.btn} onPress={addDefaultRoutines}>
-            <Text style={styles.btnText}>Generate Smart Schedule</Text>
-          </TouchableOpacity>
-        </View>
+        <Text style={styles.emptyText}>No routines setup yet.</Text>
       ) : (
         <View>
-          <Text style={styles.heading}>Your Smart Care Protocol</Text>
           {routines.map(r => (
             <View key={r.id} style={styles.card}>
               <View>
@@ -91,15 +117,15 @@ export default function RoutinesScreen() {
               />
             </View>
           ))}
-          
-          <View style={styles.infoBox}>
-            <Text style={styles.infoTitle}>Natural Pet Care Tips 🌿</Text>
-            <Text style={styles.infoText}>• Skin/Fur: Use coconut oil or aloe vera for dry spots.</Text>
-            <Text style={styles.infoText}>• Hygiene: Use herbal, neem-based shampoos during bath.</Text>
-            <Text style={styles.infoText}>• Nutrition: Avoid harmful foods like chocolate & grapes.</Text>
-          </View>
         </View>
       )}
+      
+      <View style={styles.infoBox}>
+        <Text style={styles.infoTitle}>Natural Pet Care Tips 🌿</Text>
+        <Text style={styles.infoText}>• Skin/Fur: Use coconut oil or aloe vera for dry spots.</Text>
+        <Text style={styles.infoText}>• Hygiene: Use herbal, neem-based shampoos during bath.</Text>
+        <Text style={styles.infoText}>• Nutrition: Avoid harmful foods like chocolate & grapes.</Text>
+      </View>
     </ScrollView>
   );
 }
@@ -142,10 +168,26 @@ const styles = StyleSheet.create({
     color: colors.textSecondary,
     marginBottom: 20,
   },
+  addSection: {
+    backgroundColor: colors.surface,
+    padding: 15,
+    borderRadius: 12,
+    elevation: 2,
+  },
+  input: {
+    backgroundColor: '#f5f5f5',
+    padding: 12,
+    borderRadius: 8,
+    marginBottom: 10,
+    borderWidth: 1,
+    borderColor: '#eee',
+    color: '#000',
+  },
   btn: {
     backgroundColor: colors.primary,
     padding: 15,
     borderRadius: 15,
+    alignItems: 'center',
   },
   btnText: {
     color: 'white',

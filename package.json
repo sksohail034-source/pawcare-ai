@@ -10,7 +10,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "start": "node server/index.js",
-    "render-build": "npm install --include=dev && npm run build"
+    "render-build": "npm install --include=dev && cd pawcare-mobile && npm install && npx expo export -p web && cd .. && rm -rf dist && cp -r pawcare-mobile/dist dist"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^6.0.1",

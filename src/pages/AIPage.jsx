@@ -1,36 +1,76 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { api } from '../api';
 import { getPetEmoji } from '../utils';
 import toast from 'react-hot-toast';
 
 export default function AIPage() {
+  const navigate = useNavigate();
   const [pets, setPets] = useState([]);
   const [selectedPet, setSelectedPet] = useState(null);
   const [activeTab, setActiveTab] = useState('styling');
   const [results, setResults] = useState(null);
   const [loading, setLoading] = useState(false);
   const [petsLoading, setPetsLoading] = useState(true);
+  const [uploadedImage, setUploadedImage] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
+  const [scanCount, setScanCount] = useState(0);
+  const fileInputRef = useRef(null);
 
-  useEffect(() => { loadPets(); }, []);
+  useEffect(() => { 
+    loadPets(); 
+    const saved = localStorage.getItem('pawcare_scan_count');
+    if (saved) setScanCount(parseInt(saved));
+  }, []);
 
-  async function loadPets() {
-    try {
-      const data = await api.getPets();
-      setPets(data.pets || []);
-      if (data.pets?.length > 0) setSelectedPet(data.pets[0]);
-    } catch (err) { toast.error('Failed to load pets'); }
-    finally { setPetsLoading(false); }
+  function handleImageUpload(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    
+    if (file.size > 10 * 1024 * 1024) {
+      toast.error('Image must be less than 10MB');
+      return;
+    }
+    
+    setUploadedImage(file);
+    const reader = new FileReader();
+    reader.onload = () => setImagePreview(reader.result);
+    reader.readAsDataURL(file);
+    toast.success('Photo uploaded! Ready for AI analysis');
+  }
+
+  function clearImage() {
+    setUploadedImage(null);
+    setImagePreview(null);
+    if (fileInputRef.current) fileInputRef.current.value = '';
   }
 
   async function runAI() {
     if (!selectedPet) { toast.error('Select a pet first'); return; }
+    if (!uploadedImage) { toast.error('Please upload a pet photo first'); return; }
+    
+    // Check scan limit for free users (3 free scans)
+    const isFreeUser = localStorage.getItem('pawcare_plan') !== 'premium';
+    if (isFreeUser && scanCount >= 3) {
+      toast.error('Free trial limit reached! Upgrade to continue.');
+      setTimeout(() => navigate('/subscriptions'), 2000);
+      return;
+    }
+    
     setLoading(true);
     setResults(null);
     try {
-      await new Promise(r => setTimeout(r, 1500)); // Simulate AI delay
+      await new Promise(r => setTimeout(r, 2500));
+      
       const data = activeTab === 'styling'
         ? await api.getStyleSuggestions(selectedPet.id)
         : await api.getHealthTips(selectedPet.id);
+      
+      // Update scan count
+      const newCount = scanCount + 1;
+      setScanCount(newCount);
+      localStorage.setItem('pawcare_scan_count', newCount);
+      
       setResults(data);
       toast.success('AI analysis complete! ✨');
     } catch (err) { toast.error(err.message); }
@@ -72,9 +112,58 @@ export default function AIPage() {
             <button className={`tab-btn ${activeTab === 'styling' ? 'active' : ''}`} onClick={() => { setActiveTab('styling'); setResults(null); }}>✨ Styling</button>
             <button className={`tab-btn ${activeTab === 'health' ? 'active' : ''}`} onClick={() => { setActiveTab('health'); setResults(null); }}>💊 Health Tips</button>
           </div>
-          <button className="btn btn-primary" onClick={runAI} disabled={loading}>
-            {loading ? '⏳ Analyzing...' : '🚀 Run AI Analysis'}
-          </button>
+        </div>
+        
+        <div style={{ marginTop: 20, paddingTop: 20, borderTop: '1px solid var(--border)' }}>
+          <label className="form-label">📸 Upload Pet Photo</label>
+          <input
+            type="file"
+            ref={fileInputRef}
+            accept="image/*"
+            onChange={handleImageUpload}
+            style={{ display: 'none' }}
+          />
+          {imagePreview ? (
+            <div style={{ position: 'relative', marginTop: 12 }}>
+              <img src={imagePreview} alt="Pet preview" style={{ width: '100%', maxHeight: 200, borderRadius: 16, objectFit: 'cover' }} />
+              <button 
+                onClick={clearImage}
+                style={{
+                  position: 'absolute', top: 8, right: 8,
+                  background: 'rgba(0,0,0,0.6)', color: 'white',
+                  border: 'none', borderRadius: '50%', width: 32, height: 32,
+                  cursor: 'pointer', fontSize: 18
+                }}
+              >✕</button>
+              <div style={{ marginTop: 8, color: 'var(--success)', fontSize: 13 }}>✓ Photo ready for analysis</div>
+            </div>
+          ) : (
+            <div 
+              onClick={() => fileInputRef.current?.click()}
+              style={{
+                border: '2px dashed var(--border-hover)',
+                borderRadius: 16, padding: 32, textAlign: 'center',
+                cursor: 'pointer', marginTop: 12,
+                background: 'var(--bg-app)', transition: 'all 0.3s'
+              }}
+            >
+              <div style={{ fontSize: 40, marginBottom: 8 }}>📷</div>
+              <p style={{ color: 'var(--text-muted)', fontSize: 14 }}>Tap to upload pet photo</p>
+              <p style={{ color: 'var(--text-light)', fontSize: 12, marginTop: 4 }}>JPG, PNG up to 10MB</p>
+            </div>
+          )}
+        </div>
+        
+        <button className="btn btn-primary btn-full" onClick={runAI} disabled={loading || !uploadedImage} style={{ marginTop: 16 }}>
+          {loading ? '⏳ Analyzing...' : '🚀 Run AI Analysis'}
+        </button>
+        
+        <div style={{ marginTop: 12, textAlign: 'center' }}>
+          {localStorage.getItem('pawcare_plan') !== 'premium' && (
+            <span style={{ fontSize: 12, color: scanCount >= 3 ? '#ef4444' : 'var(--text-muted)' }}>
+              📊 Free scans: {scanCount}/3 {scanCount >= 3 && '(Upgrade to continue)'}
+            </span>
+          )}
         </div>
       </div>
 
