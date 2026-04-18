@@ -49,10 +49,11 @@ export default function AIPage() {
     if (!selectedPet) { toast.error('Select a pet first'); return; }
     if (!uploadedImage) { toast.error('Please upload a pet photo first'); return; }
     
-    // Check scan limit for free users (3 free scans)
-    const isFreeUser = localStorage.getItem('pawcare_plan') !== 'premium';
-    if (isFreeUser && scanCount >= 3) {
-      toast.error('Free trial limit reached! Upgrade to continue.');
+    // Check scan limit for free users (5 free scans)
+    const plan = localStorage.getItem('pawcare_plan');
+    const isFreeUser = !plan || plan === 'free';
+    if (isFreeUser && scanCount >= 5) {
+      toast.error('Free limit reached! Upgrade to continue.');
       setTimeout(() => navigate('/subscriptions'), 2000);
       return;
     }
@@ -110,7 +111,8 @@ export default function AIPage() {
           </div>
           <div className="tab-nav" style={{ marginBottom: 0 }}>
             <button className={`tab-btn ${activeTab === 'styling' ? 'active' : ''}`} onClick={() => { setActiveTab('styling'); setResults(null); }}>✨ Styling</button>
-            <button className={`tab-btn ${activeTab === 'health' ? 'active' : ''}`} onClick={() => { setActiveTab('health'); setResults(null); }}>💊 Health Tips</button>
+            <button className={`tab-btn ${activeTab === 'health' ? 'active' : ''}`} onClick={() => { setActiveTab('health'); setResults(null); }}>💊 Health</button>
+            <button className={`tab-btn ${activeTab === 'exercise' ? 'active' : ''}`} onClick={() => { setActiveTab('exercise'); setResults(null); }}>🏃 Exercise</button>
           </div>
         </div>
         
@@ -159,9 +161,9 @@ export default function AIPage() {
         </button>
         
         <div style={{ marginTop: 12, textAlign: 'center' }}>
-          {localStorage.getItem('pawcare_plan') !== 'premium' && (
-            <span style={{ fontSize: 12, color: scanCount >= 3 ? '#ef4444' : 'var(--text-muted)' }}>
-              📊 Free scans: {scanCount}/3 {scanCount >= 3 && '(Upgrade to continue)'}
+          {localStorage.getItem('pawcare_plan') !== 'premium' && localStorage.getItem('pawcare_plan') !== 'advance' && localStorage.getItem('pawcare_plan') !== 'pro' && (
+            <span style={{ fontSize: 12, color: scanCount >= 5 ? '#ef4444' : 'var(--text-muted)' }}>
+              📊 Free scans: {scanCount}/5 {scanCount >= 5 && '(Upgrade to continue)'}
             </span>
           )}
         </div>
@@ -176,7 +178,7 @@ export default function AIPage() {
       )}
 
       {results && activeTab === 'styling' && (
-        <div>
+        <div style={{ maxHeight: '500px', overflowY: 'auto', marginBottom: 20 }}>
           <h3 style={{ fontFamily: 'var(--font-display)', marginBottom: 16 }}>
             ✨ Styling Suggestions for {results.pet?.name}
           </h3>
@@ -205,7 +207,7 @@ export default function AIPage() {
       )}
 
       {results && activeTab === 'health' && (
-        <div>
+        <div style={{ maxHeight: '500px', overflowY: 'auto', marginBottom: 20 }}>
           <h3 style={{ fontFamily: 'var(--font-display)', marginBottom: 16 }}>
             💊 Health Tips for {results.pet?.name}
           </h3>
@@ -222,6 +224,73 @@ export default function AIPage() {
               </div>
             ))}
           </div>
+        </div>
+      )}
+
+      {results && activeTab === 'exercise' && (
+        <div style={{ maxHeight: '500px', overflowY: 'auto', marginBottom: 20 }}>
+          <h3 style={{ fontFamily: 'var(--font-display)', marginBottom: 16 }}>
+            🏃 Exercise & Training for {results.pet?.name}
+          </h3>
+          
+          {results.pet?.type?.toLowerCase() === 'dog' && (
+            <div className="card-grid">
+              <div className="health-card"><h4>🐕 Daily Walks</h4><p>30-60 minutes of walking daily for physical health.</p></div>
+              <div className="health-card"><h4>🎾 Fetch & Play</h4><p>15-20 minutes of fetch to burn energy.</p></div>
+              <div className="health-card"><h4>🧠 Training</h4><p>10-15 mins daily for mental exercise.</p></div>
+              <div className="health-card"><h4>🐕 Dog Park</h4><p>Socialize with other dogs 1-2 times/week.</p></div>
+            </div>
+          )}
+          
+          {results.pet?.type?.toLowerCase() === 'cat' && (
+            <div className="card-grid">
+              <div className="health-card"><h4>🧶 Interactive Play</h4><p>15-20 minutes with feather wands or lasers.</p></div>
+              <div className="health-card"><h4>️ Climbing</h4><p>Cat trees for jumping exercise.</p></div>
+              <div className="health-card"><h4>🧠 Puzzle Feeders</h4><p>Stimulate hunting instincts.</p></div>
+              <div className="health-card"><h4>🐁 Toy Hunting</h4><p>Hide toys for simulated hunting.</p></div>
+            </div>
+          )}
+          
+          {results.pet?.type?.toLowerCase() === 'bird' && (
+            <div className="card-grid">
+              <div className="health-card"><h4>🕊️ Flight Time</h4><p>20-30 mins supervised flight in safe room.</p></div>
+              <div className="health-card"><h4>🎵 Music & Talk</h4><p>Social interaction is exercise for birds!</p></div>
+              <div className="health-card"><h4>🌿 Foraging</h4><p>Hide treats in toys for natural behavior.</p></div>
+              <div className="health-card"><h4>🪜 Perch Hopping</h4><p>Multiple perches encourage movement.</p></div>
+            </div>
+          )}
+          
+          {results.pet?.type?.toLowerCase() === 'goat' && (
+            <div className="card-grid">
+              <div className="health-card"><h4>🌿 Grazing</h4><p>4-6 hours of grazing - natural exercise.</p></div>
+              <div className="health-card"><h4>🪨 Climbing</h4><p>Rocks and platforms for climbing.</p></div>
+              <div className="health-card"><h4>👥 Herd Time</h4><p>Socialize with other goats.</p></div>
+              <div className="health-card"><h4>🎯 Training</h4><p>Simple commands for mental stimulation.</p></div>
+            </div>
+          )}
+          
+          {results.pet?.type?.toLowerCase() === 'fish' && (
+            <div className="card-grid">
+              <div className="health-card"><h4>💧 Water Current</h4><p>Gentle current for swimming exercise.</p></div>
+              <div className="health-card"><h4>🎯 Feeding Games</h4><p>Scatter food to encourage swimming.</p></div>
+              <div className="health-card"><h4>🪸 Tank Enrichment</h4><p>Decorations for exploration.</p></div>
+            </div>
+          )}
+          
+          {results.pet?.type?.toLowerCase() === 'rabbit' && (
+            <div className="card-grid">
+              <div className="health-card"><h4>🐇 Hop Space</h4><p>3-4 hours supervised hopping daily.</p></div>
+              <div className="health-card"><h4>🧱 Tunnels</h4><p>Tunnel running for exercise.</p></div>
+              <div className="health-card"><h4>🥬 Veggie Chase</h4><p>Place veggies around for movement.</p></div>
+            </div>
+          )}
+          
+          {['sheep', 'cow', 'horse', 'pig', 'camel', 'other'].includes(results.pet?.type?.toLowerCase()) && (
+            <div className="card-grid">
+              <div className="health-card"><h4>🏃 Free Movement</h4><p>Supervised exploration time daily.</p></div>
+              <div className="health-card"><h4>🧠 Training</h4><p>Simple commands for mental stimulation.</p></div>
+            </div>
+          )}
         </div>
       )}
     </div>

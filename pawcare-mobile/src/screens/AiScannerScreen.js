@@ -482,7 +482,7 @@ const styles = StyleSheet.create({
   loaderText: { marginTop: 15, fontSize: 16, fontWeight: '600', color: colors.primaryDark },
   loaderSubtext: { marginTop: 5, fontSize: 13, color: colors.textSecondary, textAlign: 'center' },
 
-  resultCard: { backgroundColor: colors.surface, padding: 20, borderRadius: 20, elevation: 3 },
+  resultCard: { backgroundColor: colors.surface, padding: 20, borderRadius: 20, elevation: 3, maxHeight: 600 },
   resultHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 15 },
   resultTitle: { fontSize: 18, fontWeight: 'bold', color: colors.success, flex: 1 },
   newScanBtn: { color: colors.primary, fontWeight: '600', fontSize: 14 },

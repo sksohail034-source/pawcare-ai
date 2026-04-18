@@ -31,27 +31,30 @@ export default function DashboardScreen({ navigation }) {
     try {
       const { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
-        setLocation('Tap to enable location');
+        setLocation('📍 Enable Location');
         setLocationLoading(false);
         return;
       }
       
-      setLocation('Getting location...');
-      const loc = await Location.getCurrentPositionAsync({});
-      const address = await Location.reverseGeocodeAsync(loc.coords);
+      setLocation('📍 Detecting...');
+      const loc = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced });
+      const address = await Location.reverseGeocodeAsync({
+        latitude: loc.coords.latitude,
+        longitude: loc.coords.longitude
+      });
       
-      const city = address[0]?.city || address[0]?.town || address[0]?.village || '';
-      const country = address[0]?.country || '';
-      
-      if (city && country) {
-        setLocation(`${city}, ${country}`);
-      } else if (city) {
-        setLocation(city);
+      if (address && address.length > 0) {
+        const addr = address[0];
+        const city = addr.city || addr.town || addr.village || addr.subregion || '';
+        const country = addr.country || '';
+        const result = city && country ? `📍 ${city}, ${country}` : (city ? `📍 ${city}` : '📍 Location found');
+        setLocation(result);
       } else {
-        setLocation('📍 Location available');
+        setLocation('📍 Location enabled');
       }
     } catch (e) {
-      setLocation('Tap for location');
+      console.log('Location error:', e);
+      setLocation('📍 Tap for location');
     } finally {
       setLocationLoading(false);
     }
