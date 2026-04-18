@@ -41,6 +41,15 @@ export default function LoginScreen({ navigation }) {
       await AsyncStorage.setItem('userToken', response.data.token);
       await AsyncStorage.setItem('userData', JSON.stringify(response.data.user));
       await AsyncStorage.setItem('pawcare_plan', response.data.user?.subscription || 'free');
+      
+      // Fetch and save pets locally
+      try {
+        const petsResp = await api.get('/pets');
+        await AsyncStorage.setItem('pawcare_pets', JSON.stringify(petsResp.data.pets || []));
+      } catch (pErr) {
+        console.log('Could not fetch pets', pErr);
+      }
+      
       navigation.replace('Dashboard');
     } catch (err) {
       Alert.alert('Login Failed', err.response?.data?.error || 'Unknown error occurred.');

@@ -37,13 +37,30 @@ export default function PetsScreen({ navigation }) {
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
+    loadPetsFromStorage();
     fetchPets();
   }, []);
+
+  const loadPetsFromStorage = async () => {
+    try {
+      const savedPets = await AsyncStorage.getItem('pawcare_pets');
+      if (savedPets) {
+        const parsed = JSON.parse(savedPets);
+        if (parsed.length > 0) {
+          setPets(parsed);
+          setLoading(false);
+        }
+      }
+    } catch (e) {
+      console.log('Error loading from storage', e);
+    }
+  };
 
   const fetchPets = async () => {
     try {
       const resp = await api.get('/pets');
       setPets(resp.data.pets || []);
+      await AsyncStorage.setItem('pawcare_pets', JSON.stringify(resp.data.pets || []));
     } catch (err) {
       console.log('Error fetching pets', err);
     } finally {

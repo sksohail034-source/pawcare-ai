@@ -1,0 +1,113 @@
+﻿diff --git a/pawcare-mobile/src/screens/AiScannerScreen.js b/pawcare-mobile/src/screens/AiScannerScreen.js
+index eaf1dd7..942490d 100644
+--- a/pawcare-mobile/src/screens/AiScannerScreen.js
++++ b/pawcare-mobile/src/screens/AiScannerScreen.js
+@@ -182,7 +182,7 @@ export default function AiScannerScreen({ navigation }) {
+ 
+       {/* Results */}
+       {result && (
+-        <View style={styles.resultCard}>
++        <ScrollView style={styles.resultCard} showsVerticalScrollIndicator={true} nestedScrollEnabled={true}>
+           <View style={styles.resultHeader}>
+             <Text style={styles.resultTitle}>Γ£¿ Analysis Complete for {result.pet.name}</Text>
+             <TouchableOpacity onPress={resetScan}>
+@@ -444,7 +444,7 @@ export default function AiScannerScreen({ navigation }) {
+           )}
+ 
+           <Text style={styles.disclaimer}>ΓÜá∩╕Å Please consult a veterinarian for serious health issues</Text>
+-        </View>
++        </ScrollView>
+       )}
+     </ScrollView>
+   );
+diff --git a/pawcare-mobile/src/screens/DashboardScreen.js b/pawcare-mobile/src/screens/DashboardScreen.js
+index d367bcc..b038a37 100644
+--- a/pawcare-mobile/src/screens/DashboardScreen.js
++++ b/pawcare-mobile/src/screens/DashboardScreen.js
+@@ -31,19 +31,27 @@ export default function DashboardScreen({ navigation }) {
+     try {
+       const { status } = await Location.requestForegroundPermissionsAsync();
+       if (status !== 'granted') {
+-        setLocation('Location denied');
++        setLocation('Tap to enable location');
+         setLocationLoading(false);
+         return;
+       }
+       
++      setLocation('Getting location...');
+       const loc = await Location.getCurrentPositionAsync({});
+       const address = await Location.reverseGeocodeAsync(loc.coords);
+       
+-      const city = address[0]?.city || address[0]?.district || '';
++      const city = address[0]?.city || address[0]?.town || address[0]?.village || '';
+       const country = address[0]?.country || '';
+-      setLocation(city && country ? `${city}, ${country}` : `${loc.coords.latitude.toFixed(2)}┬░, ${loc.coords.longitude.toFixed(2)}┬░`);
++      
++      if (city && country) {
++        setLocation(`${city}, ${country}`);
++      } else if (city) {
++        setLocation(city);
++      } else {
++        setLocation('≡ƒôì Location available');
++      }
+     } catch (e) {
+-      setLocation('Unable to get location');
++      setLocation('Tap for location');
+     } finally {
+       setLocationLoading(false);
+     }
+diff --git a/pawcare-mobile/src/screens/LoginScreen.js b/pawcare-mobile/src/screens/LoginScreen.js
+index 54e5f4a..324a6ed 100644
+--- a/pawcare-mobile/src/screens/LoginScreen.js
++++ b/pawcare-mobile/src/screens/LoginScreen.js
+@@ -41,6 +41,15 @@ export default function LoginScreen({ navigation }) {
+       await AsyncStorage.setItem('userToken', response.data.token);
+       await AsyncStorage.setItem('userData', JSON.stringify(response.data.user));
+       await AsyncStorage.setItem('pawcare_plan', response.data.user?.subscription || 'free');
++      
++      // Fetch and save pets locally
++      try {
++        const petsResp = await api.get('/pets');
++        await AsyncStorage.setItem('pawcare_pets', JSON.stringify(petsResp.data.pets || []));
++      } catch (pErr) {
++        console.log('Could not fetch pets', pErr);
++      }
++      
+       navigation.replace('Dashboard');
+     } catch (err) {
+       Alert.alert('Login Failed', err.response?.data?.error || 'Unknown error occurred.');
+diff --git a/pawcare-mobile/src/screens/PetsScreen.js b/pawcare-mobile/src/screens/PetsScreen.js
+index c230535..7cd31d5 100644
+--- a/pawcare-mobile/src/screens/PetsScreen.js
++++ b/pawcare-mobile/src/screens/PetsScreen.js
+@@ -37,13 +37,30 @@ export default function PetsScreen({ navigation }) {
+   const [saving, setSaving] = useState(false);
+ 
+   useEffect(() => {
++    loadPetsFromStorage();
+     fetchPets();
+   }, []);
+ 
++  const loadPetsFromStorage = async () => {
++    try {
++      const savedPets = await AsyncStorage.getItem('pawcare_pets');
++      if (savedPets) {
++        const parsed = JSON.parse(savedPets);
++        if (parsed.length > 0) {
++          setPets(parsed);
++          setLoading(false);
++        }
++      }
++    } catch (e) {
++      console.log('Error loading from storage', e);
++    }
++  };
++
+   const fetchPets = async () => {
+     try {
+       const resp = await api.get('/pets');
+       setPets(resp.data.pets || []);
++      await AsyncStorage.setItem('pawcare_pets', JSON.stringify(resp.data.pets || []));
+     } catch (err) {
+       console.log('Error fetching pets', err);
+     } finally {

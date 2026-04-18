@@ -31,19 +31,27 @@ export default function DashboardScreen({ navigation }) {
     try {
       const { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
-        setLocation('Location denied');
+        setLocation('Tap to enable location');
         setLocationLoading(false);
         return;
       }
       
+      setLocation('Getting location...');
       const loc = await Location.getCurrentPositionAsync({});
       const address = await Location.reverseGeocodeAsync(loc.coords);
       
-      const city = address[0]?.city || address[0]?.district || '';
+      const city = address[0]?.city || address[0]?.town || address[0]?.village || '';
       const country = address[0]?.country || '';
-      setLocation(city && country ? `${city}, ${country}` : `${loc.coords.latitude.toFixed(2)}°, ${loc.coords.longitude.toFixed(2)}°`);
+      
+      if (city && country) {
+        setLocation(`${city}, ${country}`);
+      } else if (city) {
+        setLocation(city);
+      } else {
+        setLocation('📍 Location available');
+      }
     } catch (e) {
-      setLocation('Unable to get location');
+      setLocation('Tap for location');
     } finally {
       setLocationLoading(false);
     }

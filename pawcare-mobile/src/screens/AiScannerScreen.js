@@ -182,7 +182,7 @@ export default function AiScannerScreen({ navigation }) {
 
       {/* Results */}
       {result && (
-        <View style={styles.resultCard}>
+        <ScrollView style={styles.resultCard} showsVerticalScrollIndicator={true} nestedScrollEnabled={true}>
           <View style={styles.resultHeader}>
             <Text style={styles.resultTitle}>✨ Analysis Complete for {result.pet.name}</Text>
             <TouchableOpacity onPress={resetScan}>
@@ -444,7 +444,7 @@ export default function AiScannerScreen({ navigation }) {
           )}
 
           <Text style={styles.disclaimer}>⚠️ Please consult a veterinarian for serious health issues</Text>
-        </View>
+        </ScrollView>
       )}
     </ScrollView>
   );
