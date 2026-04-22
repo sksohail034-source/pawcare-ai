@@ -17,6 +17,7 @@ import MedicationsPage from './pages/MedicationsPage';
 import ProductsPage from './pages/ProductsPage';
 import EmergencyVetPage from './pages/EmergencyVetPage';
 import CareProtocolsPage from './pages/CareProtocolsPage';
+import AdminPage from './pages/AdminPage';
 import BottomNav from './components/BottomNav';
 import Sidebar from './components/Sidebar';
 
@@ -54,6 +55,7 @@ function AppLayout() {
           <Route path="/products" element={<ProductsPage />} />
           <Route path="/emergency-vet" element={<EmergencyVetPage />} />
           <Route path="/care-protocols" element={<CareProtocolsPage />} />
+          <Route path="/admin" element={<AdminPage />} />
           <Route path="*" element={<Navigate to="/dashboard" />} />
         </Routes>
       </div>

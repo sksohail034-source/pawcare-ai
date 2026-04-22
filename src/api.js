@@ -69,4 +69,11 @@ export const api = {
     return request(`/products${query ? `?${query}` : ''}`);
   },
   getProductCategories: () => request('/products/categories'),
+
+  // Admin
+  getAdminStats: () => request('/admin/stats'),
+  getAdminUsers: () => request('/admin/users'),
+  deleteAdminUser: (id) => request(`/admin/users/${id}`, { method: 'DELETE' }),
+  updateUserSubscription: (id, subscription) => request(`/admin/users/${id}/subscription`, { method: 'PUT', body: JSON.stringify({ subscription }) }),
+  getAdminActivity: () => request('/admin/activity'),
 };

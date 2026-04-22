@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import { Home, Sparkles, Dumbbell, Syringe, Clock, CreditCard, PawPrint, Heart, LogOut, BarChart3, Pill, ShoppingBag, AlertCircle, Leaf } from 'lucide-react';
+import { Home, Sparkles, Dumbbell, Syringe, Clock, CreditCard, PawPrint, Heart, LogOut, BarChart3, Pill, ShoppingBag, AlertCircle, Leaf, Shield } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
 export default function Sidebar() {
@@ -31,6 +31,14 @@ export default function Sidebar() {
             <span>{item.label}</span>
           </NavLink>
         ))}
+        {user?.role === 'admin' && (
+          <NavLink to="/admin"
+            className={({ isActive }) => `sidebar-item ${isActive ? 'active' : ''}`}
+            style={{ borderTop: '1px solid var(--border)', marginTop: 8, paddingTop: 12 }}>
+            <Shield size={18} />
+            <span>Admin Panel</span>
+          </NavLink>
+        )}
       </nav>
       <div style={{ borderTop: '1px solid var(--border)', paddingTop: 16 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12, padding: '0 8px' }}>

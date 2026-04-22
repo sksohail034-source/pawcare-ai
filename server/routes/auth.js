@@ -17,11 +17,11 @@ router.post('/register', async (req, res) => {
     if (existing.length > 0 && existing[0].values.length > 0) return res.status(400).json({ error: 'Email already registered' });
     const hashedPassword = await bcrypt.hash(password, 10);
     const id = uuidv4();
-    db.run(`INSERT INTO users (id, name, email, password, phone, country_code, subscription, scan_count) VALUES (?, ?, ?, ?, ?, ?, 'free', 0)`,
+    db.run(`INSERT INTO users (id, name, email, password, phone, country_code, role, subscription, scan_count) VALUES (?, ?, ?, ?, ?, ?, 'user', 'free', 0)`,
       [id, name, email, hashedPassword, phone || '', country_code || '+1']);
     saveDatabase();
-    const token = jwt.sign({ id, email }, JWT_SECRET, { expiresIn: '30d' });
-    res.json({ token, user: { id, name, email, phone: phone || '', country_code: country_code || '+1', subscription: 'free', scan_count: 0, ad_bonus_scans: 0 } });
+    const token = jwt.sign({ id, email, role: 'user' }, JWT_SECRET, { expiresIn: '30d' });
+    res.json({ token, user: { id, name, email, phone: phone || '', country_code: country_code || '+1', role: 'user', subscription: 'free', scan_count: 0, ad_bonus_scans: 0 } });
   } catch (err) { console.error('Register error:', err); res.status(500).json({ error: 'Registration failed' }); }
 });
 
@@ -38,7 +38,7 @@ router.post('/login', async (req, res) => {
     cols.forEach((col, i) => { user[col] = row[i]; });
     const valid = await bcrypt.compare(password, user.password);
     if (!valid) return res.status(401).json({ error: 'Invalid credentials' });
-    const token = jwt.sign({ id: user.id, email: user.email }, JWT_SECRET, { expiresIn: '30d' });
+    const token = jwt.sign({ id: user.id, email: user.email, role: user.role || 'user' }, JWT_SECRET, { expiresIn: '30d' });
     delete user.password;
     delete user.password_reset_token;
     delete user.reset_token_expires;

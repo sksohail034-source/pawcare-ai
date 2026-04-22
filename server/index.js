@@ -14,6 +14,7 @@ import donationRoutes from './routes/donations.js';
 import productRoutes from './routes/products.js';
 import adsRoutes from './routes/ads.js';
 import exerciseRoutes from './routes/exercise.js';
+import adminRoutes from './routes/admin.js';
 
 dotenv.config();
 
@@ -41,6 +42,7 @@ app.use('/api/donations', donationRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/ads', adsRoutes);
 app.use('/api/exercise', exerciseRoutes);
+app.use('/api/admin', adminRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => {

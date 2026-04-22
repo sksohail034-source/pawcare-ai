@@ -2,6 +2,7 @@ import initSqlJs from 'sql.js';
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
+import bcrypt from 'bcryptjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const DB_PATH = join(__dirname, '..', 'data', 'pawcare.db');
@@ -13,8 +14,15 @@ export async function initDatabase() {
   const dataDir = dirname(DB_PATH);
   if (!existsSync(dataDir)) mkdirSync(dataDir, { recursive: true });
 
-  // Start fresh for the new schema
-  db = new SQL.Database();
+  // Load existing database or create fresh
+  if (existsSync(DB_PATH)) {
+    const fileBuffer = readFileSync(DB_PATH);
+    db = new SQL.Database(fileBuffer);
+    console.log('Loaded existing database');
+  } else {
+    db = new SQL.Database();
+    console.log('Created new database');
+  }
 
   db.run(`CREATE TABLE IF NOT EXISTS users (
     id TEXT PRIMARY KEY,
@@ -24,6 +32,7 @@ export async function initDatabase() {
     phone TEXT DEFAULT '',
     country_code TEXT DEFAULT '+1',
     avatar TEXT DEFAULT '',
+    role TEXT DEFAULT 'user',
     subscription TEXT DEFAULT 'free',
     scan_count INTEGER DEFAULT 0,
     ad_bonus_scans INTEGER DEFAULT 0,
@@ -31,6 +40,15 @@ export async function initDatabase() {
     reset_token_expires TEXT,
     created_at TEXT DEFAULT (datetime('now'))
   )`);
+
+  // Create default admin account
+  const adminExists = db.exec(`SELECT id FROM users WHERE email = 'admin@pawcare.com'`);
+  if (adminExists.length === 0 || adminExists[0].values.length === 0) {
+    const adminPass = await bcrypt.hash('Admin@123', 10);
+    db.run(`INSERT INTO users (id, name, email, password, role, subscription, scan_count) VALUES (?, ?, ?, ?, ?, ?, ?)`,
+      ['admin-001', 'PawCare Admin', 'admin@pawcare.com', adminPass, 'admin', 'enterprise', 0]);
+    console.log('✅ Default admin account created (admin@pawcare.com / Admin@123)');
+  }
 
   db.run(`CREATE TABLE IF NOT EXISTS pets (
     id TEXT PRIMARY KEY,
