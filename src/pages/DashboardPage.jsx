@@ -1,116 +1,155 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Bell, Search, MapPin, ArrowUpRight } from 'lucide-react';
+import { Bell, Search, MapPin, Sparkles, Syringe, Dumbbell, Clock } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
-import DonationBanner from '../components/DonationBanner';
+import { PET_TYPES, petImages, getPetEmoji } from '../utils';
 
 export default function DashboardPage() {
   const { user } = useAuth();
   const navigate = useNavigate();
-  const [activeCategory, setActiveCategory] = useState('Dogs');
+  const [location, setLocation] = useState('Detecting...');
+  const [activeCategory, setActiveCategory] = useState('Dog');
 
-  const categories = [
-    { id: 'Dogs', icon: '🐶', label: 'Dogs' },
-    { id: 'Cats', icon: '🐱', label: 'Cats' },
-    { id: 'Birds', icon: '🐦', label: 'Birds' },
-    { id: 'Fishes', icon: '🐠', label: 'Fishes' },
-    { id: 'Rabbits', icon: '🐰', label: 'Rabbits' },
+  useEffect(() => {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        async (pos) => {
+          try {
+            const res = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${pos.coords.latitude}&lon=${pos.coords.longitude}&format=json`);
+            const data = await res.json();
+            const city = data.address?.city || data.address?.town || data.address?.state || '';
+            const country = data.address?.country || '';
+            setLocation(`${city}${city && country ? ', ' : ''}${country}` || 'Location Found');
+          } catch { setLocation('Location Available'); }
+        },
+        () => setLocation('Location Unavailable'),
+        { timeout: 5000 }
+      );
+    } else { setLocation('Not Supported'); }
+  }, []);
+
+  const quickActions = [
+    { icon: <Sparkles size={20} />, label: 'AI Scan', color: '#22c55e', path: '/ai' },
+    { icon: <Syringe size={20} />, label: 'Vaccines', color: '#3b82f6', path: '/vaccinations' },
+    { icon: <Dumbbell size={20} />, label: 'Exercise', color: '#f59e0b', path: '/exercise' },
+    { icon: <Clock size={20} />, label: 'Routine', color: '#8b5cf6', path: '/routine' },
   ];
 
-  const pets = [
-    { id: 1, name: 'Golden Retriever', category: 'Dogs', distance: 'Distance (Near 15km)', img: 'https://images.unsplash.com/photo-1552053831-71594a27632d?fit=crop&w=600&h=400' },
-    { id: 2, name: 'Persian Cat', category: 'Cats', distance: 'Distance (Near 5km)', img: 'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?fit=crop&w=600&h=400' },
-    { id: 3, name: 'Macaw Parrot', category: 'Birds', distance: 'Distance (Near 8km)', img: 'https://images.unsplash.com/photo-1552728089-571ebd13ba3b?fit=crop&w=600&h=400' }
-  ];
+  const petShowcase = {
+    Dog: { img: petImages.dog, name: 'Golden Retriever', desc: 'Friendly, intelligent, devoted' },
+    Cat: { img: petImages.cat, name: 'Persian Cat', desc: 'Calm, gentle, affectionate' },
+    Bird: { img: petImages.bird, name: 'Macaw Parrot', desc: 'Colorful, intelligent, social' },
+    Rabbit: { img: petImages.rabbit, name: 'Holland Lop', desc: 'Gentle, playful, cuddly' },
+    Fish: { img: petImages.fish, name: 'Betta Fish', desc: 'Vibrant, graceful, easy-care' },
+    Hamster: { img: petImages.hamster, name: 'Syrian Hamster', desc: 'Playful, curious, low-maintenance' },
+    Goat: { img: petImages.goat, name: 'Nigerian Dwarf', desc: 'Gentle, friendly, hardy' },
+    Horse: { img: petImages.horse, name: 'Arabian Horse', desc: 'Elegant, spirited, loyal' },
+    Cow: { img: petImages.cow, name: 'Highland Cow', desc: 'Gentle, hardy, calm' },
+  };
 
-  const filteredPets = pets.filter(p => p.category === activeCategory);
+  const currentPet = petShowcase[activeCategory];
 
   return (
     <div className="page-container">
-      {/* Top Header */}
-      <div className="flex-row justify-between items-center" style={{ marginBottom: '24px' }}>
-        <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: 'var(--primary)', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold' }}>
-          {user?.name?.charAt(0) || 'U'}
-        </div>
-        <div className="flex-col items-center">
-          <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>Location</span>
-          <div className="flex-row items-center gap-2" style={{ fontWeight: 600, fontSize: '14px' }}>
-            Chicago, US
+      {/* Header */}
+      <div className="flex-row justify-between items-center" style={{ marginBottom: 24 }}>
+        <div className="flex-row gap-3">
+          <div style={{ width: 44, height: 44, borderRadius: '50%', background: 'linear-gradient(135deg, var(--primary), var(--primary-light))', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', fontSize: 18 }}>
+            {user?.name?.charAt(0) || 'U'}
+          </div>
+          <div>
+            <div style={{ fontSize: 16, fontWeight: 700 }}>Hi, {user?.name?.split(' ')[0] || 'there'} 👋</div>
+            <div className="flex-row items-center gap-2" style={{ fontSize: 12, color: 'var(--text-muted)' }}>
+              <MapPin size={12} /> {location}
+            </div>
           </div>
         </div>
-        <button className="btn-icon" style={{ width: '40px', height: '40px', background: 'transparent' }}>
+        <button className="btn-icon" onClick={() => navigate('/routine')}>
           <Bell size={20} />
         </button>
       </div>
 
       {/* Search */}
       <div className="search-container">
-        <Search className="search-icon" size={20} />
-        <input 
-          type="text" 
-          className="search-input" 
-          placeholder="Search pets, services..."
-        />
+        <Search className="search-icon" size={18} />
+        <input type="text" className="search-input" placeholder="Search pets, services..." />
       </div>
 
-      <DonationBanner />
-
-      {/* Categories */}
-      <div className="flex-row justify-between items-center" style={{ marginTop: '32px', marginBottom: '16px' }}>
-        <h3 style={{ fontSize: '18px', fontWeight: 700 }}>Categories</h3>
-        <span style={{ fontSize: '13px', color: 'var(--text-primary)', opacity: 0.6 }}>See All</span>
+      {/* Stats */}
+      <div className="stats-grid">
+        <div className="stat-card"><div className="stat-value">9</div><div className="stat-label">Pet Types</div></div>
+        <div className="stat-card"><div className="stat-value">{user?.subscription === 'free' ? '5' : '∞'}</div><div className="stat-label">AI Scans</div></div>
+        <div className="stat-card"><div className="stat-value">24/7</div><div className="stat-label">AI Support</div></div>
       </div>
 
-      <div className="flex-row gap-3" style={{ overflowX: 'auto', paddingBottom: '8px', WebkitOverflowScrolling: 'touch' }}>
-        {categories.map(cat => (
-          <div 
-            key={cat.id} 
-            onClick={() => setActiveCategory(cat.id)}
-            style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', cursor: 'pointer', minWidth: '60px' }}
-          >
-            <div style={{ 
-              width: '56px', height: '56px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '24px',
-              background: activeCategory === cat.id ? 'var(--primary-light)' : 'var(--bg-card)',
-              border: `1px solid ${activeCategory === cat.id ? 'var(--primary)' : 'var(--border)'}`,
-              boxShadow: activeCategory === cat.id ? 'none' : '0 2px 8px rgba(0,0,0,0.05)',
+      {/* Quick Actions */}
+      <h3 style={{ fontSize: 18, fontWeight: 700, marginBottom: 12 }}>Quick Actions</h3>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12, marginBottom: 28 }}>
+        {quickActions.map((a, i) => (
+          <div key={i} onClick={() => navigate(a.path)} className="card" style={{ textAlign: 'center', padding: 16, cursor: 'pointer' }}>
+            <div style={{ width: 44, height: 44, borderRadius: 12, background: `${a.color}15`, color: a.color, display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 8px' }}>
+              {a.icon}
+            </div>
+            <div style={{ fontSize: 12, fontWeight: 600 }}>{a.label}</div>
+          </div>
+        ))}
+      </div>
+
+      {/* Pet Categories */}
+      <div className="flex-row justify-between items-center" style={{ marginBottom: 12 }}>
+        <h3 style={{ fontSize: 18, fontWeight: 700 }}>Explore Pets</h3>
+      </div>
+      <div style={{ display: 'flex', gap: 10, overflowX: 'auto', paddingBottom: 8, marginBottom: 16 }}>
+        {PET_TYPES.map(type => (
+          <div key={type} onClick={() => setActiveCategory(type)}
+            style={{
+              display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6, cursor: 'pointer', minWidth: 70,
+            }}>
+            <div style={{
+              width: 56, height: 56, borderRadius: '50%', overflow: 'hidden',
+              border: activeCategory === type ? '3px solid var(--primary)' : '2px solid var(--border)',
               transition: 'all 0.2s'
             }}>
-              {cat.icon}
+              <img src={petImages[type.toLowerCase()]} alt={type} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
-            <span style={{ fontSize: '12px', fontWeight: activeCategory === cat.id ? 600 : 500, color: activeCategory === cat.id ? 'var(--primary-dark)' : 'var(--text-main)' }}>
-              {cat.label}
+            <span style={{ fontSize: 11, fontWeight: activeCategory === type ? 700 : 500, color: activeCategory === type ? 'var(--primary-dark)' : 'var(--text-main)' }}>
+              {type}
             </span>
           </div>
         ))}
       </div>
 
-      {/* Pets Feed */}
-      <div style={{ marginTop: '24px' }}>
-        {filteredPets.length === 0 ? (
-          <p style={{ textAlign: 'center', color: 'var(--text-muted)', margin: '40px 0' }}>No pets found in this category.</p>
-        ) : (
-          filteredPets.map(pet => (
-            <div key={pet.id} className="card animate-fade-in" style={{ padding: '0', overflow: 'hidden', marginBottom: '20px' }} onClick={() => navigate(`/pet/${pet.id}`)}>
-              <img src={pet.img} alt={pet.name} style={{ width: '100%', height: '200px', objectFit: 'cover' }} />
-              <div style={{ padding: '16px', position: 'relative' }}>
-                <h3 style={{ fontSize: '16px', fontWeight: 700, marginBottom: '4px' }}>{pet.name}</h3>
-                <div className="flex-row items-center gap-2" style={{ color: 'var(--text-muted)', fontSize: '13px' }}>
-                  <MapPin size={14} /> {pet.distance}
-                </div>
-                
-                {/* Floating Action Button inside card */}
-                <button style={{
-                  position: 'absolute', right: '16px', top: '50%', transform: 'translateY(-50%)',
-                  width: '40px', height: '40px', borderRadius: '50%', background: 'var(--text-main)', color: 'white',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center'
-                }}>
-                  <ArrowUpRight size={20} />
-                </button>
+      {/* Featured Pet Card */}
+      {currentPet && (
+        <div className="card animate-fade-in" style={{ padding: 0, overflow: 'hidden', marginBottom: 20 }}>
+          <img src={currentPet.img} alt={currentPet.name} style={{ width: '100%', height: 220, objectFit: 'cover' }} />
+          <div style={{ padding: 20 }}>
+            <div className="flex-row justify-between items-center">
+              <div>
+                <h3 style={{ fontSize: 18, fontWeight: 700, marginBottom: 4 }}>{currentPet.name}</h3>
+                <p style={{ fontSize: 13, color: 'var(--text-muted)' }}>{currentPet.desc}</p>
               </div>
+              <button className="btn btn-primary btn-sm" onClick={() => navigate('/exercise')}>
+                Care Guide →
+              </button>
             </div>
-          ))
-        )}
-      </div>
+          </div>
+        </div>
+      )}
+
+      {/* Subscription Banner */}
+      {user?.subscription === 'free' && (
+        <div className="card" style={{ background: 'linear-gradient(135deg, rgba(34,197,94,0.1), rgba(74,222,128,0.05))', borderColor: 'var(--primary)', cursor: 'pointer', marginBottom: 20 }}
+          onClick={() => navigate('/subscriptions')}>
+          <div className="flex-row justify-between items-center">
+            <div>
+              <h4 style={{ fontFamily: 'var(--font-display)', marginBottom: 4 }}>🚀 Upgrade to Pro</h4>
+              <p style={{ fontSize: 13, color: 'var(--text-muted)' }}>Unlock unlimited AI scans & all features</p>
+            </div>
+            <span className="badge badge-success">$15/mo</span>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

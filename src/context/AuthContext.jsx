@@ -30,8 +30,8 @@ export function AuthProvider({ children }) {
     return data;
   };
 
-  const register = async (name, email, password) => {
-    const data = await api.register({ name, email, password });
+  const register = async (name, email, password, phone, country_code) => {
+    const data = await api.register({ name, email, password, phone, country_code });
     localStorage.setItem('pawcare_token', data.token);
     setToken(data.token);
     setUser(data.user);

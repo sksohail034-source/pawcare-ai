@@ -4,8 +4,21 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import LandingPage from './pages/LandingPage';
 import AuthPage from './pages/AuthPage';
 import DashboardPage from './pages/DashboardPage';
+import AIPage from './pages/AIPage';
+import ExercisePage from './pages/ExercisePage';
+import VaccinationsPage from './pages/VaccinationsPage';
+import PetsPage from './pages/PetsPage';
+import RoutinePage from './pages/RoutinePage';
+import SubscriptionsPage from './pages/SubscriptionsPage';
+import DonationsPage from './pages/DonationsPage';
 import PetDetailPage from './pages/PetDetailPage';
+import HealthChartsPage from './pages/HealthChartsPage';
+import MedicationsPage from './pages/MedicationsPage';
+import ProductsPage from './pages/ProductsPage';
+import EmergencyVetPage from './pages/EmergencyVetPage';
+import CareProtocolsPage from './pages/CareProtocolsPage';
 import BottomNav from './components/BottomNav';
+import Sidebar from './components/Sidebar';
 
 function ProtectedRoute({ children }) {
   const { user, loading } = useAuth();
@@ -23,15 +36,27 @@ function PublicRoute({ children }) {
 
 function AppLayout() {
   return (
-    <div className="app-layout" style={{ display: 'block', minHeight: '100vh', paddingBottom: '80px' }}>
-      <main className="main-content" style={{ marginLeft: 0, padding: 0 }}>
+    <div className="app-shell">
+      <Sidebar />
+      <div className="main-area">
         <Routes>
           <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/ai" element={<AIPage />} />
+          <Route path="/exercise" element={<ExercisePage />} />
+          <Route path="/vaccinations" element={<VaccinationsPage />} />
+          <Route path="/pets" element={<PetsPage />} />
           <Route path="/pet/:id" element={<PetDetailPage />} />
-          {/* We'll add the new routes here */}
+          <Route path="/routine" element={<RoutinePage />} />
+          <Route path="/subscriptions" element={<SubscriptionsPage />} />
+          <Route path="/donations" element={<DonationsPage />} />
+          <Route path="/health-charts" element={<HealthChartsPage />} />
+          <Route path="/medications" element={<MedicationsPage />} />
+          <Route path="/products" element={<ProductsPage />} />
+          <Route path="/emergency-vet" element={<EmergencyVetPage />} />
+          <Route path="/care-protocols" element={<CareProtocolsPage />} />
           <Route path="*" element={<Navigate to="/dashboard" />} />
         </Routes>
-      </main>
+      </div>
       <BottomNav />
     </div>
   );

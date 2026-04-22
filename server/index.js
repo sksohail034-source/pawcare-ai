@@ -12,6 +12,8 @@ import vaccinationRoutes from './routes/vaccinations.js';
 import subscriptionRoutes from './routes/subscriptions.js';
 import donationRoutes from './routes/donations.js';
 import productRoutes from './routes/products.js';
+import adsRoutes from './routes/ads.js';
+import exerciseRoutes from './routes/exercise.js';
 
 dotenv.config();
 
@@ -37,17 +39,18 @@ app.use('/api/vaccinations', vaccinationRoutes);
 app.use('/api/subscriptions', subscriptionRoutes);
 app.use('/api/donations', donationRoutes);
 app.use('/api/products', productRoutes);
+app.use('/api/ads', adsRoutes);
+app.use('/api/exercise', exerciseRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => {
-  res.json({ status: 'ok', version: '1.0.0', name: 'PawCare AI API' });
+  res.json({ status: 'ok', version: '2.0.0', name: 'PawCare AI API' });
 });
 
 // Serve frontend in production
 const distPath = join(__dirname, '..', 'dist');
 if (existsSync(distPath)) {
   app.use(express.static(distPath));
-  // SPA catch-all: send index.html for any non-API route
   app.get('{*path}', (req, res) => {
     if (!req.path.startsWith('/api')) {
       res.sendFile(join(distPath, 'index.html'));

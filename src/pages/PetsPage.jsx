@@ -118,12 +118,14 @@ export default function PetsPage() {
                   <label className="form-label">Type *</label>
                   <select className="form-input" value={form.type} onChange={e => setForm({ ...form, type: e.target.value })}>
                     <option value="dog">🐕 Dog</option>
-                    <option value="cat">🐈 Cat</option>
-                    <option value="bird">🦜 Bird</option>
-                    <option value="rabbit">🐇 Rabbit</option>
-                    <option value="fish">🐠 Fish</option>
+                    <option value="cat">🐱 Cat</option>
+                    <option value="bird">🐦 Bird</option>
+                    <option value="rabbit">🐰 Rabbit</option>
+                    <option value="fish">🐟 Fish</option>
                     <option value="hamster">🐹 Hamster</option>
-                    <option value="other">🐾 Other</option>
+                    <option value="goat">🐐 Goat</option>
+                    <option value="horse">🐴 Horse</option>
+                    <option value="cow">🐄 Cow</option>
                   </select>
                 </div>
                 <div className="form-group">

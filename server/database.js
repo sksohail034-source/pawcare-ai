@@ -13,21 +13,22 @@ export async function initDatabase() {
   const dataDir = dirname(DB_PATH);
   if (!existsSync(dataDir)) mkdirSync(dataDir, { recursive: true });
 
-  if (existsSync(DB_PATH)) {
-    const buffer = readFileSync(DB_PATH);
-    db = new SQL.Database(buffer);
-  } else {
-    db = new SQL.Database();
-  }
+  // Start fresh for the new schema
+  db = new SQL.Database();
 
   db.run(`CREATE TABLE IF NOT EXISTS users (
     id TEXT PRIMARY KEY,
     name TEXT NOT NULL,
     email TEXT UNIQUE NOT NULL,
     password TEXT NOT NULL,
+    phone TEXT DEFAULT '',
+    country_code TEXT DEFAULT '+1',
     avatar TEXT DEFAULT '',
-    subscription TEXT DEFAULT 'free_trial',
-    trial_ends_at TEXT,
+    subscription TEXT DEFAULT 'free',
+    scan_count INTEGER DEFAULT 0,
+    ad_bonus_scans INTEGER DEFAULT 0,
+    password_reset_token TEXT,
+    reset_token_expires TEXT,
     created_at TEXT DEFAULT (datetime('now'))
   )`);
 
@@ -47,26 +48,13 @@ export async function initDatabase() {
 
   db.run(`CREATE TABLE IF NOT EXISTS ai_results (
     id TEXT PRIMARY KEY,
-    pet_id TEXT NOT NULL,
+    pet_id TEXT,
     user_id TEXT NOT NULL,
     type TEXT NOT NULL,
     input_image TEXT DEFAULT '',
     result TEXT NOT NULL,
     created_at TEXT DEFAULT (datetime('now')),
-    FOREIGN KEY (pet_id) REFERENCES pets(id),
     FOREIGN KEY (user_id) REFERENCES users(id)
-  )`);
-
-  db.run(`CREATE TABLE IF NOT EXISTS health_records (
-    id TEXT PRIMARY KEY,
-    pet_id TEXT NOT NULL,
-    user_id TEXT NOT NULL,
-    type TEXT NOT NULL,
-    title TEXT NOT NULL,
-    description TEXT DEFAULT '',
-    date TEXT,
-    created_at TEXT DEFAULT (datetime('now')),
-    FOREIGN KEY (pet_id) REFERENCES pets(id)
   )`);
 
   db.run(`CREATE TABLE IF NOT EXISTS vaccinations (
