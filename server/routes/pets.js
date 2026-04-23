@@ -56,6 +56,19 @@ router.post('/', authenticateToken, (req, res) => {
     }
 
     const db = getDb();
+    
+    // Check pet limits
+    const userRes = db.exec(`SELECT subscription, role FROM users WHERE id = '${req.user.id}'`);
+    const sub = userRes[0]?.values[0][0] || 'free';
+    const role = userRes[0]?.values[0][1] || 'user';
+    const petCountRes = db.exec(`SELECT COUNT(*) FROM pets WHERE user_id = '${req.user.id}'`);
+    const currentPets = petCountRes[0]?.values[0][0] || 0;
+    
+    const maxPets = (sub === 'pro' || role === 'admin') ? -1 : sub === 'advance' ? 2 : 1;
+    if (maxPets !== -1 && currentPets >= maxPets) {
+      return res.status(403).json({ error: 'Pet limit reached for your current plan.' });
+    }
+
     const id = uuidv4();
 
     db.run(`INSERT INTO pets (id, user_id, name, type, breed, age, weight, photo, notes) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,

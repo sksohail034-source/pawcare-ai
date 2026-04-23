@@ -2,12 +2,15 @@ import { useState, useEffect } from 'react';
 import { api } from '../api';
 import { PET_TYPES, petImages, getPetEmoji } from '../utils';
 import toast from 'react-hot-toast';
+import AdModal from '../components/AdModal';
 
 export default function ExercisePage() {
   const [selectedType, setSelectedType] = useState('dog');
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('exercises');
+  const [showAd, setShowAd] = useState(false);
+  const [unlocked, setUnlocked] = useState(sessionStorage.getItem('exercise_features_unlocked') === 'true');
 
   useEffect(() => { loadData(selectedType); }, [selectedType]);
 
@@ -27,6 +30,24 @@ export default function ExercisePage() {
         <p>AI-powered exercise plans and care tips for your pets</p>
       </div>
 
+      {!unlocked && JSON.parse(localStorage.getItem('user') || '{}').subscription === 'free' && JSON.parse(localStorage.getItem('user') || '{}').role !== 'admin' ? (
+        <div className="card" style={{ textAlign: 'center', padding: '40px 20px' }}>
+          <div style={{ fontSize: 48, marginBottom: 16 }}>🔒</div>
+          <h3 style={{ fontFamily: 'var(--font-display)', marginBottom: 8 }}>Premium Feature</h3>
+          <p style={{ color: 'var(--text-muted)', marginBottom: 24 }}>Watch a short ad to unlock AI Exercise & Care plans for this session, or upgrade to Advance for ad-free access.</p>
+          <button className="btn btn-primary btn-lg" onClick={() => setShowAd(true)}>📺 Watch Ad to Unlock</button>
+          
+          {showAd && <AdModal 
+            title="Unlocking Exercise Plans" 
+            onClose={() => setShowAd(false)} 
+            onReward={() => {
+              sessionStorage.setItem('exercise_features_unlocked', 'true');
+              setUnlocked(true);
+            }} 
+          />}
+        </div>
+      ) : (
+      <>
       {/* Pet Type Selector */}
       <div className="pet-type-grid">
         {PET_TYPES.map(type => (
@@ -107,6 +128,8 @@ export default function ExercisePage() {
             </div>
           )}
         </>
+      )}
+      </>
       )}
     </div>
   );

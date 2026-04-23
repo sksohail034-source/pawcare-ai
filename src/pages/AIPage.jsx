@@ -73,7 +73,8 @@ export default function AIPage() {
     reader.readAsDataURL(file);
   }
 
-  const canScan = scanInfo && (scanInfo.scansRemaining === -1 || scanInfo.scansRemaining > 0);
+  const isAdmin = JSON.parse(localStorage.getItem('user') || '{}').role === 'admin';
+  const canScan = isAdmin || (scanInfo && (scanInfo.scansRemaining === -1 || scanInfo.scansRemaining > 0));
 
   async function runAnalysis() {
     if (!selectedPet) { toast.error('Select a pet first'); return; }
@@ -142,10 +143,10 @@ export default function AIPage() {
       <div className="page-header"><h2>AI Analysis 🤖</h2><p>Get AI-powered analysis, styling & health insights</p></div>
 
       {/* Scan Counter */}
-      {scanInfo && (
+      {(scanInfo || isAdmin) && (
         <div className={`alert-banner ${canScan ? 'success' : 'warning'}`} style={{ marginBottom: 16 }}>
-          {scanInfo.scansRemaining === -1 ? '✨ Unlimited scans (Premium)' :
-            `🔍 ${scanInfo.scansRemaining} scan${scanInfo.scansRemaining !== 1 ? 's' : ''} remaining`}
+          {isAdmin ? '👑 Unlimited scans (Admin)' : scanInfo?.scansRemaining === -1 ? '✨ Unlimited scans (Premium)' :
+            `🔍 ${scanInfo?.scansRemaining} scan${scanInfo?.scansRemaining !== 1 ? 's' : ''} remaining`}
           {!canScan && (
             <button className="btn btn-sm btn-primary" style={{ marginLeft: 'auto' }} onClick={() => setShowAd(true)}>
               📺 Watch Ad (+1)

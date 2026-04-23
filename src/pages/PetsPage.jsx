@@ -65,7 +65,20 @@ export default function PetsPage() {
           <h2>My Pets 🐾</h2>
           <p>Manage your pet profiles</p>
         </div>
-        <button className="btn btn-primary" onClick={openAdd}>➕ Add Pet</button>
+        <button 
+          className="btn btn-primary" 
+          onClick={() => {
+            const { subscription, role } = JSON.parse(localStorage.getItem('user') || '{}');
+            const maxPets = (subscription === 'pro' || role === 'admin') ? -1 : subscription === 'advance' ? 2 : 1;
+            if (maxPets !== -1 && pets.length >= maxPets) {
+              toast.error('Pet limit reached! Upgrade your plan to add more pets.');
+              return;
+            }
+            openAdd();
+          }}
+        >
+          ➕ Add Pet
+        </button>
       </div>
 
       {pets.length === 0 ? (

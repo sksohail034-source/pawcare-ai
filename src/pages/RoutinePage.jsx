@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Bell, Clock, Sun, Moon, Sunset, CheckCircle, XCircle, Plus, Trash2 } from 'lucide-react';
 import toast from 'react-hot-toast';
+import AdModal from '../components/AdModal';
 
 const defaultRoutines = [
   { id: 'morning-feed', title: 'Morning Feeding', time: '07:00', type: 'morning', enabled: true, icon: '🌅', message: '🐾 Time to feed your pet!' },
@@ -18,6 +19,8 @@ export default function RoutinePage() {
   const [notificationsEnabled, setNotificationsEnabled] = useState(false);
   const [showAddModal, setShowAddModal] = useState(false);
   const [newRoutine, setNewRoutine] = useState({ title: '', time: '08:00', type: 'morning', icon: '🔔', message: '' });
+  const [showAd, setShowAd] = useState(false);
+  const [unlocked, setUnlocked] = useState(sessionStorage.getItem('basic_features_unlocked') === 'true');
 
   useEffect(() => { loadRoutines(); checkNotificationPermission(); }, []);
 
@@ -80,6 +83,24 @@ export default function RoutinePage() {
         <p>Personalized schedule with alarm reminders</p>
       </div>
 
+      {!unlocked && JSON.parse(localStorage.getItem('user') || '{}').subscription === 'free' && JSON.parse(localStorage.getItem('user') || '{}').role !== 'admin' ? (
+        <div className="card" style={{ textAlign: 'center', padding: '40px 20px' }}>
+          <div style={{ fontSize: 48, marginBottom: 16 }}>🔒</div>
+          <h3 style={{ fontFamily: 'var(--font-display)', marginBottom: 8 }}>Premium Feature</h3>
+          <p style={{ color: 'var(--text-muted)', marginBottom: 24 }}>Watch a short ad to unlock Smart Routines for this session, or upgrade to Advance for ad-free access.</p>
+          <button className="btn btn-primary btn-lg" onClick={() => setShowAd(true)}>📺 Watch Ad to Unlock</button>
+          
+          {showAd && <AdModal 
+            title="Unlocking Routines" 
+            onClose={() => setShowAd(false)} 
+            onReward={() => {
+              sessionStorage.setItem('basic_features_unlocked', 'true');
+              setUnlocked(true);
+            }} 
+          />}
+        </div>
+      ) : (
+      <>
       {/* Notifications */}
       <div className="card" style={{ marginBottom: 24 }}>
         <div className="flex-row justify-between items-center">
@@ -170,6 +191,8 @@ export default function RoutinePage() {
             </div>
           </div>
         </div>
+      )}
+      </>
       )}
     </div>
   );

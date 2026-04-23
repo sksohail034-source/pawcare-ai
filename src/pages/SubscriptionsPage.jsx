@@ -65,8 +65,15 @@ export default function SubscriptionsPage() {
   const [upgrading, setUpgrading] = useState(null);
   const [showAd, setShowAd] = useState(false);
   const [subStatus, setSubStatus] = useState(null);
+  const [billingCycle, setBillingCycle] = useState('monthly');
+  const [currency, setCurrency] = useState('USD');
 
   useEffect(() => {
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+    if (tz.includes('Calcutta') || tz.includes('Kolkata')) {
+      setCurrency('INR');
+    }
+
     Promise.all([
       api.getPlans().then(d => setPlans(d.plans || [])),
       api.getSubscriptionStatus().then(d => setSubStatus(d)).catch(() => {})
@@ -117,16 +124,34 @@ export default function SubscriptionsPage() {
         </div>
       </div>
 
+      {/* Billing Toggle */}
+      <div className="flex-row justify-center" style={{ marginBottom: 32 }}>
+        <div style={{ background: 'var(--bg-input)', padding: 4, borderRadius: 24, display: 'inline-flex', gap: 4 }}>
+          <button 
+            className={`btn btn-sm ${billingCycle === 'monthly' ? 'btn-primary' : 'btn-ghost'}`}
+            style={{ borderRadius: 20 }}
+            onClick={() => setBillingCycle('monthly')}
+          >Monthly</button>
+          <button 
+            className={`btn btn-sm ${billingCycle === 'yearly' ? 'btn-primary' : 'btn-ghost'}`}
+            style={{ borderRadius: 20 }}
+            onClick={() => setBillingCycle('yearly')}
+          >Yearly (Save ~25%)</button>
+        </div>
+      </div>
+
       {/* Plans Grid */}
       <div className="pricing-grid">
         {plans.map((plan, i) => {
           const isCurrent = user?.subscription === plan.id;
+          const displayPrice = plan.price[currency][billingCycle];
           return (
             <div className={`pricing-card ${plan.popular ? 'popular' : ''}`} key={i}>
               <div className="pricing-name">{plan.name}</div>
               <div className="pricing-price">
-                <span className="currency">$</span>{plan.price}
-                <span className="period"> {plan.duration}</span>
+                <span className="currency">{currency === 'INR' ? '₹' : '$'}</span>
+                {displayPrice}
+                <span className="period"> /{billingCycle === 'yearly' ? 'yr' : 'mo'}</span>
               </div>
               <ul className="pricing-features">
                 {plan.features.map((f, j) => <li key={j}>{f}</li>)}
@@ -136,7 +161,7 @@ export default function SubscriptionsPage() {
               ) : (
                 <button className={`btn btn-full ${plan.popular ? 'btn-primary' : 'btn-secondary'}`}
                   onClick={() => handleUpgrade(plan.id)} disabled={upgrading === plan.id}>
-                  {upgrading === plan.id ? 'Processing...' : plan.price === 0 ? 'Downgrade' : `Upgrade to ${plan.name}`}
+                  {upgrading === plan.id ? 'Processing...' : displayPrice === 0 ? 'Downgrade' : `Upgrade to ${plan.name}`}
                 </button>
               )}
             </div>

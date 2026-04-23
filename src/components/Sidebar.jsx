@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import { Home, Sparkles, Dumbbell, Syringe, Clock, CreditCard, PawPrint, Heart, LogOut, BarChart3, Pill, ShoppingBag, AlertCircle, Leaf, Shield } from 'lucide-react';
+import { Home, Sparkles, Dumbbell, Syringe, Clock, CreditCard, PawPrint, Heart, LogOut, BarChart3, Pill, ShoppingBag, AlertCircle, Leaf, Shield, Bot } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
 export default function Sidebar() {
@@ -16,6 +16,7 @@ export default function Sidebar() {
     { path: '/products', icon: <ShoppingBag size={18} />, label: 'Products' },
     { path: '/emergency-vet', icon: <AlertCircle size={18} />, label: 'Emergency Vet' },
     { path: '/care-protocols', icon: <Leaf size={18} />, label: 'Care Protocols' },
+    { path: '/support-bot', icon: <Bot size={18} style={{ color: 'var(--primary)' }} />, label: 'Pro Support Bot' },
     { path: '/subscriptions', icon: <CreditCard size={18} />, label: 'Subscription' },
     { path: '/donations', icon: <Heart size={18} />, label: 'Donations' },
   ];

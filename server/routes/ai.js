@@ -63,10 +63,44 @@ const healthTips = {
   ]
 };
 
+// Check if user can scan
+function checkScanLimit(db, userId) {
+  const userRes = db.exec(`SELECT subscription, scan_count, ad_bonus_scans, role FROM users WHERE id = '${userId}'`);
+  if (!userRes[0]) return { allowed: false };
+  const sub = userRes[0].values[0][0];
+  const scanCount = userRes[0].values[0][1] || 0;
+  const adBonusScans = userRes[0].values[0][2] || 0;
+  const role = userRes[0].values[0][3] || 'user';
+  
+  if (sub === 'pro' || sub === 'advance' || role === 'admin') return { allowed: true };
+  if (scanCount < 3 + adBonusScans) return { allowed: true, scanCount, adBonusScans };
+  return { allowed: false };
+}
+
+// Increment scan count
+function incrementScan(db, userId, scanCount) {
+  db.run(`UPDATE users SET scan_count = ? WHERE id = ?`, [(scanCount || 0) + 1, userId]);
+  saveDatabase();
+}
+
+router.post('/analyze/:petId', authenticateToken, (req, res) => {
+  try {
+    const db = getDb();
+    const limitCheck = checkScanLimit(db, req.user.id);
+    if (!limitCheck.allowed) return res.status(403).json({ error: 'No scans remaining. Watch an ad to continue.' });
+    
+    incrementScan(db, req.user.id, limitCheck.scanCount);
+    res.json({ success: true });
+  } catch (err) { res.status(500).json({ error: 'Failed to update scan count' }); }
+});
+
 // Get grooming/style suggestions for a pet
 router.post('/style/:petId', authenticateToken, (req, res) => {
   try {
     const db = getDb();
+    const limitCheck = checkScanLimit(db, req.user.id);
+    if (!limitCheck.allowed) return res.status(403).json({ error: 'No scans remaining. Watch an ad to continue.' });
+
     const result = db.exec(`SELECT * FROM pets WHERE id = '${req.params.petId}' AND user_id = '${req.user.id}'`);
 
     if (result.length === 0 || result[0].values.length === 0) {
@@ -111,6 +145,9 @@ router.post('/style/:petId', authenticateToken, (req, res) => {
 router.post('/health/:petId', authenticateToken, (req, res) => {
   try {
     const db = getDb();
+    const limitCheck = checkScanLimit(db, req.user.id);
+    if (!limitCheck.allowed) return res.status(403).json({ error: 'No scans remaining. Watch an ad to continue.' });
+
     const result = db.exec(`SELECT * FROM pets WHERE id = '${req.params.petId}' AND user_id = '${req.user.id}'`);
 
     if (result.length === 0 || result[0].values.length === 0) {
