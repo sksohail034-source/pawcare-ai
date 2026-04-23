@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import { Home, Sparkles, Dumbbell, Syringe, Clock, CreditCard, PawPrint, Heart, LogOut, BarChart3, Pill, ShoppingBag, AlertCircle, Leaf, Shield, Bot } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import NotificationBell from './NotificationBell';
 
 export default function Sidebar() {
   const { user, logout } = useAuth();
@@ -23,7 +24,10 @@ export default function Sidebar() {
 
   return (
     <aside className="sidebar">
-      <div className="sidebar-logo">🐾 PawCare AI</div>
+      <div className="sidebar-logo" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <span>🐾 PawCare AI</span>
+        <NotificationBell />
+      </div>
       <nav className="sidebar-nav">
         {navItems.map(item => (
           <NavLink key={item.path} to={item.path}

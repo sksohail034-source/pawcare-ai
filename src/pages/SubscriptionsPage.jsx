@@ -58,6 +58,103 @@ function AdRewardModal({ onClose, onReward }) {
   );
 }
 
+function CheckoutModal({ plan, cycle, currency, onClose, onSuccess }) {
+  const [step, setStep] = useState('form'); // form -> processing -> success
+  const displayPrice = plan.price[currency][cycle];
+  const symbol = currency === 'INR' ? '₹' : '$';
+  const perMonth = cycle === 'yearly' ? Math.round(displayPrice / 12) : displayPrice;
+
+  async function handlePay(e) {
+    e.preventDefault();
+    setStep('processing');
+    // Simulate Stripe processing delay
+    await new Promise(r => setTimeout(r, 2500));
+    try {
+      const data = await api.upgradePlan(plan.id);
+      setStep('success');
+    } catch (err) {
+      toast.error(err.message);
+      onClose();
+    }
+  }
+
+  if (step === 'success') {
+    return (
+      <div className="modal-overlay" onClick={onClose}>
+        <div className="modal" onClick={e => e.stopPropagation()} style={{ maxWidth: 420, textAlign: 'center' }}>
+          <div style={{ fontSize: 64, marginBottom: 12 }}>✅</div>
+          <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 22, marginBottom: 8 }}>Payment Successful!</h3>
+          <p style={{ color: 'var(--text-muted)', marginBottom: 8 }}>You have been upgraded to <strong>{plan.name}</strong></p>
+          <p style={{ fontSize: 13, color: 'var(--text-light)', marginBottom: 24 }}>Enjoy all your premium features 🎉</p>
+          <button className="btn btn-primary btn-full" onClick={() => { onSuccess(plan.id); onClose(); }}>Continue</button>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="modal-overlay" onClick={step === 'form' ? onClose : undefined}>
+      <div className="modal" onClick={e => e.stopPropagation()} style={{ maxWidth: 440 }}>
+        {step === 'processing' ? (
+          <div style={{ textAlign: 'center', padding: '40px 0' }}>
+            <div className="spinner" style={{ margin: '0 auto 20px' }}></div>
+            <h3 style={{ fontFamily: 'var(--font-display)', marginBottom: 8 }}>Processing Payment...</h3>
+            <p style={{ color: 'var(--text-muted)', fontSize: 14 }}>Please wait while we confirm your payment</p>
+          </div>
+        ) : (
+          <>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20 }}>
+              <div style={{ fontSize: 28 }}>💳</div>
+              <div>
+                <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 18, margin: 0 }}>Checkout</h3>
+                <p style={{ color: 'var(--text-muted)', fontSize: 13, margin: 0 }}>Secure payment powered by Stripe</p>
+              </div>
+            </div>
+
+            {/* Order Summary */}
+            <div style={{ background: 'var(--bg-input)', borderRadius: 12, padding: 16, marginBottom: 20 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
+                <span style={{ fontWeight: 600 }}>{plan.name}</span>
+                <span style={{ fontWeight: 700, color: 'var(--primary-dark)' }}>{symbol}{displayPrice}/{cycle === 'yearly' ? 'yr' : 'mo'}</span>
+              </div>
+              {cycle === 'yearly' && (
+                <div style={{ fontSize: 12, color: 'var(--primary)', background: 'rgba(16,185,129,0.1)', padding: '4px 8px', borderRadius: 8, display: 'inline-block' }}>
+                  💰 Only {symbol}{perMonth}/mo — Save ~25%
+                </div>
+              )}
+            </div>
+
+            {/* Card Form */}
+            <form onSubmit={handlePay}>
+              <div style={{ marginBottom: 14 }}>
+                <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 6 }}>Card Number</label>
+                <input className="input" defaultValue="4242 4242 4242 4242" style={{ fontFamily: 'monospace', letterSpacing: 2 }} readOnly />
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 14 }}>
+                <div>
+                  <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 6 }}>Expiry</label>
+                  <input className="input" defaultValue="12/28" readOnly />
+                </div>
+                <div>
+                  <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 6 }}>CVC</label>
+                  <input className="input" defaultValue="123" readOnly />
+                </div>
+              </div>
+              <p style={{ fontSize: 11, color: 'var(--text-light)', marginBottom: 16, textAlign: 'center' }}>
+                🔒 Test mode — no real charges. Connect Stripe for live payments.
+              </p>
+              <button type="submit" className="btn btn-primary btn-full" style={{ fontSize: 16, padding: '14px 0' }}>
+                Pay {symbol}{displayPrice}
+              </button>
+            </form>
+            <button className="btn btn-ghost btn-full" style={{ marginTop: 8 }} onClick={onClose}>Cancel</button>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
 export default function SubscriptionsPage() {
   const { user, updateUser } = useAuth();
   const [plans, setPlans] = useState([]);
@@ -67,6 +164,7 @@ export default function SubscriptionsPage() {
   const [subStatus, setSubStatus] = useState(null);
   const [billingCycle, setBillingCycle] = useState('monthly');
   const [currency, setCurrency] = useState('USD');
+  const [checkoutPlan, setCheckoutPlan] = useState(null);
 
   useEffect(() => {
     const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
@@ -80,7 +178,17 @@ export default function SubscriptionsPage() {
     ]).finally(() => setLoading(false));
   }, []);
 
-  async function handleUpgrade(planId) {
+  function handleUpgradeClick(plan) {
+    if (plan.id === 'free') {
+      // Direct downgrade, no checkout needed
+      handleDirectUpgrade('free');
+    } else {
+      // Show checkout modal for paid plans
+      setCheckoutPlan(plan);
+    }
+  }
+
+  async function handleDirectUpgrade(planId) {
     setUpgrading(planId);
     try {
       const data = await api.upgradePlan(planId);
@@ -88,6 +196,12 @@ export default function SubscriptionsPage() {
       toast.success(data.message);
     } catch (err) { toast.error(err.message); }
     finally { setUpgrading(null); }
+  }
+
+  function handleCheckoutSuccess(planId) {
+    updateUser({ subscription: planId });
+    toast.success(`Successfully upgraded to ${planId}!`);
+    api.getSubscriptionStatus().then(d => setSubStatus(d)).catch(() => {});
   }
 
   if (loading) return <div className="loading-container"><div className="spinner"></div><p>Loading plans...</p></div>;
@@ -160,7 +274,7 @@ export default function SubscriptionsPage() {
                 <button className="btn btn-success btn-full" disabled>✓ Current Plan</button>
               ) : (
                 <button className={`btn btn-full ${plan.popular ? 'btn-primary' : 'btn-secondary'}`}
-                  onClick={() => handleUpgrade(plan.id)} disabled={upgrading === plan.id}>
+                  onClick={() => handleUpgradeClick(plan)} disabled={upgrading === plan.id}>
                   {upgrading === plan.id ? 'Processing...' : displayPrice === 0 ? 'Downgrade' : `Upgrade to ${plan.name}`}
                 </button>
               )}
@@ -172,6 +286,16 @@ export default function SubscriptionsPage() {
       {showAd && <AdRewardModal onClose={() => setShowAd(false)} onReward={() => {
         api.getSubscriptionStatus().then(d => setSubStatus(d)).catch(() => {});
       }} />}
+
+      {checkoutPlan && (
+        <CheckoutModal
+          plan={checkoutPlan}
+          cycle={billingCycle}
+          currency={currency}
+          onClose={() => setCheckoutPlan(null)}
+          onSuccess={handleCheckoutSuccess}
+        />
+      )}
     </div>
   );
 }

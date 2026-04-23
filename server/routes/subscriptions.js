@@ -1,8 +1,11 @@
 import { Router } from 'express';
+import Stripe from 'stripe';
 import { getDb, saveDatabase } from '../database.js';
 import { authenticateToken } from '../middleware/auth.js';
 
 const router = Router();
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || 'sk_test_dummy');
+
 
 const plans = [
   {
@@ -52,6 +55,22 @@ router.post('/upgrade', authenticateToken, (req, res) => {
     saveDatabase();
     res.json({ message: `Successfully upgraded to ${plan.name}!`, subscription: planId, plan });
   } catch (err) { res.status(500).json({ error: 'Upgrade failed' }); }
+});
+
+router.post('/create-checkout-session', authenticateToken, async (req, res) => {
+  try {
+    const { planId, cycle, currency } = req.body;
+    const plan = plans.find(p => p.id === planId);
+    if (!plan) return res.status(400).json({ error: 'Invalid plan' });
+
+    // Dummy checkout session creation for testing
+    // In production, this uses stripe.checkout.sessions.create()
+    const sessionUrl = `https://checkout.stripe.com/pay/cs_test_dummy?plan=${planId}&cycle=${cycle}`;
+    
+    res.json({ url: sessionUrl });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to create checkout session' });
+  }
 });
 
 export default router;

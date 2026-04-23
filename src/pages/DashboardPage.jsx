@@ -3,29 +3,44 @@ import { useNavigate } from 'react-router-dom';
 import { Bell, Search, MapPin, Sparkles, Syringe, Dumbbell, Clock } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { PET_TYPES, petImages, getPetEmoji } from '../utils';
+import { api } from '../api';
+import WelcomeModal from '../components/WelcomeModal';
 
 export default function DashboardPage() {
   const { user } = useAuth();
   const navigate = useNavigate();
   const [location, setLocation] = useState('Detecting...');
   const [activeCategory, setActiveCategory] = useState('Dog');
+  const [showWelcome, setShowWelcome] = useState(false);
 
   useEffect(() => {
-    if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition(
-        async (pos) => {
-          try {
-            const res = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${pos.coords.latitude}&lon=${pos.coords.longitude}&format=json`);
-            const data = await res.json();
-            const city = data.address?.city || data.address?.town || data.address?.state || '';
-            const country = data.address?.country || '';
-            setLocation(`${city}${city && country ? ', ' : ''}${country}` || 'Location Found');
-          } catch { setLocation('Location Available'); }
-        },
-        () => setLocation('Location Unavailable'),
-        { timeout: 5000 }
-      );
-    } else { setLocation('Not Supported'); }
+    const init = async () => {
+      if ('geolocation' in navigator) {
+        navigator.geolocation.getCurrentPosition(
+          async (pos) => {
+            try {
+              const res = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${pos.coords.latitude}&lon=${pos.coords.longitude}&format=json`);
+              const data = await res.json();
+              const city = data.address?.city || data.address?.town || data.address?.state || '';
+              const country = data.address?.country || '';
+              setLocation(`${city}${city && country ? ', ' : ''}${country}` || 'Location Found');
+            } catch { setLocation('Location Available'); }
+          },
+          () => setLocation('Location Unavailable'),
+          { timeout: 5000 }
+        );
+      } else { setLocation('Not Supported'); }
+
+      try {
+        const pets = await api.getPets();
+        if (pets.length === 0 && !localStorage.getItem('has_seen_welcome')) {
+          setShowWelcome(true);
+        }
+      } catch (err) {
+        console.error('Failed to fetch pets', err);
+      }
+    };
+    init();
   }, []);
 
   const quickActions = [
@@ -51,6 +66,13 @@ export default function DashboardPage() {
 
   return (
     <div className="page-container">
+      {showWelcome && (
+        <WelcomeModal onClose={() => {
+          setShowWelcome(false);
+          localStorage.setItem('has_seen_welcome', 'true');
+        }} />
+      )}
+
       {/* Header */}
       <div className="flex-row justify-between items-center" style={{ marginBottom: 24 }}>
         <div className="flex-row gap-3">

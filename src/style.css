@@ -126,6 +126,19 @@
 .confidence-fill{height:100%;background:linear-gradient(90deg,var(--primary),var(--primary-light));border-radius:3px;transition:width 1s ease}
 .ai-tags{display:flex;gap:6px;flex-wrap:wrap}
 .ai-tag{padding:4px 10px;background:var(--bg-app);border-radius:var(--radius-full);font-size:11px;color:var(--primary-dark);font-weight:500}
+
+.typing-dot {
+  width: 6px;
+  height: 6px;
+  background-color: var(--text-muted);
+  border-radius: 50%;
+  animation: typing 1.4s infinite ease-in-out both;
+}
+
+@keyframes typing {
+  0%, 80%, 100% { transform: scale(0); }
+  40% { transform: scale(1); }
+}
 /* exercise */
 .exercise-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
 .exercise-card{background:var(--bg-card);border-radius:var(--radius-md);overflow:hidden;border:1px solid var(--border);transition:var(--transition)}

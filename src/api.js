@@ -27,6 +27,10 @@ export const api = {
 
   // Pets
   getPets: () => request('/pets'),
+  getScanInfo: () => request('/ai/info'),
+  analyzeImage: (formData) => request('/ai/analyze', { method: 'POST', body: formData, headers: {} }),
+  getChatHistory: () => request('/ai/chat-history'),
+  sendChatMessage: (text) => request('/ai/chat', { method: 'POST', body: JSON.stringify({ text, sender: 'user' }) }),
   getPet: (id) => request(`/pets/${id}`),
   createPet: (body) => request('/pets', { method: 'POST', body: JSON.stringify(body) }),
   updatePet: (id, body) => request(`/pets/${id}`, { method: 'PUT', body: JSON.stringify(body) }),
@@ -53,6 +57,10 @@ export const api = {
   // Ads
   startAd: () => request('/ads/start', { method: 'POST' }),
   completeAd: (adId) => request('/ads/complete', { method: 'POST', body: JSON.stringify({ adId }) }),
+
+  // Notifications
+  getNotifications: () => request('/notifications'),
+  markNotificationRead: (id) => request(`/notifications/${id}/read`, { method: 'PUT' }),
 
   // Exercise
   getExercisePlan: (petType) => request(`/exercise/${petType}`),
