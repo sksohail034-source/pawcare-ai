@@ -5,6 +5,7 @@ import { useAuth } from '../context/AuthContext';
 import { PET_TYPES, petImages, getPetEmoji } from '../utils';
 import { api } from '../api';
 import WelcomeModal from '../components/WelcomeModal';
+import ProfileDrawer from '../components/ProfileDrawer';
 
 export default function DashboardPage() {
   const { user } = useAuth();
@@ -12,6 +13,7 @@ export default function DashboardPage() {
   const [location, setLocation] = useState('Detecting...');
   const [activeCategory, setActiveCategory] = useState('Dog');
   const [showWelcome, setShowWelcome] = useState(false);
+  const [showProfile, setShowProfile] = useState(false);
 
   useEffect(() => {
     const init = async () => {
@@ -73,9 +75,12 @@ export default function DashboardPage() {
         }} />
       )}
 
+      {/* Profile Drawer */}
+      <ProfileDrawer isOpen={showProfile} onClose={() => setShowProfile(false)} />
+
       {/* Header */}
       <div className="flex-row justify-between items-center" style={{ marginBottom: 24 }}>
-        <div className="flex-row gap-3">
+        <div className="flex-row gap-3" onClick={() => setShowProfile(true)} style={{ cursor: 'pointer' }}>
           <div style={{ width: 44, height: 44, borderRadius: '50%', background: 'linear-gradient(135deg, var(--primary), var(--primary-light))', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', fontSize: 18 }}>
             {user?.name?.charAt(0) || 'U'}
           </div>
