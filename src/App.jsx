@@ -19,6 +19,7 @@ import EmergencyVetPage from './pages/EmergencyVetPage';
 import CareProtocolsPage from './pages/CareProtocolsPage';
 import AdminPage from './pages/AdminPage';
 import SupportBotPage from './pages/SupportBotPage';
+import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
 import BottomNav from './components/BottomNav';
 import Sidebar from './components/Sidebar';
 
@@ -85,6 +86,7 @@ export default function App() {
           <Route path="/" element={<PublicRoute><LandingPage /></PublicRoute>} />
           <Route path="/login" element={<PublicRoute><AuthPage mode="login" /></PublicRoute>} />
           <Route path="/register" element={<PublicRoute><AuthPage mode="register" /></PublicRoute>} />
+          <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
           <Route path="/*" element={<ProtectedRoute><AppLayout /></ProtectedRoute>} />
         </Routes>
       </AuthProvider>

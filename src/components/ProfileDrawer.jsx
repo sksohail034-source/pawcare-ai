@@ -150,6 +150,15 @@ export default function ProfileDrawer({ isOpen, onClose }) {
 
         {/* Logout */}
         <div className="profile-drawer-footer">
+          <NavLink
+            to="/privacy-policy"
+            className="profile-drawer-item"
+            onClick={handleNavigate}
+            style={{ padding: '8px 16px', fontSize: 13, color: 'var(--text-light)' }}
+          >
+            <Shield size={16} />
+            <span>Privacy Policy</span>
+          </NavLink>
           <button className="profile-drawer-logout" onClick={handleLogout}>
             <LogOut size={20} />
             <span>Sign Out</span>
