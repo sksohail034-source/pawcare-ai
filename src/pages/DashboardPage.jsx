@@ -106,7 +106,7 @@ export default function DashboardPage() {
 
       {/* Quick Actions */}
       <h3 style={{ fontSize: 18, fontWeight: 700, marginBottom: 12 }}>Quick Actions</h3>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12, marginBottom: 28 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 12, marginBottom: 28 }}>
         {quickActions.map((a, i) => (
           <div key={i} onClick={() => navigate(a.path)} className="card" style={{ textAlign: 'center', padding: 16, cursor: 'pointer' }}>
             <div style={{ width: 44, height: 44, borderRadius: 12, background: `${a.color}15`, color: a.color, display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 8px' }}>
@@ -121,7 +121,7 @@ export default function DashboardPage() {
       <div className="flex-row justify-between items-center" style={{ marginBottom: 12 }}>
         <h3 style={{ fontSize: 18, fontWeight: 700 }}>Explore Pets</h3>
       </div>
-      <div style={{ display: 'flex', gap: 10, overflowX: 'auto', paddingBottom: 8, marginBottom: 16 }}>
+      <div style={{ display: 'flex', gap: 10, overflowX: 'auto', paddingBottom: 8, marginBottom: 16, maxWidth: '100%', WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
         {PET_TYPES.map(type => (
           <div key={type} onClick={() => setActiveCategory(type)}
             style={{
