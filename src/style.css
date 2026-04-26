@@ -76,6 +76,11 @@
 .animate-in{animation:slideInRight 0.4s ease forwards;opacity:0}
 .card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
 @media(max-width:600px){.card-grid{grid-template-columns:1fr}}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+@media(max-width:768px){.grid-2{grid-template-columns:1fr}}
+.text-primary{color:var(--primary)}
+.text-accent{color:var(--accent)}
+.text-muted{color:var(--text-muted)}
 .flex-row{display:flex;align-items:center}.flex-col{display:flex;flex-direction:column}
 .justify-between{justify-content:space-between}.justify-center{justify-content:center}
 .items-center{align-items:center}.gap-2{gap:8px}.gap-3{gap:12px}.gap-4{gap:16px}
