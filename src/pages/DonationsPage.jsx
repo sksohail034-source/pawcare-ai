@@ -79,7 +79,7 @@ export default function DonationsPage() {
             fontStyle: 'italic',
             fontWeight: 500
           }}>
-            "Aaj aapka 1 dollar bhi kisi bejubaan ki zindagi bacha sakta hai." ❤️
+            "Even a small contribution of yours can save an innocent life today." ❤️
           </div>
 
           <div>
