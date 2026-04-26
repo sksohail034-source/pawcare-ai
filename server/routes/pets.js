@@ -64,7 +64,7 @@ router.post('/', authenticateToken, (req, res) => {
     const petCountRes = db.exec(`SELECT COUNT(*) FROM pets WHERE user_id = '${req.user.id}'`);
     const currentPets = petCountRes[0]?.values[0][0] || 0;
     
-    const maxPets = (sub === 'pro' || role === 'admin') ? -1 : sub === 'advance' ? 2 : 1;
+    const maxPets = (sub === 'pro' || sub === 'enterprise' || role === 'admin') ? -1 : sub === 'basic' ? 2 : 1;
     if (maxPets !== -1 && currentPets >= maxPets) {
       return res.status(403).json({ error: 'Pet limit reached for your current plan.' });
     }

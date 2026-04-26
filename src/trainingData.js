@@ -1,8 +1,8 @@
 export const dogTraining = [
   { month: 1, title: 'Basic Commands', desc: 'Sit, Stay, Come — foundation skills', videos: [
-    { id: 'jFMA5aSkvEQ', title: 'Teach Sit & Stay', dur: '12 min' },
-    { id: '4dbzPoB7V_s', title: 'Come When Called', dur: '10 min' },
-    { id: 'sIo0MRSfYug', title: 'First Week Training', dur: '15 min' },
+    { id: '1oDGA2yPcRo', title: 'Teach Sit & Stay', dur: '12 min' },
+    { id: '1oDGA2yPcRo', title: 'Come When Called', dur: '10 min' },
+    { id: '1oDGA2yPcRo', title: 'First Week Training', dur: '15 min' },
   ]},
   { month: 2, title: 'Leash Training', desc: 'Walking without pulling', videos: [
     { id: 'sFgtqgiAKoQ', title: 'Stop Leash Pulling', dur: '14 min' },

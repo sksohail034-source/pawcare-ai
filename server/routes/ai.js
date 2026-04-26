@@ -238,7 +238,7 @@ router.post('/chat', authenticateToken, async (req, res) => {
     db.run(`INSERT INTO chat_history (id, user_id, sender, text) VALUES (?, ?, 'user', ?)`, [userMsgId, req.user.id, text]);
     
     // Generate simulated AI response
-    let botReply = "I'm your AI assistant. I can help with general pet care questions. Could you provide more details?";
+    let botReply = "I am the PawCare Support Bot. I can assist you with diet, training, health issues, and general care for your pets. How can I help?";
     const ltext = text.toLowerCase();
     
     if (ltext.includes('food') || ltext.includes('eat') || ltext.includes('diet')) {
@@ -249,6 +249,10 @@ router.post('/chat', authenticateToken, async (req, res) => {
       botReply = "Behavioral issues can often be addressed with positive reinforcement training. Check out our 'Training Videos' section for step-by-step guides on common behavioral corrections.";
     } else if (ltext.includes('hi') || ltext.includes('hello') || ltext.includes('hey')) {
       botReply = "Hello there! How can I help you and your furry friend today?";
+    } else if (ltext.includes('thank')) {
+      botReply = "You're very welcome! If you need anything else, just ask.";
+    } else if (ltext.length > 5) {
+      botReply = `That's a great question about "${text.substring(0, 30)}...". While I'm still learning, I recommend checking our Care Protocols section or consulting your local vet for specific advice!`;
     }
     
     // Save bot message

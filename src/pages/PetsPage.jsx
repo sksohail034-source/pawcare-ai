@@ -60,16 +60,30 @@ export default function PetsPage() {
 
   return (
     <div>
-      <div className="page-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+      <div className="hero-section" style={{ 
+        background: 'linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%)', 
+        color: 'white', 
+        padding: '32px 24px', 
+        borderRadius: '24px', 
+        marginBottom: '32px',
+        display: 'flex', 
+        justifyContent: 'space-between', 
+        alignItems: 'center',
+        boxShadow: '0 20px 40px rgba(34, 197, 94, 0.2)',
+        marginTop: '16px'
+      }}>
         <div>
-          <h2>My Pets 🐾</h2>
-          <p>Manage your pet profiles</p>
+          <h2 style={{ fontSize: '28px', fontWeight: '800', marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '8px', margin: 0 }}>
+            My Pets 🐾
+          </h2>
+          <p style={{ opacity: 0.9, fontSize: '15px', margin: 0 }}>Manage your pet profiles and track their well-being</p>
         </div>
         <button 
-          className="btn btn-primary" 
+          className="btn" 
+          style={{ background: 'white', color: 'var(--primary)', fontWeight: 'bold', padding: '12px 24px', borderRadius: '12px', boxShadow: '0 8px 16px rgba(0,0,0,0.1)', border: 'none' }}
           onClick={() => {
             const { subscription, role } = JSON.parse(localStorage.getItem('user') || '{}');
-            const maxPets = (subscription === 'pro' || role === 'admin') ? -1 : subscription === 'advance' ? 2 : 1;
+            const maxPets = (subscription === 'pro' || subscription === 'enterprise' || role === 'admin') ? -1 : subscription === 'basic' ? 2 : 1;
             if (maxPets !== -1 && pets.length >= maxPets) {
               toast.error('Pet limit reached! Upgrade your plan to add more pets.');
               return;
