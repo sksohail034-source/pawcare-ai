@@ -556,14 +556,14 @@ export default function LandingPage() {
             <div>
               <h4>Legal</h4>
               <a onClick={() => navigate('/privacy-policy')} style={{ cursor: 'pointer' }}>Privacy Policy</a>
-              <a href="#">Terms of Service</a>
-              <a href="#">Refund Policy</a>
+              <a onClick={() => navigate('/terms-of-service')} style={{ cursor: 'pointer' }}>Terms of Service</a>
+              <a onClick={() => navigate('/refund-policy')} style={{ cursor: 'pointer' }}>Refund Policy</a>
             </div>
             <div>
               <h4>Support</h4>
               <a href="mailto:support@pawcare.ai">support@pawcare.ai</a>
-              <a href="#">Help Center</a>
-              <a href="#">Contact Us</a>
+              <a onClick={() => navigate('/help')} style={{ cursor: 'pointer' }}>Help Center</a>
+              <a onClick={() => navigate('/contact')} style={{ cursor: 'pointer' }}>Contact Us</a>
             </div>
           </div>
         </div>

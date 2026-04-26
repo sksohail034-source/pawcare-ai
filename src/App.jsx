@@ -23,6 +23,9 @@ import SupportBotPage from './pages/SupportBotPage';
 import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
 import BottomNav from './components/BottomNav';
 import Sidebar from './components/Sidebar';
+import TermsOfServicePage from './pages/TermsOfServicePage';
+import RefundPolicyPage from './pages/RefundPolicyPage';
+import ContactPage from './pages/ContactPage';
 
 function ProtectedRoute({ children }) {
   const { user, loading } = useAuth();
@@ -89,6 +92,10 @@ export default function App() {
           <Route path="/login" element={<PublicRoute><AuthPage mode="login" /></PublicRoute>} />
           <Route path="/register" element={<PublicRoute><AuthPage mode="register" /></PublicRoute>} />
           <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+          <Route path="/terms-of-service" element={<TermsOfServicePage />} />
+          <Route path="/refund-policy" element={<RefundPolicyPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/help" element={<ContactPage />} />
           <Route path="/*" element={<ProtectedRoute><AppLayout /></ProtectedRoute>} />
         </Routes>
       </AuthProvider>
