@@ -15,15 +15,15 @@ const plans = [
     popular: false, scanLimit: 3, petLimit: 1
   },
   {
-    id: 'advance', name: 'Advance Plan', 
-    price: { USD: { monthly: 7, yearly: 60 }, INR: { monthly: 500, yearly: 4800 } },
-    features: ['Unlimited AI Scans', 'Up to 2 Pet Profiles', 'No Ads', 'Full Health Analysis', 'Vaccination Tracker', 'Exercise Plans'],
+    id: 'basic', name: 'Basic Plan', 
+    price: { USD: { monthly: 4.99, yearly: 29.99 }, INR: { monthly: 149, yearly: 899 } },
+    features: ['Unlimited AI Scans', 'Up to 2 Pet Profiles', 'No Ads', 'Full Health Analysis', 'Vaccination Tracker', 'Expert Training Videos'],
     popular: false, scanLimit: -1, petLimit: 2
   },
   {
     id: 'pro', name: 'Pro Plan', 
-    price: { USD: { monthly: 15, yearly: 132 }, INR: { monthly: 1200, yearly: 10800 } },
-    features: ['Unlimited AI Scans', 'Unlimited Pet Profiles', 'No Ads', 'Priority AI Processing', 'Smart Routines', 'AI Support Chatbot'],
+    price: { USD: { monthly: 9.99, yearly: 59.99 }, INR: { monthly: 299, yearly: 1799 } },
+    features: ['Unlimited AI Scans', 'Unlimited Pet Profiles', 'No Ads', 'Priority AI Processing', 'Smart Routines', 'AI Support Chatbot', 'Expert Training Videos'],
     popular: true, scanLimit: -1, petLimit: -1
   }
 ];
