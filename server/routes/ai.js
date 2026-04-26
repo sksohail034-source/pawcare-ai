@@ -208,4 +208,58 @@ router.get('/history', authenticateToken, (req, res) => {
   }
 });
 
+// Chat history
+router.get('/chat-history', authenticateToken, (req, res) => {
+  try {
+    const db = getDb();
+    const result = db.exec(`SELECT id, sender, text FROM chat_history WHERE user_id = '${req.user.id}' ORDER BY created_at ASC`);
+    if (result.length === 0) return res.json([]);
+    
+    const cols = result[0].columns;
+    const history = result[0].values.map(row => {
+      const item = {};
+      cols.forEach((col, i) => { item[col] = row[i]; });
+      return item;
+    });
+    res.json(history);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to fetch chat history' });
+  }
+});
+
+// Send chat message
+router.post('/chat', authenticateToken, async (req, res) => {
+  try {
+    const { text } = req.body;
+    const db = getDb();
+    
+    // Save user message
+    const userMsgId = uuidv4();
+    db.run(`INSERT INTO chat_history (id, user_id, sender, text) VALUES (?, ?, 'user', ?)`, [userMsgId, req.user.id, text]);
+    
+    // Generate simulated AI response
+    let botReply = "I'm your AI assistant. I can help with general pet care questions. Could you provide more details?";
+    const ltext = text.toLowerCase();
+    
+    if (ltext.includes('food') || ltext.includes('eat') || ltext.includes('diet')) {
+      botReply = "For diet concerns, ensure you're feeding high-quality, age-appropriate food. Dogs and cats have different nutritional needs. Always consult your vet before making major dietary changes.";
+    } else if (ltext.includes('sick') || ltext.includes('vomit') || ltext.includes('diarrhea') || ltext.includes('fever')) {
+      botReply = "If your pet is showing signs of illness like vomiting, diarrhea, or lethargy, please contact your veterinarian immediately. It's better to be safe!";
+    } else if (ltext.includes('train') || ltext.includes('bark') || ltext.includes('bite') || ltext.includes('behavior')) {
+      botReply = "Behavioral issues can often be addressed with positive reinforcement training. Check out our 'Training Videos' section for step-by-step guides on common behavioral corrections.";
+    } else if (ltext.includes('hi') || ltext.includes('hello') || ltext.includes('hey')) {
+      botReply = "Hello there! How can I help you and your furry friend today?";
+    }
+    
+    // Save bot message
+    const botMsgId = uuidv4();
+    db.run(`INSERT INTO chat_history (id, user_id, sender, text) VALUES (?, ?, 'bot', ?)`, [botMsgId, req.user.id, botReply]);
+    saveDatabase();
+    
+    res.json({ id: botMsgId, text: botReply, sender: 'bot' });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to send message' });
+  }
+});
+
 export default router;

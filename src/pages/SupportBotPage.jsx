@@ -16,10 +16,10 @@ export default function SupportBotPage() {
       if (history.length > 0) {
         setMessages(history.map(m => ({ id: m.id, text: m.text, sender: m.sender })));
       } else {
-        setMessages([{ id: 1, text: 'Hello! I am your PawCare Pro Support Bot 🐾. How can I help you and your pets today?', sender: 'bot' }]);
+        setMessages([{ id: 1, text: 'Hello! I am your PawCare Premium Support Bot 🐾. How can I help you and your pets today?', sender: 'bot' }]);
       }
     }).catch(() => {
-      setMessages([{ id: 1, text: 'Hello! I am your PawCare Pro Support Bot 🐾. How can I help you and your pets today?', sender: 'bot' }]);
+      setMessages([{ id: 1, text: 'Hello! I am your PawCare Premium Support Bot 🐾. How can I help you and your pets today?', sender: 'bot' }]);
     });
   }, []);
 
@@ -27,15 +27,16 @@ export default function SupportBotPage() {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
-  // Block non-pro users
-  if (user?.subscription !== 'pro' && user?.role !== 'admin') {
+  // Block free users
+  const isPaid = user?.subscription === 'pro' || user?.subscription === 'enterprise' || user?.subscription === 'basic';
+  if (!isPaid && user?.role !== 'admin') {
     return (
       <div className="page-container">
         <div className="card" style={{ textAlign: 'center', padding: '40px 20px' }}>
           <div style={{ fontSize: 48, marginBottom: 16 }}>👑</div>
-          <h3 style={{ fontFamily: 'var(--font-display)', marginBottom: 8 }}>Pro Feature</h3>
-          <p style={{ color: 'var(--text-muted)', marginBottom: 24 }}>The AI Support Bot is exclusively available for Pro users.</p>
-          <a href="/subscriptions" className="btn btn-primary btn-lg">Upgrade to Pro</a>
+          <h3 style={{ fontFamily: 'var(--font-display)', marginBottom: 8 }}>Premium Feature</h3>
+          <p style={{ color: 'var(--text-muted)', marginBottom: 24 }}>The AI Support Bot is exclusively available for Basic and Pro users.</p>
+          <a href="/subscriptions" className="btn btn-primary btn-lg">Upgrade Now</a>
         </div>
       </div>
     );
@@ -74,7 +75,7 @@ export default function SupportBotPage() {
   return (
     <div className="page-container" style={{ height: 'calc(100vh - 120px)', display: 'flex', flexDirection: 'column' }}>
       <div className="page-header" style={{ marginBottom: 16 }}>
-        <h2>👑 Pro Support Bot</h2>
+        <h2>👑 Premium Support Bot</h2>
         <p>24/7 Priority AI assistance for you and your pets</p>
       </div>
 
