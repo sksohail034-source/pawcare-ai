@@ -6,6 +6,7 @@ import AuthPage from './pages/AuthPage';
 import DashboardPage from './pages/DashboardPage';
 import AIPage from './pages/AIPage';
 import ExercisePage from './pages/ExercisePage';
+import TrainingPage from './pages/TrainingPage';
 import VaccinationsPage from './pages/VaccinationsPage';
 import PetsPage from './pages/PetsPage';
 import RoutinePage from './pages/RoutinePage';
@@ -46,6 +47,7 @@ function AppLayout() {
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/ai" element={<AIPage />} />
           <Route path="/exercise" element={<ExercisePage />} />
+          <Route path="/training" element={<TrainingPage />} />
           <Route path="/vaccinations" element={<VaccinationsPage />} />
           <Route path="/pets" element={<PetsPage />} />
           <Route path="/pet/:id" element={<PetDetailPage />} />

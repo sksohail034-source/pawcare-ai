@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import { Home, Sparkles, Dumbbell, Syringe, Clock, CreditCard, PawPrint, Heart, LogOut, BarChart3, Pill, ShoppingBag, AlertCircle, Leaf, Shield, Bot } from 'lucide-react';
+import { Home, Sparkles, Dumbbell, Syringe, Clock, CreditCard, PawPrint, Heart, LogOut, BarChart3, Pill, ShoppingBag, AlertCircle, Leaf, Shield, Bot, Video } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import NotificationBell from './NotificationBell';
 
@@ -9,6 +9,7 @@ export default function Sidebar() {
     { path: '/dashboard', icon: <Home size={18} />, label: 'Dashboard' },
     { path: '/ai', icon: <Sparkles size={18} />, label: 'AI Analysis' },
     { path: '/exercise', icon: <Dumbbell size={18} />, label: 'Exercise & Care' },
+    { path: '/training', icon: <Video size={18} />, label: 'Training Videos' },
     { path: '/vaccinations', icon: <Syringe size={18} />, label: 'Vaccinations' },
     { path: '/pets', icon: <PawPrint size={18} />, label: 'My Pets' },
     { path: '/routine', icon: <Clock size={18} />, label: 'Smart Routine' },

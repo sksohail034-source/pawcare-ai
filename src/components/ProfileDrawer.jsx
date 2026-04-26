@@ -3,7 +3,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import {
   Home, Sparkles, Dumbbell, Syringe, Clock, CreditCard,
   PawPrint, Heart, LogOut, BarChart3, Pill, ShoppingBag,
-  AlertCircle, Leaf, Shield, Bot, X, Crown, ChevronRight, User
+  AlertCircle, Leaf, Shield, Bot, X, Crown, ChevronRight, User, Video
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
@@ -27,6 +27,7 @@ export default function ProfileDrawer({ isOpen, onClose }) {
         { path: '/medications', icon: <Pill size={20} />, label: 'Medications' },
         { path: '/health-charts', icon: <BarChart3 size={20} />, label: 'Health Charts' },
         { path: '/exercise', icon: <Dumbbell size={20} />, label: 'Exercise & Care' },
+        { path: '/training', icon: <Video size={20} />, label: 'Training Videos' },
         { path: '/care-protocols', icon: <Leaf size={20} />, label: 'Care Protocols' },
         { path: '/emergency-vet', icon: <AlertCircle size={20} />, label: 'Emergency Vet' },
       ]
