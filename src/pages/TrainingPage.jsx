@@ -44,7 +44,7 @@ export default function TrainingPage() {
   }, 0);
   const totalVideos = schedule.reduce((sum, m) => sum + m.videos.length, 0);
 
-  if (!isPaid) {
+  if (!isPaid && user?.role !== 'admin') {
     return (
       <div className="page-container">
         <div className="page-header">
