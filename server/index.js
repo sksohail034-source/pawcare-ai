@@ -91,15 +91,18 @@ async function start() {
     try {
       const db = (await import('./database.js')).getDb();
       
-      // Get current time in IST (Asia/Kolkata)
-      const now = new Date(new Date().toLocaleString("en-US", {timeZone: "Asia/Kolkata"}));
-      const timeStr = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+      // Reliable IST time calculation
+      const now = new Date();
+      const istTime = new Date(now.getTime() + (5.5 * 60 * 60 * 1000));
+      const hours = String(istTime.getUTCHours()).padStart(2, '0');
+      const minutes = String(istTime.getUTCMinutes()).padStart(2, '0');
+      const timeStr = `${hours}:${minutes}`;
       
+      console.log(`[Cron] Checking routines for time: ${timeStr} (Server UTC: ${now.toUTCString()})`);
+
       const result = db.exec(`
-        SELECT r.*, u.id as user_uid 
-        FROM routines r 
-        JOIN users u ON r.user_id = u.id 
-        WHERE r.enabled = 1 AND r.time = '${timeStr}'
+        SELECT * FROM routines 
+        WHERE enabled = 1 AND time = '${timeStr}'
       `);
 
       if (result.length > 0 && result[0].values.length > 0) {
