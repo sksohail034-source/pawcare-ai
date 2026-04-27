@@ -102,11 +102,91 @@ export default function DashboardPage() {
         <input type="text" className="search-input" placeholder="Search pets, services..." />
       </div>
 
-      {/* Stats */}
-      <div className="stats-grid">
-        <div className="stat-card"><div className="stat-value">9</div><div className="stat-label">Pet Types</div></div>
-        <div className="stat-card"><div className="stat-value">{user?.subscription === 'free' ? '5' : '∞'}</div><div className="stat-label">AI Scans</div></div>
-        <div className="stat-card"><div className="stat-value">24/7</div><div className="stat-label">AI Support</div></div>
+      {/* Smart Routine Hero Section */}
+      <div className="card" style={{ 
+        background: 'linear-gradient(135deg, #8b5cf6, #6d28d9)', 
+        color: '#fff', 
+        padding: '24px', 
+        borderRadius: '24px',
+        marginBottom: '28px',
+        position: 'relative',
+        overflow: 'hidden',
+        boxShadow: '0 10px 25px -5px rgba(139, 92, 246, 0.4)'
+      }}>
+        {/* Decorative elements */}
+        <div style={{ position: 'absolute', top: -20, right: -20, width: 100, height: 100, borderRadius: '50%', background: 'rgba(255,255,255,0.1)' }} />
+        <div style={{ position: 'absolute', bottom: -30, left: -10, width: 140, height: 140, borderRadius: '50%', background: 'rgba(255,255,255,0.05)' }} />
+
+        <div className="flex-row justify-between items-center" style={{ position: 'relative', zIndex: 1 }}>
+          <div style={{ flex: 1 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
+              <span style={{ background: 'rgba(255,255,255,0.2)', padding: '4px 10px', borderRadius: '20px', fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                Next Routine
+              </span>
+              <span className="animate-pulse" style={{ width: 8, height: 8, borderRadius: '50%', background: '#4ade80' }}></span>
+            </div>
+            
+            {(() => {
+              const saved = localStorage.getItem('pawcare_routines');
+              if (!saved) return <h2 style={{ fontSize: 24, fontWeight: 800 }}>No routine set</h2>;
+              
+              const routines = JSON.parse(saved).filter(r => r.enabled);
+              if (routines.length === 0) return <h2 style={{ fontSize: 24, fontWeight: 800 }}>No active routines</h2>;
+              
+              const now = new Date();
+              const currentTime = now.getHours() * 60 + now.getMinutes();
+              
+              // Sort routines by time
+              const sorted = [...routines].sort((a, b) => {
+                const [ah, am] = a.time.split(':').map(Number);
+                const [bh, bm] = b.time.split(':').map(Number);
+                return (ah * 60 + am) - (bh * 60 + bm);
+              });
+              
+              // Find next
+              let next = sorted.find(r => {
+                const [rh, rm] = r.time.split(':').map(Number);
+                return (rh * 60 + rm) > currentTime;
+              });
+              
+              if (!next) next = sorted[0]; // Next is tomorrow's first
+              
+              return (
+                <>
+                  <h2 style={{ fontSize: 28, fontWeight: 800, marginBottom: 4, letterSpacing: '-0.5px' }}>
+                    {next.icon} {next.title}
+                  </h2>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 6, opacity: 0.9, fontSize: 15 }}>
+                    <Clock size={16} />
+                    <span>Reminder at <strong>{next.time}</strong></span>
+                  </div>
+                </>
+              );
+            })()}
+          </div>
+          
+          <button 
+            onClick={() => navigate('/routine')}
+            style={{ 
+              width: 56, 
+              height: 56, 
+              borderRadius: '18px', 
+              background: '#fff', 
+              color: '#8b5cf6', 
+              border: 'none', 
+              display: 'flex', 
+              alignItems: 'center', 
+              justifyContent: 'center',
+              boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+              cursor: 'pointer',
+              transition: 'transform 0.2s'
+            }}
+            onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.05)'}
+            onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
+          >
+            <Bell size={24} />
+          </button>
+        </div>
       </div>
 
       {/* Quick Actions */}

@@ -84,4 +84,10 @@ export const api = {
   deleteAdminUser: (id) => request(`/admin/users/${id}`, { method: 'DELETE' }),
   updateUserSubscription: (id, subscription) => request(`/admin/users/${id}/subscription`, { method: 'PUT', body: JSON.stringify({ subscription }) }),
   getAdminActivity: () => request('/admin/activity'),
+  
+  // Routines
+  getRoutines: () => request('/routines'),
+  createRoutine: (body) => request('/routines', { method: 'POST', body: JSON.stringify(body) }),
+  toggleRoutine: (id, enabled) => request(`/routines/${id}/toggle`, { method: 'PUT', body: JSON.stringify({ enabled }) }),
+  deleteRoutine: (id) => request(`/routines/${id}`, { method: 'DELETE' }),
 };

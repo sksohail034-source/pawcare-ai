@@ -77,18 +77,56 @@ export default function RoutinePage() {
   ];
 
   return (
-    <div className="page-container">
-      <div className="page-header">
-        <h2>🐾 Smart Routine</h2>
-        <p>Personalized schedule with alarm reminders</p>
+    <div className="page-container" style={{ paddingBottom: 100 }}>
+      {/* Premium Hero Header */}
+      <div style={{ 
+        background: 'linear-gradient(135deg, #8b5cf6, #7c3aed)', 
+        color: '#fff', 
+        padding: '40px 24px', 
+        borderRadius: '0 0 40px 40px',
+        margin: '-24px -24px 32px -24px',
+        textAlign: 'center',
+        position: 'relative',
+        boxShadow: '0 10px 30px rgba(139, 92, 246, 0.3)'
+      }}>
+        <div style={{ marginBottom: 16 }}>
+          <div style={{ 
+            width: 64, height: 64, borderRadius: '20px', background: 'rgba(255,255,255,0.2)', 
+            display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto',
+            backdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.3)'
+          }}>
+            <Bell size={32} />
+          </div>
+        </div>
+        <h2 style={{ fontSize: 32, fontWeight: 800, marginBottom: 8, letterSpacing: '-0.5px' }}>Smart Routines</h2>
+        <p style={{ opacity: 0.9, fontSize: 16 }}>Automated reminders for your pet's perfect day</p>
+        
+        <div style={{ 
+          marginTop: 24, display: 'inline-flex', alignItems: 'center', gap: 12, 
+          background: 'rgba(0,0,0,0.2)', padding: '8px 16px', borderRadius: '50px',
+          fontSize: 14, fontWeight: 500
+        }}>
+          <span style={{ width: 8, height: 8, borderRadius: '50%', background: notificationsEnabled ? '#4ade80' : '#f87171' }}></span>
+          Notifications: {notificationsEnabled ? 'Active' : 'Paused'}
+          <button 
+            onClick={notificationsEnabled ? () => { setNotificationsEnabled(false); toast.success('Muted'); } : requestNotificationPermission}
+            style={{ 
+              background: '#fff', color: '#8b5cf6', border: 'none', 
+              padding: '4px 12px', borderRadius: '20px', fontSize: 12, fontWeight: 700,
+              cursor: 'pointer', marginLeft: 4
+            }}
+          >
+            {notificationsEnabled ? 'Mute' : 'Enable'}
+          </button>
+        </div>
       </div>
 
       {!unlocked && JSON.parse(localStorage.getItem('user') || '{}').subscription === 'free' && JSON.parse(localStorage.getItem('user') || '{}').role !== 'admin' ? (
-        <div className="card" style={{ textAlign: 'center', padding: '40px 20px' }}>
-          <div style={{ fontSize: 48, marginBottom: 16 }}>🔒</div>
-          <h3 style={{ fontFamily: 'var(--font-display)', marginBottom: 8 }}>Premium Feature</h3>
-          <p style={{ color: 'var(--text-muted)', marginBottom: 24 }}>Watch a short ad to unlock Smart Routines for this session, or upgrade to Advance for ad-free access.</p>
-          <button className="btn btn-primary btn-lg" onClick={() => setShowAd(true)}>📺 Watch Ad to Unlock</button>
+        <div className="card" style={{ textAlign: 'center', padding: '40px 20px', borderRadius: 24 }}>
+          <div style={{ fontSize: 56, marginBottom: 16 }}>🔒</div>
+          <h3 style={{ fontFamily: 'var(--font-display)', marginBottom: 8, fontSize: 24 }}>Premium Feature</h3>
+          <p style={{ color: 'var(--text-muted)', marginBottom: 24, maxWidth: 300, margin: '0 auto 24px' }}>Watch a short ad to unlock Smart Routines for this session, or upgrade to Pro for ad-free access.</p>
+          <button className="btn btn-primary btn-lg" onClick={() => setShowAd(true)} style={{ width: '100%', maxWidth: 280 }}>📺 Watch Ad to Unlock</button>
           
           {showAd && <AdModal 
             title="Unlocking Routines" 
@@ -101,21 +139,6 @@ export default function RoutinePage() {
         </div>
       ) : (
       <>
-      {/* Notifications */}
-      <div className="card" style={{ marginBottom: 24 }}>
-        <div className="flex-row justify-between items-center">
-          <div>
-            <h4 style={{ marginBottom: 4 }}>🔔 Notifications</h4>
-            <p style={{ fontSize: 13, color: 'var(--text-muted)' }}>
-              {notificationsEnabled ? 'Enabled — You\'ll receive reminders' : 'Disabled'}
-            </p>
-          </div>
-          <button className={`btn ${notificationsEnabled ? 'btn-secondary' : 'btn-primary'} btn-sm`}
-            onClick={notificationsEnabled ? () => { setNotificationsEnabled(false); toast.success('Disabled'); } : requestNotificationPermission}>
-            {notificationsEnabled ? 'Disable' : 'Enable'}
-          </button>
-        </div>
-      </div>
 
       {/* Add Button */}
       <div className="flex-row justify-between items-center" style={{ marginBottom: 16 }}>

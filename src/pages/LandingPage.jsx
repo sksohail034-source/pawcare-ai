@@ -276,6 +276,30 @@ export default function LandingPage() {
                   <span className="lp-result-tag lp-tag-warn">⚠ Needs Grooming</span>
                 </div>
               </div>
+
+              {/* Added Routine Notification Mockup */}
+              <div style={{
+                position: 'absolute',
+                top: '40%',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                width: '85%',
+                background: 'rgba(255,255,255,0.95)',
+                backdropFilter: 'blur(10px)',
+                borderRadius: '16px',
+                padding: '12px',
+                boxShadow: '0 10px 25px rgba(0,0,0,0.15)',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px',
+                animation: 'lp-float 3s ease-in-out infinite'
+              }}>
+                <div style={{ fontSize: '24px' }}>🦴</div>
+                <div style={{ textAlign: 'left' }}>
+                  <div style={{ fontSize: '12px', fontWeight: 800, color: '#1f2937' }}>Routine Reminder</div>
+                  <div style={{ fontSize: '10px', color: '#6b7280' }}>Time for afternoon snack!</div>
+                </div>
+              </div>
             </div>
           </div>
           {/* Floating pet bubbles */}

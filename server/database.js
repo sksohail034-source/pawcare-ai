@@ -118,6 +118,18 @@ export async function initDatabase() {
     FOREIGN KEY (user_id) REFERENCES users(id)
   )`);
 
+  db.run(`CREATE TABLE IF NOT EXISTS routines (
+    id TEXT PRIMARY KEY,
+    user_id TEXT NOT NULL,
+    pet_id TEXT,
+    title TEXT NOT NULL,
+    type TEXT NOT NULL,
+    time TEXT NOT NULL,
+    enabled INTEGER DEFAULT 1,
+    created_at TEXT DEFAULT (datetime('now')),
+    FOREIGN KEY (user_id) REFERENCES users(id)
+  )`);
+
   saveDatabase();
   console.log('Database initialized successfully');
   return db;

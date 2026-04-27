@@ -26,6 +26,7 @@ import Sidebar from './components/Sidebar';
 import TermsOfServicePage from './pages/TermsOfServicePage';
 import RefundPolicyPage from './pages/RefundPolicyPage';
 import ContactPage from './pages/ContactPage';
+import AlarmManager from './components/AlarmManager';
 
 function ProtectedRoute({ children }) {
   const { user, loading } = useAuth();
@@ -76,6 +77,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
+        <AlarmManager />
         <Toaster
           position="top-center"
           toastOptions={{
