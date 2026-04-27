@@ -31,8 +31,8 @@ router.post('/', authenticateToken, (req, res) => {
   try {
     const { pet_id, title, type, time } = req.body;
     
-    if (!pet_id || !title || !type || !time) {
-      return res.status(400).json({ error: 'Missing required fields' });
+    if (!title || !type || !time) {
+      return res.status(400).json({ error: 'Missing required fields (title, type, time)' });
     }
 
     const id = uuidv4();
