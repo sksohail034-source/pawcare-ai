@@ -9,58 +9,72 @@ const router = Router();
 // AI Grooming / Styling suggestions
 const groomingStyles = {
   dog: [
-    { name: 'Royal Poodle Cut', description: 'An elegant poodle-style trim with fluffy pompoms on legs and tail', confidence: 0.95, tags: ['elegant', 'show-ready', 'classic'] },
-    { name: 'Teddy Bear Trim', description: 'A soft, rounded cut that makes your dog look like an adorable teddy bear', confidence: 0.92, tags: ['cute', 'low-maintenance', 'popular'] },
-    { name: 'Lion Mane Style', description: 'A bold lion-inspired look with a full mane around the face and a trimmed body', confidence: 0.88, tags: ['bold', 'unique', 'statement'] },
-    { name: 'Summer Sporty Cut', description: 'A short, practical trim perfect for warm weather and active dogs', confidence: 0.91, tags: ['practical', 'summer', 'active'] },
-    { name: 'Puppy Cut Classic', description: 'An even-length trim all over that maintains a youthful, playful appearance', confidence: 0.94, tags: ['youthful', 'easy-care', 'all-seasons'] },
+    { name: 'Royal Poodle Cut', description: 'Elegant trim with pompoms', confidence: 0.95, tags: ['elegant', 'classic'] },
+    { name: 'Teddy Bear Trim', description: 'Soft rounded look', confidence: 0.92, tags: ['cute', 'popular'] },
   ],
   cat: [
-    { name: 'Lion Cut', description: 'Classic feline lion cut with a majestic mane ruff and trimmed body', confidence: 0.93, tags: ['dramatic', 'cool', 'easy-groom'] },
-    { name: 'Panther Sleek', description: 'A smooth, close-trimmed body with natural face and tail floof', confidence: 0.89, tags: ['sleek', 'modern', 'low-shed'] },
-    { name: 'Dragon Cut', description: 'Creative lines along the spine creating a dragon-ridge effect', confidence: 0.85, tags: ['creative', 'unique', 'show-stopping'] },
-    { name: 'Kitten Soft Trim', description: 'A gentle trim that keeps fur soft and manageable while looking adorable', confidence: 0.92, tags: ['gentle', 'natural', 'cute'] },
+    { name: 'Lion Cut', description: 'Majestic mane ruff', confidence: 0.93, tags: ['dramatic', 'cool'] },
+    { name: 'Sleek Panther', description: 'Smooth body trim', confidence: 0.89, tags: ['sleek', 'modern'] },
   ],
   bird: [
-    { name: 'Feather Glow Treatment', description: 'AI-recommended feather conditioning routine for vibrant plumage', confidence: 0.90, tags: ['health', 'shine', 'natural'] },
-    { name: 'Wing Symmetry Check', description: 'Analysis of wing feather alignment for optimal flight health', confidence: 0.87, tags: ['health', 'flight', 'checkup'] },
+    { name: 'Feather Shine', description: 'Conditioning routine', confidence: 0.90, tags: ['health', 'shine'] },
   ],
   rabbit: [
-    { name: 'Angora Fluff Style', description: 'A carefully maintained fluffy look with rounded silhouette', confidence: 0.91, tags: ['fluffy', 'adorable', 'show-ready'] },
-    { name: 'Summer Cool Trim', description: 'A shorter trim for warm months to keep your bunny comfortable', confidence: 0.88, tags: ['practical', 'comfort', 'summer'] },
+    { name: 'Angora Fluff', description: 'Maintained fluffy silhouette', confidence: 0.91, tags: ['fluffy', 'show'] },
+  ],
+  hamster: [
+    { name: 'Soft Brush Routine', description: 'Gentle cleaning for small coats', confidence: 0.88, tags: ['gentle', 'care'] },
+  ],
+  fish: [
+    { name: 'Scale Brightening', description: 'Water minerals for scale health', confidence: 0.85, tags: ['water-care', 'scales'] },
+  ],
+  turtle: [
+    { name: 'Shell Polish', description: 'Safe organic shell conditioning', confidence: 0.87, tags: ['shell-care', 'shine'] },
+  ],
+  horse: [
+    { name: 'Mane Braiding', description: 'Professional show braiding', confidence: 0.94, tags: ['professional', 'show'] },
+    { name: 'Show Clip', description: 'Full body competition trim', confidence: 0.92, tags: ['sporty', 'sleek'] },
+  ],
+  cow: [
+    { name: 'Livestock Groom', description: 'Clean and brush for show health', confidence: 0.86, tags: ['farm', 'clean'] },
   ],
   other: [
-    { name: 'Natural Beauty Groom', description: 'A gentle grooming routine tailored to your pet\'s specific needs', confidence: 0.86, tags: ['gentle', 'natural', 'custom'] },
+    { name: 'Natural Beauty', description: 'Custom gentle routine', confidence: 0.86, tags: ['custom'] },
   ]
 };
 
-// AI Health Tips
 const healthTips = {
   dog: [
-    { category: 'Diet', title: 'Balanced Nutrition Plan', tip: 'Ensure your dog gets a mix of high-quality protein (25-30%), healthy fats, and complex carbohydrates. Include omega-3 fatty acids for coat health.', priority: 'high' },
-    { category: 'Exercise', title: 'Daily Activity Routine', tip: 'Most dogs need 30-60 minutes of exercise daily. Breed-specific needs vary — high-energy breeds may need 1-2 hours.', priority: 'high' },
-    { category: 'Dental', title: 'Oral Health Care', tip: 'Brush your dog\'s teeth 2-3 times per week. Dental disease affects 80% of dogs by age 3. Consider dental chews as supplements.', priority: 'medium' },
-    { category: 'Hygiene', title: 'Bathing Schedule', tip: 'Bath every 4-6 weeks unless they get dirty sooner. Over-bathing strips natural oils. Use pH-balanced dog shampoo.', priority: 'medium' },
-    { category: 'Behavior', title: 'Mental Stimulation', tip: 'Provide puzzle toys and training sessions. Mental stimulation is as important as physical exercise for preventing anxiety and destructive behavior.', priority: 'medium' },
-    { category: 'Prevention', title: 'Parasite Protection', tip: 'Use year-round flea, tick, and heartworm prevention. Check for ticks after outdoor walks, especially in wooded areas.', priority: 'high' },
+    { category: 'Diet', title: 'Balanced Nutrition', tip: 'High-quality protein and omega-3s.', priority: 'high' },
+    { category: 'Exercise', title: 'Daily Activity', tip: '30-60 mins of active play.', priority: 'high' },
   ],
   cat: [
-    { category: 'Diet', title: 'Feline Nutrition Guide', tip: 'Cats are obligate carnivores. Feed high-protein, meat-based food. Ensure adequate taurine intake. Avoid excessive carbohydrates.', priority: 'high' },
-    { category: 'Hydration', title: 'Water Intake', tip: 'Cats often don\'t drink enough water. Consider a pet water fountain — cats prefer running water. Wet food also helps hydration.', priority: 'high' },
-    { category: 'Dental', title: 'Dental Care', tip: 'Cats are prone to dental issues. Annual dental checks are recommended. Look for signs like drooling, bad breath, or difficulty eating.', priority: 'medium' },
-    { category: 'Behavior', title: 'Environmental Enrichment', tip: 'Provide vertical spaces, scratching posts, and interactive toys. Indoor cats need stimulation to prevent obesity and behavioral issues.', priority: 'medium' },
-    { category: 'Litter', title: 'Litter Box Hygiene', tip: 'Clean litter daily and fully change weekly. One box per cat plus one extra. Sudden litter avoidance can signal health issues.', priority: 'medium' },
+    { category: 'Diet', title: 'Carnivore Needs', tip: 'High-protein, meat-based diet.', priority: 'high' },
+    { category: 'Hydration', title: 'Water Intake', tip: 'Use fountains to encourage drinking.', priority: 'high' },
   ],
   bird: [
-    { category: 'Diet', title: 'Avian Nutrition', tip: 'Provide a varied diet of pellets, fresh fruits, vegetables, and occasional seeds. Avoid avocado, chocolate, and caffeine — they\'re toxic to birds.', priority: 'high' },
-    { category: 'Environment', title: 'Cage & Air Quality', tip: 'Keep cage clean daily. Avoid non-stick cookware fumes, air fresheners, and smoke near birds — their respiratory systems are extremely sensitive.', priority: 'high' },
+    { category: 'Air Quality', title: 'Sensitive Lungs', tip: 'Avoid non-stick fumes and smoke.', priority: 'high' },
   ],
   rabbit: [
-    { category: 'Diet', title: 'Rabbit Nutrition', tip: 'Unlimited timothy hay should be 80% of diet. Add fresh leafy greens daily. Limit pellets and treats. Always provide fresh water.', priority: 'high' },
-    { category: 'Dental', title: 'Teeth Health', tip: 'Rabbit teeth grow continuously. Hay and chew toys prevent overgrowth. Watch for drooling or difficulty eating as signs of dental problems.', priority: 'high' },
+    { category: 'Diet', title: 'Hay Requirement', tip: 'Unlimited timothy hay is 80% of diet.', priority: 'high' },
+  ],
+  hamster: [
+    { category: 'Exercise', title: 'Wheel Time', tip: 'Ensure safe, solid-surface wheels.', priority: 'high' },
+  ],
+  fish: [
+    { category: 'Water', title: 'pH Balance', tip: 'Test water levels weekly for stability.', priority: 'high' },
+  ],
+  turtle: [
+    { category: 'Light', title: 'UVB Exposure', tip: 'Necessary for calcium and shell health.', priority: 'high' },
+  ],
+  horse: [
+    { category: 'Hoof', title: 'Regular Trimming', tip: 'Clean hooves daily and trim every 6 weeks.', priority: 'high' },
+  ],
+  cow: [
+    { category: 'Grazing', title: 'Pasture Rotation', tip: 'Ensure access to fresh, varied pasture.', priority: 'high' },
   ],
   other: [
-    { category: 'General', title: 'Regular Vet Visits', tip: 'Schedule annual wellness checks. Exotic pets often hide illness symptoms. Early detection is key to successful treatment.', priority: 'high' },
+    { category: 'General', title: 'Wellness Check', tip: 'Annual exotic vet visits are key.', priority: 'high' },
   ]
 };
 
