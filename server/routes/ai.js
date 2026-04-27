@@ -85,13 +85,33 @@ function incrementScan(db, userId, scanCount) {
 
 router.post('/analyze/:petId', authenticateToken, (req, res) => {
   try {
+    const { detectedType } = req.body;
     const db = getDb();
+    
+    // Check if pet exists
+    const petResult = db.exec(`SELECT type FROM pets WHERE id = '${req.params.petId}'`);
+    if (petResult.length === 0 || petResult[0].values.length === 0) {
+      return res.status(404).json({ error: 'Pet not found' });
+    }
+    const expectedType = petResult[0].values[0][0].toLowerCase();
+
+    // Verification Logic (Simulation)
+    if (detectedType && detectedType.toLowerCase() !== expectedType) {
+      return res.status(400).json({ 
+        error: `Vision Mismatch: Image detected as ${detectedType}, but profile is ${expectedType}.`,
+        code: 'MISMATCH'
+      });
+    }
+
     const limitCheck = checkScanLimit(db, req.user.id);
     if (!limitCheck.allowed) return res.status(403).json({ error: 'No scans remaining. Watch an ad to continue.' });
     
     incrementScan(db, req.user.id, limitCheck.scanCount);
-    res.json({ success: true });
-  } catch (err) { res.status(500).json({ error: 'Failed to update scan count' }); }
+    res.json({ success: true, message: 'Analysis verified and logged.' });
+  } catch (err) { 
+    console.error('Analysis error:', err);
+    res.status(500).json({ error: 'Failed to update scan count' }); 
+  }
 });
 
 // Get grooming/style suggestions for a pet

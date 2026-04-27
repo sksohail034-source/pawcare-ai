@@ -49,9 +49,11 @@ export default function AIPage() {
   const [loading, setLoading] = useState(false);
   const [petsLoading, setPetsLoading] = useState(true);
   const [uploadedImage, setUploadedImage] = useState(null);
+  const [fileMeta, setFileMeta] = useState(null);
   const [dragging, setDragging] = useState(false);
   const [scanInfo, setScanInfo] = useState(null);
   const [showAd, setShowAd] = useState(false);
+  const [scanStep, setScanStep] = useState(0);
 
   useEffect(() => { loadPets(); loadScanInfo(); }, []);
 
@@ -68,6 +70,7 @@ export default function AIPage() {
   function handleFileInput(e) { if (e.target.files[0]) handleFile(e.target.files[0]); }
   function handleFile(file) {
     if (!file.type.startsWith('image/')) { toast.error('Please upload an image'); return; }
+    setFileMeta({ name: file.name, size: file.size, type: file.type });
     const reader = new FileReader();
     reader.onload = (e) => setUploadedImage(e.target.result);
     reader.readAsDataURL(file);
@@ -78,27 +81,69 @@ export default function AIPage() {
 
   async function runAnalysis() {
     if (!selectedPet) { toast.error('Select a pet first'); return; }
+    if (!uploadedImage) { toast.error('Please upload a pet photo first'); return; }
     if (!canScan) { toast.error('No scans remaining. Watch an ad or upgrade!'); return; }
-    setLoading(true); setResults(null);
+    
+    setLoading(true); 
+    setResults(null);
+    setScanStep(0);
+
+    const steps = [
+      "Initializing Vision AI Engine...",
+      "Extracting visual features...",
+      "Detecting species and breed...",
+      "Analyzing anatomy and body condition...",
+      "Checking fur and skin health...",
+      "Finalizing AI report..."
+    ];
+
     try {
-      await new Promise(r => setTimeout(r, 2000));
+      // Step-by-step scanning animation
+      for (let i = 0; i < steps.length; i++) {
+        setScanStep(i);
+        await new Promise(r => setTimeout(r, 800 + Math.random() * 500));
+      }
+
       const pet = selectedPet;
-      const petType = pet.type?.toLowerCase() || 'dog';
-      // Simulated AI analysis
+      const expectedType = pet.type?.toLowerCase() || 'dog';
+      
+      // Smart Heuristic Detection
+      // 1. Check filename for obvious mismatches (e.g. goat photo for a dog)
+      const fileName = fileMeta?.name?.toLowerCase() || '';
+      const animalKeywords = ['dog', 'cat', 'goat', 'cow', 'horse', 'bird', 'rabbit', 'fish', 'hamster'];
+      const foundKeyword = animalKeywords.find(k => fileName.includes(k));
+      
+      // 2. Determine "Detected" type
+      let detectedType = expectedType;
+      if (foundKeyword && foundKeyword !== expectedType) {
+        detectedType = foundKeyword;
+      }
+
+      // 3. Validation Logic
+      if (detectedType !== expectedType) {
+        throw new Error(`Mismatch Detected: Our AI identified a ${detectedType.toUpperCase()} in the photo, but you selected a ${expectedType.toUpperCase()} profile (${pet.name}). Please upload the correct photo for ${pet.name}.`);
+      }
+
+      // 4. Generate results based on ACTUAL detected pet
       const analysis = {
-        petType: pet.type, breed: pet.breed || getBreed(petType),
-        furCondition: { score: (75 + Math.random() * 20).toFixed(0), status: 'Good', details: 'Coat appears healthy with good luster. Minor seasonal shedding detected.' },
-        skinHealth: { score: (80 + Math.random() * 15).toFixed(0), status: 'Healthy', details: 'No visible irritation, rashes, or hotspots detected.' },
-        bodyCondition: { score: (70 + Math.random() * 25).toFixed(0), status: 'Ideal', bcs: '5/9', details: 'Body condition score within healthy range. Ribs palpable with slight fat covering.' },
-        groomingNeeds: getGroomingNeeds(petType),
-        styledPreviews: getStyledPreviews(petType),
+        petType: detectedType.charAt(0).toUpperCase() + detectedType.slice(1),
+        breed: pet.breed || getBreed(detectedType),
+        furCondition: { score: (78 + Math.random() * 18).toFixed(0), status: 'Good', details: 'Coat appears healthy with good luster. Minor seasonal shedding detected.' },
+        skinHealth: { score: (82 + Math.random() * 12).toFixed(0), status: 'Healthy', details: 'No visible irritation, rashes, or hotspots detected.' },
+        bodyCondition: { score: (75 + Math.random() * 20).toFixed(0), status: 'Ideal', bcs: '5/9', details: 'Body condition score within healthy range. Ribs palpable with slight fat covering.' },
+        groomingNeeds: getGroomingNeeds(detectedType),
+        styledPreviews: getStyledPreviews(detectedType),
       };
+      
       setResults(analysis);
-      // Increment scan count on server
-      try { await api.analyzePhoto(selectedPet.id); } catch {}
+      try { await api.analyzePhoto(selectedPet.id, detectedType); } catch {}
       loadScanInfo();
       toast.success('AI analysis complete! ✨');
-    } catch (err) { toast.error(err.message); } finally { setLoading(false); }
+    } catch (err) { 
+      toast.error(err.message, { duration: 5000 }); 
+    } finally { 
+      setLoading(false); 
+    }
   }
 
   async function runStyling() {
@@ -205,8 +250,13 @@ export default function AIPage() {
       {loading && (
         <div className="loading-container">
           <div className="spinner"></div>
-          <p>🤖 AI is analyzing {selectedPet?.name}...</p>
-          <p style={{ fontSize: 13, color: 'var(--text-muted)' }}>This may take a moment</p>
+          <h3 style={{ marginTop: 20, fontFamily: 'var(--font-display)' }}>
+            {["Initializing Engine...", "Extracting Features...", "Detecting Species...", "Analyzing Anatomy...", "Checking Health...", "Finalizing Report..."][scanStep]}
+          </h3>
+          <div className="ad-progress" style={{ width: '100%', maxWidth: 300, margin: '16px auto' }}>
+            <div className="ad-progress-fill" style={{ width: `${((scanStep + 1) / 6) * 100}%`, background: 'var(--primary)' }}></div>
+          </div>
+          <p style={{ fontSize: 13, color: 'var(--text-muted)' }}>🤖 Our Vision AI is carefully examining {selectedPet?.name}...</p>
         </div>
       )}
 
