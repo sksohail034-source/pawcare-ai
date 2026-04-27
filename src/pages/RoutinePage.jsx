@@ -14,15 +14,22 @@ const defaultRoutines = [
   { id: 'weekly-nail', title: 'Nail Trimming', time: '11:00', type: 'weekly', enabled: true, icon: '✂️', message: '✂️ Time for nail trimming!' },
 ];
 
+import { subscribeToPush } from '../utils/push';
+
 export default function RoutinePage() {
   const [routines, setRoutines] = useState([]);
   const [notificationsEnabled, setNotificationsEnabled] = useState(false);
+  const [isIOS, setIsIOS] = useState(false);
   const [showAddModal, setShowAddModal] = useState(false);
   const [newRoutine, setNewRoutine] = useState({ title: '', time: '08:00', type: 'morning', icon: '🔔', message: '' });
   const [showAd, setShowAd] = useState(false);
   const [unlocked, setUnlocked] = useState(sessionStorage.getItem('basic_features_unlocked') === 'true');
 
-  useEffect(() => { loadRoutines(); checkNotificationPermission(); }, []);
+  useEffect(() => { 
+    loadRoutines(); 
+    checkNotificationPermission(); 
+    setIsIOS(/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream);
+  }, []);
 
   function checkNotificationPermission() {
     if ('Notification' in window) setNotificationsEnabled(Notification.permission === 'granted');
@@ -30,10 +37,17 @@ export default function RoutinePage() {
 
   async function requestNotificationPermission() {
     if (!('Notification' in window)) { toast.error('Notifications not supported'); return; }
+    
     const permission = await Notification.requestPermission();
     setNotificationsEnabled(permission === 'granted');
-    if (permission === 'granted') toast.success('Notifications enabled! 🔔');
-    else toast.error('Notification permission denied');
+    
+    if (permission === 'granted') {
+      toast.success('Notifications enabled! 🔔');
+      // Critical: Subscribe to backend push for locked-screen alarms
+      await subscribeToPush();
+    } else {
+      toast.error('Notification permission denied');
+    }
   }
 
   function loadRoutines() {
@@ -120,6 +134,20 @@ export default function RoutinePage() {
           </button>
         </div>
       </div>
+
+      {isIOS && !notificationsEnabled && (
+        <div style={{ 
+          background: '#fef3c7', border: '1px solid #f59e0b', color: '#92400e',
+          padding: '16px', borderRadius: '16px', marginBottom: '24px', fontSize: '14px'
+        }}>
+          <strong>iPhone User?</strong> To get alarms when locked: 
+          <ol style={{ marginTop: 8, paddingLeft: 20 }}>
+            <li>Tap the <strong>Share</strong> button (bottom of Safari)</li>
+            <li>Select <strong>"Add to Home Screen"</strong></li>
+            <li>Open PawCare from your Home Screen</li>
+          </ol>
+        </div>
+      )}
 
       {!unlocked && JSON.parse(localStorage.getItem('user') || '{}').subscription === 'free' && JSON.parse(localStorage.getItem('user') || '{}').role !== 'admin' ? (
         <div className="card" style={{ textAlign: 'center', padding: '40px 20px', borderRadius: 24 }}>
