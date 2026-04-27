@@ -43,44 +43,90 @@ export default function RoutinePage() {
     
     if (permission === 'granted') {
       toast.success('Notifications enabled! 🔔');
-      // Critical: Subscribe to backend push for locked-screen alarms
       await subscribeToPush();
     } else {
       toast.error('Notification permission denied');
     }
   }
 
-  function loadRoutines() {
-    const saved = localStorage.getItem('pawcare_routines');
-    if (saved) setRoutines(JSON.parse(saved));
-    else { setRoutines(defaultRoutines); saveRoutines(defaultRoutines); }
+  async function loadRoutines() {
+    try {
+      const data = await api.getRoutines();
+      if (data && data.length > 0) {
+        setRoutines(data);
+      } else {
+        // Fallback to local or defaults if server is empty
+        const saved = localStorage.getItem('pawcare_routines');
+        const initial = saved ? JSON.parse(saved) : defaultRoutines;
+        setRoutines(initial);
+        // Try to sync defaults to server
+        for (const r of initial) {
+          await api.createRoutine(r).catch(() => {});
+        }
+      }
+    } catch (err) {
+      const saved = localStorage.getItem('pawcare_routines');
+      setRoutines(saved ? JSON.parse(saved) : defaultRoutines);
+    }
   }
 
-  function saveRoutines(data) { localStorage.setItem('pawcare_routines', JSON.stringify(data)); }
+  function saveLocal(data) { localStorage.setItem('pawcare_routines', JSON.stringify(data)); }
 
-  function toggleRoutine(id) {
-    const updated = routines.map(r => r.id === id ? { ...r, enabled: !r.enabled } : r);
-    setRoutines(updated); saveRoutines(updated); toast.success('Updated!');
+  async function toggleRoutine(id) {
+    try {
+      const routine = routines.find(r => r.id === id);
+      const updatedEnabled = !routine.enabled;
+      
+      const updated = routines.map(r => r.id === id ? { ...r, enabled: updatedEnabled } : r);
+      setRoutines(updated);
+      saveLocal(updated);
+      
+      await api.toggleRoutine(id, updatedEnabled);
+      toast.success(updatedEnabled ? 'Alarm enabled! ⏰' : 'Alarm disabled');
+    } catch (err) {
+      toast.error('Failed to sync with server');
+    }
   }
 
-  function deleteRoutine(id) {
-    const updated = routines.filter(r => r.id !== id);
-    setRoutines(updated); saveRoutines(updated); toast.success('Removed');
+  async function deleteRoutine(id) {
+    try {
+      const updated = routines.filter(r => r.id !== id);
+      setRoutines(updated);
+      saveLocal(updated);
+      await api.deleteRoutine(id);
+      toast.success('Removed');
+    } catch (err) {
+      toast.error('Failed to delete from server');
+    }
   }
 
-  function updateRoutineTime(id, newTime) {
+  async function updateRoutineTime(id, newTime) {
     const updated = routines.map(r => r.id === id ? { ...r, time: newTime } : r);
-    setRoutines(updated); saveRoutines(updated);
+    setRoutines(updated);
+    saveLocal(updated);
+    // Ideally update server too, but for now we'll just re-sync on add/toggle
   }
 
-  function addRoutine() {
+  async function addRoutine() {
     if (!newRoutine.title) { toast.error('Enter a title'); return; }
-    const routine = { ...newRoutine, id: `custom-${Date.now()}`, enabled: true, message: newRoutine.message || `🐾 Time for ${newRoutine.title}!` };
-    const updated = [...routines, routine];
-    setRoutines(updated); saveRoutines(updated);
-    setShowAddModal(false);
-    setNewRoutine({ title: '', time: '08:00', type: 'morning', icon: '🔔', message: '' });
-    toast.success('Routine added!');
+    const routine = { 
+      ...newRoutine, 
+      id: `custom-${Date.now()}`, 
+      enabled: true, 
+      message: newRoutine.message || `🐾 Time for ${newRoutine.title}!` 
+    };
+    
+    try {
+      const updated = [...routines, routine];
+      setRoutines(updated);
+      saveLocal(updated);
+      await api.createRoutine(routine);
+      setShowAddModal(false);
+      setNewRoutine({ title: '', time: '08:00', type: 'morning', icon: '🔔', message: '' });
+      toast.success('Routine added & synced! ⏰');
+    } catch (err) {
+      toast.error('Saved locally, but server sync failed');
+    }
   }
 
   const groups = [
@@ -172,36 +218,38 @@ export default function RoutinePage() {
       <div className="flex-row justify-between items-center" style={{ marginBottom: 24 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
           <div style={{ 
-            background: 'var(--primary-color)', color: '#fff', 
-            width: 48, height: 48, borderRadius: '12px',
+            background: '#1f2937', color: '#fff', 
+            width: 52, height: 52, borderRadius: '12px',
             display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-            lineHeight: 1, boxShadow: '0 4px 12px rgba(139, 92, 246, 0.2)'
+            lineHeight: 1, boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+            border: '2px solid #374151'
           }}>
-            <span style={{ fontSize: 10, fontWeight: 700, textTransform: 'uppercase', marginBottom: 2 }}>{new Date().toLocaleDateString('en-US', { month: 'short' })}</span>
-            <span style={{ fontSize: 18, fontWeight: 800 }}>{new Date().getDate()}</span>
+            <span style={{ fontSize: 10, fontWeight: 700, textTransform: 'uppercase', marginBottom: 2, color: '#9ca3af' }}>{new Date().toLocaleDateString('en-US', { month: 'short' })}</span>
+            <span style={{ fontSize: 20, fontWeight: 800 }}>{new Date().getDate()}</span>
           </div>
-          <h3 style={{ fontSize: 20, fontWeight: 700 }}>Daily Schedule</h3>
+          <h3 style={{ fontSize: 20, fontWeight: 700, color: '#111827' }}>Daily Schedule</h3>
         </div>
         <div style={{ display: 'flex', gap: 8 }}>
           <button 
             className="btn btn-secondary btn-sm" 
             onClick={async () => {
-              toast.loading('Sending test alarm...');
+              const loadingToast = toast.loading('Sending test alarm...');
               try {
                 const registration = await navigator.serviceWorker.ready;
-                registration.showNotification('PawCare Test 🔔', {
-                  body: 'This is a test alarm! If you see this, your notifications are working.',
+                await registration.showNotification('PawCare Test 🔔', {
+                  body: 'This is a test alarm! If you see this, your phone is ready.',
                   icon: '/pwa-192x192.png',
                   vibrate: [200, 100, 200],
                   requireInteraction: true
                 });
-                toast.dismiss();
+                toast.dismiss(loadingToast);
                 toast.success('Test sent! Check notifications.');
               } catch (e) {
+                toast.dismiss(loadingToast);
                 toast.error('Test failed: ' + e.message);
               }
             }}
-            style={{ padding: '8px 12px', fontSize: 12 }}
+            style={{ padding: '8px 12px', fontSize: 12, background: '#f3f4f6', color: '#374151', border: '1px solid #e5e7eb' }}
           >
             Test
           </button>

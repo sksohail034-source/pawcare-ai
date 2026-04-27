@@ -86,11 +86,13 @@ async function start() {
     console.log(`   API docs: http://localhost:${PORT}/api/health\n`);
   });
 
-  // Background Cron Job for Routines
+  // Background Cron Job for Routines (Set to Asia/Kolkata to match user's local time)
   cron.schedule('* * * * *', async () => {
     try {
       const db = (await import('./database.js')).getDb();
-      const now = new Date();
+      
+      // Get current time in IST (Asia/Kolkata)
+      const now = new Date(new Date().toLocaleString("en-US", {timeZone: "Asia/Kolkata"}));
       const timeStr = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
       
       const result = db.exec(`
