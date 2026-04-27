@@ -106,12 +106,13 @@ router.post('/analyze/:petId', authenticateToken, async (req, res) => {
         const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
         const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
+        const mimeType = image.split(";")[0].split(":")[1] || "image/jpeg";
         const base64Data = image.split(",")[1];
         const prompt = `Identify the animal in this photo. Is it a ${expectedType}? Answer with ONLY the animal name (e.g. "Dog", "Cat", "Goat"). If it's not a ${expectedType}, identify what it actually is.`;
 
         const result = await model.generateContent([
           prompt,
-          { inlineData: { data: base64Data, mimeType: "image/jpeg" } }
+          { inlineData: { data: base64Data, mimeType } }
         ]);
         
         const responseText = result.response.text().trim().toLowerCase();
