@@ -59,69 +59,129 @@ export default function PetsPage() {
   if (loading) return <div className="loading-container"><div className="spinner"></div><p>Loading pets...</p></div>;
 
   return (
-    <div>
-      <div className="hero-section" style={{ 
-        background: 'linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%)', 
-        color: 'white', 
-        padding: '32px 24px', 
-        borderRadius: '24px', 
-        marginBottom: '32px',
-        display: 'flex', 
-        justifyContent: 'space-between', 
-        alignItems: 'center',
-        boxShadow: '0 20px 40px rgba(34, 197, 94, 0.2)',
-        marginTop: '16px'
+    <div className="page-container" style={{ padding: '0 16px' }}>
+      {/* Premium Hero Section */}
+      <div style={{ 
+        background: 'linear-gradient(135deg, #22c55e, #16a34a)', 
+        color: '#fff', 
+        padding: '40px 20px', 
+        borderRadius: '0 0 32px 32px',
+        margin: '-16px -16px 32px -16px',
+        textAlign: 'center',
+        position: 'relative',
+        boxShadow: '0 10px 30px rgba(34, 197, 94, 0.2)'
       }}>
-        <div>
-          <h2 style={{ fontSize: '28px', fontWeight: '800', marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '8px', margin: 0 }}>
-            My Pets 🐾
-          </h2>
-          <p style={{ opacity: 0.9, fontSize: '15px', margin: 0 }}>Manage your pet profiles and track their well-being</p>
+        <div style={{ marginBottom: 16 }}>
+          <div style={{ 
+            width: 64, height: 64, background: 'rgba(255,255,255,0.2)', 
+            borderRadius: '20px', display: 'flex', alignItems: 'center', 
+            justifyContent: 'center', fontSize: 32, margin: '0 auto 12px',
+            backdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.3)'
+          }}>
+            🐾
+          </div>
+          <h2 style={{ fontSize: 28, fontWeight: 800, marginBottom: 8, letterSpacing: '-0.5px' }}>My Pets</h2>
+          <p style={{ opacity: 0.9, fontSize: 15, fontWeight: 500 }}>Manage your pet profiles & track well-being</p>
         </div>
+        
         <button 
           className="btn" 
-          style={{ background: 'white', color: 'var(--primary)', fontWeight: 'bold', padding: '12px 24px', borderRadius: '12px', boxShadow: '0 8px 16px rgba(0,0,0,0.1)', border: 'none' }}
+          style={{ 
+            background: '#fff', color: '#16a34a', fontWeight: '700', 
+            padding: '12px 24px', borderRadius: '16px', 
+            boxShadow: '0 10px 20px rgba(0,0,0,0.1)', 
+            border: 'none', display: 'inline-flex', alignItems: 'center', gap: 8
+          }}
           onClick={() => {
             const { subscription, role } = JSON.parse(localStorage.getItem('user') || '{}');
             const maxPets = (subscription === 'pro' || subscription === 'enterprise' || role === 'admin') ? -1 : subscription === 'basic' ? 2 : 1;
             if (maxPets !== -1 && pets.length >= maxPets) {
-              toast.error('Pet limit reached! Upgrade your plan to add more pets.');
+              toast.error('Pet limit reached! Upgrade your plan.');
               return;
             }
             openAdd();
           }}
         >
-          ➕ Add Pet
+          <span style={{ fontSize: 20 }}>+</span> Add New Pet
         </button>
       </div>
 
       {pets.length === 0 ? (
-        <div className="empty-state card">
-          <div className="empty-icon">🐾</div>
-          <h3>No pets yet</h3>
-          <p>Add your first furry friend to get started</p>
-          <button className="btn btn-primary" onClick={openAdd}>Add Your First Pet</button>
+        <div className="empty-state card" style={{ borderRadius: 24, padding: '48px 24px' }}>
+          <div className="empty-icon" style={{ fontSize: 64, marginBottom: 16 }}>🐕</div>
+          <h3 style={{ fontSize: 22, fontWeight: 700 }}>No pets profiles yet</h3>
+          <p style={{ color: 'var(--text-muted)', marginBottom: 24 }}>Add your first furry friend to start tracking their health!</p>
+          <button className="btn btn-primary btn-lg" onClick={openAdd}>Create Pet Profile</button>
         </div>
       ) : (
-        <div className="card-grid">
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 20, paddingBottom: 100 }}>
           {pets.map(pet => (
-            <div className="pet-card" key={pet.id}>
-              <div className={`pet-card-image ${pet.type?.toLowerCase()}`}>
+            <div 
+              key={pet.id}
+              className="card animate-in" 
+              style={{ 
+                padding: '20px', 
+                borderRadius: '24px', 
+                border: '1px solid rgba(0,0,0,0.05)',
+                boxShadow: '0 4px 15px rgba(0,0,0,0.03)',
+                display: 'flex',
+                gap: 16,
+                alignItems: 'center',
+                position: 'relative',
+                overflow: 'hidden'
+              }}
+            >
+              <div style={{ 
+                width: 70, height: 70, 
+                background: 'linear-gradient(135deg, #f0fdf4, #dcfce7)', 
+                borderRadius: '18px', display: 'flex', 
+                alignItems: 'center', justifyContent: 'center', 
+                fontSize: 36, border: '1px solid #bbf7d0'
+              }}>
                 {getPetEmoji(pet.type)}
               </div>
-              <div className="pet-card-body">
-                <h3>{pet.name}</h3>
-                <span className="badge badge-primary">{pet.type}</span>
-                <div className="pet-card-info">
-                  {pet.breed && <span>🏷️ {pet.breed}</span>}
-                  {pet.age > 0 && <span>📅 {pet.age} yrs</span>}
+
+              <div style={{ flex: 1 }}>
+                <h3 style={{ fontSize: 19, fontWeight: 700, color: '#111827', marginBottom: 4 }}>{pet.name}</h3>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 8 }}>
+                  <span style={{ 
+                    fontSize: 11, fontWeight: 700, padding: '3px 10px', 
+                    borderRadius: '8px', background: '#f3f4f6', color: '#4b5563',
+                    textTransform: 'uppercase'
+                  }}>{pet.type}</span>
+                  {pet.breed && <span style={{ 
+                    fontSize: 11, fontWeight: 600, padding: '3px 10px', 
+                    borderRadius: '8px', background: '#e0f2fe', color: '#0284c7'
+                  }}>{pet.breed}</span>}
+                </div>
+                
+                <div style={{ display: 'flex', gap: 12, fontSize: 13, color: '#6b7280', fontWeight: 500 }}>
+                  {pet.age > 0 && <span>🎂 {pet.age} yrs</span>}
                   {pet.weight > 0 && <span>⚖️ {pet.weight} lbs</span>}
                 </div>
-                {pet.notes && <p style={{ marginTop: 8, fontSize: 13, color: 'var(--text-secondary)' }}>{pet.notes}</p>}
-                <div className="pet-card-actions">
-                  <button className="btn btn-secondary btn-sm" onClick={() => openEdit(pet)}>✏️ Edit</button>
-                  <button className="btn btn-ghost btn-sm" onClick={() => handleDelete(pet.id)} style={{ color: 'var(--danger)' }}>🗑️ Delete</button>
-                </div>
+              </div>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                <button 
+                  onClick={() => openEdit(pet)}
+                  style={{ 
+                    width: 36, height: 36, borderRadius: '12px', background: '#f8fafc',
+                    border: '1px solid #e2e8f0', display: 'flex', alignItems: 'center',
+                    justifyContent: 'center', cursor: 'pointer', color: '#64748b'
+                  }}
+                >
+                  ✏️
+                </button>
+                <button 
+                  onClick={() => handleDelete(pet.id)}
+                  style={{ 
+                    width: 36, height: 36, borderRadius: '12px', background: '#fff1f2',
+                    border: '1px solid #fecdd3', display: 'flex', alignItems: 'center',
+                    justifyContent: 'center', cursor: 'pointer', color: '#e11d48'
+                  }}
+                >
+                  🗑️
+                </button>
               </div>
             </div>
           ))}

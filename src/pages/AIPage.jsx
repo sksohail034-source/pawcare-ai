@@ -287,13 +287,56 @@ export default function AIPage() {
 
       {/* Analysis Results */}
       {results && activeTab === 'analyze' && !results.type && (
-        <div style={{ marginTop: 24 }}>
-          <h3 style={{ fontFamily: 'var(--font-display)', marginBottom: 16 }}>🔍 Analysis Results for {selectedPet?.name}</h3>
-          <div className="card-grid">
-            <div className="card"><h4>🐾 Pet Type</h4><p style={{ fontSize: 24, fontWeight: 700, color: 'var(--primary-dark)' }}>{results.petType}</p><p style={{ color: 'var(--text-muted)', fontSize: 13 }}>Breed: {results.breed}</p></div>
-            <div className="card"><h4>🧥 Fur Condition</h4><p style={{ fontSize: 24, fontWeight: 700, color: 'var(--primary-dark)' }}>{results.furCondition.score}%</p><span className="badge badge-success">{results.furCondition.status}</span><p style={{ color: 'var(--text-muted)', fontSize: 12, marginTop: 8 }}>{results.furCondition.details}</p></div>
-            <div className="card"><h4>🩺 Skin Health</h4><p style={{ fontSize: 24, fontWeight: 700, color: 'var(--primary-dark)' }}>{results.skinHealth.score}%</p><span className="badge badge-success">{results.skinHealth.status}</span><p style={{ color: 'var(--text-muted)', fontSize: 12, marginTop: 8 }}>{results.skinHealth.details}</p></div>
-            <div className="card"><h4>⚖️ Body Condition</h4><p style={{ fontSize: 24, fontWeight: 700, color: 'var(--primary-dark)' }}>{results.bodyCondition.score}%</p><span className="badge badge-info">BCS: {results.bodyCondition.bcs}</span><p style={{ color: 'var(--text-muted)', fontSize: 12, marginTop: 8 }}>{results.bodyCondition.details}</p></div>
+        <div className="results-container animate-in" style={{ marginTop: 32, paddingBottom: 100 }}>
+          {/* Result Header Hero */}
+          <div style={{ 
+            background: 'linear-gradient(135deg, #0ea5e9, #0284c7)', 
+            padding: '24px', borderRadius: '24px', color: 'white',
+            marginBottom: '24px', boxShadow: '0 10px 25px rgba(14, 165, 233, 0.2)'
+          }}>
+            <h2 style={{ fontSize: 24, fontWeight: 800, marginBottom: 4 }}>Analysis Report</h2>
+            <p style={{ opacity: 0.9, fontSize: 14 }}>{new Date().toLocaleDateString()} • {results.petType} Verification Complete</p>
+          </div>
+
+          <div className="card" style={{ padding: 20, borderRadius: 24, marginBottom: 20, border: '1px solid rgba(0,0,0,0.05)' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+              <div style={{ 
+                width: 60, height: 60, background: '#f0f9ff', 
+                borderRadius: '16px', display: 'flex', alignItems: 'center', 
+                justifyContent: 'center', fontSize: 32 
+              }}>{getPetEmoji(results.petType)}</div>
+              <div>
+                <h3 style={{ fontSize: 20, fontWeight: 700, margin: 0 }}>{results.petType}</h3>
+                <p style={{ color: 'var(--text-muted)', margin: 0 }}>Breed: {results.breed}</p>
+              </div>
+              <div style={{ marginLeft: 'auto', textAlign: 'right' }}>
+                <div style={{ fontSize: 28, fontWeight: 800, color: 'var(--primary)', lineHeight: 1 }}>9.2</div>
+                <div style={{ fontSize: 10, fontWeight: 700, opacity: 0.6, marginTop: 4 }}>HEALTH SCORE</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="card-grid" style={{ gap: 16 }}>
+            <div className="card" style={{ padding: 20, borderRadius: 24 }}>
+              <div style={{ fontSize: 24, marginBottom: 8 }}>🧥</div>
+              <h4 style={{ fontSize: 15, fontWeight: 700, marginBottom: 4 }}>Fur Condition</h4>
+              <div style={{ fontSize: 24, fontWeight: 800, color: 'var(--primary)', marginBottom: 8 }}>{results.furCondition.score}%</div>
+              <p style={{ fontSize: 12, color: 'var(--text-secondary)', lineHeight: 1.5 }}>{results.furCondition.details}</p>
+            </div>
+
+            <div className="card" style={{ padding: 20, borderRadius: 24 }}>
+              <div style={{ fontSize: 24, marginBottom: 8 }}>🩺</div>
+              <h4 style={{ fontSize: 15, fontWeight: 700, marginBottom: 4 }}>Skin Health</h4>
+              <div style={{ fontSize: 24, fontWeight: 800, color: '#0ea5e9', marginBottom: 8 }}>{results.skinHealth.score}%</div>
+              <p style={{ fontSize: 12, color: 'var(--text-secondary)', lineHeight: 1.5 }}>{results.skinHealth.details}</p>
+            </div>
+
+            <div className="card" style={{ padding: 20, borderRadius: 24 }}>
+              <div style={{ fontSize: 24, marginBottom: 8 }}>⚖️</div>
+              <h4 style={{ fontSize: 15, fontWeight: 700, marginBottom: 4 }}>Body Condition</h4>
+              <div style={{ fontSize: 24, fontWeight: 800, color: '#f59e0b', marginBottom: 8 }}>{results.bodyCondition.score}%</div>
+              <p style={{ fontSize: 12, color: 'var(--text-secondary)', lineHeight: 1.5 }}>BCS: {results.bodyCondition.bcs} - {results.bodyCondition.details}</p>
+            </div>
           </div>
           <h4 style={{ fontFamily: 'var(--font-display)', margin: '24px 0 12px' }}>✂️ Grooming Needs</h4>
           <div className="card-grid">{results.groomingNeeds.map((g, i) => (
