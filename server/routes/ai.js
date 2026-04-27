@@ -106,19 +106,33 @@ router.post('/analyze/:petId', authenticateToken, async (req, res) => {
 
         const mimeType = image.split(";")[0].split(":")[1] || "image/jpeg";
         const base64Data = image.split(",")[1];
-        const prompt = `Identify the animal in this photo. Is it a ${expectedType}? Answer with ONLY the animal name (e.g. "Dog", "Cat", "Goat"). If it's not a ${expectedType}, identify what it actually is.`;
+        const prompt = `STRICT SPECIES VERIFICATION:
+        1. Identify the subject of this image.
+        2. Is it a ${expectedType.toUpperCase()}?
+        3. If it is a HUMAN (girl, boy, person), answer: "HUMAN".
+        4. If it is an animal but NOT a ${expectedType}, answer with that animal name (e.g., "GOAT", "CAT").
+        5. If it is a ${expectedType}, answer: "${expectedType.toUpperCase()}".
+        
+        ANSWER WITH ONLY ONE WORD.`;
 
         const result = await model.generateContent([
           prompt,
           { inlineData: { data: base64Data, mimeType } }
         ]);
         
-        const responseText = result.response.text().trim().toLowerCase();
-        console.log(`Gemini Vision Result: ${responseText} (Expected: ${expectedType})`);
+        const responseText = result.response.text().trim().toUpperCase();
+        console.log(`Gemini Vision Verdict: [${responseText}] (Expected: ${expectedType.toUpperCase()})`);
 
-        if (!responseText.includes(expectedType)) {
+        if (responseText === "HUMAN") {
           return res.status(400).json({ 
-            error: `Vision Mismatch: Gemini detected a ${responseText.toUpperCase()}, but profile is ${expectedType.toUpperCase()}.`,
+            error: "🛑 SECURITY ALERT: Our AI detected a HUMAN in this photo. Please upload a real pet photo.",
+            code: 'MISMATCH'
+          });
+        }
+
+        if (!responseText.includes(expectedType.toUpperCase())) {
+          return res.status(400).json({ 
+            error: `🛑 VISION MISMATCH: Gemini identified a ${responseText}, but your profile is for a ${expectedType.toUpperCase()}.`,
             code: 'MISMATCH'
           });
         }
