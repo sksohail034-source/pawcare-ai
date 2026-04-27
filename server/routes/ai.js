@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { v4 as uuidv4 } from 'uuid';
+import { GoogleGenerativeAI } from "@google/generative-ai";
 import { getDb, saveDatabase } from '../database.js';
 import { authenticateToken } from '../middleware/auth.js';
 
@@ -83,9 +84,6 @@ function incrementScan(db, userId, scanCount) {
   saveDatabase();
 }
 
-const { GoogleGenerativeAI } = require("@google/generative-ai");
-
-// ... existing code ...
 
 router.post('/analyze/:petId', authenticateToken, async (req, res) => {
   try {
