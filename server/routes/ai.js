@@ -111,20 +111,26 @@ router.post('/analyze/:petId', authenticateToken, async (req, res) => {
     }
     const expectedType = petResult[0].values[0][0].toLowerCase();
 
-    // REAL GEMINI AI INTEGRATION (If API Key exists)
-    let geminiError = null;
-    if (process.env.GEMINI_API_KEY && image) {
+    // REAL GEMINI AI INTEGRATION
+    if (!process.env.GEMINI_API_KEY) {
+      return res.status(503).json({ error: 'AI Service currently unavailable (API Key missing).' });
+    }
+
+    if (image) {
       try {
         const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+        // Using the most stable model name for Gemini 1.5 Flash
         const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
         const mimeType = image.split(";")[0].split(":")[1] || "image/jpeg";
         const base64Data = image.split(",")[1];
+        
         const prompt = `STRICT SPECIES VERIFICATION:
+        Subject Identification:
         1. Identify the subject of this image.
         2. Is it a ${expectedType.toUpperCase()}?
-        3. If it is a HUMAN (girl, boy, person), answer: "HUMAN".
-        4. If it is an animal but NOT a ${expectedType}, answer with that animal name (e.g., "GOAT", "CAT").
+        3. If it is a HUMAN, a girl, a boy, or any person, answer: "HUMAN".
+        4. If it is an animal but NOT a ${expectedType}, answer with that animal name (e.g., "CAT", "GOAT").
         5. If it is a ${expectedType}, answer: "${expectedType.toUpperCase()}".
         
         ANSWER WITH ONLY ONE WORD.`;
@@ -139,29 +145,23 @@ router.post('/analyze/:petId', authenticateToken, async (req, res) => {
 
         if (responseText === "HUMAN") {
           return res.status(400).json({ 
-            error: "🛑 SECURITY ALERT: Our AI detected a HUMAN in this photo. Please upload a real pet photo.",
+            error: "🛑 SECURITY ALERT: Human detected. Please upload a real pet photo.",
             code: 'MISMATCH'
           });
         }
 
         if (!responseText.includes(expectedType.toUpperCase())) {
           return res.status(400).json({ 
-            error: `🛑 VISION MISMATCH: Gemini identified a ${responseText}, but your profile is for a ${expectedType.toUpperCase()}.`,
+            error: `🛑 VISION MISMATCH: Identified as ${responseText}, but your profile is ${expectedType.toUpperCase()}.`,
             code: 'MISMATCH'
           });
         }
       } catch (err) {
-        console.error("Gemini API Error:", err);
-        geminiError = "Real AI service busy. Falling back to internal verification.";
+        console.error("Gemini API Error Detail:", err);
+        return res.status(503).json({ error: "AI service is currently initializing or busy. Please try again in a few moments." });
       }
-    }
-
-    // Verification Logic (Simulation fallback)
-    if (!process.env.GEMINI_API_KEY && detectedType && detectedType.toLowerCase() !== expectedType) {
-      return res.status(400).json({ 
-        error: `Vision Mismatch: Image detected as ${detectedType}, but profile is ${expectedType}.`,
-        code: 'MISMATCH'
-      });
+    } else {
+      return res.status(400).json({ error: 'Image data is required for AI analysis.' });
     }
 
     const limitCheck = checkScanLimit(db, req.user.id);
