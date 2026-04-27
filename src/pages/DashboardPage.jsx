@@ -21,7 +21,7 @@ export default function DashboardPage() {
     const fetchRoutines = async () => {
       try {
         const data = await api.getRoutines();
-        setRoutines(data);
+        setRoutines(data.routines || []);
       } catch (err) {
         console.error('Failed to fetch routines', err);
       }

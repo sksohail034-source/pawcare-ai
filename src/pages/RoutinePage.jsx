@@ -52,8 +52,9 @@ export default function RoutinePage() {
   async function loadRoutines() {
     try {
       const data = await api.getRoutines();
-      if (data && data.length > 0) {
-        setRoutines(data);
+      if (data && data.routines && data.routines.length > 0) {
+        setRoutines(data.routines);
+        localStorage.setItem('pawcare_routines', JSON.stringify(data.routines));
       } else {
         // Fallback to local or defaults if server is empty
         const saved = localStorage.getItem('pawcare_routines');
@@ -65,6 +66,7 @@ export default function RoutinePage() {
         }
       }
     } catch (err) {
+      console.error('Failed to load from server', err);
       const saved = localStorage.getItem('pawcare_routines');
       setRoutines(saved ? JSON.parse(saved) : defaultRoutines);
     }
