@@ -188,7 +188,7 @@ export default function AIPage() {
       };
       
       setResults(analysis);
-      try { await api.analyzePhoto(selectedPet.id, detectedType); } catch {}
+      try { await api.analyzePhoto(selectedPet.id, detectedType, uploadedImage); } catch {}
       loadScanInfo();
       toast.success('Species Verified & Analysis Complete! ✨');
     } catch (err) { 

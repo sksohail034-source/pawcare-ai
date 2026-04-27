@@ -83,9 +83,13 @@ function incrementScan(db, userId, scanCount) {
   saveDatabase();
 }
 
-router.post('/analyze/:petId', authenticateToken, (req, res) => {
+const { GoogleGenerativeAI } = require("@google/generative-ai");
+
+// ... existing code ...
+
+router.post('/analyze/:petId', authenticateToken, async (req, res) => {
   try {
-    const { detectedType } = req.body;
+    const { detectedType, image } = req.body;
     const db = getDb();
     
     // Check if pet exists
@@ -95,8 +99,38 @@ router.post('/analyze/:petId', authenticateToken, (req, res) => {
     }
     const expectedType = petResult[0].values[0][0].toLowerCase();
 
-    // Verification Logic (Simulation)
-    if (detectedType && detectedType.toLowerCase() !== expectedType) {
+    // REAL GEMINI AI INTEGRATION (If API Key exists)
+    let geminiError = null;
+    if (process.env.GEMINI_API_KEY && image) {
+      try {
+        const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+        const base64Data = image.split(",")[1];
+        const prompt = `Identify the animal in this photo. Is it a ${expectedType}? Answer with ONLY the animal name (e.g. "Dog", "Cat", "Goat"). If it's not a ${expectedType}, identify what it actually is.`;
+
+        const result = await model.generateContent([
+          prompt,
+          { inlineData: { data: base64Data, mimeType: "image/jpeg" } }
+        ]);
+        
+        const responseText = result.response.text().trim().toLowerCase();
+        console.log(`Gemini Vision Result: ${responseText} (Expected: ${expectedType})`);
+
+        if (!responseText.includes(expectedType)) {
+          return res.status(400).json({ 
+            error: `Vision Mismatch: Gemini detected a ${responseText.toUpperCase()}, but profile is ${expectedType.toUpperCase()}.`,
+            code: 'MISMATCH'
+          });
+        }
+      } catch (err) {
+        console.error("Gemini API Error:", err);
+        geminiError = "Real AI service busy. Falling back to internal verification.";
+      }
+    }
+
+    // Verification Logic (Simulation fallback)
+    if (!process.env.GEMINI_API_KEY && detectedType && detectedType.toLowerCase() !== expectedType) {
       return res.status(400).json({ 
         error: `Vision Mismatch: Image detected as ${detectedType}, but profile is ${expectedType}.`,
         code: 'MISMATCH'
@@ -107,7 +141,10 @@ router.post('/analyze/:petId', authenticateToken, (req, res) => {
     if (!limitCheck.allowed) return res.status(403).json({ error: 'No scans remaining. Watch an ad to continue.' });
     
     incrementScan(db, req.user.id, limitCheck.scanCount);
-    res.json({ success: true, message: 'Analysis verified and logged.' });
+    res.json({ 
+      success: true, 
+      message: geminiError || 'Analysis verified by Real AI Vision.' 
+    });
   } catch (err) { 
     console.error('Analysis error:', err);
     res.status(500).json({ error: 'Failed to update scan count' }); 

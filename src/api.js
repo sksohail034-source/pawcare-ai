@@ -39,7 +39,7 @@ export const api = {
   // AI
   getStyleSuggestions: (petId) => request(`/ai/style/${petId}`, { method: 'POST' }),
   getHealthTips: (petId) => request(`/ai/health/${petId}`, { method: 'POST' }),
-  analyzePhoto: (petId, detectedType) => request(`/ai/analyze/${petId}`, { method: 'POST', body: JSON.stringify({ detectedType }) }),
+  analyzePhoto: (petId, detectedType, image) => request(`/ai/analyze/${petId}`, { method: 'POST', body: JSON.stringify({ detectedType, image }) }),
   getAIHistory: () => request('/ai/history'),
 
   // Vaccinations
