@@ -28,8 +28,8 @@ const groomingStyles = {
   fish: [
     { name: 'Scale Brightening', description: 'Water minerals for scale health', confidence: 0.85, tags: ['water-care', 'scales'] },
   ],
-  turtle: [
-    { name: 'Shell Polish', description: 'Safe organic shell conditioning', confidence: 0.87, tags: ['shell-care', 'shine'] },
+  goat: [
+    { name: 'Natural Coat Brush', description: 'Gentle grooming for farm health', confidence: 0.87, tags: ['farm-care', 'natural'] },
   ],
   horse: [
     { name: 'Mane Braiding', description: 'Professional show braiding', confidence: 0.94, tags: ['professional', 'show'] },
@@ -64,8 +64,8 @@ const healthTips = {
   fish: [
     { category: 'Water', title: 'pH Balance', tip: 'Test water levels weekly for stability.', priority: 'high' },
   ],
-  turtle: [
-    { category: 'Light', title: 'UVB Exposure', tip: 'Necessary for calcium and shell health.', priority: 'high' },
+  goat: [
+    { category: 'Diet', title: 'Mineral Support', tip: 'Provide mineral blocks to prevent deficiencies.', priority: 'high' },
   ],
   horse: [
     { category: 'Hoof', title: 'Regular Trimming', tip: 'Clean hooves daily and trim every 6 weeks.', priority: 'high' },
