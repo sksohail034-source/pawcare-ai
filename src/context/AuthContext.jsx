@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import { api } from '../api';
+import { subscribeToPush } from '../utils/push';
 
 const AuthContext = createContext(null);
 
@@ -11,7 +12,10 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     if (token) {
       api.getMe()
-        .then(data => setUser(data.user))
+        .then(data => {
+          setUser(data.user);
+          subscribeToPush();
+        })
         .catch(() => {
           localStorage.removeItem('pawcare_token');
           setToken(null);
@@ -27,6 +31,7 @@ export function AuthProvider({ children }) {
     localStorage.setItem('pawcare_token', data.token);
     setToken(data.token);
     setUser(data.user);
+    subscribeToPush();
     return data;
   };
 
@@ -35,6 +40,7 @@ export function AuthProvider({ children }) {
     localStorage.setItem('pawcare_token', data.token);
     setToken(data.token);
     setUser(data.user);
+    subscribeToPush();
     return data;
   };
 

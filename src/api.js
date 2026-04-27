@@ -90,4 +90,5 @@ export const api = {
   createRoutine: (body) => request('/routines', { method: 'POST', body: JSON.stringify(body) }),
   toggleRoutine: (id, enabled) => request(`/routines/${id}/toggle`, { method: 'PUT', body: JSON.stringify({ enabled }) }),
   deleteRoutine: (id) => request(`/routines/${id}`, { method: 'DELETE' }),
+  subscribePush: (subscription) => request('/push/subscribe', { method: 'POST', body: JSON.stringify({ subscription }) }),
 };

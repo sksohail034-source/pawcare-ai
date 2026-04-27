@@ -130,6 +130,13 @@ export async function initDatabase() {
     FOREIGN KEY (user_id) REFERENCES users(id)
   )`);
 
+  db.run(`CREATE TABLE IF NOT EXISTS push_subscriptions (
+    user_id TEXT NOT NULL,
+    subscription TEXT NOT NULL,
+    created_at TEXT DEFAULT (datetime('now')),
+    FOREIGN KEY (user_id) REFERENCES users(id)
+  )`);
+
   saveDatabase();
   console.log('Database initialized successfully');
   return db;
