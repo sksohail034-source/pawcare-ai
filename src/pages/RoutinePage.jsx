@@ -168,12 +168,47 @@ export default function RoutinePage() {
       ) : (
       <>
 
-      {/* Add Button */}
-      <div className="flex-row justify-between items-center" style={{ marginBottom: 16 }}>
-        <h3>📅 Daily Schedule</h3>
-        <button className="btn btn-primary btn-sm" onClick={() => setShowAddModal(true)}>
-          <Plus size={16} /> Add
-        </button>
+      {/* Add Button & Dynamic Date */}
+      <div className="flex-row justify-between items-center" style={{ marginBottom: 24 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          <div style={{ 
+            background: 'var(--primary-color)', color: '#fff', 
+            width: 48, height: 48, borderRadius: '12px',
+            display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+            lineHeight: 1, boxShadow: '0 4px 12px rgba(139, 92, 246, 0.2)'
+          }}>
+            <span style={{ fontSize: 10, fontWeight: 700, textTransform: 'uppercase', marginBottom: 2 }}>{new Date().toLocaleDateString('en-US', { month: 'short' })}</span>
+            <span style={{ fontSize: 18, fontWeight: 800 }}>{new Date().getDate()}</span>
+          </div>
+          <h3 style={{ fontSize: 20, fontWeight: 700 }}>Daily Schedule</h3>
+        </div>
+        <div style={{ display: 'flex', gap: 8 }}>
+          <button 
+            className="btn btn-secondary btn-sm" 
+            onClick={async () => {
+              toast.loading('Sending test alarm...');
+              try {
+                const registration = await navigator.serviceWorker.ready;
+                registration.showNotification('PawCare Test 🔔', {
+                  body: 'This is a test alarm! If you see this, your notifications are working.',
+                  icon: '/pwa-192x192.png',
+                  vibrate: [200, 100, 200],
+                  requireInteraction: true
+                });
+                toast.dismiss();
+                toast.success('Test sent! Check notifications.');
+              } catch (e) {
+                toast.error('Test failed: ' + e.message);
+              }
+            }}
+            style={{ padding: '8px 12px', fontSize: 12 }}
+          >
+            Test
+          </button>
+          <button className="btn btn-primary btn-sm" onClick={() => setShowAddModal(true)}>
+            <Plus size={16} /> Add
+          </button>
+        </div>
       </div>
 
       {/* Routine Groups */}
