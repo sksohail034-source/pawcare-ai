@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
+import { useRoutines } from '../context/RoutineContext';
 
 export default function AlarmManager() {
+  const { routines } = useRoutines();
   const [lastNotified, setLastNotified] = useState({});
 
   useEffect(() => {
     const checkAlarms = () => {
-      const saved = localStorage.getItem('pawcare_routines');
-      if (!saved) return;
+      if (!routines || routines.length === 0) return;
 
-      const routines = JSON.parse(saved);
       const now = new Date();
       const currentHHmm = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
       const today = now.toDateString();
@@ -32,42 +32,59 @@ export default function AlarmManager() {
     const triggerAlarm = (routine) => {
       const message = routine.message || `🐾 Time for ${routine.title}!`;
       
-      // 1. Show Toast
+      // 1. Show Toast with specific style
       toast(message, {
         icon: routine.icon || '🔔',
-        duration: 6000,
+        duration: 8000,
         style: {
-          border: '2px solid var(--primary)',
-          padding: '16px',
-          color: 'var(--text-main)',
-          fontWeight: 'bold',
-          fontSize: '16px'
+          border: '2px solid #8b5cf6',
+          padding: '20px',
+          color: '#111827',
+          fontWeight: '800',
+          fontSize: '18px',
+          borderRadius: '24px',
+          boxShadow: '0 10px 25px rgba(0,0,0,0.1)',
+          background: '#fff'
         },
       });
 
       // 2. Browser Notification
       if ('Notification' in window && Notification.permission === 'granted') {
-        new Notification('PawCare Routine Reminder', {
-          body: message,
-          icon: '/pwa-192x192.png' // Use app icon if available
-        });
+        try {
+          const notification = new Notification(`🐾 PawCare: ${routine.title}`, {
+            body: message,
+            icon: '/pwa-192x192.png',
+            badge: '/favicon.svg',
+            vibrate: [500, 110, 500],
+            requireInteraction: true,
+            tag: 'pawcare-routine'
+          });
+          
+          notification.onclick = () => {
+            window.focus();
+            notification.close();
+          };
+        } catch (e) {
+          console.error('Notification error', e);
+        }
       }
 
-      // 3. Optional: Play Sound
+      // 3. Play Alarm Sound
       try {
         const audio = new Audio('https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3');
-        audio.play().catch(e => console.log('Audio play failed', e));
+        audio.volume = 0.8;
+        audio.play().catch(e => console.log('Audio play blocked by browser', e));
       } catch (e) {
         console.error('Sound error', e);
       }
     };
 
-    // Check every 30 seconds to be precise
-    const interval = setInterval(checkAlarms, 30000);
+    // Check every 15 seconds for better precision
+    const interval = setInterval(checkAlarms, 15000);
     checkAlarms(); // Initial check
 
     return () => clearInterval(interval);
-  }, [lastNotified]);
+  }, [routines, lastNotified]);
 
-  return null; // Background component
+  return null;
 }

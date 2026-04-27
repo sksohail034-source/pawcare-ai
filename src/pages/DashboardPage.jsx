@@ -1,33 +1,23 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Bell, Search, MapPin, Sparkles, Syringe, Dumbbell, Clock } from 'lucide-react';
+import { Bell, Search, MapPin, Sparkles, Syringe, Dumbbell, Clock, ChevronRight } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
-import { PET_TYPES, petImages, getPetEmoji } from '../utils';
+import { useRoutines } from '../context/RoutineContext';
+import { PET_TYPES, petImages, formatTime } from '../utils';
 import { api } from '../api';
 import WelcomeModal from '../components/WelcomeModal';
 import ProfileDrawer from '../components/ProfileDrawer';
 
 export default function DashboardPage() {
   const { user } = useAuth();
+  const { routines, loading: routinesLoading } = useRoutines();
   const navigate = useNavigate();
   const [location, setLocation] = useState('Detecting...');
   const [activeCategory, setActiveCategory] = useState('Dog');
   const [showWelcome, setShowWelcome] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
 
-  const [routines, setRoutines] = useState([]);
-
   useEffect(() => {
-    const fetchRoutines = async () => {
-      try {
-        const data = await api.getRoutines();
-        setRoutines(data.routines || []);
-      } catch (err) {
-        console.error('Failed to fetch routines', err);
-      }
-    };
-    fetchRoutines();
-
     const init = async () => {
       if ('geolocation' in navigator) {
         navigator.geolocation.getCurrentPosition(
@@ -78,6 +68,31 @@ export default function DashboardPage() {
 
   const currentPet = petShowcase[activeCategory];
 
+  // Logic to find next routine
+  const getNextRoutine = () => {
+    if (!routines || routines.length === 0) return null;
+    const active = routines.filter(r => r.enabled);
+    if (active.length === 0) return null;
+
+    const now = new Date();
+    const currentMin = now.getHours() * 60 + now.getMinutes();
+
+    const sorted = [...active].sort((a, b) => {
+      const [ah, am] = a.time.split(':').map(Number);
+      const [bh, bm] = b.time.split(':').map(Number);
+      return (ah * 60 + am) - (bh * 60 + bm);
+    });
+
+    let next = sorted.find(r => {
+      const [rh, rm] = r.time.split(':').map(Number);
+      return (rh * 60 + rm) > currentMin;
+    });
+
+    return next || sorted[0];
+  };
+
+  const nextRoutine = getNextRoutine();
+
   return (
     <div className="page-container">
       {showWelcome && (
@@ -114,92 +129,62 @@ export default function DashboardPage() {
         <input type="text" className="search-input" placeholder="Search pets, services..." />
       </div>
 
-      {/* Smart Routine Hero Section */}
-      <div className="card" style={{ 
-        background: 'linear-gradient(135deg, #8b5cf6, #6d28d9)', 
-        color: '#fff', 
-        padding: '24px', 
-        borderRadius: '24px',
-        marginBottom: '28px',
-        position: 'relative',
-        overflow: 'hidden',
-        boxShadow: '0 10px 25px -5px rgba(139, 92, 246, 0.4)'
-      }}>
+      {/* Premium Hero Section */}
+      <div 
+        onClick={() => navigate('/routine')}
+        className="card" 
+        style={{ 
+          background: 'linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%)', 
+          color: '#fff', 
+          padding: '24px', 
+          borderRadius: '30px',
+          marginBottom: '32px',
+          position: 'relative',
+          overflow: 'hidden',
+          boxShadow: '0 15px 35px -5px rgba(139, 92, 246, 0.4)',
+          cursor: 'pointer',
+          border: '1px solid rgba(255,255,255,0.1)'
+        }}
+      >
         {/* Decorative elements */}
-        <div style={{ position: 'absolute', top: -20, right: -20, width: 100, height: 100, borderRadius: '50%', background: 'rgba(255,255,255,0.1)' }} />
-        <div style={{ position: 'absolute', bottom: -30, left: -10, width: 140, height: 140, borderRadius: '50%', background: 'rgba(255,255,255,0.05)' }} />
+        <div style={{ position: 'absolute', top: -30, right: -30, width: 120, height: 120, borderRadius: '50%', background: 'rgba(255,255,255,0.12)', filter: 'blur(20px)' }} />
+        <div style={{ position: 'absolute', bottom: -40, left: -20, width: 160, height: 160, borderRadius: '50%', background: 'rgba(255,255,255,0.08)', filter: 'blur(30px)' }} />
 
-        <div className="flex-row justify-between items-center" style={{ position: 'relative', zIndex: 1 }}>
-          <div style={{ flex: 1 }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
-              <span style={{ background: 'rgba(255,255,255,0.2)', padding: '4px 10px', borderRadius: '20px', fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-                Next Routine
-              </span>
-              <span className="animate-pulse" style={{ width: 8, height: 8, borderRadius: '50%', background: '#4ade80' }}></span>
+        <div style={{ position: 'relative', zIndex: 2 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20 }}>
+            <div style={{ background: 'rgba(255,255,255,0.25)', padding: '6px 14px', borderRadius: '50px', fontSize: 12, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1px', display: 'flex', alignItems: 'center', gap: 6 }}>
+              <span className="animate-pulse" style={{ width: 6, height: 6, borderRadius: '50%', background: '#4ade80' }}></span>
+              Next Routine
             </div>
-            
-            {(() => {
-              if (routines.length === 0) return <h2 style={{ fontSize: 24, fontWeight: 800 }}>No routine set</h2>;
-              
-              const activeRoutines = routines.filter(r => r.enabled);
-              if (activeRoutines.length === 0) return <h2 style={{ fontSize: 24, fontWeight: 800 }}>No active routines</h2>;
-              
-              const now = new Date();
-              const currentTime = now.getHours() * 60 + now.getMinutes();
-              
-              // Sort routines by time
-              const sorted = [...activeRoutines].sort((a, b) => {
-                if (!a.time || !b.time) return 0;
-                const [ah, am] = a.time.split(':').map(Number);
-                const [bh, bm] = b.time.split(':').map(Number);
-                return (ah * 60 + am) - (bh * 60 + bm);
-              });
-              
-              // Find next
-              let next = sorted.find(r => {
-                if (!r.time) return false;
-                const [rh, rm] = r.time.split(':').map(Number);
-                return (rh * 60 + rm) > currentTime;
-              });
-              
-              if (!next) next = sorted[0]; 
-              if (!next) return <h2 style={{ fontSize: 24, fontWeight: 800 }}>No routine set</h2>;
-              
-              return (
-                <>
-                  <h2 style={{ fontSize: 28, fontWeight: 800, marginBottom: 4, letterSpacing: '-0.5px' }}>
-                    {next.icon} {next.title}
-                  </h2>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 6, opacity: 0.9, fontSize: 15 }}>
-                    <Clock size={16} />
-                    <span>Reminder at <strong>{next.time}</strong></span>
-                  </div>
-                </>
-              );
-            })()}
           </div>
           
-          <button 
-            onClick={() => navigate('/routine')}
-            style={{ 
-              width: 56, 
-              height: 56, 
-              borderRadius: '18px', 
-              background: '#fff', 
-              color: '#8b5cf6', 
-              border: 'none', 
-              display: 'flex', 
-              alignItems: 'center', 
-              justifyContent: 'center',
-              boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-              cursor: 'pointer',
-              transition: 'transform 0.2s'
-            }}
-            onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.05)'}
-            onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
-          >
-            <Bell size={24} />
-          </button>
+          {!nextRoutine ? (
+            <div style={{ padding: '10px 0' }}>
+              <h2 style={{ fontSize: 28, fontWeight: 800, marginBottom: 8 }}>No routines set</h2>
+              <p style={{ opacity: 0.8, fontSize: 14 }}>Tap to set up your pet's daily schedule</p>
+            </div>
+          ) : (
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+              <div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
+                  <span style={{ fontSize: 36 }}>{nextRoutine.icon || '🔔'}</span>
+                  <h2 style={{ fontSize: 26, fontWeight: 800, margin: 0, letterSpacing: '-0.5px' }}>{nextRoutine.title}</h2>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'rgba(0,0,0,0.15)', padding: '8px 16px', borderRadius: '16px', width: 'fit-content' }}>
+                  <Clock size={18} style={{ opacity: 0.9 }} />
+                  <span style={{ fontSize: 20, fontWeight: 700 }}>{formatTime(nextRoutine.time)}</span>
+                </div>
+              </div>
+              
+              <div style={{ 
+                width: 48, height: 48, borderRadius: '16px', background: 'rgba(255,255,255,0.2)', 
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                backdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.3)'
+              }}>
+                <ChevronRight size={24} />
+              </div>
+            </div>
+          )}
         </div>
       </div>
 

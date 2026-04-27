@@ -105,3 +105,12 @@ export const COUNTRIES = [
   { code: '+46', name: 'Sweden', flag: '🇸🇪' },
   { code: '+47', name: 'Norway', flag: '🇳🇴' },
 ];
+
+export function formatTime(timeStr) {
+  if (!timeStr) return '';
+  const [hours, minutes] = timeStr.split(':');
+  const h = parseInt(hours);
+  const ampm = h >= 12 ? 'PM' : 'AM';
+  const displayHours = h % 12 || 12;
+  return `${displayHours}:${minutes} ${ampm}`;
+}

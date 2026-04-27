@@ -1,6 +1,8 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { AuthProvider, useAuth } from './context/AuthContext';
+import { RoutineProvider } from './context/RoutineContext';
+
 import LandingPage from './pages/LandingPage';
 import AuthPage from './pages/AuthPage';
 import DashboardPage from './pages/DashboardPage';
@@ -77,7 +79,8 @@ export default function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <AlarmManager />
+        <RoutineProvider>
+          <AlarmManager />
         <Toaster
           position="top-center"
           toastOptions={{
@@ -100,6 +103,7 @@ export default function App() {
           <Route path="/help" element={<ContactPage />} />
           <Route path="/*" element={<ProtectedRoute><AppLayout /></ProtectedRoute>} />
         </Routes>
+          </RoutineProvider>
       </AuthProvider>
     </BrowserRouter>
   );

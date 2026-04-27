@@ -1,23 +1,13 @@
 import { useState, useEffect } from 'react';
-import { Bell, Clock, Sun, Moon, Sunset, CheckCircle, XCircle, Plus, Trash2 } from 'lucide-react';
+import { Bell, Clock, Sun, Moon, Sunset, CheckCircle, XCircle, Plus, Trash2, ShieldCheck } from 'lucide-react';
 import toast from 'react-hot-toast';
 import AdModal from '../components/AdModal';
-
-const defaultRoutines = [
-  { id: 'morning-feed', title: 'Morning Feeding', time: '07:00', type: 'morning', enabled: true, icon: '🌅', message: '🐾 Time to feed your pet!' },
-  { id: 'morning-groom', title: 'Light Grooming', time: '08:00', type: 'morning', enabled: true, icon: '✨', message: '🚿 Time for light grooming!' },
-  { id: 'afternoon-snack', title: 'Afternoon Snack', time: '12:00', type: 'afternoon', enabled: true, icon: '🍖', message: '🦴 Snack time for your pet!' },
-  { id: 'afternoon-water', title: 'Hydration Check', time: '14:00', type: 'afternoon', enabled: true, icon: '💧', message: "💧 Don't forget water!" },
-  { id: 'evening-walk', title: 'Evening Walk', time: '18:00', type: 'evening', enabled: true, icon: '🚶', message: '🐕 Time for an evening walk!' },
-  { id: 'evening-clean', title: 'Evening Cleaning', time: '20:00', type: 'evening', enabled: true, icon: '🧹', message: '🧹 Time for cleaning & care!' },
-  { id: 'weekly-bath', title: 'Weekly Bath', time: '10:00', type: 'weekly', enabled: true, icon: '🛁', message: '🛁 Weekly bath time!' },
-  { id: 'weekly-nail', title: 'Nail Trimming', time: '11:00', type: 'weekly', enabled: true, icon: '✂️', message: '✂️ Time for nail trimming!' },
-];
-
+import { useRoutines } from '../context/RoutineContext';
+import { formatTime } from '../utils';
 import { subscribeToPush } from '../utils/push';
 
 export default function RoutinePage() {
-  const [routines, setRoutines] = useState([]);
+  const { routines, updateRoutine, toggleRoutine, addRoutine, deleteRoutine } = useRoutines();
   const [notificationsEnabled, setNotificationsEnabled] = useState(false);
   const [isIOS, setIsIOS] = useState(false);
   const [showAddModal, setShowAddModal] = useState(false);
@@ -26,7 +16,6 @@ export default function RoutinePage() {
   const [unlocked, setUnlocked] = useState(sessionStorage.getItem('basic_features_unlocked') === 'true');
 
   useEffect(() => { 
-    loadRoutines(); 
     checkNotificationPermission(); 
     setIsIOS(/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream);
   }, []);
@@ -46,103 +35,6 @@ export default function RoutinePage() {
       await subscribeToPush();
     } else {
       toast.error('Notification permission denied');
-    }
-  }
-
-  async function loadRoutines() {
-    try {
-      const data = await api.getRoutines();
-      if (data && data.routines && data.routines.length > 0) {
-        setRoutines(data.routines);
-        localStorage.setItem('pawcare_routines', JSON.stringify(data.routines));
-      } else {
-        // Fallback to local or defaults if server is empty
-        const saved = localStorage.getItem('pawcare_routines');
-        const initial = saved ? JSON.parse(saved) : defaultRoutines;
-        setRoutines(initial);
-        // Try to sync defaults to server
-        for (const r of initial) {
-          await api.createRoutine(r).catch(() => {});
-        }
-      }
-    } catch (err) {
-      console.error('Failed to load from server', err);
-      const saved = localStorage.getItem('pawcare_routines');
-      setRoutines(saved ? JSON.parse(saved) : defaultRoutines);
-    }
-  }
-
-  function saveLocal(data) { localStorage.setItem('pawcare_routines', JSON.stringify(data)); }
-
-  async function toggleRoutine(id) {
-    try {
-      const routine = routines.find(r => r.id === id);
-      const updatedEnabled = !routine.enabled;
-      
-      const updated = routines.map(r => r.id === id ? { ...r, enabled: updatedEnabled } : r);
-      setRoutines(updated);
-      saveLocal(updated);
-      
-      await api.toggleRoutine(id, updatedEnabled);
-      toast.success(updatedEnabled ? 'Alarm enabled! ⏰' : 'Alarm disabled');
-    } catch (err) {
-      toast.error('Failed to sync with server');
-    }
-  }
-
-  async function deleteRoutine(id) {
-    try {
-      const updated = routines.filter(r => r.id !== id);
-      setRoutines(updated);
-      saveLocal(updated);
-      await api.deleteRoutine(id);
-      toast.success('Removed');
-    } catch (err) {
-      toast.error('Failed to delete from server');
-    }
-  }
-
-  async function updateRoutineTime(id, newTime) {
-    const routine = routines.find(r => r.id === id);
-    if (!routine) return;
-
-    const updated = routines.map(r => r.id === id ? { ...r, time: newTime } : r);
-    setRoutines(updated);
-    saveLocal(updated);
-    
-    try {
-      await api.updateRoutine(id, { ...routine, time: newTime });
-      toast.success('Time updated & synced! ⏰');
-    } catch (err) {
-      console.error('Failed to sync time', err);
-    }
-  }
-
-  async function addRoutine() {
-    if (!newRoutine.title) { toast.error('Enter a title'); return; }
-    const routine = { 
-      ...newRoutine, 
-      id: `custom-${Date.now()}`, 
-      enabled: true, 
-      message: newRoutine.message || `🐾 Time for ${newRoutine.title}!` 
-    };
-    
-    try {
-      const res = await api.createRoutine(routine);
-      const savedRoutine = res.routine || routine;
-      const updated = [...routines, savedRoutine];
-      setRoutines(updated);
-      saveLocal(updated);
-      setShowAddModal(false);
-      setNewRoutine({ title: '', time: '08:00', type: 'morning', icon: '🔔', message: '' });
-      toast.success('Routine added & synced! ⏰');
-    } catch (err) {
-      console.error('Failed to sync new routine', err);
-      const updated = [...routines, routine];
-      setRoutines(updated);
-      saveLocal(updated);
-      setShowAddModal(false);
-      toast.error('Saved locally, but server sync failed');
     }
   }
 
@@ -281,33 +173,122 @@ export default function RoutinePage() {
       </div>
 
       {/* Routine Groups */}
-      {groups.map(g => {
-        const items = routines.filter(r => r.type === g.key);
-        if (items.length === 0) return null;
-        return (
-          <div className="routine-section" key={g.key}>
-            <div className="section-header">{g.icon} <span>{g.label}</span></div>
-            {items.map(routine => (
-              <div className={`routine-card ${routine.enabled ? 'enabled' : ''}`} key={routine.id}>
-                <div className="routine-icon">{routine.icon}</div>
-                <div className="routine-info">
-                  <h4>{routine.title}</h4>
-                  <div className="routine-time">
-                    <Clock size={12} />
-                    <input type="time" value={routine.time} onChange={e => updateRoutineTime(routine.id, e.target.value)} className="time-input" />
-                  </div>
-                </div>
-                <button className={`toggle-btn ${routine.enabled ? 'active' : ''}`} onClick={() => toggleRoutine(routine.id)}>
-                  {routine.enabled ? <CheckCircle size={20} /> : <XCircle size={20} />}
-                </button>
-                {routine.id.startsWith('custom') && (
-                  <button className="delete-btn" onClick={() => deleteRoutine(routine.id)}><Trash2 size={16} /></button>
-                )}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
+        {groups.map(g => {
+          const items = routines.filter(r => r.type === g.key);
+          if (items.length === 0) return null;
+          return (
+            <div className="routine-section" key={g.key} style={{ animation: 'fadeUp 0.5s ease-out' }}>
+              <div className="section-header" style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16, color: '#4b5563', fontWeight: 700, fontSize: 18 }}>
+                <span style={{ color: 'var(--primary)' }}>{g.icon}</span>
+                <span>{g.label}</span>
               </div>
-            ))}
-          </div>
-        );
-      })}
+              
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+                {items.map(routine => (
+                  <div 
+                    key={routine.id} 
+                    className={`routine-card ${routine.enabled ? 'enabled' : ''}`}
+                    style={{
+                      background: '#fff',
+                      borderRadius: '24px',
+                      padding: '16px 20px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 16,
+                      boxShadow: routine.enabled ? '0 10px 20px rgba(0,0,0,0.05)' : 'none',
+                      border: routine.enabled ? '2px solid rgba(139, 92, 246, 0.1)' : '2px solid #f3f4f6',
+                      opacity: routine.enabled ? 1 : 0.6,
+                      transition: 'all 0.3s ease',
+                      position: 'relative',
+                      overflow: 'hidden'
+                    }}
+                  >
+                    {/* Background glow for enabled state */}
+                    {routine.enabled && (
+                      <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: 6, background: 'var(--primary)' }} />
+                    )}
+
+                    <div style={{ 
+                      fontSize: 32, 
+                      width: 56, 
+                      height: 56, 
+                      borderRadius: '16px', 
+                      background: '#f9fafb',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      border: '1px solid #f3f4f6'
+                    }}>
+                      {routine.icon || '🔔'}
+                    </div>
+
+                    <div style={{ flex: 1 }}>
+                      <h4 style={{ margin: '0 0 6px 0', fontSize: 17, fontWeight: 700, color: '#111827' }}>{routine.title}</h4>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                        <Clock size={14} style={{ color: 'var(--primary)' }} />
+                        <div style={{ position: 'relative' }}>
+                          <input 
+                            type="time" 
+                            value={routine.time} 
+                            onChange={e => updateRoutine(routine.id, { time: e.target.value })}
+                            style={{ 
+                              border: 'none', 
+                              background: '#f3f4f6', 
+                              padding: '4px 8px', 
+                              borderRadius: '8px',
+                              fontSize: 14,
+                              fontWeight: 600,
+                              color: '#374151',
+                              cursor: 'pointer'
+                            }}
+                          />
+                        </div>
+                        <span style={{ fontSize: 12, color: '#6b7280', fontWeight: 500 }}>
+                          ({formatTime(routine.time)})
+                        </span>
+                      </div>
+                    </div>
+
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                      {routine.id.startsWith('custom') && (
+                        <button 
+                          onClick={() => deleteRoutine(routine.id)}
+                          style={{ 
+                            background: '#fee2e2', color: '#ef4444', border: 'none', 
+                            padding: '8px', borderRadius: '12px', cursor: 'pointer'
+                          }}
+                        >
+                          <Trash2 size={18} />
+                        </button>
+                      )}
+                      
+                      <button 
+                        onClick={() => toggleRoutine(routine.id, !routine.enabled)}
+                        style={{
+                          background: routine.enabled ? 'var(--primary)' : '#e5e7eb',
+                          color: '#fff',
+                          border: 'none',
+                          padding: '10px',
+                          borderRadius: '14px',
+                          cursor: 'pointer',
+                          transition: 'all 0.2s',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          boxShadow: routine.enabled ? '0 4px 10px rgba(139, 92, 246, 0.3)' : 'none'
+                        }}
+                      >
+                        {routine.enabled ? <CheckCircle size={22} /> : <XCircle size={22} />}
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          );
+        })}
+      </div>
 
       {/* Add Modal */}
       {showAddModal && (

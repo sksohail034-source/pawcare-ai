@@ -111,14 +111,17 @@ async function start() {
     try {
       const db = (await import('./database.js')).getDb();
       
-      // Reliable IST time calculation
+      // Reliable IST time calculation (UTC + 5:30)
       const now = new Date();
+      // UTC time in ms + (5 hours 30 mins in ms)
       const istTime = new Date(now.getTime() + (5.5 * 60 * 60 * 1000));
+      
+      // We use getUTC here because we manually adjusted the time to match IST offset
       const hours = String(istTime.getUTCHours()).padStart(2, '0');
       const minutes = String(istTime.getUTCMinutes()).padStart(2, '0');
       const timeStr = `${hours}:${minutes}`;
       
-      console.log(`[Cron] Checking routines for time: ${timeStr} (Server UTC: ${now.toUTCString()})`);
+      console.log(`[Cron] ${now.toISOString()} -> IST: ${timeStr} | Checking active routines...`);
 
       const result = db.exec(`
         SELECT * FROM routines 
@@ -129,6 +132,8 @@ async function start() {
         const rows = result[0].values;
         const cols = result[0].columns;
         
+        console.log(`[Cron] Found ${rows.length} routines to trigger for ${timeStr}`);
+
         for (const row of rows) {
           const r = {};
           cols.forEach((col, i) => { r[col] = row[i]; });
@@ -141,26 +146,38 @@ async function start() {
           // 2. Send Push Notification
           const subResult = db.exec(`SELECT subscription FROM push_subscriptions WHERE user_id = '${r.user_id}'`);
           if (subResult.length > 0) {
+              console.log(`[Push] Sending to user ${r.user_id} for routine ${r.title}`);
               subResult[0].values.forEach(subRow => {
-                const subscription = JSON.parse(subRow[0]);
-                webpush.sendNotification(subscription, JSON.stringify({
-                  title: `🐾 PawCare: ${r.title}`,
-                  body: `It's time for ${r.title}!`,
-                  icon: '/pwa-192x192.png',
-                  badge: '/favicon.svg',
-                  data: { url: '/routine' },
-                  vibrate: [500, 110, 500, 110, 450, 110, 200, 110, 170, 40, 450, 110, 200, 110, 170, 40, 500],
-                  requireInteraction: true,
-                  tag: 'pawcare-alarm',
-                  urgency: 'high'
-                })).catch(err => console.error('Push error:', err));
+                try {
+                  const subscription = JSON.parse(subRow[0]);
+                  webpush.sendNotification(subscription, JSON.stringify({
+                    title: `🐾 PawCare: ${r.title}`,
+                    body: `It's time for ${r.title}!`,
+                    icon: '/pwa-192x192.png',
+                    badge: '/favicon.svg',
+                    data: { url: '/routine' },
+                    vibrate: [500, 110, 500, 110, 450, 110, 200, 110, 170, 40, 450, 110, 200, 110, 170, 40, 500],
+                    requireInteraction: true,
+                    tag: 'pawcare-alarm',
+                    urgency: 'high'
+                  })).catch(err => {
+                    if (err.statusCode === 410 || err.statusCode === 404) {
+                      console.log(`[Push] Subscription expired for user ${r.user_id}, cleaning up...`);
+                      db.run(`DELETE FROM push_subscriptions WHERE subscription = ?`, [subRow[0]]);
+                    } else {
+                      console.error('[Push] Error:', err.message);
+                    }
+                  });
+                } catch (e) {
+                  console.error('[Push] Parse error:', e);
+                }
               });
           }
         }
         (await import('./database.js')).saveDatabase();
       }
     } catch (err) {
-      console.error('Cron error:', err);
+      console.error('[Cron] Fatal error:', err);
     }
   });
 }
