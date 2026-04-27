@@ -149,6 +149,7 @@ export default function DashboardPage() {
               
               // Sort routines by time
               const sorted = [...activeRoutines].sort((a, b) => {
+                if (!a.time || !b.time) return 0;
                 const [ah, am] = a.time.split(':').map(Number);
                 const [bh, bm] = b.time.split(':').map(Number);
                 return (ah * 60 + am) - (bh * 60 + bm);
@@ -156,11 +157,13 @@ export default function DashboardPage() {
               
               // Find next
               let next = sorted.find(r => {
+                if (!r.time) return false;
                 const [rh, rm] = r.time.split(':').map(Number);
                 return (rh * 60 + rm) > currentTime;
               });
               
-              if (!next) next = sorted[0]; // Next is tomorrow's first
+              if (!next) next = sorted[0]; 
+              if (!next) return <h2 style={{ fontSize: 24, fontWeight: 800 }}>No routine set</h2>;
               
               return (
                 <>

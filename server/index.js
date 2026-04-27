@@ -64,17 +64,20 @@ app.use('/api/routines', routineRoutes);
 app.use('/api/push', pushRoutes);
 
 // Health check with debug info
-app.get('/api/health', (req, res) => {
+app.get('/api/health', async (req, res) => {
   const now = new Date();
   const istTime = new Date(now.getTime() + (5.5 * 60 * 60 * 1000));
   const timeStr = `${String(istTime.getUTCHours()).padStart(2, '0')}:${String(istTime.getUTCMinutes()).padStart(2, '0')}`;
   
   let subCount = 0;
   try {
-    const db = (import('./database.js')).getDb();
+    const { getDb } = await import('./database.js');
+    const db = getDb();
     const result = db.exec('SELECT COUNT(*) FROM push_subscriptions');
     if (result.length > 0) subCount = result[0].values[0][0];
-  } catch (e) {}
+  } catch (e) {
+    console.error('Health check DB error:', e);
+  }
 
   res.json({ 
     status: 'ok', 
