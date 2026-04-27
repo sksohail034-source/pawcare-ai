@@ -51,12 +51,12 @@ export default function RoutinePage() {
       <div style={{ 
         background: 'linear-gradient(135deg, #8b5cf6, #7c3aed)', 
         color: '#fff', 
-        padding: '40px 24px', 
-        borderRadius: '0 0 40px 40px',
-        margin: '-24px -24px 32px -24px',
+        padding: '30px 20px', 
+        borderRadius: '0 0 32px 32px',
+        margin: '-16px -16px 24px -16px', // Adjusted to match mobile padding (16px)
         textAlign: 'center',
         position: 'relative',
-        boxShadow: '0 10px 30px rgba(139, 92, 246, 0.3)'
+        boxShadow: '0 8px 25px rgba(139, 92, 246, 0.2)'
       }}>
         <div style={{ marginBottom: 16 }}>
           <div style={{ 
@@ -173,60 +173,63 @@ export default function RoutinePage() {
       </div>
 
       {/* Routine Groups */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
         {groups.map(g => {
           const items = routines.filter(r => r.type === g.key);
           if (items.length === 0) return null;
           return (
             <div className="routine-section" key={g.key} style={{ animation: 'fadeUp 0.5s ease-out' }}>
-              <div className="section-header" style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16, color: '#4b5563', fontWeight: 700, fontSize: 18 }}>
+              <div className="section-header" style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12, color: '#4b5563', fontWeight: 700, fontSize: 16 }}>
                 <span style={{ color: 'var(--primary)' }}>{g.icon}</span>
                 <span>{g.label}</span>
               </div>
               
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                 {items.map(routine => (
                   <div 
                     key={routine.id} 
                     className={`routine-card ${routine.enabled ? 'enabled' : ''}`}
                     style={{
                       background: '#fff',
-                      borderRadius: '24px',
-                      padding: '16px 20px',
+                      borderRadius: '20px',
+                      padding: '12px 14px',
                       display: 'flex',
                       alignItems: 'center',
-                      gap: 16,
-                      boxShadow: routine.enabled ? '0 10px 20px rgba(0,0,0,0.05)' : 'none',
-                      border: routine.enabled ? '2px solid rgba(139, 92, 246, 0.1)' : '2px solid #f3f4f6',
-                      opacity: routine.enabled ? 1 : 0.6,
+                      gap: 12,
+                      boxShadow: routine.enabled ? '0 8px 16px rgba(0,0,0,0.04)' : 'none',
+                      border: routine.enabled ? '1px solid rgba(139, 92, 246, 0.1)' : '1px solid #f3f4f6',
+                      opacity: routine.enabled ? 1 : 0.7,
                       transition: 'all 0.3s ease',
                       position: 'relative',
-                      overflow: 'hidden'
+                      overflow: 'hidden',
+                      width: '100%',
+                      boxSizing: 'border-box'
                     }}
                   >
-                    {/* Background glow for enabled state */}
+                    {/* Side border glow for enabled state */}
                     {routine.enabled && (
-                      <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: 6, background: 'var(--primary)' }} />
+                      <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: 4, background: 'var(--primary)' }} />
                     )}
 
                     <div style={{ 
-                      fontSize: 32, 
-                      width: 56, 
-                      height: 56, 
-                      borderRadius: '16px', 
+                      fontSize: 24, 
+                      width: 48, 
+                      height: 48, 
+                      borderRadius: '12px', 
                       background: '#f9fafb',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      border: '1px solid #f3f4f6'
+                      border: '1px solid #f3f4f6',
+                      flexShrink: 0
                     }}>
                       {routine.icon || '🔔'}
                     </div>
 
-                    <div style={{ flex: 1 }}>
-                      <h4 style={{ margin: '0 0 6px 0', fontSize: 17, fontWeight: 700, color: '#111827' }}>{routine.title}</h4>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                        <Clock size={14} style={{ color: 'var(--primary)' }} />
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <h4 style={{ margin: '0 0 4px 0', fontSize: 15, fontWeight: 700, color: '#111827', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{routine.title}</h4>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 4, flexWrap: 'wrap' }}>
+                        <Clock size={12} style={{ color: 'var(--primary)', flexShrink: 0 }} />
                         <div style={{ position: 'relative' }}>
                           <input 
                             type="time" 
@@ -235,31 +238,31 @@ export default function RoutinePage() {
                             style={{ 
                               border: 'none', 
                               background: '#f3f4f6', 
-                              padding: '4px 8px', 
-                              borderRadius: '8px',
-                              fontSize: 14,
+                              padding: '2px 6px', 
+                              borderRadius: '6px',
+                              fontSize: 12,
                               fontWeight: 600,
                               color: '#374151',
                               cursor: 'pointer'
                             }}
                           />
                         </div>
-                        <span style={{ fontSize: 12, color: '#6b7280', fontWeight: 500 }}>
+                        <span style={{ fontSize: 10, color: '#6b7280', fontWeight: 500 }}>
                           ({formatTime(routine.time)})
                         </span>
                       </div>
                     </div>
 
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0 }}>
                       {routine.id.startsWith('custom') && (
                         <button 
                           onClick={() => deleteRoutine(routine.id)}
                           style={{ 
                             background: '#fee2e2', color: '#ef4444', border: 'none', 
-                            padding: '8px', borderRadius: '12px', cursor: 'pointer'
+                            padding: '6px', borderRadius: '10px', cursor: 'pointer'
                           }}
                         >
-                          <Trash2 size={18} />
+                          <Trash2 size={16} />
                         </button>
                       )}
                       
@@ -269,17 +272,17 @@ export default function RoutinePage() {
                           background: routine.enabled ? 'var(--primary)' : '#e5e7eb',
                           color: '#fff',
                           border: 'none',
-                          padding: '10px',
-                          borderRadius: '14px',
+                          padding: '8px',
+                          borderRadius: '12px',
                           cursor: 'pointer',
                           transition: 'all 0.2s',
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
-                          boxShadow: routine.enabled ? '0 4px 10px rgba(139, 92, 246, 0.3)' : 'none'
+                          boxShadow: routine.enabled ? '0 4px 8px rgba(34, 197, 94, 0.2)' : 'none'
                         }}
                       >
-                        {routine.enabled ? <CheckCircle size={22} /> : <XCircle size={22} />}
+                        {routine.enabled ? <CheckCircle size={20} /> : <XCircle size={20} />}
                       </button>
                     </div>
                   </div>
