@@ -233,20 +233,24 @@ export default function RoutinePage() {
           <button 
             className="btn btn-secondary btn-sm" 
             onClick={async () => {
-              const loadingToast = toast.loading('Sending test alarm...');
+              const loadingToast = toast.loading('Syncing & Testing...');
               try {
+                // 1. Ensure Subscription is synced to backend
+                await subscribeToPush();
+                
+                // 2. Show Local Notification (Verification)
                 const registration = await navigator.serviceWorker.ready;
                 await registration.showNotification('PawCare Test 🔔', {
-                  body: 'This is a test alarm! If you see this, your phone is ready.',
+                  body: 'Phone is synced! Now set an alarm for 2 mins later and lock your screen.',
                   icon: '/pwa-192x192.png',
                   vibrate: [200, 100, 200],
                   requireInteraction: true
                 });
                 toast.dismiss(loadingToast);
-                toast.success('Test sent! Check notifications.');
+                toast.success('Synced & Test sent! ✅');
               } catch (e) {
                 toast.dismiss(loadingToast);
-                toast.error('Test failed: ' + e.message);
+                toast.error('Sync failed: ' + e.message);
               }
             }}
             style={{ padding: '8px 12px', fontSize: 12, background: '#f3f4f6', color: '#374151', border: '1px solid #e5e7eb' }}
