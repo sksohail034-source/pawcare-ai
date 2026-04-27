@@ -15,7 +15,19 @@ export default function DashboardPage() {
   const [showWelcome, setShowWelcome] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
 
+  const [routines, setRoutines] = useState([]);
+
   useEffect(() => {
+    const fetchRoutines = async () => {
+      try {
+        const data = await api.getRoutines();
+        setRoutines(data);
+      } catch (err) {
+        console.error('Failed to fetch routines', err);
+      }
+    };
+    fetchRoutines();
+
     const init = async () => {
       if ('geolocation' in navigator) {
         navigator.geolocation.getCurrentPosition(
@@ -127,17 +139,16 @@ export default function DashboardPage() {
             </div>
             
             {(() => {
-              const saved = localStorage.getItem('pawcare_routines');
-              if (!saved) return <h2 style={{ fontSize: 24, fontWeight: 800 }}>No routine set</h2>;
+              if (routines.length === 0) return <h2 style={{ fontSize: 24, fontWeight: 800 }}>No routine set</h2>;
               
-              const routines = JSON.parse(saved).filter(r => r.enabled);
-              if (routines.length === 0) return <h2 style={{ fontSize: 24, fontWeight: 800 }}>No active routines</h2>;
+              const activeRoutines = routines.filter(r => r.enabled);
+              if (activeRoutines.length === 0) return <h2 style={{ fontSize: 24, fontWeight: 800 }}>No active routines</h2>;
               
               const now = new Date();
               const currentTime = now.getHours() * 60 + now.getMinutes();
               
               // Sort routines by time
-              const sorted = [...routines].sort((a, b) => {
+              const sorted = [...activeRoutines].sort((a, b) => {
                 const [ah, am] = a.time.split(':').map(Number);
                 const [bh, bm] = b.time.split(':').map(Number);
                 return (ah * 60 + am) - (bh * 60 + bm);
