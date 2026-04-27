@@ -118,15 +118,20 @@ async function start() {
           // 2. Send Push Notification
           const subResult = db.exec(`SELECT subscription FROM push_subscriptions WHERE user_id = '${r.user_id}'`);
           if (subResult.length > 0) {
-            subResult[0].values.forEach(subRow => {
-              const subscription = JSON.parse(subRow[0]);
-              webpush.sendNotification(subscription, JSON.stringify({
-                title: 'PawCare Alarm ⏰',
-                body: `🐾 Time for ${r.title}!`,
-                icon: '/pwa-192x192.png',
-                data: { url: '/routine' }
-              })).catch(err => console.error('Push error:', err));
-            });
+              subResult[0].values.forEach(subRow => {
+                const subscription = JSON.parse(subRow[0]);
+                webpush.sendNotification(subscription, JSON.stringify({
+                  title: `🐾 PawCare: ${r.title}`,
+                  body: `It's time for ${r.title}!`,
+                  icon: '/pwa-192x192.png',
+                  badge: '/favicon.svg',
+                  data: { url: '/routine' },
+                  vibrate: [500, 110, 500, 110, 450, 110, 200, 110, 170, 40, 450, 110, 200, 110, 170, 40, 500],
+                  requireInteraction: true,
+                  tag: 'pawcare-alarm',
+                  urgency: 'high'
+                })).catch(err => console.error('Push error:', err));
+              });
           }
         }
         (await import('./database.js')).saveDatabase();
