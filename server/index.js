@@ -29,13 +29,14 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 // Web Push Setup
-if (process.env.VAPID_PUBLIC_KEY && process.env.VAPID_PRIVATE_KEY) {
-  webpush.setVapidDetails(
-    'mailto:support@pawcare.ai',
-    process.env.VAPID_PUBLIC_KEY,
-    process.env.VAPID_PRIVATE_KEY
-  );
-}
+const VAPID_PUBLIC_KEY = 'BNnynhB1r6Wfn8WSBy1z8CFIxPRJanICT4AEVmKsXxNBpeO3tsaw1ILjjoChaVbGyUWgeXz_cO5NeXX2k52hzT8';
+const VAPID_PRIVATE_KEY = 'Zk2wrmBAVMoShdSUYhH5L3DhuBlOp4U4rDfsfTaT8aM';
+
+webpush.setVapidDetails(
+  'mailto:support@pawcare.ai',
+  VAPID_PUBLIC_KEY,
+  VAPID_PRIVATE_KEY
+);
 
 // Middleware
 app.use(cors());
@@ -62,9 +63,25 @@ app.use('/api/notifications', notificationRoutes);
 app.use('/api/routines', routineRoutes);
 app.use('/api/push', pushRoutes);
 
-// Health check
+// Health check with debug info
 app.get('/api/health', (req, res) => {
-  res.json({ status: 'ok', version: '2.0.0', name: 'PawCare AI API' });
+  const now = new Date();
+  const istTime = new Date(now.getTime() + (5.5 * 60 * 60 * 1000));
+  const timeStr = `${String(istTime.getUTCHours()).padStart(2, '0')}:${String(istTime.getUTCMinutes()).padStart(2, '0')}`;
+  
+  let subCount = 0;
+  try {
+    const db = (import('./database.js')).getDb();
+    const result = db.exec('SELECT COUNT(*) FROM push_subscriptions');
+    if (result.length > 0) subCount = result[0].values[0][0];
+  } catch (e) {}
+
+  res.json({ 
+    status: 'ok', 
+    server_utc: now.toISOString(),
+    calculated_ist: timeStr,
+    active_subscriptions: subCount
+  });
 });
 
 // Serve frontend in production
