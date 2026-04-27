@@ -103,10 +103,19 @@ export default function RoutinePage() {
   }
 
   async function updateRoutineTime(id, newTime) {
+    const routine = routines.find(r => r.id === id);
+    if (!routine) return;
+
     const updated = routines.map(r => r.id === id ? { ...r, time: newTime } : r);
     setRoutines(updated);
     saveLocal(updated);
-    // Ideally update server too, but for now we'll just re-sync on add/toggle
+    
+    try {
+      await api.updateRoutine(id, { ...routine, time: newTime });
+      toast.success('Time updated & synced! ⏰');
+    } catch (err) {
+      console.error('Failed to sync time', err);
+    }
   }
 
   async function addRoutine() {
@@ -119,14 +128,20 @@ export default function RoutinePage() {
     };
     
     try {
-      const updated = [...routines, routine];
+      const res = await api.createRoutine(routine);
+      const savedRoutine = res.routine || routine;
+      const updated = [...routines, savedRoutine];
       setRoutines(updated);
       saveLocal(updated);
-      await api.createRoutine(routine);
       setShowAddModal(false);
       setNewRoutine({ title: '', time: '08:00', type: 'morning', icon: '🔔', message: '' });
       toast.success('Routine added & synced! ⏰');
     } catch (err) {
+      console.error('Failed to sync new routine', err);
+      const updated = [...routines, routine];
+      setRoutines(updated);
+      saveLocal(updated);
+      setShowAddModal(false);
       toast.error('Saved locally, but server sync failed');
     }
   }

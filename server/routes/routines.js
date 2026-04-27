@@ -50,6 +50,24 @@ router.post('/', authenticateToken, (req, res) => {
   }
 });
 
+// Update routine (time, title, etc)
+router.put('/:id', authenticateToken, (req, res) => {
+  try {
+    const { title, time, enabled, type } = req.body;
+    const db = getDb();
+    
+    db.run(
+      `UPDATE routines SET title = ?, time = ?, enabled = ?, type = ? WHERE id = ? AND user_id = ?`,
+      [title, time, enabled ? 1 : 0, type, req.params.id, req.user.id]
+    );
+    saveDatabase();
+    
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to update routine' });
+  }
+});
+
 // Toggle routine
 router.put('/:id/toggle', authenticateToken, (req, res) => {
   try {
