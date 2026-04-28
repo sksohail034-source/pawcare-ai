@@ -119,46 +119,87 @@ router.post('/analyze/:petId', authenticateToken, async (req, res) => {
     if (image) {
       try {
         const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-        // Using the most stable model name for Gemini 1.5 Flash
-        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-
+        
+        // Try primary model first, fallback to secondary
+        const modelNames = ["gemini-2.5-flash", "gemini-2.0-flash"];
+        let result = null;
+        let lastError = null;
+        
         const mimeType = image.split(";")[0].split(":")[1] || "image/jpeg";
         const base64Data = image.split(",")[1];
         
-        const prompt = `STRICT SPECIES VERIFICATION:
-        Subject Identification:
-        1. Identify the subject of this image.
-        2. Is it a ${expectedType.toUpperCase()}?
-        3. If it is a HUMAN, a girl, a boy, or any person, answer: "HUMAN".
-        4. If it is an animal but NOT a ${expectedType}, answer with that animal name (e.g., "CAT", "GOAT").
-        5. If it is a ${expectedType}, answer: "${expectedType.toUpperCase()}".
+        if (!base64Data) {
+          return res.status(400).json({ error: 'Invalid image data. Please re-upload the photo.' });
+        }
         
-        ANSWER WITH ONLY ONE WORD.`;
+        const prompt = `You are a strict animal species classifier. Look at this image and identify WHAT is in the photo.
 
-        const result = await model.generateContent([
-          prompt,
-          { inlineData: { data: base64Data, mimeType } }
-        ]);
+Rules:
+- If the image shows a HUMAN (man, woman, boy, girl, person, selfie), respond ONLY with: HUMAN
+- If the image shows a DOG (any breed), respond ONLY with: DOG
+- If the image shows a CAT (any breed), respond ONLY with: CAT  
+- If the image shows a BIRD (any species), respond ONLY with: BIRD
+- If the image shows a RABBIT or BUNNY, respond ONLY with: RABBIT
+- If the image shows a FISH (any species), respond ONLY with: FISH
+- If the image shows a HAMSTER, GUINEA PIG, MOUSE or RODENT, respond ONLY with: HAMSTER
+- If the image shows a GOAT, respond ONLY with: GOAT
+- If the image shows a HORSE or PONY, respond ONLY with: HORSE
+- If the image shows a COW or CALF or BULL, respond ONLY with: COW
+- If the image shows something else (object, food, landscape, etc), respond ONLY with: UNKNOWN
+
+IMPORTANT: Respond with EXACTLY ONE WORD from the list above. No punctuation, no explanation.`;
+
+        for (const modelName of modelNames) {
+          try {
+            console.log(`[AI] Trying model: ${modelName}`);
+            const model = genAI.getGenerativeModel({ model: modelName });
+            result = await model.generateContent([
+              prompt,
+              { inlineData: { data: base64Data, mimeType } }
+            ]);
+            console.log(`[AI] Model ${modelName} responded successfully.`);
+            break; // Success, exit loop
+          } catch (modelErr) {
+            console.error(`[AI] Model ${modelName} failed:`, modelErr.message);
+            lastError = modelErr;
+          }
+        }
         
-        const responseText = result.response.text().trim().toUpperCase();
-        console.log(`Gemini Vision Verdict: [${responseText}] (Expected: ${expectedType.toUpperCase()})`);
+        if (!result) {
+          console.error("[AI] All models failed. Last error:", lastError);
+          return res.status(503).json({ error: "AI Vision service is temporarily unavailable. Please try again in a moment." });
+        }
+        
+        const rawResponse = result.response.text().trim();
+        // Extract only the first word, remove any punctuation
+        const responseText = rawResponse.replace(/[^a-zA-Z]/g, '').toUpperCase();
+        console.log(`[AI] Gemini Vision Verdict: [${responseText}] (Raw: "${rawResponse}") (Expected: ${expectedType.toUpperCase()})`);
 
-        if (responseText === "HUMAN") {
+        if (responseText === "HUMAN" || responseText === "PERSON") {
           return res.status(400).json({ 
-            error: "🛑 SECURITY ALERT: Human detected. Please upload a real pet photo.",
+            error: "🛑 SECURITY ALERT: Human detected in photo. Please upload a real pet photo.",
+            code: 'MISMATCH'
+          });
+        }
+        
+        if (responseText === "UNKNOWN") {
+          return res.status(400).json({ 
+            error: "🛑 INVALID IMAGE: Could not identify any pet in this photo. Please upload a clear pet photo.",
             code: 'MISMATCH'
           });
         }
 
-        if (!responseText.includes(expectedType.toUpperCase())) {
+        if (responseText !== expectedType.toUpperCase()) {
           return res.status(400).json({ 
-            error: `🛑 VISION MISMATCH: Identified as ${responseText}, but your profile is ${expectedType.toUpperCase()}.`,
+            error: `🛑 SPECIES MISMATCH: Our AI identified a ${responseText} in the photo, but your selected pet profile is ${expectedType.toUpperCase()}. Please upload a photo of your ${expectedType.toUpperCase()}.`,
             code: 'MISMATCH'
           });
         }
+        
+        console.log(`[AI] ✅ Verification PASSED for ${expectedType.toUpperCase()}`);
       } catch (err) {
-        console.error("Gemini API Error Detail:", err);
-        return res.status(503).json({ error: "AI service is currently initializing or busy. Please try again in a few moments." });
+        console.error("[AI] Gemini API Critical Error:", err);
+        return res.status(503).json({ error: "AI Vision service encountered an error. Please try again." });
       }
     } else {
       return res.status(400).json({ error: 'Image data is required for AI analysis.' });
@@ -170,7 +211,7 @@ router.post('/analyze/:petId', authenticateToken, async (req, res) => {
     incrementScan(db, req.user.id, limitCheck.scanCount);
     res.json({ 
       success: true, 
-      message: geminiError || 'Analysis verified by Real AI Vision.' 
+      message: 'Analysis verified by Real AI Vision.' 
     });
   } catch (err) { 
     console.error('Analysis error:', err);

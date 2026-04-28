@@ -104,78 +104,19 @@ export default function AIPage() {
         await new Promise(r => setTimeout(r, 800 + Math.random() * 500));
       }
 
-      const pet = selectedPet;
-      const expectedType = pet.type?.toLowerCase() || 'dog';
-      const fileName = fileMeta?.name?.toLowerCase() || '';
-      
-      // 1. Ultra-Comprehensive Pet Database (150+ keywords)
-      const petDb = {
-        dog: ['dog', 'pup', 'hound', 'retriever', 'pug', 'bulldog', 'shepherd', 'terrier', 'labrador', 'poodle', 'husky', 'golden', 'kand', 'pitbull', 'beagle', 'boxer', 'dachshund', 'rottweiler', 'chihuahua', 'canine', 'mutt', 'dane', 'shiba', 'doberman', 'pomeranian', 'pug'],
-        cat: ['cat', 'kit', 'persian', 'siamese', 'feline', 'tabby', 'meow', 'likr', 'ragdoll', 'maine', 'bengal', 'sphynx', 'shorthair', 'calico', 'tuxedo', 'kitty'],
-        bird: ['bird', 'parrot', 'macaw', 'budgie', 'avian', 'feather', 'wing', 'cockatiel', 'canary', 'finch', 'owl', 'pigeon', 'sparrow', 'beak', 'cockatoo', 'lovebird'],
-        rabbit: ['rabbit', 'bunny', 'lop', 'hare', 'angora', 'dwarf', 'rex', 'bunny'],
-        fish: ['fish', 'goldfish', 'betta', 'tetra', 'aquarium', 'fin', 'guppy', 'cichlid', 'shark', 'koi', 'water', 'tank', 'gill'],
-        hamster: ['hamster', 'rodent', 'guinea', 'mouse', 'rat', 'gerbil', 'chinchilla', 'pocket'],
-        goat: ['goat', 'kid', 'billy', 'nanny', 'caprine', 'andy', 'andul', 'alpine', 'boer', 'nubian', 'goat'],
-        horse: ['horse', 'pony', 'stallion', 'foal', 'equine', 'mare', 'colt', 'filly', 'mustang', 'stable', 'neigh'],
-        cow: ['cow', 'calf', 'heifer', 'bovine', 'bull', 'moo', 'jersey', 'holstein', 'angus', 'dairy', 'beef']
-      };
-
-      // 2. Intelligent Multi-Layer Detection
-      let detectedType = null;
-      
-      // Layer A: Keyword Match (The most reliable)
-      for (const [type, keywords] of Object.entries(petDb)) {
-        if (keywords.some(k => fileName.includes(k))) {
-          detectedType = type;
-          break;
-        }
-      }
-
-      // Layer B: Visual Feature Signature (Hash-based with Smart Bias)
-      if (!detectedType && uploadedImage) {
-        const signature = uploadedImage.substring(50, 500); // Check mid-portion of data
-        let hash = 0;
-        for (let i = 0; i < signature.length; i++) {
-          hash = ((hash << 5) - hash) + signature.charCodeAt(i);
-          hash |= 0;
-        }
-        
-        const types = Object.keys(petDb);
-        const hashVal = Math.abs(hash);
-        
-        // Smart Simulation: If the user is uploading a photo, it's 90% likely to be the expected animal
-        // unless the image hash indicates a significant "Visual Variation".
-        const confidenceScore = hashVal % 100;
-        
-        if (confidenceScore < 85) {
-          // 85% Confidence that the user is uploading the right pet if no keywords contradict it
-          detectedType = expectedType;
-        } else {
-          // 15% chance to "detect" a mismatch for generic files to simulate AI sensitivity
-          // We pick an animal that is NOT the expected one to show the user the AI is active.
-          detectedType = types[hashVal % types.length];
-          if (detectedType === expectedType) {
-            detectedType = types[(hashVal + 1) % types.length];
-          }
-        }
-      }
-
-      // Layer C: Final Species Verification
-      if (!detectedType) detectedType = expectedType;
-
-      // 1. Real-AI Backend Verification (Gemini / Server Logic)
-      // We must verify with the server FIRST before showing any UI success
-      const verifyRes = await api.analyzePhoto(selectedPet.id, detectedType, uploadedImage);
+      // Send image to backend for REAL Gemini AI verification
+      // The backend handles all species detection — no client-side simulation needed
+      const verifyRes = await api.analyzePhoto(selectedPet.id, selectedPet.type?.toLowerCase() || 'dog', uploadedImage);
       
       if (!verifyRes.success) {
         throw new Error(verifyRes.error || 'Species verification failed.');
       }
 
-      // 2. Generate Analysis Report (Only if verified)
+      // Generate Analysis Report (Only shown if Gemini verified the species matches)
+      const detectedType = selectedPet.type?.toLowerCase() || 'dog';
       const analysis = {
         petType: detectedType.charAt(0).toUpperCase() + detectedType.slice(1),
-        breed: pet.breed || (petDb[detectedType][Math.floor(Math.random() * 5) + 3]),
+        breed: selectedPet.breed || getBreed(detectedType),
         furCondition: { score: (82 + Math.random() * 15).toFixed(0), status: 'Excellent', details: 'Verified by Vision AI: Coat shows optimal health and texture.' },
         skinHealth: { score: (85 + Math.random() * 12).toFixed(0), status: 'Healthy', details: 'Skin surface analysis complete: No abnormalities detected.' },
         bodyCondition: { score: (78 + Math.random() * 15).toFixed(0), status: 'Optimal', bcs: '5/9', details: 'Body condition score verified against breed standards.' },
@@ -185,7 +126,7 @@ export default function AIPage() {
       
       setResults(analysis);
       loadScanInfo();
-      toast.success(verifyRes.message || 'Species Verified & Analysis Complete! ✨');
+      toast.success('✅ Species Verified & Analysis Complete!');
     } catch (err) { 
       toast.error(err.message, { duration: 5000 }); 
     } finally { 
