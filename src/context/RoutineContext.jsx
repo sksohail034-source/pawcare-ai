@@ -20,17 +20,48 @@ export function RoutineProvider({ children }) {
   const loadRoutines = async () => {
     try {
       const data = await api.getRoutines();
-      if (data && data.routines && data.routines.length > 0) {
-        setRoutines(data.routines);
-        localStorage.setItem('pawcare_routines', JSON.stringify(data.routines));
-      } else {
-        const saved = localStorage.getItem('pawcare_routines');
-        const initial = saved ? JSON.parse(saved) : defaultRoutines;
-        setRoutines(initial);
-        localStorage.setItem('pawcare_routines', JSON.stringify(initial));
+      const serverRoutines = (data && data.routines) ? data.routines : [];
+      const saved = localStorage.getItem('pawcare_routines');
+      const localRoutines = saved ? JSON.parse(saved) : defaultRoutines;
+      
+      if (serverRoutines.length > 0) {
+        // Server has routines — use them as source of truth
+        setRoutines(serverRoutines);
+        localStorage.setItem('pawcare_routines', JSON.stringify(serverRoutines));
         
-        // Sync defaults to server in background
-        initial.forEach(r => api.createRoutine(r).catch(() => {}));
+        // But also check if local has MORE routines (user added while offline or DB was reset)
+        // Sync any missing ones to server
+        const serverIds = new Set(serverRoutines.map(r => r.id));
+        const missingOnServer = localRoutines.filter(r => !serverIds.has(r.id));
+        if (missingOnServer.length > 0) {
+          console.log(`[Routine Sync] Syncing ${missingOnServer.length} missing routines to server...`);
+          for (const r of missingOnServer) {
+            try { await api.createRoutine(r); } catch (e) { console.error('Sync failed for', r.id); }
+          }
+          // Merge and update
+          const merged = [...serverRoutines, ...missingOnServer];
+          setRoutines(merged);
+          localStorage.setItem('pawcare_routines', JSON.stringify(merged));
+        }
+      } else {
+        // Server is empty (DB was reset on deploy) — sync ALL local routines to server
+        console.log(`[Routine Sync] Server empty! Syncing ${localRoutines.length} routines from localStorage...`);
+        setRoutines(localRoutines);
+        localStorage.setItem('pawcare_routines', JSON.stringify(localRoutines));
+        
+        // Sync each routine to backend (so cron job can find them)
+        for (const r of localRoutines) {
+          try { 
+            await api.createRoutine({ 
+              ...r, 
+              id: r.id, // Preserve original ID
+              enabled: r.enabled ? 1 : (r.enabled === false ? 0 : 1)
+            }); 
+          } catch (e) { 
+            console.error('[Routine Sync] Failed:', r.title, e.message); 
+          }
+        }
+        console.log('[Routine Sync] All routines synced to server ✅');
       }
     } catch (err) {
       console.error('Failed to load routines', err);
