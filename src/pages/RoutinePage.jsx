@@ -142,24 +142,34 @@ export default function RoutinePage() {
           <button 
             className="btn btn-secondary btn-sm" 
             onClick={async () => {
-              const loadingToast = toast.loading('Syncing & Testing...');
+              const loadingToast = toast.loading('Syncing & Sending Test Push...');
               try {
-                // 1. Ensure Subscription is synced to backend
+                // 1. Ensure Subscription is fresh and synced
                 await subscribeToPush();
                 
-                // 2. Show Local Notification (Verification)
-                const registration = await navigator.serviceWorker.ready;
-                await registration.showNotification('PawCare Test 🔔', {
-                  body: 'Phone is synced! Now set an alarm for 2 mins later and lock your screen.',
-                  icon: '/pwa-192x192.png',
-                  vibrate: [200, 100, 200],
-                  requireInteraction: true
-                });
+                // 2. Send REAL push from SERVER (this tests the full pipeline)
+                const result = await api.testPush();
                 toast.dismiss(loadingToast);
-                toast.success('Synced & Test sent! ✅');
+                
+                if (result.total_devices === 0) {
+                  toast.error('No devices registered. Please allow notifications.');
+                } else {
+                  const sent = result.results?.filter(r => r.status === 'sent').length || 0;
+                  const failed = result.results?.filter(r => r.status === 'failed').length || 0;
+                  toast.success(`✅ Push sent to ${sent} device(s)${failed > 0 ? `, ${failed} failed` : ''}!`, { duration: 5000 });
+                  
+                  // Show device details
+                  if (result.results) {
+                    result.results.forEach(r => {
+                      if (r.status === 'failed') {
+                        console.error(`Device #${r.device} failed:`, r.error, r.code);
+                      }
+                    });
+                  }
+                }
               } catch (e) {
                 toast.dismiss(loadingToast);
-                toast.error('Sync failed: ' + e.message);
+                toast.error('Push test failed: ' + e.message);
               }
             }}
             style={{ padding: '8px 12px', fontSize: 12, background: '#f3f4f6', color: '#374151', border: '1px solid #e5e7eb' }}
