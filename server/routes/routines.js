@@ -96,4 +96,54 @@ router.delete('/:id', authenticateToken, (req, res) => {
   }
 });
 
+// Debug: Check all routines and push subscriptions in DB
+router.get('/debug/all', authenticateToken, (req, res) => {
+  try {
+    const db = getDb();
+    
+    // All routines
+    const routinesResult = db.exec(`SELECT id, user_id, title, time, enabled, type FROM routines ORDER BY time ASC`);
+    let allRoutines = [];
+    if (routinesResult.length > 0) {
+      const cols = routinesResult[0].columns;
+      allRoutines = routinesResult[0].values.map(row => {
+        const item = {};
+        cols.forEach((col, i) => { item[col] = row[i]; });
+        return item;
+      });
+    }
+    
+    // Active routines (enabled = 1)
+    const activeResult = db.exec(`SELECT id, title, time FROM routines WHERE enabled = 1 ORDER BY time ASC`);
+    let activeRoutines = [];
+    if (activeResult.length > 0) {
+      activeRoutines = activeResult[0].values.map(row => ({ id: row[0], title: row[1], time: row[2] }));
+    }
+    
+    // Push subscriptions
+    const pushResult = db.exec(`SELECT user_id FROM push_subscriptions`);
+    let pushSubs = [];
+    if (pushResult.length > 0) {
+      pushSubs = pushResult[0].values.map(row => row[0]);
+    }
+    
+    // Current IST
+    const now = new Date();
+    const istTime = new Date(now.getTime() + (5.5 * 60 * 60 * 1000));
+    const timeStr = `${String(istTime.getUTCHours()).padStart(2, '0')}:${String(istTime.getUTCMinutes()).padStart(2, '0')}`;
+    
+    res.json({
+      current_ist: timeStr,
+      total_routines: allRoutines.length,
+      active_routines: activeRoutines.length,
+      all_routines: allRoutines,
+      active_routines_list: activeRoutines,
+      push_subscriptions_count: pushSubs.length,
+      push_user_ids: pushSubs
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 export default router;

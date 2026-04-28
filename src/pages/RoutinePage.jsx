@@ -325,7 +325,26 @@ export default function RoutinePage() {
               <input className="form-input" placeholder="🐾 Time for..." value={newRoutine.message} onChange={e => setNewRoutine({...newRoutine, message: e.target.value})} />
             </div>
             <div style={{ display: 'flex', gap: 12, marginTop: 16 }}>
-              <button className="btn btn-primary" onClick={addRoutine}>Add Routine</button>
+              <button className="btn btn-primary" onClick={async () => {
+                if (!newRoutine.title.trim()) { toast.error('Please enter a title'); return; }
+                try {
+                  const routineData = {
+                    id: `custom-${Date.now()}`,
+                    title: newRoutine.title,
+                    time: newRoutine.time,
+                    type: newRoutine.type,
+                    icon: newRoutine.icon || '🔔',
+                    message: newRoutine.message || `🐾 Time for ${newRoutine.title}!`,
+                    enabled: true
+                  };
+                  await addRoutine(routineData);
+                  setNewRoutine({ title: '', time: '08:00', type: 'morning', icon: '🔔', message: '' });
+                  setShowAddModal(false);
+                  toast.success('Routine added! 🔔');
+                } catch (e) {
+                  toast.error('Failed to save routine');
+                }
+              }}>Add Routine</button>
               <button className="btn btn-secondary" onClick={() => setShowAddModal(false)}>Cancel</button>
             </div>
           </div>

@@ -53,7 +53,17 @@ export function RoutineProvider({ children }) {
     localStorage.setItem('pawcare_routines', JSON.stringify(updated));
     
     try {
-      await api.updateRoutine(id, updates);
+      // Send the FULL routine object to backend (not just partial updates)
+      // Backend expects: title, time, enabled, type — missing fields become NULL
+      const fullRoutine = updated.find(r => r.id === id);
+      if (fullRoutine) {
+        await api.updateRoutine(id, {
+          title: fullRoutine.title,
+          time: fullRoutine.time,
+          enabled: fullRoutine.enabled,
+          type: fullRoutine.type
+        });
+      }
     } catch (err) {
       console.error('Failed to sync routine update', err);
     }
