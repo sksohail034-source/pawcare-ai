@@ -46,11 +46,27 @@ function PublicRoute({ children }) {
   return children;
 }
 
+function AnalyticsTracker() {
+  const location = useLocation();
+
+  useEffect(() => {
+    // Initialized with real Measurement ID
+    initGA("G-3PXWZEX75G");
+  }, []);
+
+  useEffect(() => {
+    trackPageView(location.pathname + location.search);
+  }, [location]);
+
+  return null;
+}
+
 function AppLayout() {
   return (
     <div className="app-shell">
       <Sidebar />
       <div className="main-area">
+        <AnalyticsTracker />
         <Routes>
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/ai" element={<AIPage />} />
