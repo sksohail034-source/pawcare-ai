@@ -249,10 +249,10 @@ export default function DashboardPage() {
           onClick={() => navigate('/subscriptions')}>
           <div className="flex-row justify-between items-center">
             <div>
-              <h4 style={{ fontFamily: 'var(--font-display)', marginBottom: 4 }}>🚀 Upgrade to Pro</h4>
-              <p style={{ fontSize: 13, color: 'var(--text-muted)' }}>Unlock unlimited AI scans & all features</p>
+              <h4 style={{ fontFamily: 'var(--font-display)', marginBottom: 4 }}>🚀 Upgrade Your Plan</h4>
+              <p style={{ fontSize: 13, color: 'var(--text-muted)' }}>Unlimited AI scans, no ads & premium features</p>
             </div>
-            <span className="badge badge-success">$15/mo</span>
+            <span className="badge badge-success">From ₹149/mo</span>
           </div>
         </div>
       )}

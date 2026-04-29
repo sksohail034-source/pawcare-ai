@@ -102,8 +102,8 @@ export default function ProfileDrawer({ isOpen, onClose }) {
             <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
               <Crown size={20} color="#f59e0b" />
               <div>
-                <div style={{ fontSize: 13, fontWeight: 700, color: '#92400e' }}>Upgrade to Pro</div>
-                <div style={{ fontSize: 11, color: '#a16207' }}>Unlock all premium features</div>
+                <div style={{ fontSize: 13, fontWeight: 700, color: '#92400e' }}>Upgrade Your Plan</div>
+                <div style={{ fontSize: 11, color: '#a16207' }}>Plans starting from ₹149/mo</div>
               </div>
             </div>
             <ChevronRight size={18} color="#a16207" />
