@@ -1,7 +1,9 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { RoutineProvider } from './context/RoutineContext';
+import { initGA, trackPageView } from './utils/analytics';
 
 import LandingPage from './pages/LandingPage';
 import AuthPage from './pages/AuthPage';
