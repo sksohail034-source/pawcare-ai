@@ -1,13 +1,78 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { api } from '../api';
 import { COUNTRIES } from '../utils';
 import toast from 'react-hot-toast';
 
+function OTPInput({ length = 6, onComplete }) {
+  const [values, setValues] = useState(Array(length).fill(''));
+  const inputRefs = useRef([]);
+
+  const handleChange = (i, val) => {
+    if (!/^\d*$/.test(val)) return;
+    const newValues = [...values];
+    newValues[i] = val.slice(-1);
+    setValues(newValues);
+    
+    if (val && i < length - 1) {
+      inputRefs.current[i + 1]?.focus();
+    }
+    
+    const code = newValues.join('');
+    if (code.length === length) {
+      onComplete(code);
+    }
+  };
+
+  const handleKeyDown = (i, e) => {
+    if (e.key === 'Backspace' && !values[i] && i > 0) {
+      inputRefs.current[i - 1]?.focus();
+    }
+  };
+
+  const handlePaste = (e) => {
+    e.preventDefault();
+    const pasted = e.clipboardData.getData('text').replace(/\D/g, '').slice(0, length);
+    const newValues = [...values];
+    pasted.split('').forEach((char, i) => { newValues[i] = char; });
+    setValues(newValues);
+    if (pasted.length === length) onComplete(pasted);
+    else inputRefs.current[Math.min(pasted.length, length - 1)]?.focus();
+  };
+
+  return (
+    <div style={{ display: 'flex', gap: 8, justifyContent: 'center' }}>
+      {values.map((val, i) => (
+        <input
+          key={i}
+          ref={el => inputRefs.current[i] = el}
+          type="tel"
+          inputMode="numeric"
+          maxLength={1}
+          value={val}
+          onChange={e => handleChange(i, e.target.value)}
+          onKeyDown={e => handleKeyDown(i, e)}
+          onPaste={i === 0 ? handlePaste : undefined}
+          style={{
+            width: 48, height: 56, textAlign: 'center', fontSize: 22, fontWeight: 700,
+            borderRadius: 14, border: val ? '2px solid var(--primary)' : '2px solid var(--border)',
+            background: val ? 'rgba(34,197,94,0.06)' : 'var(--bg-input)',
+            outline: 'none', transition: 'all 0.2s', fontFamily: 'monospace',
+            color: 'var(--text-main)'
+          }}
+          onFocus={e => e.target.style.borderColor = 'var(--primary)'}
+          onBlur={e => { if (!val) e.target.style.borderColor = 'var(--border)'; }}
+        />
+      ))}
+    </div>
+  );
+}
+
 export default function AuthPage({ mode = 'login' }) {
   const [isLogin, setIsLogin] = useState(mode === 'login');
   const [showForgot, setShowForgot] = useState(false);
+  const [showOTP, setShowOTP] = useState(false);
   const [forgotStep, setForgotStep] = useState(1);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -17,21 +82,78 @@ export default function AuthPage({ mode = 'login' }) {
   const [resetCode, setResetCode] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  const { login, register } = useAuth();
+  const [otpTimer, setOtpTimer] = useState(60);
+  const [canResend, setCanResend] = useState(false);
+  const [devOTP, setDevOTP] = useState('');
+  const { loginStep1, registerStep1, verifyOTP } = useAuth();
   const navigate = useNavigate();
+
+  // OTP countdown timer
+  useEffect(() => {
+    if (!showOTP) return;
+    setOtpTimer(60);
+    setCanResend(false);
+    const interval = setInterval(() => {
+      setOtpTimer(prev => {
+        if (prev <= 1) { clearInterval(interval); setCanResend(true); return 0; }
+        return prev - 1;
+      });
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [showOTP]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
+      let data;
       if (isLogin) {
-        await login(email, password);
-        toast.success('Welcome back! 🐾');
+        data = await loginStep1(email, password);
       } else {
-        await register(name, email, password, phone, countryCode);
-        toast.success('Account created! Welcome to PawCare AI! 🎉');
+        data = await registerStep1(name, email, password, phone, countryCode);
       }
+      
+      if (data.requiresOTP) {
+        setShowOTP(true);
+        if (data.devOTP) setDevOTP(data.devOTP);
+        toast.success('📧 Verification code sent to your email!');
+      } else if (data.token) {
+        // Direct login (shouldn't happen with new flow, but just in case)
+        toast.success('Welcome! 🐾');
+        navigate('/dashboard');
+      }
+    } catch (err) { toast.error(err.message); }
+    finally { setLoading(false); }
+  };
+
+  const handleOTPComplete = async (otp) => {
+    setLoading(true);
+    try {
+      await verifyOTP(email, otp);
+      toast.success(isLogin ? 'Welcome back! 🐾' : 'Account created! Welcome to PawCare AI! 🎉');
       navigate('/dashboard');
+    } catch (err) { 
+      toast.error(err.message || 'Invalid code. Please try again.'); 
+    }
+    finally { setLoading(false); }
+  };
+
+  const handleResendOTP = async () => {
+    if (!canResend) return;
+    setLoading(true);
+    try {
+      const data = await api.resendOTP(email);
+      setCanResend(false);
+      setOtpTimer(60);
+      if (data.devOTP) setDevOTP(data.devOTP);
+      toast.success('New code sent! 📧');
+      // Restart timer
+      const interval = setInterval(() => {
+        setOtpTimer(prev => {
+          if (prev <= 1) { clearInterval(interval); setCanResend(true); return 0; }
+          return prev - 1;
+        });
+      }, 1000);
     } catch (err) { toast.error(err.message); }
     finally { setLoading(false); }
   };
@@ -56,6 +178,78 @@ export default function AuthPage({ mode = 'login' }) {
     finally { setLoading(false); }
   };
 
+  // OTP Verification Screen
+  if (showOTP) {
+    return (
+      <div className="auth-page">
+        <div className="auth-container">
+          <div className="auth-card animate-fade-in">
+            <div className="auth-header">
+              <div style={{ 
+                width: 72, height: 72, borderRadius: '50%', margin: '0 auto 16px',
+                background: 'linear-gradient(135deg, #22c55e, #16a34a)',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                boxShadow: '0 8px 25px rgba(34,197,94,0.3)'
+              }}>
+                <span style={{ fontSize: 32 }}>📧</span>
+              </div>
+              <h2>Verify Your Email</h2>
+              <p style={{ fontSize: 14, color: 'var(--text-muted)' }}>
+                We sent a 6-digit code to<br/>
+                <strong style={{ color: 'var(--primary-dark)' }}>{email}</strong>
+              </p>
+            </div>
+            
+            <div style={{ margin: '24px 0' }}>
+              <OTPInput length={6} onComplete={handleOTPComplete} />
+            </div>
+
+            {devOTP && (
+              <div style={{ 
+                background: 'rgba(245,158,11,0.1)', border: '1px solid rgba(245,158,11,0.3)',
+                borderRadius: 12, padding: '10px 16px', marginBottom: 16, textAlign: 'center',
+                fontSize: 13
+              }}>
+                🧪 <strong>Dev Mode OTP:</strong> <span style={{ fontFamily: 'monospace', fontSize: 16, fontWeight: 700, color: '#d97706' }}>{devOTP}</span>
+              </div>
+            )}
+
+            {loading && (
+              <div style={{ textAlign: 'center', marginBottom: 16 }}>
+                <div className="spinner" style={{ margin: '0 auto' }}></div>
+                <p style={{ fontSize: 13, color: 'var(--text-muted)', marginTop: 8 }}>Verifying...</p>
+              </div>
+            )}
+
+            <div style={{ textAlign: 'center', marginTop: 20 }}>
+              {canResend ? (
+                <button 
+                  onClick={handleResendOTP} 
+                  disabled={loading}
+                  style={{ 
+                    color: 'var(--primary-dark)', fontWeight: 600, fontSize: 14,
+                    background: 'none', border: 'none', cursor: 'pointer'
+                  }}
+                >
+                  🔄 Resend Code
+                </button>
+              ) : (
+                <p style={{ fontSize: 13, color: 'var(--text-muted)' }}>
+                  Resend code in <strong style={{ color: 'var(--primary-dark)' }}>{otpTimer}s</strong>
+                </p>
+              )}
+            </div>
+
+            <div className="auth-toggle" style={{ marginTop: 16 }}>
+              <button onClick={() => { setShowOTP(false); setDevOTP(''); }}>← Back to {isLogin ? 'Login' : 'Sign Up'}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Forgot Password Screen
   if (showForgot) {
     return (
       <div className="auth-page">
@@ -97,6 +291,7 @@ export default function AuthPage({ mode = 'login' }) {
     );
   }
 
+  // Main Login/Register Screen
   return (
     <div className="auth-page">
       <div className="auth-container">

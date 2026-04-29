@@ -21,7 +21,10 @@ export const api = {
   // Auth
   register: (body) => request('/auth/register', { method: 'POST', body: JSON.stringify(body) }),
   login: (body) => request('/auth/login', { method: 'POST', body: JSON.stringify(body) }),
+  verifyOTP: (body) => request('/auth/verify-otp', { method: 'POST', body: JSON.stringify(body) }),
+  resendOTP: (email) => request('/auth/resend-otp', { method: 'POST', body: JSON.stringify({ email }) }),
   getMe: () => request('/auth/me'),
+  restoreUserData: (body) => request('/auth/restore-data', { method: 'POST', body: JSON.stringify(body) }),
   forgotPassword: (email) => request('/auth/forgot-password', { method: 'POST', body: JSON.stringify({ email }) }),
   resetPassword: (body) => request('/auth/reset-password', { method: 'POST', body: JSON.stringify(body) }),
 

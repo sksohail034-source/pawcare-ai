@@ -20,6 +20,7 @@ router.get('/', authenticateToken, (req, res) => {
       return pet;
     });
 
+    console.log(`[Pets GET] User ${req.user.id} has ${pets.length} pets`);
     res.json({ pets });
   } catch (err) {
     res.status(500).json({ error: 'Failed to fetch pets' });
@@ -47,34 +48,49 @@ router.get('/:id', authenticateToken, (req, res) => {
   }
 });
 
-// Create pet
+// Create pet (UPSERT — accepts client-provided ID for sync)
 router.post('/', authenticateToken, (req, res) => {
   try {
-    const { name, type, breed, age, weight, photo, notes } = req.body;
+    const { id: clientId, name, type, breed, age, weight, photo, notes } = req.body;
     if (!name || !type) {
       return res.status(400).json({ error: 'Name and type are required' });
     }
 
     const db = getDb();
+    const id = clientId || uuidv4();
     
-    // Check pet limits
-    const userRes = db.exec(`SELECT subscription, role FROM users WHERE id = '${req.user.id}'`);
-    const sub = userRes[0]?.values[0][0] || 'free';
-    const role = userRes[0]?.values[0][1] || 'user';
-    const petCountRes = db.exec(`SELECT COUNT(*) FROM pets WHERE user_id = '${req.user.id}'`);
-    const currentPets = petCountRes[0]?.values[0][0] || 0;
-    
-    const maxPets = (sub === 'pro' || sub === 'enterprise' || role === 'admin') ? -1 : sub === 'basic' ? 2 : 1;
-    if (maxPets !== -1 && currentPets >= maxPets) {
-      return res.status(403).json({ error: 'Pet limit reached for your current plan.' });
+    // Check if pet already exists (for sync)
+    const existing = db.exec(`SELECT id FROM pets WHERE id = '${id}' AND user_id = '${req.user.id}'`);
+    if (existing.length > 0 && existing[0].values.length > 0) {
+      // Pet already exists — update instead
+      db.run(`UPDATE pets SET name = ?, type = ?, breed = ?, age = ?, weight = ?, photo = ?, notes = ? WHERE id = ? AND user_id = ?`,
+        [name, type, breed || '', age || 0, weight || 0, photo || '', notes || '', id, req.user.id]);
+      saveDatabase();
+      console.log(`[Pets POST] Updated existing pet "${name}" (id: ${id})`);
+      return res.status(200).json({
+        pet: { id, user_id: req.user.id, name, type, breed: breed || '', age: age || 0, weight: weight || 0, photo: photo || '', notes: notes || '' }
+      });
     }
-
-    const id = uuidv4();
+    
+    // Check pet limits (only for NEW pets, not synced ones)
+    if (!clientId) {
+      const userRes = db.exec(`SELECT subscription, role FROM users WHERE id = '${req.user.id}'`);
+      const sub = userRes[0]?.values[0][0] || 'free';
+      const role = userRes[0]?.values[0][1] || 'user';
+      const petCountRes = db.exec(`SELECT COUNT(*) FROM pets WHERE user_id = '${req.user.id}'`);
+      const currentPets = petCountRes[0]?.values[0][0] || 0;
+      
+      const maxPets = (sub === 'pro' || sub === 'enterprise' || role === 'admin') ? -1 : sub === 'basic' ? 2 : 1;
+      if (maxPets !== -1 && currentPets >= maxPets) {
+        return res.status(403).json({ error: 'Pet limit reached for your current plan.' });
+      }
+    }
 
     db.run(`INSERT INTO pets (id, user_id, name, type, breed, age, weight, photo, notes) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [id, req.user.id, name, type, breed || '', age || 0, weight || 0, photo || '', notes || '']);
     saveDatabase();
 
+    console.log(`[Pets POST] ✅ Created pet "${name}" (id: ${id})`);
     res.status(201).json({
       pet: { id, user_id: req.user.id, name, type, breed: breed || '', age: age || 0, weight: weight || 0, photo: photo || '', notes: notes || '' }
     });

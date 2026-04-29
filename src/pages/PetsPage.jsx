@@ -15,7 +15,12 @@ export default function PetsPage() {
   async function loadPets() {
     try {
       const data = await api.getPets();
-      setPets(data.pets || []);
+      const petList = data.pets || [];
+      setPets(petList);
+      // Backup pets to localStorage (survives DB reset)
+      if (petList.length > 0) {
+        localStorage.setItem('pawcare_pets_backup', JSON.stringify(petList));
+      }
     } catch (err) { toast.error('Failed to load pets'); }
     finally { setLoading(false); }
   }

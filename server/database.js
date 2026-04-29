@@ -137,6 +137,17 @@ export async function initDatabase() {
     FOREIGN KEY (user_id) REFERENCES users(id)
   )`);
 
+  db.run(`CREATE TABLE IF NOT EXISTS otp_codes (
+    id TEXT PRIMARY KEY,
+    email TEXT NOT NULL,
+    otp TEXT NOT NULL,
+    purpose TEXT DEFAULT 'login',
+    user_data TEXT,
+    expires_at TEXT NOT NULL,
+    verified INTEGER DEFAULT 0,
+    created_at TEXT DEFAULT (datetime('now'))
+  )`);
+
   saveDatabase();
   console.log('Database initialized successfully');
   return db;
