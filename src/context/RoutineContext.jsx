@@ -24,20 +24,28 @@ export function RoutineProvider({ children }) {
       const saved = localStorage.getItem('pawcare_routines');
       const localRoutines = saved ? JSON.parse(saved) : defaultRoutines;
       
+      console.log(`[Routine Sync] Server: ${serverRoutines.length}, Local: ${localRoutines.length}`);
+      
       if (serverRoutines.length > 0) {
         // Server has routines — use them as source of truth
         setRoutines(serverRoutines);
         localStorage.setItem('pawcare_routines', JSON.stringify(serverRoutines));
         
-        // But also check if local has MORE routines (user added while offline or DB was reset)
-        // Sync any missing ones to server
+        // Check if local has MORE routines (user added while offline or DB was reset)
         const serverIds = new Set(serverRoutines.map(r => r.id));
         const missingOnServer = localRoutines.filter(r => !serverIds.has(r.id));
         if (missingOnServer.length > 0) {
           console.log(`[Routine Sync] Syncing ${missingOnServer.length} missing routines to server...`);
+          let synced = 0;
           for (const r of missingOnServer) {
-            try { await api.createRoutine(r); } catch (e) { console.error('Sync failed for', r.id); }
+            try { 
+              await api.createRoutine({ ...r, enabled: r.enabled === false ? 0 : 1 }); 
+              synced++;
+            } catch (e) { 
+              console.error('[Routine Sync] Failed:', r.title, e.message); 
+            }
           }
+          console.log(`[Routine Sync] Synced ${synced}/${missingOnServer.length} missing routines`);
           // Merge and update
           const merged = [...serverRoutines, ...missingOnServer];
           setRoutines(merged);
@@ -45,23 +53,43 @@ export function RoutineProvider({ children }) {
         }
       } else {
         // Server is empty (DB was reset on deploy) — sync ALL local routines to server
-        console.log(`[Routine Sync] Server empty! Syncing ${localRoutines.length} routines from localStorage...`);
+        console.log(`[Routine Sync] ⚠️ Server EMPTY! Syncing ${localRoutines.length} routines from localStorage...`);
         setRoutines(localRoutines);
         localStorage.setItem('pawcare_routines', JSON.stringify(localRoutines));
         
         // Sync each routine to backend (so cron job can find them)
+        let syncSuccess = 0;
+        let syncFailed = 0;
         for (const r of localRoutines) {
           try { 
             await api.createRoutine({ 
-              ...r, 
-              id: r.id, // Preserve original ID
-              enabled: r.enabled ? 1 : (r.enabled === false ? 0 : 1)
+              id: r.id,
+              title: r.title,
+              type: r.type || 'custom',
+              time: r.time,
+              enabled: (r.enabled === false || r.enabled === 0) ? 0 : 1
             }); 
+            syncSuccess++;
           } catch (e) { 
-            console.error('[Routine Sync] Failed:', r.title, e.message); 
+            syncFailed++;
+            console.error('[Routine Sync] ❌ Failed:', r.title, e.message); 
           }
         }
-        console.log('[Routine Sync] All routines synced to server ✅');
+        console.log(`[Routine Sync] ✅ Complete: ${syncSuccess} synced, ${syncFailed} failed`);
+        
+        // VERIFY: Re-fetch from server to confirm routines are there
+        try {
+          const verifyData = await api.getRoutines();
+          const verifyCount = verifyData?.routines?.length || 0;
+          console.log(`[Routine Sync] 🔍 Verification: Server now has ${verifyCount} routines`);
+          if (verifyCount > 0) {
+            // Update local state with server's version (which has proper IDs)
+            setRoutines(verifyData.routines);
+            localStorage.setItem('pawcare_routines', JSON.stringify(verifyData.routines));
+          }
+        } catch (e) {
+          console.error('[Routine Sync] Verification failed:', e.message);
+        }
       }
     } catch (err) {
       console.error('Failed to load routines', err);

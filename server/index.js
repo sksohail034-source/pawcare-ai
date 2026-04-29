@@ -113,15 +113,30 @@ async function start() {
       
       // Reliable IST time calculation (UTC + 5:30)
       const now = new Date();
-      // UTC time in ms + (5 hours 30 mins in ms)
       const istTime = new Date(now.getTime() + (5.5 * 60 * 60 * 1000));
       
-      // We use getUTC here because we manually adjusted the time to match IST offset
       const hours = String(istTime.getUTCHours()).padStart(2, '0');
       const minutes = String(istTime.getUTCMinutes()).padStart(2, '0');
       const timeStr = `${hours}:${minutes}`;
       
-      console.log(`[Cron] ${now.toISOString()} -> IST: ${timeStr} | Checking active routines...`);
+      // DETAILED LOGGING: Check what's actually in the DB
+      const totalResult = db.exec(`SELECT COUNT(*) FROM routines`);
+      const totalCount = totalResult.length > 0 ? totalResult[0].values[0][0] : 0;
+      
+      const activeResult = db.exec(`SELECT COUNT(*) FROM routines WHERE enabled = 1`);
+      const activeCount = activeResult.length > 0 ? activeResult[0].values[0][0] : 0;
+      
+      const pushCountResult = db.exec(`SELECT COUNT(*) FROM push_subscriptions`);
+      const pushCount = pushCountResult.length > 0 ? pushCountResult[0].values[0][0] : 0;
+      
+      // Log all routine times for debugging
+      let allTimes = '(none)';
+      const timesResult = db.exec(`SELECT time, title FROM routines WHERE enabled = 1 ORDER BY time`);
+      if (timesResult.length > 0 && timesResult[0].values.length > 0) {
+        allTimes = timesResult[0].values.map(r => `${r[0]}="${r[1]}"`).join(', ');
+      }
+      
+      console.log(`[Cron] IST: ${timeStr} | DB: ${totalCount} total, ${activeCount} active, ${pushCount} push subs | Active times: [${allTimes}]`);
 
       const result = db.exec(`
         SELECT * FROM routines 
@@ -132,7 +147,7 @@ async function start() {
         const rows = result[0].values;
         const cols = result[0].columns;
         
-        console.log(`[Cron] Found ${rows.length} routines to trigger for ${timeStr}`);
+        console.log(`[Cron] 🔔 MATCH! Found ${rows.length} routines to trigger for ${timeStr}`);
 
         for (const row of rows) {
           const r = {};
@@ -143,35 +158,42 @@ async function start() {
           db.run(`INSERT INTO notifications (id, user_id, title, message) VALUES (?, ?, ?, ?)`,
             [notifId, r.user_id, `⏰ Routine: ${r.title}`, `🐾 It's time for ${r.title}!`]);
           
-          // 2. Send Push Notification
+          // 2. Send Push Notification to ALL devices
           const subResult = db.exec(`SELECT subscription FROM push_subscriptions WHERE user_id = '${r.user_id}'`);
-          if (subResult.length > 0) {
-              console.log(`[Push] Sending to user ${r.user_id} for routine ${r.title}`);
-              subResult[0].values.forEach(subRow => {
-                try {
-                  const subscription = JSON.parse(subRow[0]);
-                  webpush.sendNotification(subscription, JSON.stringify({
-                    title: `🐾 PawCare: ${r.title}`,
-                    body: `It's time for ${r.title}!`,
-                    icon: '/pwa-192x192.png',
-                    badge: '/favicon.svg',
-                    data: { url: '/routine' },
-                    vibrate: [500, 110, 500, 110, 450, 110, 200, 110, 170, 40, 450, 110, 200, 110, 170, 40, 500],
-                    requireInteraction: true,
-                    tag: 'pawcare-alarm',
-                    urgency: 'high'
-                  })).catch(err => {
-                    if (err.statusCode === 410 || err.statusCode === 404) {
-                      console.log(`[Push] Subscription expired for user ${r.user_id}, cleaning up...`);
-                      db.run(`DELETE FROM push_subscriptions WHERE subscription = ?`, [subRow[0]]);
-                    } else {
-                      console.error('[Push] Error:', err.message);
-                    }
-                  });
-                } catch (e) {
-                  console.error('[Push] Parse error:', e);
+          if (subResult.length > 0 && subResult[0].values.length > 0) {
+            const deviceCount = subResult[0].values.length;
+            console.log(`[Push] Sending "${r.title}" to ${deviceCount} device(s) for user ${r.user_id}...`);
+            
+            for (let i = 0; i < subResult[0].values.length; i++) {
+              const subRow = subResult[0].values[i];
+              try {
+                const subscription = JSON.parse(subRow[0]);
+                const endpoint = subscription.endpoint || 'unknown';
+                
+                await webpush.sendNotification(subscription, JSON.stringify({
+                  title: `🐾 PawCare: ${r.title}`,
+                  body: `It's time for ${r.title}!`,
+                  icon: '/pwa-192x192.png',
+                  badge: '/favicon.svg',
+                  data: { url: '/routine' },
+                  vibrate: [500, 110, 500, 110, 450, 110, 200, 110, 170, 40, 450, 110, 200, 110, 170, 40, 500],
+                  requireInteraction: true,
+                  tag: `pawcare-alarm-${Date.now()}`,
+                  renotify: true,
+                  urgency: 'high'
+                }));
+                
+                console.log(`[Push] ✅ Device #${i+1} SUCCESS (${endpoint.substring(0, 60)}...)`);
+              } catch (pushErr) {
+                console.error(`[Push] ❌ Device #${i+1} FAILED:`, pushErr.message, pushErr.statusCode || '');
+                if (pushErr.statusCode === 410 || pushErr.statusCode === 404) {
+                  console.log(`[Push] Cleaning expired subscription...`);
+                  db.run(`DELETE FROM push_subscriptions WHERE subscription = ?`, [subRow[0]]);
                 }
-              });
+              }
+            }
+          } else {
+            console.log(`[Push] ⚠️ No push subscriptions found for user ${r.user_id}`);
           }
         }
         (await import('./database.js')).saveDatabase();
