@@ -244,18 +244,22 @@ export default function DashboardPage() {
       )}
 
       {/* Subscription Banner */}
-      {user?.subscription === 'free' && (
-        <div className="card" style={{ background: 'linear-gradient(135deg, rgba(34,197,94,0.1), rgba(74,222,128,0.05))', borderColor: 'var(--primary)', cursor: 'pointer', marginBottom: 20 }}
-          onClick={() => navigate('/subscriptions')}>
-          <div className="flex-row justify-between items-center">
-            <div>
-              <h4 style={{ fontFamily: 'var(--font-display)', marginBottom: 4 }}>🚀 Upgrade Your Plan</h4>
-              <p style={{ fontSize: 13, color: 'var(--text-muted)' }}>Unlimited AI scans, no ads & premium features</p>
+      {user?.subscription === 'free' && (() => {
+        const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+        const isIndia = tz.includes('Calcutta') || tz.includes('Kolkata');
+        return (
+          <div className="card" style={{ background: 'linear-gradient(135deg, rgba(34,197,94,0.1), rgba(74,222,128,0.05))', borderColor: 'var(--primary)', cursor: 'pointer', marginBottom: 20 }}
+            onClick={() => navigate('/subscriptions')}>
+            <div className="flex-row justify-between items-center">
+              <div>
+                <h4 style={{ fontFamily: 'var(--font-display)', marginBottom: 4 }}>🚀 Upgrade Your Plan</h4>
+                <p style={{ fontSize: 13, color: 'var(--text-muted)' }}>Unlimited AI scans, no ads & premium features</p>
+              </div>
+              <span className="badge badge-success">{isIndia ? 'From ₹149/mo' : 'From $4.99/mo'}</span>
             </div>
-            <span className="badge badge-success">From ₹149/mo</span>
           </div>
-        </div>
-      )}
+        );
+      })()}
     </div>
   );
 }

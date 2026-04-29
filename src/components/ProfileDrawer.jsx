@@ -97,18 +97,22 @@ export default function ProfileDrawer({ isOpen, onClose }) {
         </div>
 
         {/* Upgrade Banner (for free users) */}
-        {user?.subscription === 'free' && (
-          <div className="profile-drawer-upgrade" onClick={() => { onClose(); navigate('/subscriptions'); }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-              <Crown size={20} color="#f59e0b" />
-              <div>
-                <div style={{ fontSize: 13, fontWeight: 700, color: '#92400e' }}>Upgrade Your Plan</div>
-                <div style={{ fontSize: 11, color: '#a16207' }}>Plans starting from ₹149/mo</div>
+        {user?.subscription === 'free' && (() => {
+          const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+          const isIndia = tz.includes('Calcutta') || tz.includes('Kolkata');
+          return (
+            <div className="profile-drawer-upgrade" onClick={() => { onClose(); navigate('/subscriptions'); }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                <Crown size={20} color="#f59e0b" />
+                <div>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: '#92400e' }}>Upgrade Your Plan</div>
+                  <div style={{ fontSize: 11, color: '#a16207' }}>{isIndia ? 'Plans from ₹149/mo' : 'Plans from $4.99/mo'}</div>
+                </div>
               </div>
+              <ChevronRight size={18} color="#a16207" />
             </div>
-            <ChevronRight size={18} color="#a16207" />
-          </div>
-        )}
+          );
+        })()}
 
         {/* Navigation Sections */}
         <div className="profile-drawer-nav">
