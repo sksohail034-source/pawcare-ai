@@ -118,8 +118,8 @@ export default function AuthPage({ mode = 'login' }) {
         if (data.devOTP) setDevOTP(data.devOTP);
         toast.success('📧 Verification code sent to your email!');
       } else if (data.token) {
-        // Direct login (shouldn't happen with new flow, but just in case)
-        toast.success('Welcome! 🐾');
+        // Direct login for existing users
+        toast.success('Welcome back! 🐾');
         navigate('/dashboard');
       }
     } catch (err) { toast.error(err.message); }

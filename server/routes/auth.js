@@ -58,7 +58,7 @@ router.post('/register', async (req, res) => {
   }
 });
 
-// Step 1: Login — validate credentials, send OTP
+// Step 1: Login — Direct access for existing users (No OTP)
 router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -66,8 +66,9 @@ router.post('/login', async (req, res) => {
     
     const db = getDb();
     const result = db.exec(`SELECT * FROM users WHERE email = '${email.replace(/'/g, "''")}'`);
+    
     if (result.length === 0 || result[0].values.length === 0) {
-      return res.status(401).json({ error: 'Invalid credentials' });
+      return res.status(401).json({ error: 'Account not found. Please register first.' });
     }
     
     const cols = result[0].columns;
@@ -76,35 +77,17 @@ router.post('/login', async (req, res) => {
     cols.forEach((col, i) => { user[col] = row[i]; });
     
     const valid = await bcrypt.compare(password, user.password);
-    if (!valid) return res.status(401).json({ error: 'Invalid credentials' });
+    if (!valid) return res.status(401).json({ error: 'Invalid password' });
 
-    // Generate OTP
-    const otp = generateOTP();
-    const expiresAt = new Date(Date.now() + 10 * 60 * 1000).toISOString();
-    const otpId = uuidv4();
-
-    // Clear old OTPs and save new
-    db.run(`DELETE FROM otp_codes WHERE email = ?`, [email]);
-    db.run(`INSERT INTO otp_codes (id, email, otp, purpose, expires_at) VALUES (?, ?, ?, 'login', ?)`,
-      [otpId, email, otp, expiresAt]);
-    saveDatabase();
-
-    // Send OTP email
-    const emailResult = await sendOTPEmail(email, otp, 'login');
+    // Directly generate token — NO OTP for existing users
+    const token = jwt.sign({ id: user.id, email: user.email, role: user.role || 'user' }, JWT_SECRET, { expiresIn: '30d' });
     
-    console.log(`[Auth] OTP sent for login: ${email}`);
+    delete user.password;
+    delete user.password_reset_token;
+    delete user.reset_token_expires;
     
-    const response = { 
-      message: 'Verification code sent to your email', 
-      otpId,
-      requiresOTP: true 
-    };
-    
-    if (emailResult.fallback || !emailResult.success) {
-      response.devOTP = otp;
-    }
-    
-    res.json(response);
+    console.log(`[Auth] ✅ Direct Login: ${email}`);
+    res.json({ token, user, requiresOTP: false });
   } catch (err) { 
     console.error('Login error:', err); 
     res.status(500).json({ error: 'Login failed' }); 
