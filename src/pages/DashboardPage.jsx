@@ -95,49 +95,58 @@ export default function DashboardPage() {
 
   const routineThemes = {
     Dog: { 
-      gradient: 'linear-gradient(90deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 100%)', 
-      image: 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=1000&q=80',
-      accent: '#8b5cf6' 
+      gradient: 'linear-gradient(90deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 100%)', 
+      image: 'https://images.unsplash.com/photo-1534361960057-19889db9621e?w=800&h=500&fit=crop&crop=entropy',
+      accent: '#8b5cf6',
+      position: 'center 20%'
     },
     Cat: { 
-      gradient: 'linear-gradient(90deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 100%)', 
-      image: 'https://images.unsplash.com/photo-1472491235688-bdc81a63246e?w=1000&q=80',
-      accent: '#f59e0b'
+      gradient: 'linear-gradient(90deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 100%)', 
+      image: 'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=800&h=500&fit=crop&crop=entropy',
+      accent: '#f59e0b',
+      position: 'center 30%'
     },
     Bird: { 
-      gradient: 'linear-gradient(90deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 100%)', 
-      image: 'https://images.unsplash.com/photo-1522926193341-e9fed196d4ad?w=1000&q=80',
-      accent: '#0ea5e9'
+      gradient: 'linear-gradient(90deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 100%)', 
+      image: 'https://images.unsplash.com/photo-1444464666168-49d633b86797?w=800&h=500&fit=crop&crop=entropy',
+      accent: '#0ea5e9',
+      position: 'center 40%'
     },
     Rabbit: { 
-      gradient: 'linear-gradient(90deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 100%)', 
-      image: 'https://images.unsplash.com/photo-1518717758536-85ae29035b6d?w=1000&q=80',
-      accent: '#ec48ef'
+      gradient: 'linear-gradient(90deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 100%)', 
+      image: 'https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?w=800&h=500&fit=crop&crop=entropy',
+      accent: '#ec48ef',
+      position: 'center 20%'
     },
     Fish: { 
-      gradient: 'linear-gradient(90deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 100%)', 
-      image: 'https://images.unsplash.com/photo-1524704654690-b56c05c78a00?w=1000&q=80',
-      accent: '#14b8a6'
+      gradient: 'linear-gradient(90deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 100%)', 
+      image: 'https://images.unsplash.com/photo-1522069169874-c58ec4b76be5?w=800&h=500&fit=crop&crop=entropy',
+      accent: '#14b8a6',
+      position: 'center'
     },
     Hamster: { 
-      gradient: 'linear-gradient(90deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 100%)', 
-      image: 'https://images.unsplash.com/photo-1425082661705-1834bfd09dca?w=1000&q=80',
-      accent: '#f59e0b'
+      gradient: 'linear-gradient(90deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 100%)', 
+      image: 'https://images.unsplash.com/photo-1425082661705-1834bfd09dca?w=800&h=500&fit=crop&crop=entropy',
+      accent: '#f59e0b',
+      position: 'center'
     },
     Goat: { 
-      gradient: 'linear-gradient(90deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 100%)', 
-      image: 'https://images.unsplash.com/photo-1533318087102-b3ad366ed041?w=1000&q=80',
-      accent: '#4ade80'
+      gradient: 'linear-gradient(90deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 100%)', 
+      image: 'https://images.unsplash.com/photo-1524024973431-2ad916746881?w=800&h=500&fit=crop&crop=entropy',
+      accent: '#4ade80',
+      position: 'center 20%'
     },
     Horse: { 
-      gradient: 'linear-gradient(90deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 100%)', 
-      image: 'https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=1000&q=80',
-      accent: '#8b5cf6'
+      gradient: 'linear-gradient(90deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 100%)', 
+      image: 'https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=800&h=500&fit=crop&crop=entropy',
+      accent: '#8b5cf6',
+      position: 'center 20%'
     },
     Cow: { 
-      gradient: 'linear-gradient(90deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 100%)', 
-      image: 'https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?w=1000&q=80',
-      accent: '#4ade80'
+      gradient: 'linear-gradient(90deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 100%)', 
+      image: 'https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?w=800&h=500&fit=crop&crop=entropy',
+      accent: '#4ade80',
+      position: 'center 20%'
     }
   };
 
@@ -251,7 +260,7 @@ export default function DashboardPage() {
             : 'linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.4)), linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%)',
           backgroundColor: '#1a1a1a', 
           backgroundSize: 'cover',
-          backgroundPosition: 'center',
+          backgroundPosition: currentTheme.position || 'center',
           backgroundRepeat: 'no-repeat',
           color: '#fff', 
           padding: '35px 24px', 
