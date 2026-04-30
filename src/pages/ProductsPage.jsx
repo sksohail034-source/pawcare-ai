@@ -48,7 +48,7 @@ const CURATED_PRODUCTS = [
     price: '818',
     rating: 4.4,
     reviews: 9185,
-    image: 'https://m.media-amazon.com/images/I/61mI-8XfU2L._SL1500_.jpg',
+    image: 'https://m.media-amazon.com/images/I/71-33V58kVL._AC_SL1500_.jpg',
     badge: 'Vet Recommended',
     desc: 'Tailored nutrition for small breed puppies (up to 10 months). Supports immune system and digestive health.',
     affiliateUrl: 'https://amzn.to/4ulalbw'
