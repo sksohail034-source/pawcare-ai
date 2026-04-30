@@ -300,7 +300,6 @@ const CURATED_PRODUCTS = [
     affiliateUrl: 'https://www.amazon.in/dp/B07K6QXY5N?tag=mypawcare-21'
   },
 ];
-];
 
 export default function ProductsPage() {
   const [searchParams] = useSearchParams();
