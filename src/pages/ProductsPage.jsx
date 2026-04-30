@@ -40,7 +40,7 @@ const STORE_THEMES = {
 // This will be populated manually by the user later
 const CURATED_PRODUCTS = [
   {
-    id: 'rc-mini-puppy-v2',
+    id: 'rc-mini-puppy-v3',
     name: 'Royal Canin Mini Puppy Food, Dry Food (800g)',
     brand: 'Royal Canin',
     category: 'food',
@@ -48,7 +48,7 @@ const CURATED_PRODUCTS = [
     price: '818',
     rating: 4.4,
     reviews: 9185,
-    image: 'https://m.media-amazon.com/images/I/81-p+5S-MvL._SL1500_.jpg',
+    image: 'https://m.media-amazon.com/images/I/71p0WfN9jAL._AC_SL1500_.jpg',
     badge: 'Vet Recommended',
     desc: 'Supports Complex Natural Defence & digestive health. Specialized formula for small breed puppies to support a healthy immune system.',
     affiliateUrl: 'https://amzn.to/4ulalbw'
@@ -302,30 +302,17 @@ export default function ProductsPage() {
                       height: '220px',
                       borderRadius: '20px',
                       overflow: 'hidden',
-                      background: '#f8fafc',
+                      backgroundColor: '#f8fafc',
+                      backgroundImage: `url(${product.image})`,
+                      backgroundSize: 'contain',
+                      backgroundPosition: 'center',
+                      backgroundRepeat: 'no-repeat',
                       marginBottom: '1rem',
                       cursor: 'pointer',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center'
+                      transition: 'transform 0.5s ease',
+                      margin: '10px'
                     }}
                   >
-                    <img 
-                      src={product.image} 
-                      alt={product.name}
-                      referrerPolicy="no-referrer"
-                      onError={(e) => {
-                        e.target.onerror = null; 
-                        e.target.src = "https://images.unsplash.com/photo-1589924691106-073b697395a6?w=500&q=80";
-                      }}
-                      style={{
-                        maxWidth: '90%',
-                        maxHeight: '90%',
-                        objectFit: 'contain',
-                        padding: '1rem',
-                        transition: 'transform 0.5s ease'
-                      }}
-                    />
                     {product.badge && (
                       <div style={{
                         position: 'absolute',
