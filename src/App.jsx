@@ -100,13 +100,14 @@ export default function App() {
         <RoutineProvider>
           <AlarmManager />
         <Toaster
-          position="top-center"
+          position="top-right"
           toastOptions={{
             style: {
               background: '#ffffff',
               color: '#1f2937',
               border: '1px solid rgba(34, 197, 94, 0.2)',
               borderRadius: '16px',
+              zIndex: 9999,
             },
           }}
         />
