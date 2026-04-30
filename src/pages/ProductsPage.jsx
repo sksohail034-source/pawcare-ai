@@ -45,7 +45,7 @@ const CURATED_PRODUCTS = [
     image: '/images/products/pedigree.png',
     badge: 'Amazon Choice',
     desc: 'Chicken & Liver chunks in gravy. Complete and balanced meal for adult dogs.',
-    affiliateUrl: 'https://amzn.to/3T6oYmR'
+    affiliateUrl: 'https://amzn.to/4t8RDCV'
   },
   {
     id: 'd4',
