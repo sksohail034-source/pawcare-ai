@@ -26,6 +26,17 @@ const CAT_CATEGORIES = [
   { id: 'health', name: 'Health & Care', icon: <GiFirstAidKit /> }
 ];
 
+const STORE_THEMES = {
+  dog: {
+    heroImage: 'https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?w=1600&q=80',
+    position: 'center 30%'
+  },
+  cat: {
+    heroImage: 'https://images.unsplash.com/photo-1592194996308-7b43878e84a6?w=1600&q=80',
+    position: 'center 40%'
+  }
+};
+
 // This will be populated manually by the user later
 const CURATED_PRODUCTS = [];
 
@@ -60,6 +71,7 @@ export default function ProductsPage() {
   }, [searchParams, setSearchParams]);
 
   const currentCategories = activePet === 'dog' ? DOG_CATEGORIES : CAT_CATEGORIES;
+  const currentTheme = STORE_THEMES[activePet] || STORE_THEMES.dog;
 
   const filteredProducts = CURATED_PRODUCTS.filter(p => {
     const matchesPet = p.petType === activePet;
@@ -79,14 +91,15 @@ export default function ProductsPage() {
     <div className="products-container" style={{ background: '#f8fafc', minHeight: '100vh', paddingBottom: '6rem' }}>
       {/* Premium Hero Section */}
       <div className="store-hero" style={{
-        background: `linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?w=1600&q=80')`,
+        background: `linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.4)), url('${currentTheme.heroImage}')`,
         backgroundSize: 'cover',
-        backgroundPosition: 'center 30%',
+        backgroundPosition: currentTheme.position,
         padding: '3rem 1.5rem',
         color: '#fff',
         textAlign: 'center',
         position: 'relative',
-        boxShadow: '0 4px 20px rgba(0,0,0,0.1)'
+        boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
+        transition: 'all 0.5s ease'
       }}>
         <h1 style={{ fontSize: '2.8rem', fontWeight: '900', marginBottom: '0.8rem', letterSpacing: '-0.5px' }}>
           PawCare <span style={{ color: '#22c55e' }}>Store</span>
