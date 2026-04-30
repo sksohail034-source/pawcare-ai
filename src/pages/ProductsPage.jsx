@@ -56,10 +56,9 @@ const CURATED_PRODUCTS = [
     price: '4,500',
     rating: 4.8,
     reviews: 12000,
-    image: 'https://images.unsplash.com/photo-1591576445756-39bc19383903?w=500&q=80',
     badge: 'Comfort',
     desc: 'Relieves joint pain for older dogs and provides ultimate comfort for all.',
-    affiliateUrl: 'https://amzn.to/3T6oYmR'
+    affiliateUrl: 'https://www.amazon.in/dp/B07RRYC4YF?tag=mypawcare-21'
   },
   {
     id: 'd5',
@@ -112,10 +111,9 @@ const CURATED_PRODUCTS = [
     price: '480',
     rating: 4.6,
     reviews: 8500,
-    image: 'https://images.unsplash.com/photo-1589924691995-400dc9ecc119?w=500&q=80',
     badge: 'Popular',
     desc: 'Delicious tuna in jelly for adult cats. Balanced nutrition for a shiny coat.',
-    affiliateUrl: 'https://amzn.to/3T6oYmR'
+    affiliateUrl: 'https://www.amazon.in/dp/B01H1R7X6O?tag=mypawcare-21'
   },
   {
     id: 'c2',
@@ -126,10 +124,9 @@ const CURATED_PRODUCTS = [
     price: '14,999',
     rating: 4.5,
     reviews: 11000,
-    image: 'https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?w=500&q=80',
     badge: 'Premium',
     desc: 'Automated scooping litter box that stays clean for weeks without hassle.',
-    affiliateUrl: 'https://amzn.to/3T6oYmR'
+    affiliateUrl: 'https://www.amazon.in/dp/B000XSC8R2?tag=mypawcare-21'
   },
   {
     id: 'dg1',
