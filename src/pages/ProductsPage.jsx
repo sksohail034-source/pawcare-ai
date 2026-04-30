@@ -90,8 +90,26 @@ const CURATED_PRODUCTS = [
 ];
 
 export default function ProductsPage() {
-  const [filter, setFilter] = useState('all');
+  const [searchParams] = useSearchParams();
+  const [filter, setFilter] = useState(searchParams.get('type') || 'all');
   const [searchTerm, setSearchTerm] = useState('');
+
+  useEffect(() => {
+    // If no specific type is in URL, try to set it based on user's first pet
+    if (!searchParams.get('type')) {
+      const fetchUserPet = async () => {
+        try {
+          const pets = await api.getPets();
+          if (pets && pets.length > 0) {
+            setFilter(pets[0].type.toLowerCase());
+          }
+        } catch (err) {
+          console.error("Failed to fetch user pets for store personalization", err);
+        }
+      };
+      fetchUserPet();
+    }
+  }, [searchParams]);
 
   const filteredProducts = CURATED_PRODUCTS.filter(p => {
     const matchesFilter = filter === 'all' || p.petType === filter || p.category.toLowerCase() === filter.toLowerCase();
@@ -114,21 +132,21 @@ export default function ProductsPage() {
     <div className="products-container" style={{ paddingBottom: '6rem' }}>
       {/* Hero Banner */}
       <div className="store-hero" style={{
-        background: `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('/images/banners/store-hero.png')`,
+        background: `linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.3)), url('/images/banners/store-hero.png')`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        height: '220px',
+        height: '240px',
         borderRadius: '0 0 32px 32px',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
-        padding: '2rem',
+        padding: '2.5rem 1.5rem',
         color: '#fff',
-        boxShadow: '0 10px 25px rgba(0,0,0,0.1)'
+        boxShadow: '0 10px 25px rgba(0,0,0,0.2)'
       }}>
-        <h1 style={{ fontSize: '2.2rem', marginBottom: '0.5rem', fontWeight: '800' }}>PawCare Store</h1>
-        <p style={{ opacity: 0.9, maxWidth: '350px', fontSize: '1rem' }}>
-          Premium essentials, curated for your pet's happiness.
+        <h1 style={{ fontSize: '2.5rem', marginBottom: '0.5rem', fontWeight: '900', textShadow: '0 2px 10px rgba(0,0,0,0.4)' }}>PawCare Store</h1>
+        <p style={{ opacity: 0.95, maxWidth: '300px', fontSize: '1.05rem', lineHeight: '1.4', fontWeight: '500' }}>
+          Professional grade essentials, hand-picked for your pet's health.
         </p>
       </div>
 

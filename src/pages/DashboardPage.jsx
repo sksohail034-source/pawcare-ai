@@ -125,14 +125,14 @@ export default function DashboardPage() {
 
       {/* Premium Pet Store Hero Banner */}
       <div 
-        onClick={() => navigate('/products')}
+        onClick={() => navigate(`/products?type=${activeCategory.toLowerCase()}`)}
         className="card" 
         style={{ 
-          background: `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('/images/banners/store-hero.png')`,
+          background: `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.3)), url('/images/banners/store-hero.png')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           color: '#fff', 
-          padding: '28px 24px', 
+          padding: '32px 24px', 
           borderRadius: '28px',
           marginBottom: '24px',
           position: 'relative',
@@ -147,7 +147,7 @@ export default function DashboardPage() {
       >
         <div style={{ position: 'relative', zIndex: 2 }}>
           <span style={{ 
-            background: 'rgba(255,153,0,0.9)', 
+            background: '#FF9900', 
             padding: '4px 12px', 
             borderRadius: '50px', 
             fontSize: '10px', 
@@ -155,30 +155,32 @@ export default function DashboardPage() {
             textTransform: 'uppercase',
             letterSpacing: '1px',
             marginBottom: '12px',
-            display: 'inline-block'
+            display: 'inline-block',
+            boxShadow: '0 2px 8px rgba(0,0,0,0.2)'
           }}>
-            Featured Store
+            Store for {activeCategory}s
           </span>
-          <h2 style={{ fontSize: '24px', fontWeight: '800', marginBottom: '8px', lineHeight: '1.2' }}>
-            Premium Pet Essentials 🐾
+          <h2 style={{ fontSize: '26px', fontWeight: '800', marginBottom: '8px', lineHeight: '1.2', textShadow: '0 2px 4px rgba(0,0,0,0.3)' }}>
+            Premium {activeCategory} Essentials 🐾
           </h2>
-          <p style={{ opacity: 0.9, fontSize: '13px', maxWidth: '240px', marginBottom: '20px', lineHeight: '1.4' }}>
-            Top-rated food, toys & health supplies curated for your pets.
+          <p style={{ opacity: 0.95, fontSize: '13px', maxWidth: '240px', marginBottom: '20px', lineHeight: '1.4' }}>
+            Top-rated supplies curated specifically for your {activeCategory.toLowerCase()}.
           </p>
           <button style={{ 
             background: '#fff', 
             color: '#FF9900', 
-            padding: '10px 24px', 
-            borderRadius: '14px', 
+            padding: '12px 28px', 
+            borderRadius: '16px', 
             border: 'none', 
             fontWeight: '800',
             fontSize: '14px',
-            boxShadow: '0 4px 10px rgba(0,0,0,0.2)',
+            boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
             display: 'flex',
             alignItems: 'center',
-            gap: '8px'
+            gap: '8px',
+            width: 'fit-content'
           }}>
-            Shop Essentials <ChevronRight size={16} />
+            Shop Now <ChevronRight size={16} />
           </button>
         </div>
       </div>
