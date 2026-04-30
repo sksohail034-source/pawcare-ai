@@ -140,7 +140,7 @@ const CURATED_PRODUCTS = [
     price: '715',
     rating: 4.5,
     reviews: 1200,
-    image: 'https://images.unsplash.com/photo-1535268647677-300dbf3d78d1?w=500&q=80',
+    image: 'https://m.media-amazon.com/images/I/71lOZQvfQPL._AC_SL1500_.jpg',
     badge: 'Expert Choice',
     desc: 'Professional skin care shampoo for dogs and cats. Prevents parasites.',
     affiliateUrl: 'https://www.amazon.in/dp/B08C8PG7Z8?tag=mypawcare-21'
@@ -154,7 +154,7 @@ const CURATED_PRODUCTS = [
     price: '149',
     rating: 4.4,
     reviews: 5400,
-    image: 'https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?w=500&q=80',
+    image: 'https://m.media-amazon.com/images/I/71K178041NL._AC_SL1500_.jpg',
     badge: 'Best Seller',
     desc: 'Easy-to-clean grooming tool for shedding and detangling fur.',
     affiliateUrl: 'https://www.amazon.in/dp/B08FJ655HL?tag=mypawcare-21'
@@ -168,7 +168,7 @@ const CURATED_PRODUCTS = [
     price: '449',
     rating: 4.3,
     reviews: 850,
-    image: 'https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=500&q=80',
+    image: 'https://m.media-amazon.com/images/I/617k4gOQ%2BBL._AC_SL1500_.jpg',
     badge: 'Safety First',
     desc: 'LED light nail trimmer to prevent over-cutting. Safe for all breeds.',
     affiliateUrl: 'https://www.amazon.in/dp/B08Y8H5Z7R?tag=mypawcare-21'
@@ -182,7 +182,7 @@ const CURATED_PRODUCTS = [
     price: '699',
     rating: 4.6,
     reviews: 2100,
-    image: 'https://images.unsplash.com/photo-1576201836106-db1758fd1c97?w=500&q=80',
+    image: 'https://m.media-amazon.com/images/I/81th9m7QvrL._AC_SL1500_.jpg',
     badge: 'Durable',
     desc: 'Premium plush toy with squeaker. Ideal for fetch and moderate chewing.',
     affiliateUrl: 'https://www.amazon.in/dp/B084R4T6Y4?tag=mypawcare-21'
@@ -196,7 +196,7 @@ const CURATED_PRODUCTS = [
     price: '199',
     rating: 4.2,
     reviews: 1500,
-    image: 'https://images.unsplash.com/photo-1591768793355-74d7c869c4b7?w=500&q=80',
+    image: 'https://m.media-amazon.com/images/I/71jIzdxVkUL._AC_SL1500_.jpg',
     badge: 'Dental Care',
     desc: 'Rubber spike ball for dental cleaning and interactive play.',
     affiliateUrl: 'https://www.amazon.in/dp/B077SQY4L9?tag=mypawcare-21'
@@ -210,7 +210,7 @@ const CURATED_PRODUCTS = [
     price: '249',
     rating: 4.4,
     reviews: 980,
-    image: 'https://images.unsplash.com/photo-1544568100-847a948585b9?w=500&q=80',
+    image: 'https://m.media-amazon.com/images/I/61L-N+1z2BL._SL1000_.jpg',
     badge: 'Interactive',
     desc: 'Keeps dogs engaged for hours by dispensing treats during play.',
     affiliateUrl: 'https://www.amazon.in/dp/B09BZNMPZ2?tag=mypawcare-21'
@@ -224,7 +224,7 @@ const CURATED_PRODUCTS = [
     price: '450',
     rating: 4.6,
     reviews: 12500,
-    image: 'https://images.unsplash.com/photo-1589924691995-400dc9ecc119?w=500&q=80',
+    image: 'https://m.media-amazon.com/images/I/71rQ66BCHcL._AC_SL1500_.jpg',
     badge: 'Amazon Choice',
     desc: 'Delicious ocean fish flavor. Balanced nutrition for a healthy coat.',
     affiliateUrl: 'https://www.amazon.in/dp/B00HS6SGL8?tag=mypawcare-21'
@@ -238,7 +238,7 @@ const CURATED_PRODUCTS = [
     price: '199',
     rating: 4.3,
     reviews: 4500,
-    image: 'https://images.unsplash.com/photo-1597233545935-9963da5a46f0?w=500&q=80',
+    image: 'https://m.media-amazon.com/images/I/71wLp9-PZ2L._SL1500_.jpg',
     badge: 'Best Seller',
     desc: 'Soft silicone brush for gentle massage and shedding hair removal.',
     affiliateUrl: 'https://www.amazon.in/dp/B07675J3Y7?tag=mypawcare-21'
@@ -252,7 +252,7 @@ const CURATED_PRODUCTS = [
     price: '3,800',
     rating: 4.7,
     reviews: 3200,
-    image: 'https://images.unsplash.com/photo-1545249390-3663a0e0573e?w=500&q=80',
+    image: 'https://m.media-amazon.com/images/I/71Xm+QvB8yL._SL1500_.jpg',
     badge: 'Playtime',
     desc: 'Multi-level cat tree with scratching posts and dangling toys.',
     affiliateUrl: 'https://www.amazon.in/dp/B08FJ655HL?tag=mypawcare-21'
@@ -266,7 +266,7 @@ const CURATED_PRODUCTS = [
     price: '299',
     rating: 4.5,
     reviews: 2100,
-    image: 'https://images.unsplash.com/photo-1444464666168-49d633b867ad?w=500&q=80',
+    image: 'https://m.media-amazon.com/images/I/71V2M8f8GfL._AC_SL1500_.jpg',
     badge: 'Nutritious',
     desc: 'High-quality seed mix for budgies and small birds. Supports immunity.',
     affiliateUrl: 'https://www.amazon.in/dp/B07P8J8G9W?tag=mypawcare-21'
@@ -280,7 +280,7 @@ const CURATED_PRODUCTS = [
     price: '189',
     rating: 4.4,
     reviews: 1500,
-    image: 'https://images.unsplash.com/photo-1552728089-57bdde30ebe3?w=500&q=80',
+    image: 'https://m.media-amazon.com/images/I/71tS0YHM0uL._AC_SL1500_.jpg',
     badge: 'Popular',
     desc: 'Handcrafted colorful wooden swing for all small to medium birds.',
     affiliateUrl: 'https://www.amazon.in/dp/B078XG9X8H?tag=mypawcare-21'
@@ -294,7 +294,7 @@ const CURATED_PRODUCTS = [
     price: '349',
     rating: 4.2,
     reviews: 850,
-    image: 'https://images.unsplash.com/photo-1522850949506-58555ed19484?w=500&q=80',
+    image: 'https://m.media-amazon.com/images/I/61N+pP0TjPL._SL1000_.jpg',
     badge: 'Fun Time',
     desc: 'Ferris wheel toy to keep your birds mentally active and engaged.',
     affiliateUrl: 'https://www.amazon.in/dp/B07K6QXY5N?tag=mypawcare-21'
