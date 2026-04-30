@@ -90,6 +90,20 @@ const CURATED_PRODUCTS = [
     affiliateUrl: 'https://amzn.to/4n6FCwu'
   },
   {
+    id: 'd7',
+    name: 'Royal Canin Medium Adult Dog Food (1kg)',
+    brand: 'Royal Canin',
+    category: 'Food',
+    petType: 'dog',
+    price: '950',
+    rating: 4.3,
+    reviews: 2344,
+    image: '/images/products/royal-canin-medium.png',
+    badge: 'Starter Pack',
+    desc: 'Provides muscle mass and supports optimal health. Perfect 1kg trial pack for medium breeds.',
+    affiliateUrl: 'https://amzn.to/4mYacIm'
+  },
+  {
     id: 'c1',
     name: 'Premium Wet Cat Food Variety Pack',
     brand: 'Fancy Feast',
