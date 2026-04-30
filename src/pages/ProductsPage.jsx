@@ -1,15 +1,15 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { FiSearch, FiShoppingCart, FiChevronRight, FiGrid, FiBox, FiActivity, FiTruck, FiHeart } from 'react-icons/fi';
-import { GiDogBowl, GiCat, GiComb, GiBallPyramid, GiCollar, GiFirstAidKit, GiHollowCatTree, GiSuitcase } from 'react-icons/gi';
+import { FiSearch, FiShoppingCart, FiChevronRight, FiGrid, FiBox, FiActivity, FiTruck, FiHeart, FiTag, FiHome, FiBriefcase } from 'react-icons/fi';
+import { GiDogBowl, GiCat, GiComb, GiTennisBall, GiFirstAidKit } from 'react-icons/gi';
 import toast from 'react-hot-toast';
 import { api } from '../api';
 
 const DOG_CATEGORIES = [
   { id: 'food', name: 'Food & Nutrition', icon: <GiDogBowl /> },
   { id: 'grooming', name: 'Grooming & Hygiene', icon: <GiComb /> },
-  { id: 'toys', name: 'Toys & Entertainment', icon: <GiBallPyramid /> },
-  { id: 'accessories', name: 'Accessories', icon: <GiCollar /> },
+  { id: 'toys', name: 'Toys & Entertainment', icon: <GiTennisBall /> },
+  { id: 'accessories', name: 'Accessories', icon: <FiTag /> },
   { id: 'essentials', name: 'Daily Use Essentials', icon: <FiBox /> },
   { id: 'travel', name: 'Travel & Outdoor', icon: <FiTruck /> },
   { id: 'health', name: 'Health & Care', icon: <GiFirstAidKit /> }
@@ -18,11 +18,11 @@ const DOG_CATEGORIES = [
 const CAT_CATEGORIES = [
   { id: 'food', name: 'Food & Nutrition', icon: <GiDogBowl /> },
   { id: 'grooming', name: 'Grooming & Hygiene', icon: <GiComb /> },
-  { id: 'toys', name: 'Toys & Entertainment', icon: <GiBallPyramid /> },
-  { id: 'accessories', name: 'Accessories', icon: <GiCollar /> },
+  { id: 'toys', name: 'Toys & Entertainment', icon: <GiTennisBall /> },
+  { id: 'accessories', name: 'Accessories', icon: <FiTag /> },
   { id: 'essentials', name: 'Daily Use Essentials', icon: <FiBox /> },
-  { id: 'furniture', name: 'Furniture & Activity', icon: <GiHollowCatTree /> },
-  { id: 'travel', name: 'Travel', icon: <GiSuitcase /> },
+  { id: 'furniture', name: 'Furniture & Activity', icon: <FiHome /> },
+  { id: 'travel', name: 'Travel', icon: <FiBriefcase /> },
   { id: 'health', name: 'Health & Care', icon: <GiFirstAidKit /> }
 ];
 
