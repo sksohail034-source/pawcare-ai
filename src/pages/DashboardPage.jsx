@@ -123,6 +123,66 @@ export default function DashboardPage() {
         </button>
       </div>
 
+      {/* Premium Pet Store Hero Banner */}
+      <div 
+        onClick={() => navigate('/products')}
+        className="card" 
+        style={{ 
+          background: `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('/images/banners/store-hero.png')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          color: '#fff', 
+          padding: '28px 24px', 
+          borderRadius: '28px',
+          marginBottom: '24px',
+          position: 'relative',
+          overflow: 'hidden',
+          boxShadow: '0 12px 25px rgba(0,0,0,0.15)',
+          cursor: 'pointer',
+          border: 'none',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center'
+        }}
+      >
+        <div style={{ position: 'relative', zIndex: 2 }}>
+          <span style={{ 
+            background: 'rgba(255,153,0,0.9)', 
+            padding: '4px 12px', 
+            borderRadius: '50px', 
+            fontSize: '10px', 
+            fontWeight: '800', 
+            textTransform: 'uppercase',
+            letterSpacing: '1px',
+            marginBottom: '12px',
+            display: 'inline-block'
+          }}>
+            Featured Store
+          </span>
+          <h2 style={{ fontSize: '24px', fontWeight: '800', marginBottom: '8px', lineHeight: '1.2' }}>
+            Premium Pet Essentials 🐾
+          </h2>
+          <p style={{ opacity: 0.9, fontSize: '13px', maxWidth: '240px', marginBottom: '20px', lineHeight: '1.4' }}>
+            Top-rated food, toys & health supplies curated for your pets.
+          </p>
+          <button style={{ 
+            background: '#fff', 
+            color: '#FF9900', 
+            padding: '10px 24px', 
+            borderRadius: '14px', 
+            border: 'none', 
+            fontWeight: '800',
+            fontSize: '14px',
+            boxShadow: '0 4px 10px rgba(0,0,0,0.2)',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px'
+          }}>
+            Shop Essentials <ChevronRight size={16} />
+          </button>
+        </div>
+      </div>
+
       {/* Search */}
       <div className="search-container">
         <Search className="search-icon" size={18} />
@@ -260,29 +320,6 @@ export default function DashboardPage() {
           </div>
         );
       })()}
-      {/* Pet Store Highlight Banner */}
-      <div 
-        className="premium-banner store-highlight-banner"
-        onClick={() => navigate('/products')}
-        style={{ 
-          cursor: 'pointer', 
-          marginTop: '2rem', 
-          background: 'linear-gradient(135deg, #FF9900 0%, #FFB74D 100%)',
-          color: '#ffffff'
-        }}
-      >
-        <div className="banner-content">
-          <div className="banner-text">
-            <span className="badge">Featured Store</span>
-            <h3>Premium Pet Essentials 🐾</h3>
-            <p>Top-rated food, toys & health supplies curated for your pets.</p>
-            <button className="banner-btn" style={{ background: '#ffffff', color: '#FF9900' }}>
-              Shop Now
-            </button>
-          </div>
-          <div className="banner-icon" style={{ fontSize: '3rem' }}>🛒</div>
-        </div>
-      </div>
     </div>
   );
 }
