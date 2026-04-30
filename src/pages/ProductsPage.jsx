@@ -48,7 +48,7 @@ const CURATED_PRODUCTS = [
     price: '818',
     rating: 4.4,
     reviews: 9185,
-    image: 'https://m.media-amazon.com/images/I/61mI-8XfU2L._AC_SL1100_.jpg?t=' + Date.now(),
+    image: 'https://m.media-amazon.com/images/I/81-p+5S-MvL._SL1500_.jpg',
     badge: 'Vet Recommended',
     desc: 'Supports Complex Natural Defence & digestive health. Specialized formula for small breed puppies to support a healthy immune system.',
     affiliateUrl: 'https://amzn.to/4ulalbw'
@@ -314,6 +314,10 @@ export default function ProductsPage() {
                       src={product.image} 
                       alt={product.name}
                       referrerPolicy="no-referrer"
+                      onError={(e) => {
+                        e.target.onerror = null; 
+                        e.target.src = "https://images.unsplash.com/photo-1589924691106-073b697395a6?w=500&q=80";
+                      }}
                       style={{
                         maxWidth: '90%',
                         maxHeight: '90%',
