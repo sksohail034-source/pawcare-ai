@@ -35,17 +35,17 @@ const CURATED_PRODUCTS = [
   },
   {
     id: 'd3',
-    name: 'Pedigree Adult Wet Dog Food (Chicken & Liver)',
+    name: 'Pedigree Adult Wet Dog Food (Pack of 15)',
     brand: 'Pedigree',
     category: 'Food',
     petType: 'dog',
-    price: '540',
-    rating: 4.5,
-    reviews: 18500,
-    image: '/images/products/pedigree-wet.png',
-    badge: 'Popular',
-    desc: 'Delicious gravy chunks with chicken and liver. Perfect for mixing with dry food.',
-    affiliateUrl: 'https://amzn.to/4cI5dZ5'
+    price: '628',
+    rating: 4.4,
+    reviews: 11457,
+    image: '/images/products/pedigree.png',
+    badge: 'Amazon Choice',
+    desc: 'Chicken & Liver chunks in gravy. Complete and balanced meal for adult dogs.',
+    affiliateUrl: 'https://amzn.to/3T6oYmR'
   },
   {
     id: 'd4',
