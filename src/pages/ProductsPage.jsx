@@ -76,6 +76,20 @@ const CURATED_PRODUCTS = [
     affiliateUrl: 'https://amzn.to/4n3kc35'
   },
   {
+    id: 'd6',
+    name: 'Royal Canin Maxi Adult Dog Food (10kg)',
+    brand: 'Royal Canin',
+    category: 'Food',
+    petType: 'dog',
+    price: '6,895',
+    rating: 4.3,
+    reviews: 2497,
+    image: '/images/products/royal-canin.png',
+    badge: 'Top Choice',
+    desc: 'Supports digestive health & bone/joint strength for large adult dogs. Premium quality nutrition.',
+    affiliateUrl: 'https://amzn.to/4n6FCwu'
+  },
+  {
     id: 'c1',
     name: 'Premium Wet Cat Food Variety Pack',
     brand: 'Fancy Feast',
