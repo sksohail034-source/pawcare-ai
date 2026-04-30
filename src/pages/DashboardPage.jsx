@@ -93,12 +93,35 @@ export default function DashboardPage() {
 
   const nextRoutine = getNextRoutine();
 
-  const routineBackgrounds = {
-    Dog: 'https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?w=800&q=80',
-    Cat: 'https://images.unsplash.com/photo-1573865526739-10659fec78a5?w=800&q=80',
-    Bird: 'https://images.unsplash.com/photo-1444464666168-49d633b86797?w=800&q=80',
-    Rabbit: 'https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?w=800&q=80',
+  const routineThemes = {
+    Dog: { 
+      gradient: 'linear-gradient(rgba(139, 92, 246, 0.85), rgba(109, 40, 217, 0.6))', 
+      image: 'https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?w=800&q=80',
+      accent: '#8b5cf6' 
+    },
+    Cat: { 
+      gradient: 'linear-gradient(rgba(245, 158, 11, 0.85), rgba(217, 119, 6, 0.6))', 
+      image: 'https://images.unsplash.com/photo-1573865526739-10659fec78a5?w=800&q=80',
+      accent: '#f59e0b'
+    },
+    Bird: { 
+      gradient: 'linear-gradient(rgba(14, 165, 233, 0.85), rgba(2, 132, 199, 0.6))', 
+      image: 'https://images.unsplash.com/photo-1444464666168-49d633b86797?w=800&q=80',
+      accent: '#0ea5e9'
+    },
+    Rabbit: { 
+      gradient: 'linear-gradient(rgba(236, 72, 153, 0.85), rgba(190, 24, 93, 0.6))', 
+      image: 'https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?w=800&q=80',
+      accent: '#ec48ef'
+    },
+    Fish: { 
+      gradient: 'linear-gradient(rgba(20, 184, 166, 0.85), rgba(13, 148, 136, 0.6))', 
+      image: 'https://images.unsplash.com/photo-1522069169874-c58ec4b76be5?w=800&q=80',
+      accent: '#14b8a6'
+    }
   };
+
+  const currentTheme = routineThemes[activeCategory] || routineThemes.Dog;
 
   return (
     <div className="page-container">
@@ -204,7 +227,7 @@ export default function DashboardPage() {
         className="card" 
         style={{ 
           background: nextRoutine 
-            ? `linear-gradient(rgba(139, 92, 246, 0.85), rgba(109, 40, 217, 0.6)), url('${routineBackgrounds[activeCategory] || routineBackgrounds.Dog}')`
+            ? `${currentTheme.gradient}, url('${currentTheme.image}')`
             : 'linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
@@ -214,7 +237,7 @@ export default function DashboardPage() {
           marginBottom: '32px',
           position: 'relative',
           overflow: 'hidden',
-          boxShadow: '0 12px 25px rgba(139, 92, 246, 0.3)',
+          boxShadow: `0 12px 25px ${currentTheme.accent}30`,
           cursor: 'pointer',
           border: 'none',
           display: 'flex',
@@ -251,7 +274,7 @@ export default function DashboardPage() {
               </p>
               <button style={{ 
                 background: '#fff', 
-                color: '#8b5cf6', 
+                color: currentTheme.accent, 
                 padding: '8px 20px', 
                 borderRadius: '12px', 
                 border: 'none', 
@@ -292,7 +315,7 @@ export default function DashboardPage() {
 
                 <button style={{ 
                   background: '#fff', 
-                  color: '#8b5cf6', 
+                  color: currentTheme.accent, 
                   padding: '10px 24px', 
                   borderRadius: '14px', 
                   border: 'none', 
