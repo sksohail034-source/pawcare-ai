@@ -48,17 +48,17 @@ const CURATED_PRODUCTS = [
     affiliateUrl: 'https://amzn.to/4t8RDCV'
   },
   {
-    id: 'd4',
-    name: 'Orthopedic Memory Foam Pet Bed',
-    brand: 'Bedsure',
+    name: 'WATANIYA Orthopedic Memory Foam Pet Bed',
+    brand: 'WATANIYA',
     category: 'Accessories',
     petType: 'dog',
-    price: '4,500',
-    rating: 4.8,
-    reviews: 12000,
+    price: '4,499',
+    rating: 4.5,
+    reviews: 420,
+    image: 'https://m.media-amazon.com/images/I/71Y7YkF+AHL._SL1500_.jpg',
     badge: 'Comfort',
-    desc: 'Relieves joint pain for older dogs and provides ultimate comfort for all.',
-    affiliateUrl: 'https://www.amazon.in/dp/B07RRYC4YF?tag=mypawcare-21'
+    desc: 'Joint support memory foam for older dogs. Ultra-soft and durable.',
+    affiliateUrl: 'https://www.amazon.in/dp/B098L6JJZ1?tag=mypawcare-21'
   },
   {
     id: 'd5',
@@ -103,30 +103,30 @@ const CURATED_PRODUCTS = [
     affiliateUrl: 'https://amzn.to/4mYacIm'
   },
   {
-    id: 'c1',
-    name: 'Whiskas Adult Wet Cat Food (Pack of 12)',
+    name: 'Whiskas Adult Wet Cat Food (Pack of 14)',
     brand: 'Whiskas',
     category: 'Food',
     petType: 'cat',
-    price: '480',
+    price: '540',
     rating: 4.6,
     reviews: 8500,
+    image: 'https://m.media-amazon.com/images/I/71rQ66BCHcL._AC_SL1500_.jpg',
     badge: 'Popular',
-    desc: 'Delicious tuna in jelly for adult cats. Balanced nutrition for a shiny coat.',
-    affiliateUrl: 'https://www.amazon.in/dp/B01H1R7X6O?tag=mypawcare-21'
+    desc: 'Tuna in jelly bulk pack for adult cats. Balanced nutrition for a shiny coat.',
+    affiliateUrl: 'https://www.amazon.in/dp/B09JGL4CN5?tag=mypawcare-21'
   },
   {
-    id: 'c2',
-    name: 'Self-Cleaning Litter Box',
-    brand: 'PetSafe',
+    name: 'Petverse Automatic Self-Cleaning Litter Box',
+    brand: 'Petverse',
     category: 'Hygiene',
     petType: 'cat',
-    price: '14,999',
-    rating: 4.5,
-    reviews: 11000,
+    price: '16,999',
+    rating: 4.4,
+    reviews: 120,
+    image: 'https://m.media-amazon.com/images/I/71Xm+QvB8yL._SL1500_.jpg',
     badge: 'Premium',
-    desc: 'Automated scooping litter box that stays clean for weeks without hassle.',
-    affiliateUrl: 'https://www.amazon.in/dp/B000XSC8R2?tag=mypawcare-21'
+    desc: 'Fully automated scooping litter box. Stays clean and odor-free for weeks.',
+    affiliateUrl: 'https://www.amazon.in/dp/B0G5P8JJ77?tag=mypawcare-21'
   },
   {
     id: 'dg1',
