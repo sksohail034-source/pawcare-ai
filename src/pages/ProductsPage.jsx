@@ -62,6 +62,20 @@ const CURATED_PRODUCTS = [
     affiliateUrl: 'https://geni.us/dog-bed-placeholder'
   },
   {
+    id: 'd5',
+    name: 'Good Dog Adult Dry Dog Food (Oven Baked)',
+    brand: 'Good Dog',
+    category: 'Food',
+    petType: 'dog',
+    price: '6,999',
+    rating: 4.5,
+    reviews: 127,
+    image: '/images/products/good-dog.png',
+    badge: 'Premium',
+    desc: 'Oven-baked with real chicken & eggs. 28% Protein with Indian Herbs, suitable for all breeds.',
+    affiliateUrl: 'https://amzn.to/4n3kc35'
+  },
+  {
     id: 'c1',
     name: 'Premium Wet Cat Food Variety Pack',
     brand: 'Fancy Feast',
