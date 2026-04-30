@@ -38,7 +38,22 @@ const STORE_THEMES = {
 };
 
 // This will be populated manually by the user later
-const CURATED_PRODUCTS = [];
+const CURATED_PRODUCTS = [
+  {
+    id: 'rc-mini-puppy',
+    name: 'Royal Canin Mini Puppy Dry Dog Food (800g)',
+    brand: 'Royal Canin',
+    category: 'food',
+    petType: 'dog',
+    price: '818',
+    rating: 4.4,
+    reviews: 9185,
+    image: 'https://m.media-amazon.com/images/I/61mI-8XfU2L._SL1500_.jpg',
+    badge: 'Vet Recommended',
+    desc: 'Tailored nutrition for small breed puppies (up to 10 months). Supports immune system and digestive health.',
+    affiliateUrl: 'https://amzn.to/4ulalbw'
+  }
+];
 
 export default function ProductsPage() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -276,9 +291,108 @@ export default function ProductsPage() {
                   padding: '1rem',
                   boxShadow: '0 10px 30px rgba(0,0,0,0.03)',
                   border: '1px solid #f1f5f9',
-                  transition: 'transform 0.3s ease'
+                  transition: 'all 0.3s ease',
+                  display: 'flex',
+                  flexDirection: 'column'
                 }}>
-                  {/* ... Product Card Content ... */}
+                  <div 
+                    onClick={() => window.open(product.affiliateUrl, '_blank')}
+                    style={{
+                      position: 'relative',
+                      height: '220px',
+                      borderRadius: '20px',
+                      overflow: 'hidden',
+                      background: '#f8fafc',
+                      marginBottom: '1rem',
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center'
+                    }}
+                  >
+                    <img 
+                      src={product.image} 
+                      alt={product.name}
+                      style={{
+                        maxWidth: '90%',
+                        maxHeight: '90%',
+                        objectFit: 'contain',
+                        padding: '1rem',
+                        transition: 'transform 0.5s ease'
+                      }}
+                    />
+                    {product.badge && (
+                      <div style={{
+                        position: 'absolute',
+                        top: '12px',
+                        left: '12px',
+                        background: '#1f2937',
+                        color: '#fff',
+                        padding: '4px 10px',
+                        borderRadius: '8px',
+                        fontSize: '0.7rem',
+                        fontWeight: '700'
+                      }}>
+                        {product.badge}
+                      </div>
+                    )}
+                  </div>
+
+                  <div style={{ padding: '0 0.5rem', flex: 1, display: 'flex', flexDirection: 'column' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.4rem' }}>
+                      <span style={{ fontSize: '0.7rem', fontWeight: '700', color: '#22c55e', textTransform: 'uppercase', letterSpacing: '0.5px' }}>{product.brand}</span>
+                      <FiHeart size={14} color="#cbd5e1" style={{ cursor: 'pointer' }} />
+                    </div>
+                    
+                    <h3 style={{ 
+                      fontSize: '0.95rem', 
+                      fontWeight: '800', 
+                      color: '#1f2937', 
+                      marginBottom: '0.5rem',
+                      display: '-webkit-box',
+                      WebkitLineClamp: 2,
+                      WebkitBoxOrient: 'vertical',
+                      overflow: 'hidden',
+                      lineHeight: '1.4',
+                      height: '2.6rem'
+                    }}>
+                      {product.name}
+                    </h3>
+
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
+                      <div style={{ display: 'flex', color: '#f59e0b', fontSize: '0.8rem' }}>
+                        {'★'.repeat(Math.floor(product.rating))}
+                        <span style={{ color: '#e2e8f0' }}>{'★'.repeat(5 - Math.floor(product.rating))}</span>
+                      </div>
+                      <span style={{ fontSize: '0.7rem', color: '#64748b', fontWeight: '600' }}>({product.reviews})</span>
+                    </div>
+
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 'auto', paddingTop: '0.5rem' }}>
+                      <div>
+                        <span style={{ fontSize: '0.85rem', fontWeight: '600', color: '#64748b', marginRight: '2px' }}>₹</span>
+                        <span style={{ fontSize: '1.3rem', fontWeight: '900', color: '#1f2937' }}>{product.price}</span>
+                      </div>
+                      <button 
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          window.open(product.affiliateUrl, '_blank');
+                        }}
+                        style={{
+                          padding: '0.6rem 1rem',
+                          borderRadius: '12px',
+                          border: 'none',
+                          background: '#22c55e',
+                          color: '#fff',
+                          fontWeight: '700',
+                          fontSize: '0.8rem',
+                          cursor: 'pointer',
+                          boxShadow: '0 4px 12px rgba(34, 197, 94, 0.15)'
+                        }}
+                      >
+                        Buy Now
+                      </button>
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>
