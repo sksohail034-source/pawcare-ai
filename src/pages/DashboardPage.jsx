@@ -128,16 +128,16 @@ export default function DashboardPage() {
         onClick={() => navigate(`/products?type=${activeCategory.toLowerCase()}`)}
         className="card" 
         style={{ 
-          background: `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.3)), url('/images/banners/store-hero.png')`,
+          background: `linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.4)), url('/images/banners/store-hero.png')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           color: '#fff', 
-          padding: '32px 24px', 
+          padding: '35px 24px', 
           borderRadius: '28px',
           marginBottom: '24px',
           position: 'relative',
           overflow: 'hidden',
-          boxShadow: '0 12px 25px rgba(0,0,0,0.15)',
+          boxShadow: '0 12px 25px rgba(0,0,0,0.2)',
           cursor: 'pointer',
           border: 'none',
           display: 'flex',
@@ -150,37 +150,37 @@ export default function DashboardPage() {
             background: '#FF9900', 
             padding: '4px 12px', 
             borderRadius: '50px', 
-            fontSize: '10px', 
-            fontWeight: '800', 
+            fontSize: '9px', 
+            fontWeight: '900', 
             textTransform: 'uppercase',
             letterSpacing: '1px',
-            marginBottom: '12px',
+            marginBottom: '10px',
             display: 'inline-block',
-            boxShadow: '0 2px 8px rgba(0,0,0,0.2)'
+            boxShadow: '0 2px 8px rgba(0,0,0,0.3)'
           }}>
-            Store for {activeCategory}s
+            EXCLUSIVE STORE
           </span>
-          <h2 style={{ fontSize: '26px', fontWeight: '800', marginBottom: '8px', lineHeight: '1.2', textShadow: '0 2px 4px rgba(0,0,0,0.3)' }}>
-            Premium {activeCategory} Essentials 🐾
+          <h2 style={{ fontSize: '22px', fontWeight: '800', marginBottom: '6px', lineHeight: '1.1', textShadow: '0 2px 8px rgba(0,0,0,0.5)' }}>
+            Best for your {activeCategory} 🐾
           </h2>
-          <p style={{ opacity: 0.95, fontSize: '13px', maxWidth: '240px', marginBottom: '20px', lineHeight: '1.4' }}>
-            Top-rated supplies curated specifically for your {activeCategory.toLowerCase()}.
+          <p style={{ opacity: 0.9, fontSize: '12px', maxWidth: '220px', marginBottom: '18px', lineHeight: '1.4' }}>
+            Curated premium essentials to keep your pet healthy.
           </p>
           <button style={{ 
             background: '#fff', 
             color: '#FF9900', 
-            padding: '12px 28px', 
-            borderRadius: '16px', 
+            padding: '10px 24px', 
+            borderRadius: '14px', 
             border: 'none', 
             fontWeight: '800',
-            fontSize: '14px',
-            boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
+            fontSize: '13px',
+            boxShadow: '0 5px 15px rgba(0,0,0,0.3)',
             display: 'flex',
             alignItems: 'center',
-            gap: '8px',
+            gap: '6px',
             width: 'fit-content'
           }}>
-            Shop Now <ChevronRight size={16} />
+            Shop Now <ChevronRight size={14} />
           </button>
         </div>
       </div>

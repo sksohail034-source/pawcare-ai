@@ -1,6 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { FiSearch, FiShoppingCart, FiStar } from 'react-icons/fi';
 import toast from 'react-hot-toast';
+import { api } from '../api';
 
 const CURATED_PRODUCTS = [
   {
