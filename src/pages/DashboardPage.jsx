@@ -96,13 +96,13 @@ export default function DashboardPage() {
   const routineThemes = {
     Dog: { 
       gradient: 'linear-gradient(90deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 100%)', 
-      image: 'https://images.unsplash.com/photo-1534361960057-19889db9621e?w=800&h=500&fit=crop&crop=entropy',
+      image: 'https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=800&h=500&fit=crop&crop=entropy',
       accent: '#8b5cf6',
       position: 'center 20%'
     },
     Cat: { 
       gradient: 'linear-gradient(90deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 100%)', 
-      image: 'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=800&h=500&fit=crop&crop=entropy',
+      image: 'https://images.unsplash.com/photo-1592194996308-7b43878e84a6?w=800&h=500&fit=crop&crop=entropy',
       accent: '#f59e0b',
       position: 'center 30%'
     },
