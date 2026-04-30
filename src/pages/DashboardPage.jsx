@@ -102,7 +102,7 @@ export default function DashboardPage() {
     },
     Cat: { 
       gradient: 'linear-gradient(to right, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.1) 80%)', 
-      image: 'https://images.unsplash.com/photo-1511497584788-876760111969?w=1000&q=80',
+      image: 'https://images.unsplash.com/photo-1513245543132-31f507417b26?w=1000&q=80',
       accent: '#f59e0b',
       position: 'center'
     },
