@@ -132,6 +132,118 @@ const CURATED_PRODUCTS = [
     affiliateUrl: 'https://amzn.to/3T6oYmR'
   },
   {
+    id: 'dg1',
+    name: 'Beaphar Dimethicare Shampoo (200ml)',
+    brand: 'Beaphar',
+    category: 'Grooming',
+    petType: 'dog',
+    price: '715',
+    rating: 4.5,
+    reviews: 1200,
+    image: 'https://m.media-amazon.com/images/I/61NlB0-U78L._SL1500_.jpg',
+    badge: 'Expert Choice',
+    desc: 'Professional skin care shampoo for dogs and cats. Prevents parasites.',
+    affiliateUrl: 'https://www.amazon.in/dp/B08C8PG7Z8?tag=mypawcare-21'
+  },
+  {
+    id: 'dg2',
+    name: 'Depets Self Cleaning Slicker Brush',
+    brand: 'Depets',
+    category: 'Grooming',
+    petType: 'dog',
+    price: '149',
+    rating: 4.4,
+    reviews: 5400,
+    image: 'https://m.media-amazon.com/images/I/61M-FpUuBHL._SL1000_.jpg',
+    badge: 'Best Seller',
+    desc: 'Easy-to-clean grooming tool for shedding and detangling fur.',
+    affiliateUrl: 'https://www.amazon.in/dp/B08FJ655HL?tag=mypawcare-21'
+  },
+  {
+    id: 'dg3',
+    name: 'HANK LED Dog Nail Trimmer',
+    brand: 'HANK',
+    category: 'Grooming',
+    petType: 'dog',
+    price: '449',
+    rating: 4.3,
+    reviews: 850,
+    image: 'https://m.media-amazon.com/images/I/61O2-S0o3jL._SL1500_.jpg',
+    badge: 'Safety First',
+    desc: 'LED light nail trimmer to prevent over-cutting. Safe for all breeds.',
+    affiliateUrl: 'https://www.amazon.in/dp/B08Y8H5Z7R?tag=mypawcare-21'
+  },
+  {
+    id: 'dt1',
+    name: 'BarkButler Aly The Gator Plush Toy',
+    brand: 'BarkButler',
+    category: 'Toys',
+    petType: 'dog',
+    price: '699',
+    rating: 4.6,
+    reviews: 2100,
+    image: 'https://m.media-amazon.com/images/I/61A8Nf6A0GL._SL1100_.jpg',
+    badge: 'Durable',
+    desc: 'Premium plush toy with squeaker. Ideal for fetch and moderate chewing.',
+    affiliateUrl: 'https://www.amazon.in/dp/B084R4T6Y4?tag=mypawcare-21'
+  },
+  {
+    id: 'dt2',
+    name: 'Goofy Tails Rubber Spike Ball',
+    brand: 'Goofy Tails',
+    category: 'Toys',
+    petType: 'dog',
+    price: '199',
+    rating: 4.2,
+    reviews: 1500,
+    image: 'https://m.media-amazon.com/images/I/61s8Bv3BqML._SL1000_.jpg',
+    badge: 'Dental Care',
+    desc: 'Rubber spike ball for dental cleaning and interactive play.',
+    affiliateUrl: 'https://www.amazon.in/dp/B077SQY4L9?tag=mypawcare-21'
+  },
+  {
+    id: 'dt3',
+    name: 'Rubber Dumbbell Treat Dispensing Toy',
+    brand: 'Goofy Tails',
+    category: 'Toys',
+    petType: 'dog',
+    price: '249',
+    rating: 4.4,
+    reviews: 980,
+    image: 'https://m.media-amazon.com/images/I/61L-N+1z2BL._SL1000_.jpg',
+    badge: 'Interactive',
+    desc: 'Keeps dogs engaged for hours by dispensing treats during play.',
+    affiliateUrl: 'https://www.amazon.in/dp/B09BZNMPZ2?tag=mypawcare-21'
+  },
+  {
+    id: 'c1',
+    name: 'Whiskas Adult Dry Cat Food (Ocean Fish)',
+    brand: 'Whiskas',
+    category: 'Food',
+    petType: 'cat',
+    price: '450',
+    rating: 4.6,
+    reviews: 12500,
+    image: 'https://m.media-amazon.com/images/I/71Y7YkF+AHL._SL1500_.jpg',
+    badge: 'Amazon Choice',
+    desc: 'Delicious ocean fish flavor. Balanced nutrition for a healthy coat.',
+    affiliateUrl: 'https://www.amazon.in/dp/B00HS6SGL8?tag=mypawcare-21'
+  },
+  {
+    id: 'c2',
+    name: 'Pet Grooming Glove for Cats & Dogs',
+    brand: 'MCP',
+    category: 'Grooming',
+    petType: 'cat',
+    price: '199',
+    rating: 4.3,
+    reviews: 4500,
+    image: 'https://m.media-amazon.com/images/I/71wLp9-PZ2L._SL1500_.jpg',
+    badge: 'Best Seller',
+    desc: 'Soft silicone brush for gentle massage and shedding hair removal.',
+    affiliateUrl: 'https://www.amazon.in/dp/B07675J3Y7?tag=mypawcare-21'
+  },
+  {
     id: 'c3',
     name: 'Interactive Cat Tree Tower',
     brand: 'Go Pet Club',
@@ -140,11 +252,54 @@ const CURATED_PRODUCTS = [
     price: '3,800',
     rating: 4.7,
     reviews: 3200,
-    image: 'https://images.unsplash.com/photo-1545249390-3663a0e0573e?w=500&q=80',
+    image: 'https://m.media-amazon.com/images/I/71Xm+QvB8yL._SL1500_.jpg',
     badge: 'Playtime',
     desc: 'Multi-level cat tree with scratching posts and dangling toys.',
-    affiliateUrl: 'https://amzn.to/3T6oYmR'
+    affiliateUrl: 'https://www.amazon.in/dp/B08FJ655HL?tag=mypawcare-21'
   },
+  {
+    id: 'b1',
+    name: 'Boltz Premium Bird Food for Budgies',
+    brand: 'Boltz',
+    category: 'Food',
+    petType: 'bird',
+    price: '299',
+    rating: 4.5,
+    reviews: 2100,
+    image: 'https://m.media-amazon.com/images/I/71vUuD0T4BL._SL1500_.jpg',
+    badge: 'Nutritious',
+    desc: 'High-quality seed mix for budgies and small birds. Supports immunity.',
+    affiliateUrl: 'https://www.amazon.in/dp/B07P8J8G9W?tag=mypawcare-21'
+  },
+  {
+    id: 'b2',
+    name: 'Colorful Bird Swing with Bells',
+    brand: 'Foodie Puppies',
+    category: 'Accessories',
+    petType: 'bird',
+    price: '189',
+    rating: 4.4,
+    reviews: 1500,
+    image: 'https://m.media-amazon.com/images/I/61Bv+4fV6dL._SL1100_.jpg',
+    badge: 'Popular',
+    desc: 'Handcrafted colorful wooden swing for all small to medium birds.',
+    affiliateUrl: 'https://www.amazon.in/dp/B078XG9X8H?tag=mypawcare-21'
+  },
+  {
+    id: 'b3',
+    name: 'Bird Intelligence Training Toy',
+    brand: 'Sage Square',
+    category: 'Toys',
+    petType: 'bird',
+    price: '349',
+    rating: 4.2,
+    reviews: 850,
+    image: 'https://m.media-amazon.com/images/I/61N+pP0TjPL._SL1000_.jpg',
+    badge: 'Fun Time',
+    desc: 'Ferris wheel toy to keep your birds mentally active and engaged.',
+    affiliateUrl: 'https://www.amazon.in/dp/B07K6QXY5N?tag=mypawcare-21'
+  },
+];
 ];
 
 export default function ProductsPage() {
@@ -233,7 +388,7 @@ export default function ProductsPage() {
 
         {/* Filter Scroll */}
         <div style={{ display: 'flex', gap: '0.8rem', overflowX: 'auto', paddingBottom: '1.5rem', scrollbarWidth: 'none' }}>
-          {['all', 'dog', 'cat', 'Food', 'Accessories', 'Toys'].map(cat => (
+          {['all', 'dog', 'cat', 'bird', 'Food', 'Grooming', 'Accessories', 'Toys'].map(cat => (
             <button 
               key={cat}
               onClick={() => setFilter(cat)}
