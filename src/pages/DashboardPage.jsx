@@ -95,29 +95,49 @@ export default function DashboardPage() {
 
   const routineThemes = {
     Dog: { 
-      gradient: 'linear-gradient(rgba(139, 92, 246, 0.7), rgba(109, 40, 217, 0.5))', 
+      gradient: 'linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.4))', 
       image: 'https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?w=800&q=80',
       accent: '#8b5cf6' 
     },
     Cat: { 
-      gradient: 'linear-gradient(rgba(245, 158, 11, 0.7), rgba(217, 119, 6, 0.5))', 
+      gradient: 'linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.4))', 
       image: 'https://images.unsplash.com/photo-1533730355866-22440398305c?w=800&q=80',
       accent: '#f59e0b'
     },
     Bird: { 
-      gradient: 'linear-gradient(rgba(14, 165, 233, 0.7), rgba(2, 132, 199, 0.5))', 
+      gradient: 'linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.4))', 
       image: 'https://images.unsplash.com/photo-1444464666168-49d633b86797?w=800&q=80',
       accent: '#0ea5e9'
     },
     Rabbit: { 
-      gradient: 'linear-gradient(rgba(236, 72, 153, 0.7), rgba(190, 24, 93, 0.5))', 
+      gradient: 'linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.4))', 
       image: 'https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?w=800&q=80',
       accent: '#ec48ef'
     },
     Fish: { 
-      gradient: 'linear-gradient(rgba(20, 184, 166, 0.7), rgba(13, 148, 136, 0.5))', 
+      gradient: 'linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.4))', 
       image: 'https://images.unsplash.com/photo-1522069169874-c58ec4b76be5?w=800&q=80',
       accent: '#14b8a6'
+    },
+    Hamster: { 
+      gradient: 'linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.4))', 
+      image: 'https://images.unsplash.com/photo-1425082661705-1834bfd09dca?w=800&q=80',
+      accent: '#f59e0b'
+    },
+    Goat: { 
+      gradient: 'linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.4))', 
+      image: 'https://images.unsplash.com/photo-1533318087102-b3ad366ed041?w=800&q=80',
+      accent: '#4ade80'
+    },
+    Horse: { 
+      gradient: 'linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.4))', 
+      image: 'https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=800&q=80',
+      accent: '#8b5cf6'
+    },
+    Cow: { 
+      gradient: 'linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.4))', 
+      image: 'https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?w=800&q=80',
+      accent: '#4ade80'
     }
   };
 
@@ -221,123 +241,113 @@ export default function DashboardPage() {
         <input type="text" className="search-input" placeholder="Search pets, services..." />
       </div>
 
-      {/* Premium Next Routine Section */}
+      {/* Premium Next Routine Section (Store Hero Style) */}
       <div 
         onClick={() => navigate('/routine')}
         className="card" 
         style={{ 
           background: nextRoutine 
             ? `${currentTheme.gradient}, url('${currentTheme.image}')`
-            : 'linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%)',
+            : 'linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.4)), linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%)',
           backgroundSize: 'cover',
           backgroundPosition: 'center center',
           color: '#fff', 
-          padding: '32px 24px', 
+          padding: '35px 24px', 
           borderRadius: '28px',
-          marginBottom: '32px',
-          minHeight: '180px',
+          marginBottom: '24px',
           position: 'relative',
           overflow: 'hidden',
-          boxShadow: `0 12px 25px ${currentTheme.accent}30`,
+          boxShadow: '0 12px 25px rgba(0,0,0,0.2)',
           cursor: 'pointer',
           border: 'none',
           display: 'flex',
-          flexDirection: 'column'
+          flexDirection: 'column',
+          justifyContent: 'center',
+          minHeight: '200px'
         }}
       >
         <div style={{ position: 'relative', zIndex: 2 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
-            <span style={{ 
-              background: '#4ade80', 
-              padding: '4px 12px', 
-              borderRadius: '50px', 
-              fontSize: '10px', 
-              fontWeight: '900', 
-              textTransform: 'uppercase',
-              letterSpacing: '1px',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '6px',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.2)'
-            }}>
-              <span className="animate-pulse" style={{ width: 6, height: 6, borderRadius: '50%', background: '#fff' }}></span>
-              Next Routine
-            </span>
-          </div>
+          <span style={{ 
+            background: currentTheme.accent, 
+            padding: '4px 12px', 
+            borderRadius: '50px', 
+            fontSize: '9px', 
+            fontWeight: '900', 
+            textTransform: 'uppercase',
+            letterSpacing: '1px',
+            marginBottom: '10px',
+            display: 'inline-block',
+            boxShadow: '0 2px 8px rgba(0,0,0,0.3)'
+          }}>
+            NEXT ROUTINE
+          </span>
           
           {!nextRoutine ? (
             <div>
-              <h2 style={{ fontSize: '24px', fontWeight: '800', marginBottom: '6px', lineHeight: '1.1' }}>
-                No routines set 📅
+              <h2 style={{ fontSize: '22px', fontWeight: '800', marginBottom: '6px', lineHeight: '1.1', textShadow: '0 2px 8px rgba(0,0,0,0.5)' }}>
+                No routines set 🐾
               </h2>
-              <p style={{ opacity: 0.9, fontSize: '12px', marginBottom: '18px' }}>
-                Tap to set up your pet's daily schedule and never miss a task.
+              <p style={{ opacity: 0.9, fontSize: '12px', maxWidth: '220px', marginBottom: '18px', lineHeight: '1.4' }}>
+                Tap to set up your pet's daily schedule.
               </p>
               <button style={{ 
                 background: '#fff', 
                 color: currentTheme.accent, 
-                padding: '8px 20px', 
-                borderRadius: '12px', 
+                padding: '10px 24px', 
+                borderRadius: '14px', 
                 border: 'none', 
                 fontWeight: '800',
                 fontSize: '13px',
+                boxShadow: '0 5px 15px rgba(0,0,0,0.3)',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '6px'
+                gap: '6px',
+                width: 'fit-content'
               }}>
                 Setup Now <ChevronRight size={14} />
               </button>
             </div>
           ) : (
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-              <div style={{ flex: 1 }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 10 }}>
-                  <span style={{ fontSize: '32px', filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.3))' }}>{nextRoutine.icon || '🔔'}</span>
-                  <h2 style={{ fontSize: '26px', fontWeight: '800', margin: 0, letterSpacing: '-0.5px', textShadow: '0 2px 4px rgba(0,0,0,0.3)' }}>
-                    {nextRoutine.title}
-                  </h2>
-                </div>
-                
-                <div style={{ 
-                  display: 'flex', 
-                  alignItems: 'center', 
-                  gap: 8, 
-                  background: 'rgba(255,255,255,0.2)', 
-                  backdropFilter: 'blur(10px)',
-                  padding: '8px 16px', 
-                  borderRadius: '16px', 
-                  width: 'fit-content',
-                  marginBottom: '20px',
-                  border: '1px solid rgba(255,255,255,0.3)'
-                }}>
-                  <Clock size={18} style={{ opacity: 0.9 }} />
-                  <span style={{ fontSize: '18px', fontWeight: '700' }}>{formatTime(nextRoutine.time)}</span>
-                </div>
-
-                <button style={{ 
-                  background: '#fff', 
-                  color: currentTheme.accent, 
-                  padding: '10px 24px', 
-                  borderRadius: '14px', 
-                  border: 'none', 
-                  fontWeight: '800',
-                  fontSize: '13px',
-                  boxShadow: '0 5px 15px rgba(0,0,0,0.2)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '6px'
-                }}>
-                  Manage Schedule <ChevronRight size={14} />
-                </button>
+            <div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
+                <span style={{ fontSize: '32px', filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.3))' }}>{nextRoutine.icon || '🔔'}</span>
+                <h2 style={{ fontSize: '22px', fontWeight: '800', margin: 0, lineHeight: '1.1', textShadow: '0 2px 8px rgba(0,0,0,0.5)' }}>
+                  {nextRoutine.title}
+                </h2>
               </div>
-
+              
               <div style={{ 
-                width: 44, height: 44, borderRadius: '14px', background: 'rgba(255,255,255,0.2)', 
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                backdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.3)'
+                display: 'flex', 
+                alignItems: 'center', 
+                gap: 8, 
+                background: 'rgba(255,255,255,0.15)', 
+                backdropFilter: 'blur(10px)',
+                padding: '6px 14px', 
+                borderRadius: '12px', 
+                width: 'fit-content',
+                marginBottom: '18px',
+                border: '1px solid rgba(255,255,255,0.2)'
               }}>
-                <ChevronRight size={24} />
+                <Clock size={16} style={{ opacity: 0.9 }} />
+                <span style={{ fontSize: '16px', fontWeight: '700' }}>{formatTime(nextRoutine.time)}</span>
               </div>
+
+              <button style={{ 
+                background: '#fff', 
+                color: currentTheme.accent, 
+                padding: '10px 24px', 
+                borderRadius: '14px', 
+                border: 'none', 
+                fontWeight: '800',
+                fontSize: '13px',
+                boxShadow: '0 5px 15px rgba(0,0,0,0.3)',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                width: 'fit-content'
+              }}>
+                Manage Schedule <ChevronRight size={14} />
+              </button>
             </div>
           )}
         </div>
