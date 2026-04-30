@@ -93,6 +93,13 @@ export default function DashboardPage() {
 
   const nextRoutine = getNextRoutine();
 
+  const routineBackgrounds = {
+    Dog: 'https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?w=800&q=80',
+    Cat: 'https://images.unsplash.com/photo-1573865526739-10659fec78a5?w=800&q=80',
+    Bird: 'https://images.unsplash.com/photo-1444464666168-49d633b86797?w=800&q=80',
+    Rabbit: 'https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?w=800&q=80',
+  };
+
   return (
     <div className="page-container">
       {showWelcome && (
@@ -197,7 +204,7 @@ export default function DashboardPage() {
         className="card" 
         style={{ 
           background: nextRoutine 
-            ? `linear-gradient(rgba(139, 92, 246, 0.85), rgba(109, 40, 217, 0.6)), url('https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?w=800&q=80')`
+            ? `linear-gradient(rgba(139, 92, 246, 0.85), rgba(109, 40, 217, 0.6)), url('${routineBackgrounds[activeCategory] || routineBackgrounds.Dog}')`
             : 'linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
