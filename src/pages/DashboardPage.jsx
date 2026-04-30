@@ -191,55 +191,117 @@ export default function DashboardPage() {
         <input type="text" className="search-input" placeholder="Search pets, services..." />
       </div>
 
-      {/* Premium Hero Section */}
+      {/* Premium Next Routine Section */}
       <div 
         onClick={() => navigate('/routine')}
         className="card" 
         style={{ 
-          background: 'linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%)', 
+          background: nextRoutine 
+            ? `linear-gradient(rgba(139, 92, 246, 0.85), rgba(109, 40, 217, 0.6)), url('https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?w=800&q=80')`
+            : 'linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
           color: '#fff', 
-          padding: '24px', 
-          borderRadius: '30px',
+          padding: '28px 24px', 
+          borderRadius: '28px',
           marginBottom: '32px',
           position: 'relative',
           overflow: 'hidden',
-          boxShadow: '0 15px 35px -5px rgba(139, 92, 246, 0.4)',
+          boxShadow: '0 12px 25px rgba(139, 92, 246, 0.3)',
           cursor: 'pointer',
-          border: '1px solid rgba(255,255,255,0.1)'
+          border: 'none',
+          display: 'flex',
+          flexDirection: 'column'
         }}
       >
-        {/* Decorative elements */}
-        <div style={{ position: 'absolute', top: -30, right: -30, width: 120, height: 120, borderRadius: '50%', background: 'rgba(255,255,255,0.12)', filter: 'blur(20px)' }} />
-        <div style={{ position: 'absolute', bottom: -40, left: -20, width: 160, height: 160, borderRadius: '50%', background: 'rgba(255,255,255,0.08)', filter: 'blur(30px)' }} />
-
         <div style={{ position: 'relative', zIndex: 2 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20 }}>
-            <div style={{ background: 'rgba(255,255,255,0.25)', padding: '6px 14px', borderRadius: '50px', fontSize: 12, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1px', display: 'flex', alignItems: 'center', gap: 6 }}>
-              <span className="animate-pulse" style={{ width: 6, height: 6, borderRadius: '50%', background: '#4ade80' }}></span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
+            <span style={{ 
+              background: '#4ade80', 
+              padding: '4px 12px', 
+              borderRadius: '50px', 
+              fontSize: '10px', 
+              fontWeight: '900', 
+              textTransform: 'uppercase',
+              letterSpacing: '1px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.2)'
+            }}>
+              <span className="animate-pulse" style={{ width: 6, height: 6, borderRadius: '50%', background: '#fff' }}></span>
               Next Routine
-            </div>
+            </span>
           </div>
           
           {!nextRoutine ? (
-            <div style={{ padding: '10px 0' }}>
-              <h2 style={{ fontSize: 28, fontWeight: 800, marginBottom: 8 }}>No routines set</h2>
-              <p style={{ opacity: 0.8, fontSize: 14 }}>Tap to set up your pet's daily schedule</p>
+            <div>
+              <h2 style={{ fontSize: '24px', fontWeight: '800', marginBottom: '6px', lineHeight: '1.1' }}>
+                No routines set 📅
+              </h2>
+              <p style={{ opacity: 0.9, fontSize: '12px', marginBottom: '18px' }}>
+                Tap to set up your pet's daily schedule and never miss a task.
+              </p>
+              <button style={{ 
+                background: '#fff', 
+                color: '#8b5cf6', 
+                padding: '8px 20px', 
+                borderRadius: '12px', 
+                border: 'none', 
+                fontWeight: '800',
+                fontSize: '13px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px'
+              }}>
+                Setup Now <ChevronRight size={14} />
+              </button>
             </div>
           ) : (
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
-              <div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
-                  <span style={{ fontSize: 36 }}>{nextRoutine.icon || '🔔'}</span>
-                  <h2 style={{ fontSize: 26, fontWeight: 800, margin: 0, letterSpacing: '-0.5px' }}>{nextRoutine.title}</h2>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+              <div style={{ flex: 1 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 10 }}>
+                  <span style={{ fontSize: '32px', filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.3))' }}>{nextRoutine.icon || '🔔'}</span>
+                  <h2 style={{ fontSize: '26px', fontWeight: '800', margin: 0, letterSpacing: '-0.5px', textShadow: '0 2px 4px rgba(0,0,0,0.3)' }}>
+                    {nextRoutine.title}
+                  </h2>
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'rgba(0,0,0,0.15)', padding: '8px 16px', borderRadius: '16px', width: 'fit-content' }}>
+                
+                <div style={{ 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  gap: 8, 
+                  background: 'rgba(255,255,255,0.2)', 
+                  backdropFilter: 'blur(10px)',
+                  padding: '8px 16px', 
+                  borderRadius: '16px', 
+                  width: 'fit-content',
+                  marginBottom: '20px',
+                  border: '1px solid rgba(255,255,255,0.3)'
+                }}>
                   <Clock size={18} style={{ opacity: 0.9 }} />
-                  <span style={{ fontSize: 20, fontWeight: 700 }}>{formatTime(nextRoutine.time)}</span>
+                  <span style={{ fontSize: '18px', fontWeight: '700' }}>{formatTime(nextRoutine.time)}</span>
                 </div>
+
+                <button style={{ 
+                  background: '#fff', 
+                  color: '#8b5cf6', 
+                  padding: '10px 24px', 
+                  borderRadius: '14px', 
+                  border: 'none', 
+                  fontWeight: '800',
+                  fontSize: '13px',
+                  boxShadow: '0 5px 15px rgba(0,0,0,0.2)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px'
+                }}>
+                  Manage Schedule <ChevronRight size={14} />
+                </button>
               </div>
-              
+
               <div style={{ 
-                width: 48, height: 48, borderRadius: '16px', background: 'rgba(255,255,255,0.2)', 
+                width: 44, height: 44, borderRadius: '14px', background: 'rgba(255,255,255,0.2)', 
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 backdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.3)'
               }}>
@@ -249,6 +311,7 @@ export default function DashboardPage() {
           )}
         </div>
       </div>
+
 
       {/* Quick Actions */}
       <h3 style={{ fontSize: 18, fontWeight: 700, marginBottom: 12 }}>Quick Actions</h3>
