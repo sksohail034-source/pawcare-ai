@@ -40,7 +40,7 @@ const STORE_THEMES = {
 // This will be populated manually by the user later
 const CURATED_PRODUCTS = [
   {
-    id: 'rc-mini-puppy',
+    id: 'rc-mini-puppy-v2',
     name: 'Royal Canin Mini Puppy Food, Dry Food (800g)',
     brand: 'Royal Canin',
     category: 'food',
@@ -48,7 +48,7 @@ const CURATED_PRODUCTS = [
     price: '818',
     rating: 4.4,
     reviews: 9185,
-    image: 'https://images-na.ssl-images-amazon.com/images/I/71-33V58kVL.jpg',
+    image: 'https://m.media-amazon.com/images/I/61mI-8XfU2L._AC_SL1100_.jpg?t=' + Date.now(),
     badge: 'Vet Recommended',
     desc: 'Supports Complex Natural Defence & digestive health. Specialized formula for small breed puppies to support a healthy immune system.',
     affiliateUrl: 'https://amzn.to/4ulalbw'
