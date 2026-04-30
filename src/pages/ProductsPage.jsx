@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
-import { api } from '../api';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { FiSearch, FiShoppingCart, FiStar } from 'react-icons/fi';
 import toast from 'react-hot-toast';
 
-// Curated Professional Product List (Placeholders for Geniuslinks)
 const CURATED_PRODUCTS = [
   // --- DOG ESSENTIALS ---
   {
@@ -14,7 +14,7 @@ const CURATED_PRODUCTS = [
     price: '2,450',
     rating: 4.4,
     reviews: 24998,
-    image: '🥣',
+    image: '/images/products/pedigree.png',
     badge: 'Best Seller',
     desc: '100% complete and balanced nutrition for adult dogs. contains 37 essential nutrients.',
     affiliateUrl: 'https://amzn.to/48vAUSN'
@@ -28,24 +28,24 @@ const CURATED_PRODUCTS = [
     price: '451',
     rating: 4.2,
     reviews: 19,
-    image: '🥣',
+    image: '/images/products/mankind.png',
     badge: 'Amazon Choice',
     desc: 'High protein Salmon & Rice flavor. Improves muscle & strength and supports immunity.',
     affiliateUrl: 'https://amzn.to/3QGdUdN'
   },
   {
     id: 'd3',
-    name: 'Reflective No-Pull Dog Harness',
-    brand: 'Rabbitgoo',
-    category: 'Accessories',
+    name: 'Pedigree Adult Wet Dog Food (Chicken & Liver)',
+    brand: 'Pedigree',
+    category: 'Food',
     petType: 'dog',
-    price: '1,850',
-    rating: 4.7,
-    reviews: 28000,
-    image: '🦺',
-    badge: 'Top Rated',
-    desc: 'Adjustable, comfortable, and safe harness for daily walks and training.',
-    affiliateUrl: 'https://geni.us/dog-harness-placeholder'
+    price: '540',
+    rating: 4.5,
+    reviews: 18500,
+    image: '/images/products/pedigree-wet.png',
+    badge: 'Popular',
+    desc: 'Delicious gravy chunks with chicken and liver. Perfect for mixing with dry food.',
+    affiliateUrl: 'https://amzn.to/4cI5dZ5'
   },
   {
     id: 'd4',
@@ -56,7 +56,7 @@ const CURATED_PRODUCTS = [
     price: '4,500',
     rating: 4.8,
     reviews: 12000,
-    image: '🛏️',
+    image: '/images/products/dog-bed.png',
     badge: 'Comfort',
     desc: 'Relieves joint pain for older dogs and provides ultimate comfort for all.',
     affiliateUrl: 'https://geni.us/dog-bed-placeholder'
@@ -72,7 +72,7 @@ const CURATED_PRODUCTS = [
     price: '1,250',
     rating: 4.7,
     reviews: 9500,
-    image: '🥫',
+    image: '/images/products/cat-food.png',
     badge: 'Popular',
     desc: 'Delicious grain-free wet food that even picky cats will love.',
     affiliateUrl: 'https://geni.us/cat-food-placeholder'
@@ -86,7 +86,7 @@ const CURATED_PRODUCTS = [
     price: '14,999',
     rating: 4.5,
     reviews: 11000,
-    image: '📦',
+    image: '/images/products/litter-box.png',
     badge: 'Premium',
     desc: 'Automated scooping litter box that stays clean for weeks without hassle.',
     affiliateUrl: 'https://geni.us/litter-box-placeholder'
@@ -104,65 +104,19 @@ const CURATED_PRODUCTS = [
     badge: 'Fun',
     desc: 'Encourages exercise and mental stimulation for indoor cats.',
     affiliateUrl: 'https://geni.us/cat-toy-placeholder'
-  },
-  {
-    id: 'c4',
-    name: 'Cat Tree with Scratching Posts',
-    brand: 'Go Pet Club',
-    category: 'Accessories',
-    petType: 'cat',
-    price: '6,200',
-    rating: 4.8,
-    reviews: 18000,
-    image: '🏰',
-    badge: 'Value',
-    desc: 'Multi-level tower for climbing, scratching, and napping.',
-    affiliateUrl: 'https://geni.us/cat-tree-placeholder'
-  },
-
-  // --- GROOMING ---
-  {
-    id: 'g1',
-    name: 'Professional Pet Grooming Kit',
-    brand: 'Oneisall',
-    category: 'Hygiene',
-    petType: 'all',
-    price: '2,850',
-    rating: 4.7,
-    reviews: 21000,
-    image: '✂️',
-    badge: 'Pro Choice',
-    desc: 'Low noise, cordless clippers for a stress-free grooming session at home.',
-    affiliateUrl: 'https://geni.us/grooming-kit-placeholder'
-  },
-  {
-    id: 'g2',
-    name: 'Shedding Brush & Deshedding Tool',
-    brand: 'Furminator',
-    category: 'Hygiene',
-    petType: 'all',
-    price: '1,650',
-    rating: 4.9,
-    reviews: 35000,
-    image: '🧹',
-    badge: 'Must Have',
-    desc: 'Reduces shedding by up to 90%. Essential for long-haired pets.',
-    affiliateUrl: 'https://geni.us/brush-placeholder'
   }
 ];
 
 export default function ProductsPage() {
-  const [filter, setFilter] = useState({ petType: '', category: '' });
-  const [loading, setLoading] = useState(false);
-  const [products, setProducts] = useState(CURATED_PRODUCTS);
+  const [filter, setFilter] = useState('all');
+  const [searchTerm, setSearchTerm] = useState('');
 
-  const filteredProducts = products.filter(p => {
-    const petMatch = !filter.petType || p.petType === filter.petType || p.petType === 'all';
-    const catMatch = !filter.category || p.category === filter.category;
-    return petMatch && catMatch;
+  const filteredProducts = CURATED_PRODUCTS.filter(p => {
+    const matchesFilter = filter === 'all' || p.petType === filter || p.category.toLowerCase() === filter.toLowerCase();
+    const matchesSearch = p.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                         p.brand.toLowerCase().includes(searchTerm.toLowerCase());
+    return matchesFilter && matchesSearch;
   });
-
-  const categories = ['Food', 'Toys', 'Grooming', 'Health'];
 
   const handleBuyClick = (url, name) => {
     // In a real app, track the click for analytics

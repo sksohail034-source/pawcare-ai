@@ -260,6 +260,29 @@ export default function DashboardPage() {
           </div>
         );
       })()}
+      {/* Pet Store Highlight Banner */}
+      <div 
+        className="premium-banner store-highlight-banner"
+        onClick={() => navigate('/products')}
+        style={{ 
+          cursor: 'pointer', 
+          marginTop: '2rem', 
+          background: 'linear-gradient(135deg, #FF9900 0%, #FFB74D 100%)',
+          color: '#ffffff'
+        }}
+      >
+        <div className="banner-content">
+          <div className="banner-text">
+            <span className="badge">Featured Store</span>
+            <h3>Premium Pet Essentials 🐾</h3>
+            <p>Top-rated food, toys & health supplies curated for your pets.</p>
+            <button className="banner-btn" style={{ background: '#ffffff', color: '#FF9900' }}>
+              Shop Now
+            </button>
+          </div>
+          <div className="banner-icon" style={{ fontSize: '3rem' }}>🛒</div>
+        </div>
+      </div>
     </div>
   );
 }
