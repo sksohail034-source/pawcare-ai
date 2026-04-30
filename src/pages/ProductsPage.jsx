@@ -1,10 +1,8 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { FiSearch, FiShoppingCart, FiStar } from 'react-icons/fi';
 import toast from 'react-hot-toast';
 
 const CURATED_PRODUCTS = [
-  // --- DOG ESSENTIALS ---
   {
     id: 'd1',
     name: 'Pedigree Adult Dry Dog Food (Chicken & Veg)',
@@ -61,8 +59,6 @@ const CURATED_PRODUCTS = [
     desc: 'Relieves joint pain for older dogs and provides ultimate comfort for all.',
     affiliateUrl: 'https://geni.us/dog-bed-placeholder'
   },
-
-  // --- CAT ESSENTIALS ---
   {
     id: 'c1',
     name: 'Premium Wet Cat Food Variety Pack',
@@ -90,20 +86,6 @@ const CURATED_PRODUCTS = [
     badge: 'Premium',
     desc: 'Automated scooping litter box that stays clean for weeks without hassle.',
     affiliateUrl: 'https://geni.us/litter-box-placeholder'
-  },
-  {
-    id: 'c3',
-    name: 'Interactive Feather Teaser Toy',
-    brand: 'PetFit',
-    category: 'Toys',
-    petType: 'cat',
-    price: '650',
-    rating: 4.6,
-    reviews: 5200,
-    image: '🧶',
-    badge: 'Fun',
-    desc: 'Encourages exercise and mental stimulation for indoor cats.',
-    affiliateUrl: 'https://geni.us/cat-toy-placeholder'
   }
 ];
 
@@ -118,161 +100,148 @@ export default function ProductsPage() {
     return matchesFilter && matchesSearch;
   });
 
-  const handleBuyClick = (url, name) => {
-    // In a real app, track the click for analytics
-    window.open(url, '_blank', 'noopener,noreferrer');
-    toast.success(`Redirecting to Amazon for ${name}...`);
+  const handleBuy = (url, name) => {
+    toast.success(`Redirecting to Amazon for ${name}...`, {
+      icon: '🛒',
+      style: { borderRadius: '12px', background: '#1f2937', color: '#fff' }
+    });
+    setTimeout(() => {
+      window.open(url, '_blank');
+    }, 800);
   };
 
   return (
-    <div className="page-container" style={{ padding: '0 16px 100px' }}>
-      {/* Premium Hero Section */}
-      <div style={{ 
-        background: 'linear-gradient(135deg, #1e293b, #0f172a)', 
-        color: '#fff', 
-        padding: '48px 24px', 
+    <div className="products-container" style={{ paddingBottom: '6rem' }}>
+      {/* Hero Banner */}
+      <div className="store-hero" style={{
+        background: `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('/images/banners/store-hero.png')`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        height: '220px',
         borderRadius: '0 0 32px 32px',
-        margin: '-16px -16px 32px -16px',
-        textAlign: 'center',
-        position: 'relative',
-        boxShadow: '0 10px 30px rgba(0,0,0,0.15)'
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        padding: '2rem',
+        color: '#fff',
+        boxShadow: '0 10px 25px rgba(0,0,0,0.1)'
       }}>
-        <h2 style={{ fontSize: 32, fontWeight: 800, marginBottom: 8 }}>Pet Store 🛍️</h2>
-        <p style={{ opacity: 0.8, fontSize: 16 }}>Hand-picked professional gear for your pets</p>
-        
-        {/* Floating Icons Decor */}
-        <div style={{ position: 'absolute', right: 20, top: 20, fontSize: 40, opacity: 0.1 }}>🦴</div>
-        <div style={{ position: 'absolute', left: 20, bottom: 20, fontSize: 40, opacity: 0.1 }}>🧶</div>
+        <h1 style={{ fontSize: '2.2rem', marginBottom: '0.5rem', fontWeight: '800' }}>PawCare Store</h1>
+        <p style={{ opacity: 0.9, maxWidth: '350px', fontSize: '1rem' }}>
+          Premium essentials, curated for your pet's happiness.
+        </p>
       </div>
 
-      {/* Filter Bar */}
-      <div style={{ 
-        display: 'flex', gap: 10, overflowX: 'auto', padding: '4px 0 20px', 
-        scrollbarWidth: 'none', msOverflowStyle: 'none' 
-      }}>
-        <button 
-          onClick={() => setFilter({ ...filter, petType: '' })}
-          style={{ 
-            padding: '10px 20px', borderRadius: '14px', border: 'none',
-            background: !filter.petType ? 'var(--primary)' : 'white',
-            color: !filter.petType ? 'white' : 'var(--text-main)',
-            fontWeight: 700, whiteSpace: 'nowrap', boxShadow: '0 4px 10px rgba(0,0,0,0.05)'
-          }}
-        >
-          All Pets
-        </button>
-        {['dog', 'cat', 'bird'].map(t => (
-          <button 
-            key={t}
-            onClick={() => setFilter({ ...filter, petType: t })}
-            style={{ 
-              padding: '10px 20px', borderRadius: '14px', border: 'none',
-              background: filter.petType === t ? 'var(--primary)' : 'white',
-              color: filter.petType === t ? 'white' : 'var(--text-main)',
-              fontWeight: 700, whiteSpace: 'nowrap', boxShadow: '0 4px 10px rgba(0,0,0,0.05)'
-            }}
-          >
-            {t === 'dog' ? '🐕 Dog' : t === 'cat' ? '🐈 Cat' : '🦜 Bird'}
-          </button>
-        ))}
-      </div>
-
-      <div style={{ display: 'flex', gap: 10, overflowX: 'auto', padding: '0 0 32px', scrollbarWidth: 'none' }}>
-        <button 
-          onClick={() => setFilter({ ...filter, category: '' })}
-          style={{ 
-            padding: '8px 16px', borderRadius: '12px', border: '1px solid var(--border)',
-            background: !filter.category ? '#f8fafc' : 'white',
-            fontSize: 13, fontWeight: 600, whiteSpace: 'nowrap'
-          }}
-        >
-          All Categories
-        </button>
-        {categories.map(c => (
-          <button 
-            key={c}
-            onClick={() => setFilter({ ...filter, category: c })}
-            style={{ 
-              padding: '8px 16px', borderRadius: '12px', border: '1px solid var(--border)',
-              background: filter.category === c ? '#f8fafc' : 'white',
-              fontSize: 13, fontWeight: 600, whiteSpace: 'nowrap'
-            }}
-          >
-            {c}
-          </button>
-        ))}
-      </div>
-
-      {/* Product Grid */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 24 }}>
-        {filteredProducts.map((prod, i) => (
-          <div 
-            key={prod.id} 
-            className="card animate-in" 
-            style={{ 
-              padding: 0, borderRadius: 28, overflow: 'hidden', border: '1px solid rgba(0,0,0,0.05)',
-              display: 'flex', flexDirection: 'column', animationDelay: `${i * 0.1}s`
-            }}
-          >
-            <div style={{ 
-              height: 180, background: 'linear-gradient(135deg, #f8fafc, #f1f5f9)', 
-              display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 80,
-              position: 'relative'
-            }}>
-              {prod.image}
-              {prod.badge && (
-                <span style={{ 
-                  position: 'absolute', top: 16, left: 16, background: 'var(--primary)', 
-                  color: 'white', padding: '4px 12px', borderRadius: '100px', 
-                  fontSize: 11, fontWeight: 800, textTransform: 'uppercase', letterSpacing: 0.5
-                }}>
-                  {prod.badge}
-                </span>
-              )}
-            </div>
-            
-            <div style={{ padding: 20 }}>
-              <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--primary-dark)', textTransform: 'uppercase', marginBottom: 4 }}>
-                {prod.brand}
-              </div>
-              <h3 style={{ fontSize: 18, fontWeight: 800, marginBottom: 8, color: '#1e293b' }}>{prod.name}</h3>
-              <p style={{ fontSize: 13, color: '#64748b', lineHeight: 1.5, marginBottom: 16 }}>{prod.description || prod.desc}</p>
-              
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
-                <div>
-                  <div style={{ fontSize: 24, fontWeight: 800, color: '#1e293b' }}>${prod.price}</div>
-                  <div style={{ fontSize: 12, color: '#94a3b8', fontWeight: 600 }}>⭐ {prod.rating} ({prod.reviews.toLocaleString()} reviews)</div>
-                </div>
-                <div style={{ textAlign: 'right' }}>
-                  <span style={{ fontSize: 11, background: '#fef9c3', color: '#854d0e', padding: '4px 8px', borderRadius: '6px', fontWeight: 700 }}>
-                    Amazon Choice
-                  </span>
-                </div>
-              </div>
-
-              <button 
-                onClick={() => handleBuyClick(prod.affiliateUrl, prod.name)}
-                style={{ 
-                  width: '100%', background: '#ff9900', color: '#111', 
-                  fontWeight: 800, padding: '16px', borderRadius: '18px', border: 'none',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10,
-                  boxShadow: '0 4px 15px rgba(255, 153, 0, 0.25)', cursor: 'pointer'
-                }}
-              >
-                <span>🛒</span> Buy on Amazon
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {filteredProducts.length === 0 && (
-        <div style={{ textAlign: 'center', padding: '60px 20px' }}>
-          <div style={{ fontSize: 60, marginBottom: 16 }}>🔍</div>
-          <h3 style={{ fontWeight: 800 }}>No products found</h3>
-          <p style={{ color: '#64748b' }}>Try changing your pet type or category filter.</p>
+      <div style={{ padding: '1.5rem' }}>
+        {/* Search Bar */}
+        <div style={{ 
+          background: '#fff', 
+          borderRadius: '16px', 
+          padding: '0.8rem 1.2rem', 
+          display: 'flex', 
+          alignItems: 'center', 
+          gap: '0.8rem',
+          boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
+          marginBottom: '1.5rem',
+          border: '1px solid #f3f4f6'
+        }}>
+          <FiSearch style={{ color: '#9ca3af' }} />
+          <input 
+            type="text" 
+            placeholder="Search food, toys, brands..." 
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            style={{ border: 'none', outline: 'none', width: '100%', fontSize: '0.95rem' }}
+          />
         </div>
-      )}
+
+        {/* Filter Scroll */}
+        <div style={{ display: 'flex', gap: '0.8rem', overflowX: 'auto', paddingBottom: '1.5rem', scrollbarWidth: 'none' }}>
+          {['all', 'dog', 'cat', 'Food', 'Accessories', 'Toys'].map(cat => (
+            <button 
+              key={cat}
+              onClick={() => setFilter(cat)}
+              style={{
+                padding: '0.6rem 1.2rem',
+                borderRadius: '12px',
+                border: 'none',
+                background: filter === cat ? '#22c55e' : '#fff',
+                color: filter === cat ? '#fff' : '#4b5563',
+                whiteSpace: 'nowrap',
+                fontWeight: '600',
+                boxShadow: '0 2px 6px rgba(0,0,0,0.04)',
+                cursor: 'pointer'
+              }}
+            >
+              {cat.charAt(0).toUpperCase() + cat.slice(1)}
+            </button>
+          ))}
+        </div>
+
+        {/* Product Grid */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '1.5rem' }}>
+          {filteredProducts.map(product => (
+            <div key={product.id} style={{
+              background: '#fff',
+              borderRadius: '24px',
+              overflow: 'hidden',
+              boxShadow: '0 8px 20px rgba(0,0,0,0.04)',
+              border: '1px solid #f3f4f6',
+              display: 'flex',
+              flexDirection: 'column'
+            }}>
+              <div style={{ height: '200px', background: '#f8fafc', position: 'relative', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                {product.badge && (
+                  <span style={{ position: 'absolute', top: '1rem', left: '1rem', background: '#22c55e', color: '#fff', padding: '0.3rem 0.8rem', borderRadius: '8px', fontSize: '0.7rem', fontWeight: 'bold', zIndex: 2 }}>
+                    {product.badge.toUpperCase()}
+                  </span>
+                )}
+                <img src={product.image} alt={product.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+                     onError={(e) => { e.target.src = 'https://via.placeholder.com/200?text=Pet+Food' }} />
+              </div>
+
+              <div style={{ padding: '1.2rem', flex: 1, display: 'flex', flexDirection: 'column' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+                  <span style={{ color: '#22c55e', fontSize: '0.75rem', fontWeight: 'bold' }}>{product.brand.toUpperCase()}</span>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.2rem', color: '#f59e0b', fontSize: '0.85rem' }}>
+                    <FiStar fill="#f59e0b" size={14} />
+                    <span>{product.rating}</span>
+                  </div>
+                </div>
+                <h3 style={{ fontSize: '1.1rem', color: '#1f2937', marginBottom: '0.5rem', fontWeight: '700', lineHeight: '1.4' }}>{product.name}</h3>
+                <p style={{ color: '#6b7280', fontSize: '0.85rem', marginBottom: '1.2rem', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{product.desc}</p>
+                
+                <div style={{ marginTop: 'auto' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '1rem' }}>
+                    <span style={{ fontSize: '1.5rem', fontWeight: '800', color: '#111827' }}>₹{product.price}</span>
+                    <span style={{ fontSize: '0.75rem', color: '#9ca3af' }}>{product.reviews.toLocaleString()} reviews</span>
+                  </div>
+                  <button 
+                    onClick={() => handleBuy(product.affiliateUrl, product.name)}
+                    style={{
+                      width: '100%',
+                      padding: '1rem',
+                      borderRadius: '16px',
+                      border: 'none',
+                      background: 'linear-gradient(135deg, #FF9900 0%, #FFB74D 100%)',
+                      color: '#fff',
+                      fontWeight: 'bold',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '0.6rem',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    <FiShoppingCart />
+                    Buy on Amazon
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
