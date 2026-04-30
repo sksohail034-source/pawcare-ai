@@ -95,58 +95,58 @@ export default function DashboardPage() {
 
   const routineThemes = {
     Dog: { 
-      gradient: 'linear-gradient(90deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 100%)', 
-      image: 'https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=800&h=500&fit=crop&crop=entropy',
+      gradient: 'linear-gradient(to right, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.1) 80%)', 
+      image: 'https://images.unsplash.com/photo-1591160690555-5debfba289f0?w=1000&q=80',
       accent: '#8b5cf6',
-      position: 'center 20%'
+      position: 'center'
     },
     Cat: { 
-      gradient: 'linear-gradient(90deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 100%)', 
-      image: 'https://images.unsplash.com/photo-1592194996308-7b43878e84a6?w=800&h=500&fit=crop&crop=entropy',
+      gradient: 'linear-gradient(to right, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.1) 80%)', 
+      image: 'https://images.unsplash.com/photo-1511497584788-876760111969?w=1000&q=80',
       accent: '#f59e0b',
-      position: 'center 30%'
+      position: 'center'
     },
     Bird: { 
-      gradient: 'linear-gradient(90deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 100%)', 
-      image: 'https://images.unsplash.com/photo-1444464666168-49d633b86797?w=800&h=500&fit=crop&crop=entropy',
+      gradient: 'linear-gradient(to right, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.1) 80%)', 
+      image: 'https://images.unsplash.com/photo-1444464666168-49d633b86797?w=1000&q=80',
       accent: '#0ea5e9',
-      position: 'center 40%'
+      position: 'center'
     },
     Rabbit: { 
-      gradient: 'linear-gradient(90deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 100%)', 
-      image: 'https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?w=800&h=500&fit=crop&crop=entropy',
+      gradient: 'linear-gradient(to right, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.1) 80%)', 
+      image: 'https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?w=1000&q=80',
       accent: '#ec48ef',
-      position: 'center 20%'
+      position: 'center'
     },
     Fish: { 
-      gradient: 'linear-gradient(90deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 100%)', 
-      image: 'https://images.unsplash.com/photo-1522069169874-c58ec4b76be5?w=800&h=500&fit=crop&crop=entropy',
+      gradient: 'linear-gradient(to right, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.1) 80%)', 
+      image: 'https://images.unsplash.com/photo-1522069169874-c58ec4b76be5?w=1000&q=80',
       accent: '#14b8a6',
       position: 'center'
     },
     Hamster: { 
-      gradient: 'linear-gradient(90deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 100%)', 
-      image: 'https://images.unsplash.com/photo-1425082661705-1834bfd09dca?w=800&h=500&fit=crop&crop=entropy',
+      gradient: 'linear-gradient(to right, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.1) 80%)', 
+      image: 'https://images.unsplash.com/photo-1425082661705-1834bfd09dca?w=1000&q=80',
       accent: '#f59e0b',
       position: 'center'
     },
     Goat: { 
-      gradient: 'linear-gradient(90deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 100%)', 
-      image: 'https://images.unsplash.com/photo-1524024973431-2ad916746881?w=800&h=500&fit=crop&crop=entropy',
+      gradient: 'linear-gradient(to right, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.1) 80%)', 
+      image: 'https://images.unsplash.com/photo-1524024973431-2ad916746881?w=1000&q=80',
       accent: '#4ade80',
-      position: 'center 20%'
+      position: 'center'
     },
     Horse: { 
-      gradient: 'linear-gradient(90deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 100%)', 
-      image: 'https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=800&h=500&fit=crop&crop=entropy',
+      gradient: 'linear-gradient(to right, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.1) 80%)', 
+      image: 'https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=1000&q=80',
       accent: '#8b5cf6',
-      position: 'center 20%'
+      position: 'center'
     },
     Cow: { 
-      gradient: 'linear-gradient(90deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 100%)', 
-      image: 'https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?w=800&h=500&fit=crop&crop=entropy',
+      gradient: 'linear-gradient(to right, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.1) 80%)', 
+      image: 'https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?w=1000&q=80',
       accent: '#4ade80',
-      position: 'center 20%'
+      position: 'center'
     }
   };
 
