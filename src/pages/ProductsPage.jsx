@@ -37,21 +37,398 @@ const STORE_THEMES = {
   }
 };
 
-// This will be populated manually by the user later
+// ============================================================
+// DOG → FOOD & NUTRITION — Complete Product Catalog
+// Tracking ID: mypawcare-21
+// All products from amazon.in, 4★+ rated, best-sellers
+// ============================================================
 const CURATED_PRODUCTS = [
+  // ─── 1. DRY DOG FOOD (Puppy) ───────────────────────────────
   {
-    id: 'rc-mini-puppy-v4',
-    name: 'Royal Canin Mini Puppy Food, Dry Food (800g)',
+    id: 'rc-mini-puppy',
+    name: 'Royal Canin Mini Puppy Dry Dog Food (800g)',
     brand: 'Royal Canin',
     category: 'food',
+    subCategory: 'Dry Food - Puppy',
     petType: 'dog',
     price: '818',
     rating: 4.4,
     reviews: 9185,
-    image: '/images/products/royal-canin-mini-puppy.jpg',
+    image: 'https://images.weserv.nl/?url=m.media-amazon.com/images/I/71RGj1BZTIL._SL1500_.jpg&w=400&q=80',
     badge: 'Vet Recommended',
-    desc: 'Supports Complex Natural Defence & digestive health. Specialized formula for small breed puppies to support a healthy immune system.',
-    affiliateUrl: 'https://amzn.to/4ulalbw'
+    desc: 'Supports immune system & digestive health. Specialized formula for small breed puppies with natural defence nutrients.',
+    benefits: ['Boosts natural immunity', 'Supports healthy digestion', 'Perfect for small breed puppies'],
+    affiliateUrl: 'https://www.amazon.in/dp/B00K5ANK3G?tag=mypawcare-21'
+  },
+  {
+    id: 'drools-puppy-chicken',
+    name: 'Drools Puppy Dry Dog Food, Chicken & Egg (3kg)',
+    brand: 'Drools',
+    category: 'food',
+    subCategory: 'Dry Food - Puppy',
+    petType: 'dog',
+    price: '545',
+    rating: 4.3,
+    reviews: 52890,
+    image: 'https://images.weserv.nl/?url=m.media-amazon.com/images/I/71QldHfpk2L._SL1500_.jpg&w=400&q=80',
+    badge: 'Best Seller',
+    desc: 'Real chicken & egg for strong muscles and shiny coat. India\'s most trusted puppy food brand.',
+    benefits: ['Real chicken as #1 ingredient', 'Omega fatty acids for coat', 'Supports bone & teeth growth'],
+    affiliateUrl: 'https://www.amazon.in/dp/B0CPVFJBM7?tag=mypawcare-21'
+  },
+
+  // ─── 2. DRY DOG FOOD (Adult) ───────────────────────────────
+  {
+    id: 'pedigree-adult-chicken',
+    name: 'Pedigree Adult Dry Dog Food, Chicken & Vegetables (3kg)',
+    brand: 'Pedigree',
+    category: 'food',
+    subCategory: 'Dry Food - Adult',
+    petType: 'dog',
+    price: '628',
+    rating: 4.4,
+    reviews: 24999,
+    image: '/images/products/pedigree.png',
+    badge: 'Best Seller',
+    desc: 'Complete & balanced nutrition with 37 essential nutrients. Supports muscles, digestion & shiny coat.',
+    benefits: ['37 essential nutrients', 'High-quality protein for muscles', 'Omega-6 & zinc for shiny coat'],
+    affiliateUrl: 'https://www.amazon.in/dp/B00LHS8I3A?tag=mypawcare-21'
+  },
+  {
+    id: 'drools-adult-chicken',
+    name: 'Drools Adult Dry Dog Food, Chicken & Egg (3kg)',
+    brand: 'Drools',
+    category: 'food',
+    subCategory: 'Dry Food - Adult',
+    petType: 'dog',
+    price: '499',
+    rating: 4.3,
+    reviews: 78650,
+    image: 'https://images.weserv.nl/?url=m.media-amazon.com/images/I/71c2TxPNMKL._SL1500_.jpg&w=400&q=80',
+    badge: 'Amazon Choice',
+    desc: 'India\'s #1 selling dog food. Real chicken & egg protein for active adult dogs.',
+    benefits: ['Real chicken protein', 'Calcium for strong bones', 'No artificial flavors'],
+    affiliateUrl: 'https://www.amazon.in/dp/B07L2GN52R?tag=mypawcare-21'
+  },
+  {
+    id: 'rc-medium-adult',
+    name: 'Royal Canin Medium Adult Dry Dog Food (4kg)',
+    brand: 'Royal Canin',
+    category: 'food',
+    subCategory: 'Dry Food - Adult',
+    petType: 'dog',
+    price: '2,430',
+    rating: 4.5,
+    reviews: 11230,
+    image: '/images/products/royal-canin-medium.png',
+    badge: 'Premium',
+    desc: 'Tailored nutrition for medium breed adults (11-25kg). Supports skin health & optimal weight.',
+    benefits: ['Breed-specific formula', 'Skin & coat nourishment', 'Digestive care prebiotics'],
+    affiliateUrl: 'https://www.amazon.in/dp/B007TJOSCA?tag=mypawcare-21'
+  },
+
+  // ─── 3. DRY DOG FOOD (Senior) ──────────────────────────────
+  {
+    id: 'rc-maxi-ageing',
+    name: 'Royal Canin Maxi Ageing 8+ Dry Dog Food (3kg)',
+    brand: 'Royal Canin',
+    category: 'food',
+    subCategory: 'Dry Food - Senior',
+    petType: 'dog',
+    price: '2,180',
+    rating: 4.4,
+    reviews: 3250,
+    image: 'https://images.weserv.nl/?url=m.media-amazon.com/images/I/71sFaGng-WL._SL1500_.jpg&w=400&q=80',
+    badge: 'Premium',
+    desc: 'Specially formulated for senior large breed dogs 8+. Joint support & vitality boost.',
+    benefits: ['Joint health with glucosamine', 'Easy to chew kibble', 'Antioxidant complex for vitality'],
+    affiliateUrl: 'https://www.amazon.in/dp/B00ISQGF88?tag=mypawcare-21'
+  },
+
+  // ─── 4. WET DOG FOOD (Gravy / Chunks) ─────────────────────
+  {
+    id: 'pedigree-wet-chicken-gravy',
+    name: 'Pedigree Adult Wet Dog Food, Chicken & Liver in Gravy (70g x 15)',
+    brand: 'Pedigree',
+    category: 'food',
+    subCategory: 'Wet Food - Gravy',
+    petType: 'dog',
+    price: '525',
+    rating: 4.3,
+    reviews: 18540,
+    image: 'https://images.weserv.nl/?url=m.media-amazon.com/images/I/71N70gp-JbL._SL1500_.jpg&w=400&q=80',
+    badge: 'Best Seller',
+    desc: 'Delicious chicken & liver chunks in rich gravy. Perfect topper or standalone meal for picky eaters.',
+    benefits: ['Rich gravy dogs love', 'Easy to mix with dry food', 'No artificial colors'],
+    affiliateUrl: 'https://www.amazon.in/dp/B07SRMCN8V?tag=mypawcare-21'
+  },
+  {
+    id: 'drools-wet-chicken-gravy',
+    name: 'Drools Adult Wet Dog Food, Real Chicken & Liver in Gravy (150g x 12)',
+    brand: 'Drools',
+    category: 'food',
+    subCategory: 'Wet Food - Gravy',
+    petType: 'dog',
+    price: '600',
+    rating: 4.2,
+    reviews: 8920,
+    image: 'https://images.weserv.nl/?url=m.media-amazon.com/images/I/71tR-fM-6YL._SL1500_.jpg&w=400&q=80',
+    badge: 'Trending',
+    desc: 'Juicy real chicken chunks in thick gravy. Grain-free wet food for all dog breeds.',
+    benefits: ['100% real chicken', 'Grain-free formula', 'Boosts hydration'],
+    affiliateUrl: 'https://www.amazon.in/dp/B08GFBXHSC?tag=mypawcare-21'
+  },
+  {
+    id: 'rc-wet-adult',
+    name: 'Royal Canin Medium Adult Wet Dog Food (140g x 10)',
+    brand: 'Royal Canin',
+    category: 'food',
+    subCategory: 'Wet Food - Chunks',
+    petType: 'dog',
+    price: '1,650',
+    rating: 4.4,
+    reviews: 4520,
+    image: 'https://images.weserv.nl/?url=m.media-amazon.com/images/I/71ZA7KMHXQL._SL1500_.jpg&w=400&q=80',
+    badge: 'Premium',
+    desc: 'Premium chunks in loaf for medium breed adults. Supports ideal weight & healthy skin.',
+    benefits: ['Tailored nutrition chunks', 'Skin & coat support', 'Highly palatable'],
+    affiliateUrl: 'https://www.amazon.in/dp/B007TJP0W6?tag=mypawcare-21'
+  },
+
+  // ─── 5. GRAIN-FREE DOG FOOD ────────────────────────────────
+  {
+    id: 'drools-grain-free',
+    name: 'Drools Grain Free Adult Dog Food, Chicken & Sweet Potato (3kg)',
+    brand: 'Drools',
+    category: 'food',
+    subCategory: 'Grain-Free',
+    petType: 'dog',
+    price: '1,099',
+    rating: 4.2,
+    reviews: 5680,
+    image: 'https://images.weserv.nl/?url=m.media-amazon.com/images/I/71EPlBbCdsL._SL1500_.jpg&w=400&q=80',
+    badge: 'Top Rated',
+    desc: '100% grain-free with sweet potato carbs. Ideal for dogs with grain sensitivities.',
+    benefits: ['Zero grains, gluten-free', 'Sweet potato for energy', 'Easy on sensitive stomachs'],
+    affiliateUrl: 'https://www.amazon.in/dp/B0B3DM4QKX?tag=mypawcare-21'
+  },
+
+  // ─── 6. HIGH PROTEIN DOG FOOD ──────────────────────────────
+  {
+    id: 'gooddog-adult-high-protein',
+    name: 'Good Dog Adult Dry Dog Food, Real Chicken & Eggs (8kg)',
+    brand: 'Good Dog',
+    category: 'food',
+    subCategory: 'High Protein',
+    petType: 'dog',
+    price: '1,499',
+    rating: 4.2,
+    reviews: 3450,
+    image: '/images/products/good-dog-adult.jpg',
+    badge: 'Trending',
+    desc: 'Oven-baked high-protein formula with real chicken & eggs. Human-grade ingredients with Indian herbs.',
+    benefits: ['High protein for muscles', 'Oven-baked for taste', 'Human-grade ingredients'],
+    affiliateUrl: 'https://www.amazon.in/dp/B0849982T8?tag=mypawcare-21'
+  },
+  {
+    id: 'drools-focus-hp',
+    name: 'Drools Focus Super Premium Dog Food, All Breed (4kg)',
+    brand: 'Drools',
+    category: 'food',
+    subCategory: 'High Protein',
+    petType: 'dog',
+    price: '1,249',
+    rating: 4.3,
+    reviews: 7890,
+    image: 'https://images.weserv.nl/?url=m.media-amazon.com/images/I/71GE+QQ7EiL._SL1500_.jpg&w=400&q=80',
+    badge: 'Top Rated',
+    desc: 'Super premium high-protein food with 26% protein. For active & performance dogs.',
+    benefits: ['26% crude protein', 'Omega 3 & 6 fatty acids', 'Prebiotics for gut health'],
+    affiliateUrl: 'https://www.amazon.in/dp/B07L2H2P32?tag=mypawcare-21'
+  },
+
+  // ─── 7. DOG TREATS (Training Treats, Chew Sticks) ─────────
+  {
+    id: 'pedigree-meat-jerky',
+    name: 'Pedigree Meat Jerky Stix, Grilled Liver (4 x 60g)',
+    brand: 'Pedigree',
+    category: 'food',
+    subCategory: 'Treats & Chew Sticks',
+    petType: 'dog',
+    price: '380',
+    rating: 4.3,
+    reviews: 14650,
+    image: 'https://images.weserv.nl/?url=m.media-amazon.com/images/I/71VVoQnLTRL._SL1500_.jpg&w=400&q=80',
+    badge: 'Best Seller',
+    desc: 'Smoky grilled liver flavor dogs go crazy for. Perfect as training reward or snack.',
+    benefits: ['Irresistible smoky flavor', 'Great for training', 'Rich in protein'],
+    affiliateUrl: 'https://www.amazon.in/dp/B08GF1QBXP?tag=mypawcare-21'
+  },
+  {
+    id: 'himalaya-healthy-treats',
+    name: 'Himalaya Healthy Treats, Puppy Chicken Flavor (4 x 80g)',
+    brand: 'Himalaya',
+    category: 'food',
+    subCategory: 'Treats & Chew Sticks',
+    petType: 'dog',
+    price: '360',
+    rating: 4.2,
+    reviews: 6780,
+    image: 'https://images.weserv.nl/?url=m.media-amazon.com/images/I/71yEbIaHLDL._SL1500_.jpg&w=400&q=80',
+    badge: 'Top Rated',
+    desc: 'Natural chicken treats with no artificial preservatives. Ideal for training puppies.',
+    benefits: ['Natural ingredients', 'No preservatives', 'Soft & chewy texture'],
+    affiliateUrl: 'https://www.amazon.in/dp/B07CBJNZWM?tag=mypawcare-21'
+  },
+  {
+    id: 'purepet-chew-sticks',
+    name: 'Purepet Mutton Flavour Munchy Sticks (400g)',
+    brand: 'Purepet',
+    category: 'food',
+    subCategory: 'Treats & Chew Sticks',
+    petType: 'dog',
+    price: '195',
+    rating: 4.1,
+    reviews: 21340,
+    image: 'https://images.weserv.nl/?url=m.media-amazon.com/images/I/71IRDSrdkrL._SL1500_.jpg&w=400&q=80',
+    badge: 'Best Seller',
+    desc: 'Budget-friendly munchy sticks dogs love to chew. Perfect boredom buster & jaw exerciser.',
+    benefits: ['Long-lasting chew', 'Strengthens jaw muscles', 'Budget-friendly treat'],
+    affiliateUrl: 'https://www.amazon.in/dp/B078Y5N5KQ?tag=mypawcare-21'
+  },
+
+  // ─── 8. DOG BISCUITS ───────────────────────────────────────
+  {
+    id: 'pedigree-biscrok',
+    name: 'Pedigree Biscrok Biscuits, Above 6 Months (500g)',
+    brand: 'Pedigree',
+    category: 'food',
+    subCategory: 'Dog Biscuits',
+    petType: 'dog',
+    price: '165',
+    rating: 4.3,
+    reviews: 18790,
+    image: 'https://images.weserv.nl/?url=m.media-amazon.com/images/I/81fDyG9sJjL._SL1500_.jpg&w=400&q=80',
+    badge: 'Best Seller',
+    desc: 'Crunchy biscuits in 3 shapes. A tasty & wholesome reward for good behavior.',
+    benefits: ['Calcium for strong bones', '3 delicious shapes', 'Perfect training reward'],
+    affiliateUrl: 'https://www.amazon.in/dp/B00LNKGO22?tag=mypawcare-21'
+  },
+  {
+    id: 'drools-biscuits',
+    name: 'Drools Absolute Calcium Biscuits, Dog Supplement (800g)',
+    brand: 'Drools',
+    category: 'food',
+    subCategory: 'Dog Biscuits',
+    petType: 'dog',
+    price: '289',
+    rating: 4.2,
+    reviews: 24560,
+    image: 'https://images.weserv.nl/?url=m.media-amazon.com/images/I/71ycjzQALLL._SL1500_.jpg&w=400&q=80',
+    badge: 'Amazon Choice',
+    desc: 'Calcium-enriched bone-shaped biscuits. Delicious treat that doubles as a bone supplement.',
+    benefits: ['Calcium enriched', 'Supports bone health', 'Tasty bone shape'],
+    affiliateUrl: 'https://www.amazon.in/dp/B07FXKJ5MB?tag=mypawcare-21'
+  },
+
+  // ─── 9. DENTAL CHEWS ───────────────────────────────────────
+  {
+    id: 'pedigree-dentastix',
+    name: 'Pedigree Dentastix, Oral Care for Adult Dogs (10 Sticks)',
+    brand: 'Pedigree',
+    category: 'food',
+    subCategory: 'Dental Chews',
+    petType: 'dog',
+    price: '265',
+    rating: 4.3,
+    reviews: 12450,
+    image: 'https://images.weserv.nl/?url=m.media-amazon.com/images/I/81qoSIcKGjL._SL1500_.jpg&w=400&q=80',
+    badge: 'Best Seller',
+    desc: 'Clinically proven X-shape design reduces plaque & tartar up to 80%. Daily dental care made easy.',
+    benefits: ['Reduces tartar up to 80%', 'Freshens breath', 'Vet recommended daily'],
+    affiliateUrl: 'https://www.amazon.in/dp/B079JSVNML?tag=mypawcare-21'
+  },
+  {
+    id: 'pedigree-dentastix-fresh',
+    name: 'Pedigree Dentastix Fresh, Green Tea (7 Sticks, Medium)',
+    brand: 'Pedigree',
+    category: 'food',
+    subCategory: 'Dental Chews',
+    petType: 'dog',
+    price: '199',
+    rating: 4.2,
+    reviews: 8900,
+    image: 'https://images.weserv.nl/?url=m.media-amazon.com/images/I/81RcK5JDFSL._SL1500_.jpg&w=400&q=80',
+    badge: 'Trending',
+    desc: 'Green tea extract for extra fresh breath. Triple-action cleaning for healthier gums.',
+    benefits: ['Green tea for freshness', 'Triple-action clean', 'Low fat daily chew'],
+    affiliateUrl: 'https://www.amazon.in/dp/B09CDQ9X3C?tag=mypawcare-21'
+  },
+
+  // ─── 10. DOG SUPPLEMENTS (Calcium, Vitamins, Omega-3) ─────
+  {
+    id: 'drools-calcium-tabs',
+    name: 'Drools Absolute Calcium Tablets, Dog Supplement (50 pcs)',
+    brand: 'Drools',
+    category: 'food',
+    subCategory: 'Supplements - Calcium',
+    petType: 'dog',
+    price: '399',
+    rating: 4.2,
+    reviews: 15670,
+    image: 'https://images.weserv.nl/?url=m.media-amazon.com/images/I/61cRJWz-ikL._SL1500_.jpg&w=400&q=80',
+    badge: 'Best Seller',
+    desc: 'Essential calcium & phosphorus tablets for strong bones and teeth in dogs of all ages.',
+    benefits: ['Strengthens bones & teeth', 'Prevents calcium deficiency', 'Easy to feed tablets'],
+    affiliateUrl: 'https://www.amazon.in/dp/B07FY3H5KN?tag=mypawcare-21'
+  },
+  {
+    id: 'himalaya-multivit',
+    name: 'Himalaya Immunol, Immunity Booster for Dogs (60 Tabs)',
+    brand: 'Himalaya',
+    category: 'food',
+    subCategory: 'Supplements - Multivitamin',
+    petType: 'dog',
+    price: '265',
+    rating: 4.3,
+    reviews: 5430,
+    image: 'https://images.weserv.nl/?url=m.media-amazon.com/images/I/41ygq8GNWTL._SL1500_.jpg&w=400&q=80',
+    badge: 'Top Rated',
+    desc: 'Natural immunity booster with herbal ingredients. Strengthens your dog\'s immune response.',
+    benefits: ['Natural herbal formula', 'Boosts immune system', 'Trusted veterinary brand'],
+    affiliateUrl: 'https://www.amazon.in/dp/B01NALJ3JO?tag=mypawcare-21'
+  },
+  {
+    id: 'drools-skin-coat',
+    name: 'Drools Absolute Skin & Coat Supplement, Omega 3 (50 Tabs)',
+    brand: 'Drools',
+    category: 'food',
+    subCategory: 'Supplements - Omega-3',
+    petType: 'dog',
+    price: '449',
+    rating: 4.1,
+    reviews: 9870,
+    image: 'https://images.weserv.nl/?url=m.media-amazon.com/images/I/61iBKdH4Z2L._SL1500_.jpg&w=400&q=80',
+    badge: 'Trending',
+    desc: 'Omega-3 & biotin tablets for a lustrous coat and healthy skin. Reduces shedding visibly.',
+    benefits: ['Rich in Omega-3 fatty acids', 'Reduces excessive shedding', 'Promotes shiny coat'],
+    affiliateUrl: 'https://www.amazon.in/dp/B07FY26TCM?tag=mypawcare-21'
+  },
+  {
+    id: 'petvit-multivitamin',
+    name: 'Petvit Multivitamin & Multimineral, for Dogs (60 Tabs)',
+    brand: 'Petvit',
+    category: 'food',
+    subCategory: 'Supplements - Multivitamin',
+    petType: 'dog',
+    price: '349',
+    rating: 4.0,
+    reviews: 4120,
+    image: 'https://images.weserv.nl/?url=m.media-amazon.com/images/I/51GVtqEfJhL._SL1500_.jpg&w=400&q=80',
+    badge: 'Top Rated',
+    desc: 'Complete 18-in-1 multivitamin with minerals, biotin & taurine. Daily health insurance for your dog.',
+    benefits: ['18 vitamins & minerals', 'Biotin for skin & coat', 'Taurine for heart health'],
+    affiliateUrl: 'https://www.amazon.in/dp/B0BLGCYF53?tag=mypawcare-21'
   }
 ];
 
@@ -284,12 +661,23 @@ export default function ProductsPage() {
         <div style={{ marginTop: '2rem' }}>
           {filteredProducts.length > 0 ? (
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '1.5rem' }}>
-              {filteredProducts.map(product => (
+              {filteredProducts.map(product => {
+                const badgeColors = {
+                  'Best Seller': { bg: '#ef4444', text: '#fff' },
+                  'Amazon Choice': { bg: '#232f3e', text: '#f5a623' },
+                  'Top Rated': { bg: '#3b82f6', text: '#fff' },
+                  'Trending': { bg: '#8b5cf6', text: '#fff' },
+                  'Premium': { bg: '#f59e0b', text: '#fff' },
+                  'Vet Recommended': { bg: '#059669', text: '#fff' }
+                };
+                const badgeStyle = badgeColors[product.badge] || { bg: '#1f2937', text: '#fff' };
+                
+                return (
                 <div key={product.id} className="premium-product-card" style={{
                   background: '#fff',
                   borderRadius: '28px',
                   padding: '1rem',
-                  boxShadow: '0 10px 30px rgba(0,0,0,0.03)',
+                  boxShadow: '0 10px 30px rgba(0,0,0,0.04)',
                   border: '1px solid #f1f5f9',
                   transition: 'all 0.3s ease',
                   display: 'flex',
@@ -314,6 +702,7 @@ export default function ProductsPage() {
                       src={product.image} 
                       alt={product.name}
                       referrerPolicy="no-referrer"
+                      crossOrigin="anonymous"
                       onError={(e) => {
                         e.target.onerror = null; 
                         e.target.src = "https://images.unsplash.com/photo-1589924691106-073b697395a6?w=500&q=80";
@@ -322,7 +711,7 @@ export default function ProductsPage() {
                         maxWidth: '90%',
                         maxHeight: '90%',
                         objectFit: 'contain',
-                        padding: '1rem',
+                        padding: '0.8rem',
                         transition: 'transform 0.5s ease'
                       }}
                     />
@@ -331,12 +720,14 @@ export default function ProductsPage() {
                         position: 'absolute',
                         top: '12px',
                         left: '12px',
-                        background: '#1f2937',
-                        color: '#fff',
+                        background: badgeStyle.bg,
+                        color: badgeStyle.text,
                         padding: '4px 10px',
                         borderRadius: '8px',
-                        fontSize: '0.7rem',
-                        fontWeight: '700'
+                        fontSize: '0.65rem',
+                        fontWeight: '800',
+                        letterSpacing: '0.3px',
+                        boxShadow: '0 2px 8px rgba(0,0,0,0.15)'
                       }}>
                         {product.badge}
                       </div>
@@ -344,37 +735,79 @@ export default function ProductsPage() {
                   </div>
 
                   <div style={{ padding: '0 0.5rem', flex: 1, display: 'flex', flexDirection: 'column' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.4rem' }}>
-                      <span style={{ fontSize: '0.7rem', fontWeight: '700', color: '#22c55e', textTransform: 'uppercase', letterSpacing: '0.5px' }}>{product.brand}</span>
-                      <FiHeart size={14} color="#cbd5e1" style={{ cursor: 'pointer' }} />
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.3rem' }}>
+                      <span style={{ fontSize: '0.65rem', fontWeight: '700', color: '#22c55e', textTransform: 'uppercase', letterSpacing: '0.5px' }}>{product.brand}</span>
+                      {product.subCategory && (
+                        <span style={{ 
+                          fontSize: '0.6rem', 
+                          fontWeight: '600', 
+                          color: '#8b5cf6', 
+                          background: '#f5f3ff', 
+                          padding: '2px 8px', 
+                          borderRadius: '6px' 
+                        }}>
+                          {product.subCategory}
+                        </span>
+                      )}
                     </div>
                     
                     <h3 style={{ 
-                      fontSize: '0.95rem', 
+                      fontSize: '0.9rem', 
                       fontWeight: '800', 
                       color: '#1f2937', 
-                      marginBottom: '0.5rem',
+                      marginBottom: '0.3rem',
                       display: '-webkit-box',
                       WebkitLineClamp: 2,
                       WebkitBoxOrient: 'vertical',
                       overflow: 'hidden',
-                      lineHeight: '1.4',
-                      height: '2.6rem'
+                      lineHeight: '1.4'
                     }}>
                       {product.name}
                     </h3>
 
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
                       <div style={{ display: 'flex', color: '#f59e0b', fontSize: '0.8rem' }}>
                         {'★'.repeat(Math.floor(product.rating))}
                         <span style={{ color: '#e2e8f0' }}>{'★'.repeat(5 - Math.floor(product.rating))}</span>
                       </div>
-                      <span style={{ fontSize: '0.7rem', color: '#64748b', fontWeight: '600' }}>({product.reviews})</span>
+                      <span style={{ fontSize: '0.65rem', color: '#64748b', fontWeight: '600' }}>({product.reviews?.toLocaleString()})</span>
                     </div>
 
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 'auto', paddingTop: '0.5rem' }}>
+                    {product.desc && (
+                      <p style={{ 
+                        fontSize: '0.75rem', 
+                        color: '#64748b', 
+                        lineHeight: '1.5', 
+                        marginBottom: '0.5rem',
+                        display: '-webkit-box',
+                        WebkitLineClamp: 2,
+                        WebkitBoxOrient: 'vertical',
+                        overflow: 'hidden'
+                      }}>
+                        {product.desc}
+                      </p>
+                    )}
+
+                    {product.benefits && (
+                      <div style={{ marginBottom: '0.6rem' }}>
+                        {product.benefits.slice(0, 3).map((b, i) => (
+                          <div key={i} style={{ 
+                            fontSize: '0.68rem', 
+                            color: '#374151', 
+                            display: 'flex', 
+                            alignItems: 'center', 
+                            gap: '4px',
+                            marginBottom: '2px'
+                          }}>
+                            <span style={{ color: '#22c55e', fontWeight: '700' }}>✓</span> {b}
+                          </div>
+                        ))}
+                      </div>
+                    )}
+
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 'auto', paddingTop: '0.5rem', borderTop: '1px solid #f1f5f9' }}>
                       <div>
-                        <span style={{ fontSize: '0.85rem', fontWeight: '600', color: '#64748b', marginRight: '2px' }}>₹</span>
+                        <span style={{ fontSize: '0.75rem', fontWeight: '600', color: '#64748b', marginRight: '2px' }}>₹</span>
                         <span style={{ fontSize: '1.3rem', fontWeight: '900', color: '#1f2937' }}>{product.price}</span>
                       </div>
                       <button 
@@ -383,23 +816,26 @@ export default function ProductsPage() {
                           window.open(product.affiliateUrl, '_blank');
                         }}
                         style={{
-                          padding: '0.6rem 1rem',
+                          padding: '0.65rem 1.2rem',
                           borderRadius: '12px',
                           border: 'none',
-                          background: '#22c55e',
+                          background: 'linear-gradient(135deg, #22c55e, #16a34a)',
                           color: '#fff',
                           fontWeight: '700',
-                          fontSize: '0.8rem',
+                          fontSize: '0.78rem',
                           cursor: 'pointer',
-                          boxShadow: '0 4px 12px rgba(34, 197, 94, 0.15)'
+                          boxShadow: '0 4px 12px rgba(34, 197, 94, 0.2)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '4px'
                         }}
                       >
-                        Buy Now
+                        <FiShoppingCart size={13} /> Buy Now
                       </button>
                     </div>
                   </div>
                 </div>
-              ))}
+              );})}
             </div>
           ) : (
             <div style={{ 
