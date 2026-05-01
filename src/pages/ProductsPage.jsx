@@ -48,7 +48,7 @@ const CURATED_PRODUCTS = [
     price: '818',
     rating: 4.4,
     reviews: 9185,
-    image: 'https://images.weserv.nl/?url=m.media-amazon.com/images/I/71p0WfN9jAL.jpg',
+    image: 'https://m.media-amazon.com/images/I/71p0WfN9jAL._SL1500_.jpg',
     badge: 'Vet Recommended',
     desc: 'Supports Complex Natural Defence & digestive health. Specialized formula for small breed puppies to support a healthy immune system.',
     affiliateUrl: 'https://amzn.to/4ulalbw'
