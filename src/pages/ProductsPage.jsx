@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { FiSearch, FiShoppingCart, FiChevronRight, FiGrid, FiBox, FiActivity, FiTruck, FiHeart, FiTag, FiHome, FiBriefcase } from 'react-icons/fi';
 import { GiDogBowl, GiCat, GiComb, GiTennisBall, GiFirstAidKit } from 'react-icons/gi';
@@ -74,7 +74,7 @@ const CURATED_PRODUCTS = [
     badge: 'Best Seller',
     desc: 'Real chicken & egg for strong muscles and shiny coat. India\'s most trusted puppy food brand.',
     benefits: ['Real chicken as #1 ingredient', 'Omega fatty acids for coat', 'Supports bone & teeth growth'],
-    affiliateUrl: 'https://www.amazon.in/dp/B07HBMB3WW?tag=mypawcare-21'
+    affiliateUrl: 'https://www.amazon.in/dp/B07HBFY5VJ?tag=mypawcare-21'
   },
 
   // â”€â”€â”€ 2. DRY DOG FOOD (Adult) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
@@ -124,7 +124,7 @@ const CURATED_PRODUCTS = [
     badge: 'Premium',
     desc: 'Tailored nutrition for medium breed adults (11-25kg). Supports skin health & optimal weight.',
     benefits: ['Breed-specific formula', 'Skin & coat nourishment', 'Digestive care prebiotics'],
-    affiliateUrl: 'https://www.amazon.in/dp/B00K5ANK3G?tag=mypawcare-21'
+    affiliateUrl: 'https://www.amazon.in/s?k=Royal+Canin+Medium+Adult+Dry+Dog+Food+4kg&tag=mypawcare-21'
   },
 
   // â”€â”€â”€ 3. DRY DOG FOOD (Senior) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
@@ -142,7 +142,7 @@ const CURATED_PRODUCTS = [
     badge: 'Premium',
     desc: 'Specially formulated for senior large breed dogs 8+. Joint support & vitality boost.',
     benefits: ['Joint health with glucosamine', 'Easy to chew kibble', 'Antioxidant complex for vitality'],
-    affiliateUrl: 'https://www.amazon.in/dp/B00K5ANK3G?tag=mypawcare-21'
+    affiliateUrl: 'https://www.amazon.in/s?k=Royal+Canin+Maxi+Ageing+8%2B+Senior+Dog+Food&tag=mypawcare-21'
   },
 
   // â”€â”€â”€ 4. WET DOG FOOD (Gravy / Chunks) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
@@ -194,7 +194,7 @@ const CURATED_PRODUCTS = [
     badge: 'Top Rated',
     desc: '100% grain-free with sweet potato carbs. Ideal for dogs with grain sensitivities.',
     benefits: ['Zero grains, gluten-free', 'Sweet potato for energy', 'Easy on sensitive stomachs'],
-    affiliateUrl: 'https://www.amazon.in/dp/B07HBMB3WW?tag=mypawcare-21'
+    affiliateUrl: 'https://www.amazon.in/s?k=Drools+Grain+Free+Dog+Food+Chicken&tag=mypawcare-21'
   },
 
   // â”€â”€â”€ 6. HIGH PROTEIN DOG FOOD â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
@@ -212,7 +212,7 @@ const CURATED_PRODUCTS = [
     badge: 'Trending',
     desc: 'Oven-baked high-protein formula with real chicken & eggs. Human-grade ingredients with Indian herbs.',
     benefits: ['High protein for muscles', 'Oven-baked for taste', 'Human-grade ingredients'],
-    affiliateUrl: 'https://www.amazon.in/dp/B00LHS8I3A?tag=mypawcare-21'
+    affiliateUrl: 'https://www.amazon.in/s?k=Good+Dog+by+Drools+Adult+Dry+Dog+Food+Chicken+Eggs&tag=mypawcare-21'
   },
   {
     id: 'drools-focus-hp',
@@ -228,7 +228,7 @@ const CURATED_PRODUCTS = [
     badge: 'Top Rated',
     desc: 'Super premium high-protein food with 26% protein. For active & performance dogs.',
     benefits: ['26% crude protein', 'Omega 3 & 6 fatty acids', 'Prebiotics for gut health'],
-    affiliateUrl: 'https://www.amazon.in/dp/B07HBMB3WW?tag=mypawcare-21'
+    affiliateUrl: 'https://www.amazon.in/s?k=Drools+Focus+Super+Premium+Dog+Food+Adult&tag=mypawcare-21'
   },
 
   // â”€â”€â”€ 7. DOG TREATS (Training Treats, Chew Sticks) â”€â”€â”€â”€â”€â”€â”€â”€â”€
@@ -246,7 +246,7 @@ const CURATED_PRODUCTS = [
     badge: 'Best Seller',
     desc: 'Smoky grilled liver flavor dogs go crazy for. Perfect as training reward or snack.',
     benefits: ['Irresistible smoky flavor', 'Great for training', 'Rich in protein'],
-    affiliateUrl: 'https://www.amazon.in/dp/B00LHS8I3A?tag=mypawcare-21'
+    affiliateUrl: 'https://www.amazon.in/dp/B07QWRLQWV?tag=mypawcare-21'
   },
   {
     id: 'himalaya-healthy-treats',
@@ -262,7 +262,7 @@ const CURATED_PRODUCTS = [
     badge: 'Top Rated',
     desc: 'Natural chicken treats with no artificial preservatives. Ideal for training puppies.',
     benefits: ['Natural ingredients', 'No preservatives', 'Soft & chewy texture'],
-    affiliateUrl: 'https://www.amazon.in/dp/B00LHS8I3A?tag=mypawcare-21'
+    affiliateUrl: 'https://www.amazon.in/s?k=Himalaya+Healthy+Treats+Puppy+Chicken+Flavor&tag=mypawcare-21'
   },
   {
     id: 'purepet-chew-sticks',
@@ -278,7 +278,7 @@ const CURATED_PRODUCTS = [
     badge: 'Best Seller',
     desc: 'Budget-friendly munchy sticks dogs love to chew. Perfect boredom buster & jaw exerciser.',
     benefits: ['Long-lasting chew', 'Strengthens jaw muscles', 'Budget-friendly treat'],
-    affiliateUrl: 'https://www.amazon.in/dp/B00LHS8I3A?tag=mypawcare-21'
+    affiliateUrl: 'https://www.amazon.in/dp/B07S5V9J4L?tag=mypawcare-21'
   },
 
   // â”€â”€â”€ 8. DOG BISCUITS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
@@ -296,7 +296,7 @@ const CURATED_PRODUCTS = [
     badge: 'Best Seller',
     desc: 'Crunchy biscuits in 3 shapes. A tasty & wholesome reward for good behavior.',
     benefits: ['Calcium for strong bones', '3 delicious shapes', 'Perfect training reward'],
-    affiliateUrl: 'https://www.amazon.in/dp/B00LHS8I3A?tag=mypawcare-21'
+    affiliateUrl: 'https://www.amazon.in/dp/B07S9661LC?tag=mypawcare-21'
   },
   {
     id: 'drools-biscuits',
@@ -312,7 +312,7 @@ const CURATED_PRODUCTS = [
     badge: 'Amazon Choice',
     desc: 'Calcium-enriched bone-shaped biscuits. Delicious treat that doubles as a bone supplement.',
     benefits: ['Calcium enriched', 'Supports bone health', 'Tasty bone shape'],
-    affiliateUrl: 'https://www.amazon.in/dp/B01IEXX3G2?tag=mypawcare-21'
+    affiliateUrl: 'https://www.amazon.in/dp/B01N79QA99?tag=mypawcare-21'
   },
 
   // â”€â”€â”€ 9. DENTAL CHEWS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
@@ -330,7 +330,7 @@ const CURATED_PRODUCTS = [
     badge: 'Best Seller',
     desc: 'Clinically proven X-shape design reduces plaque & tartar up to 80%. Daily dental care made easy.',
     benefits: ['Reduces tartar up to 80%', 'Freshens breath', 'Vet recommended daily'],
-    affiliateUrl: 'https://www.amazon.in/dp/B00LHS8I3A?tag=mypawcare-21'
+    affiliateUrl: 'https://www.amazon.in/dp/B014PCXPI2?tag=mypawcare-21'
   },
   {
     id: 'pedigree-dentastix-fresh',
@@ -346,7 +346,7 @@ const CURATED_PRODUCTS = [
     badge: 'Trending',
     desc: 'Green tea extract for extra fresh breath. Triple-action cleaning for healthier gums.',
     benefits: ['Green tea for freshness', 'Triple-action clean', 'Low fat daily chew'],
-    affiliateUrl: 'https://www.amazon.in/dp/B00LHS8I3A?tag=mypawcare-21'
+    affiliateUrl: 'https://www.amazon.in/s?k=Pedigree+Dentastix+Fresh+Green+Tea+Dog&tag=mypawcare-21'
   },
 
   // â”€â”€â”€ 10. DOG SUPPLEMENTS (Calcium, Vitamins, Omega-3) â”€â”€â”€â”€â”€
@@ -380,7 +380,7 @@ const CURATED_PRODUCTS = [
     badge: 'Top Rated',
     desc: 'Natural immunity booster with herbal ingredients. Strengthens your dog\'s immune response.',
     benefits: ['Natural herbal formula', 'Boosts immune system', 'Trusted veterinary brand'],
-    affiliateUrl: 'https://www.amazon.in/dp/B01IEXX3G2?tag=mypawcare-21'
+    affiliateUrl: 'https://www.amazon.in/dp/B003V60M3W?tag=mypawcare-21'
   },
   {
     id: 'drools-skin-coat',
@@ -396,7 +396,7 @@ const CURATED_PRODUCTS = [
     badge: 'Trending',
     desc: 'Omega-3 & biotin tablets for a lustrous coat and healthy skin. Reduces shedding visibly.',
     benefits: ['Rich in Omega-3 fatty acids', 'Reduces excessive shedding', 'Promotes shiny coat'],
-    affiliateUrl: 'https://www.amazon.in/dp/B01IEXX3G2?tag=mypawcare-21'
+    affiliateUrl: 'https://www.amazon.in/dp/B01IEXX58S?tag=mypawcare-21'
   },
   {
     id: 'petvit-multivitamin',
@@ -412,7 +412,7 @@ const CURATED_PRODUCTS = [
     badge: 'Top Rated',
     desc: 'Complete 18-in-1 multivitamin with minerals, biotin & taurine. Daily health insurance for your dog.',
     benefits: ['18 vitamins & minerals', 'Biotin for skin & coat', 'Taurine for heart health'],
-    affiliateUrl: 'https://www.amazon.in/dp/B01IEXX3G2?tag=mypawcare-21'
+    affiliateUrl: 'https://www.amazon.in/dp/B08YJMVVY5?tag=mypawcare-21'
   }
 ];
 
