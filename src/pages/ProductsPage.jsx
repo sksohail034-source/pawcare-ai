@@ -58,7 +58,7 @@ const CURATED_PRODUCTS = [
     badge: 'Vet Recommended',
     desc: 'Supports immune system & digestive health. Specialized formula for small breed puppies with natural defence nutrients.',
     benefits: ['Boosts natural immunity', 'Supports healthy digestion', 'Perfect for small breed puppies'],
-    affiliateUrl: 'https://www.amazon.in/dp/B00K5ANK3G?tag=mypawcare-21'
+    affiliateUrl: 'https://amzn.to/3QJGyL2'
   },
   {
     id: 'drools-puppy-chicken',
