@@ -1095,6 +1095,503 @@ const CURATED_PRODUCTS = [
     desc: 'High-bounce natural rubber ball for outdoor fetch. Floats in water for pool & beach games.',
     benefits: ['High-bounce natural rubber', 'Floats in water', 'Perfect 7cm size for dogs'],
     affiliateUrl: 'https://www.amazon.in/s?k=Trixie+Natural+Rubber+Fetch+Ball+Dog+7cm&tag=mypawcare-21'
+  },
+
+  // ============================================================
+  // DOG → ACCESSORIES — Complete Product Catalog
+  // Tracking ID: mypawcare-21
+  // ============================================================
+
+  // ——— 1. DOG COLLAR ——————————————————————————————————————————
+  {
+    id: 'pets-empire-collar',
+    name: 'Pets Empire Nylon Adjustable Dog Collar (Medium)',
+    brand: 'Pets Empire',
+    category: 'accessories',
+    subCategory: 'Collar',
+    petType: 'dog',
+    price: '149',
+    rating: 4.1,
+    reviews: 12450,
+    image: '/images/products/treats-generic.png',
+    badge: 'Best Seller',
+    desc: 'Durable nylon collar with quick-release buckle. Adjustable fit for medium breed dogs.',
+    benefits: ['Quick-release safety buckle', 'Adjustable for perfect fit', 'Durable nylon webbing'],
+    affiliateUrl: 'https://www.amazon.in/s?k=Pets+Empire+Nylon+Adjustable+Dog+Collar+Medium&tag=mypawcare-21'
+  },
+  {
+    id: 'trixie-premium-collar',
+    name: 'Trixie Premium Dog Collar, Neoprene Padded (M-L)',
+    brand: 'Trixie',
+    category: 'accessories',
+    subCategory: 'Collar',
+    petType: 'dog',
+    price: '599',
+    rating: 4.3,
+    reviews: 3450,
+    image: '/images/products/treats-generic.png',
+    badge: 'Premium',
+    desc: 'Neoprene-padded collar for maximum comfort. Reflective stitching for nighttime visibility.',
+    benefits: ['Neoprene padding — no chafing', 'Reflective for night safety', 'European quality design'],
+    affiliateUrl: 'https://www.amazon.in/s?k=Trixie+Premium+Dog+Collar+Neoprene+Padded&tag=mypawcare-21'
+  },
+
+  // ——— 2. DOG LEASH ——————————————————————————————————————————
+  {
+    id: 'foodie-puppies-leash',
+    name: 'Foodie Puppies Heavy Duty Nylon Dog Leash (5ft)',
+    brand: 'Foodie Puppies',
+    category: 'accessories',
+    subCategory: 'Leash',
+    petType: 'dog',
+    price: '199',
+    rating: 4.1,
+    reviews: 9870,
+    image: '/images/products/treats-generic.png',
+    badge: 'Best Seller',
+    desc: 'Heavy-duty nylon leash with padded handle. Strong metal clip for secure attachment.',
+    benefits: ['Padded comfort handle', 'Strong metal snap hook', '5ft perfect walking length'],
+    affiliateUrl: 'https://www.amazon.in/s?k=Foodie+Puppies+Heavy+Duty+Nylon+Dog+Leash+5ft&tag=mypawcare-21'
+  },
+  {
+    id: 'trixie-retractable-leash',
+    name: 'Trixie Flexi Retractable Dog Leash (5m)',
+    brand: 'Trixie',
+    category: 'accessories',
+    subCategory: 'Leash',
+    petType: 'dog',
+    price: '899',
+    rating: 4.2,
+    reviews: 4560,
+    image: '/images/products/treats-generic.png',
+    badge: 'Premium',
+    desc: 'Retractable 5-meter leash with one-button lock. Gives dogs freedom while maintaining control.',
+    benefits: ['5m retractable length', 'One-button brake & lock', 'Ergonomic soft grip'],
+    affiliateUrl: 'https://www.amazon.in/s?k=Trixie+Flexi+Retractable+Dog+Leash+5m&tag=mypawcare-21'
+  },
+
+  // ——— 3. DOG HARNESS ————————————————————————————————————————
+  {
+    id: 'pets-empire-harness',
+    name: 'Pets Empire No-Pull Dog Harness, Adjustable (Medium)',
+    brand: 'Pets Empire',
+    category: 'accessories',
+    subCategory: 'Harness',
+    petType: 'dog',
+    price: '349',
+    rating: 4.1,
+    reviews: 7890,
+    image: '/images/products/treats-generic.png',
+    badge: 'Best Seller',
+    desc: 'No-pull padded harness distributes pressure evenly. Prevents choking & neck strain.',
+    benefits: ['No-pull front clip design', 'Padded for comfort', 'Prevents choking & pulling'],
+    affiliateUrl: 'https://www.amazon.in/s?k=Pets+Empire+No+Pull+Dog+Harness+Adjustable+Medium&tag=mypawcare-21'
+  },
+  {
+    id: 'goofy-tails-harness',
+    name: 'Goofy Tails Reflective Dog Harness with Handle (Large)',
+    brand: 'Goofy Tails',
+    category: 'accessories',
+    subCategory: 'Harness',
+    petType: 'dog',
+    price: '599',
+    rating: 4.2,
+    reviews: 3450,
+    image: '/images/products/treats-generic.png',
+    badge: 'Top Rated',
+    desc: 'Reflective harness with top handle for quick control. Breathable mesh for hot Indian summers.',
+    benefits: ['Reflective strips for safety', 'Top handle for quick control', 'Breathable mesh material'],
+    affiliateUrl: 'https://www.amazon.in/s?k=Goofy+Tails+Reflective+Dog+Harness+Handle+Large&tag=mypawcare-21'
+  },
+
+  // ——— 4. DOG CLOTHES ————————————————————————————————————————
+  {
+    id: 'petsnbuds-tshirt',
+    name: 'PetsnBuds Cotton Dog T-Shirt, Printed (Medium)',
+    brand: 'PetsnBuds',
+    category: 'accessories',
+    subCategory: 'Clothing',
+    petType: 'dog',
+    price: '299',
+    rating: 4.0,
+    reviews: 5670,
+    image: '/images/products/treats-generic.png',
+    badge: 'Best Seller',
+    desc: 'Soft breathable cotton t-shirt for daily wear. Fun printed designs your dog will love.',
+    benefits: ['100% breathable cotton', 'Fun printed designs', 'Machine washable'],
+    affiliateUrl: 'https://www.amazon.in/s?k=dog+cotton+t-shirt+printed+medium&tag=mypawcare-21'
+  },
+  {
+    id: 'petsnbuds-raincoat',
+    name: 'Pets Empire Waterproof Dog Raincoat with Hood (Large)',
+    brand: 'Pets Empire',
+    category: 'accessories',
+    subCategory: 'Clothing',
+    petType: 'dog',
+    price: '499',
+    rating: 4.1,
+    reviews: 4230,
+    image: '/images/products/treats-generic.png',
+    badge: 'Trending',
+    desc: 'Waterproof raincoat with reflective strips. Keeps dogs dry during monsoon walks.',
+    benefits: ['100% waterproof material', 'Reflective strips for safety', 'Adjustable belly strap'],
+    affiliateUrl: 'https://www.amazon.in/s?k=Pets+Empire+Waterproof+Dog+Raincoat+Hood+Large&tag=mypawcare-21'
+  },
+
+  // ============================================================
+  // DOG → DAILY USE ESSENTIALS — Complete Product Catalog
+  // ============================================================
+
+  // ——— 1. DOG BED ————————————————————————————————————————————
+  {
+    id: 'fluffydream-dog-bed',
+    name: 'FluffyDream Orthopedic Dog Bed, Washable (Medium)',
+    brand: 'FluffyDream',
+    category: 'essentials',
+    subCategory: 'Dog Bed',
+    petType: 'dog',
+    price: '999',
+    rating: 4.2,
+    reviews: 6780,
+    image: '/images/products/supplements-generic.png',
+    badge: 'Best Seller',
+    desc: 'Orthopedic foam bed supports joints & spine. Machine-washable cover for easy cleaning.',
+    benefits: ['Orthopedic foam support', 'Machine-washable cover', 'Non-slip bottom'],
+    affiliateUrl: 'https://www.amazon.in/s?k=orthopedic+dog+bed+washable+medium&tag=mypawcare-21'
+  },
+  {
+    id: 'pets-empire-bed',
+    name: 'Pets Empire Round Plush Dog Bed, Calming (Medium)',
+    brand: 'Pets Empire',
+    category: 'essentials',
+    subCategory: 'Dog Bed',
+    petType: 'dog',
+    price: '599',
+    rating: 4.1,
+    reviews: 8900,
+    image: '/images/products/supplements-generic.png',
+    badge: 'Amazon Choice',
+    desc: 'Donut-shaped calming bed reduces anxiety. Super soft plush fur for cozy sleeping.',
+    benefits: ['Calming donut design', 'Super soft plush material', 'Machine washable'],
+    affiliateUrl: 'https://www.amazon.in/s?k=Pets+Empire+Round+Plush+Dog+Bed+Calming+Medium&tag=mypawcare-21'
+  },
+
+  // ——— 2. FOOD & WATER BOWLS ————————————————————————————————
+  {
+    id: 'foodie-puppies-steel-bowl',
+    name: 'Foodie Puppies Stainless Steel Dog Bowl with Rubber Base (700ml x 2)',
+    brand: 'Foodie Puppies',
+    category: 'essentials',
+    subCategory: 'Food & Water Bowl',
+    petType: 'dog',
+    price: '299',
+    rating: 4.2,
+    reviews: 14560,
+    image: '/images/products/supplements-generic.png',
+    badge: 'Best Seller',
+    desc: 'Anti-skid stainless steel bowls — set of 2. Dishwasher safe & rust-proof for daily use.',
+    benefits: ['Anti-skid rubber base', 'Rust-proof stainless steel', 'Set of 2 bowls'],
+    affiliateUrl: 'https://www.amazon.in/s?k=Foodie+Puppies+Stainless+Steel+Dog+Bowl+Rubber+Base&tag=mypawcare-21'
+  },
+  {
+    id: 'amazonbasics-elevated-bowl',
+    name: 'Amazon Basics Elevated Dog Bowl Stand with 2 Bowls',
+    brand: 'Amazon Basics',
+    category: 'essentials',
+    subCategory: 'Food & Water Bowl',
+    petType: 'dog',
+    price: '799',
+    rating: 4.3,
+    reviews: 5670,
+    image: '/images/products/supplements-generic.png',
+    badge: 'Premium',
+    desc: 'Elevated stand reduces neck strain while eating. Includes 2 stainless steel bowls.',
+    benefits: ['Reduces neck & joint strain', 'Elevated ergonomic design', '2 stainless steel bowls included'],
+    affiliateUrl: 'https://www.amazon.in/s?k=elevated+dog+bowl+stand+stainless+steel+2+bowls&tag=mypawcare-21'
+  },
+
+  // ——— 3. PEE PADS ——————————————————————————————————————————
+  {
+    id: 'foodie-puppies-pee-pads',
+    name: 'Foodie Puppies Super Absorbent Training Pee Pads (50 Pcs)',
+    brand: 'Foodie Puppies',
+    category: 'essentials',
+    subCategory: 'Pee Pads',
+    petType: 'dog',
+    price: '599',
+    rating: 4.1,
+    reviews: 11230,
+    image: '/images/products/supplements-generic.png',
+    badge: 'Best Seller',
+    desc: '5-layer super absorbent pee pads for puppy training. Leak-proof backing protects floors.',
+    benefits: ['5-layer super absorption', 'Leak-proof backing', '50 pcs value pack'],
+    affiliateUrl: 'https://www.amazon.in/s?k=Foodie+Puppies+Super+Absorbent+Training+Pee+Pads+50&tag=mypawcare-21'
+  },
+
+  // ——— 4. POOP BAGS ——————————————————————————————————————————
+  {
+    id: 'foodie-puppies-poop-bags',
+    name: 'Foodie Puppies Biodegradable Dog Poop Bags (15 Rolls, 225 Bags)',
+    brand: 'Foodie Puppies',
+    category: 'essentials',
+    subCategory: 'Poop Bags',
+    petType: 'dog',
+    price: '349',
+    rating: 4.0,
+    reviews: 6780,
+    image: '/images/products/supplements-generic.png',
+    badge: 'Amazon Choice',
+    desc: 'Eco-friendly biodegradable poop bags. Extra thick & leak-proof for mess-free cleanup.',
+    benefits: ['Biodegradable & eco-friendly', 'Extra thick — no leaks', '225 bags mega value pack'],
+    affiliateUrl: 'https://www.amazon.in/s?k=biodegradable+dog+poop+bags+15+rolls&tag=mypawcare-21'
+  },
+
+  // ——— 5. DOG CRATE / CAGE ———————————————————————————————————
+  {
+    id: 'pets-empire-cage',
+    name: 'Pets Empire Heavy Duty Dog Cage with Removable Tray (36 inch)',
+    brand: 'Pets Empire',
+    category: 'essentials',
+    subCategory: 'Dog Crate',
+    petType: 'dog',
+    price: '2,499',
+    rating: 4.1,
+    reviews: 5670,
+    image: '/images/products/supplements-generic.png',
+    badge: 'Best Seller',
+    desc: 'Heavy-duty metal cage with double door access. Removable tray for easy cleaning.',
+    benefits: ['Double door access', 'Removable cleaning tray', 'Foldable for storage'],
+    affiliateUrl: 'https://www.amazon.in/s?k=Pets+Empire+Heavy+Duty+Dog+Cage+Removable+Tray+36&tag=mypawcare-21'
+  },
+
+  // ============================================================
+  // DOG → TRAVEL & OUTDOOR — Complete Product Catalog
+  // ============================================================
+
+  // ——— 1. DOG CARRIER ————————————————————————————————————————
+  {
+    id: 'pets-empire-carrier',
+    name: 'Pets Empire Airline Approved Soft-Sided Dog Carrier (Medium)',
+    brand: 'Pets Empire',
+    category: 'travel',
+    subCategory: 'Dog Carrier',
+    petType: 'dog',
+    price: '999',
+    rating: 4.1,
+    reviews: 4560,
+    image: '/images/products/dry-food-generic.png',
+    badge: 'Best Seller',
+    desc: 'Airline-approved soft carrier with mesh ventilation. Collapsible design for easy storage.',
+    benefits: ['Airline approved size', 'Mesh ventilation panels', 'Collapsible & portable'],
+    affiliateUrl: 'https://www.amazon.in/s?k=airline+approved+soft+sided+dog+carrier+medium&tag=mypawcare-21'
+  },
+  {
+    id: 'trixie-backpack-carrier',
+    name: 'Trixie Pet Backpack Carrier, Front & Back (30x26x33cm)',
+    brand: 'Trixie',
+    category: 'travel',
+    subCategory: 'Dog Carrier',
+    petType: 'dog',
+    price: '1,899',
+    rating: 4.2,
+    reviews: 2340,
+    image: '/images/products/dry-food-generic.png',
+    badge: 'Premium',
+    desc: 'Hands-free backpack carrier for small dogs. Wear front or back with padded shoulder straps.',
+    benefits: ['Front & back carry options', 'Padded shoulder straps', 'Mesh windows for ventilation'],
+    affiliateUrl: 'https://www.amazon.in/s?k=Trixie+Pet+Backpack+Carrier+Front+Back&tag=mypawcare-21'
+  },
+
+  // ——— 2. CAR SEAT COVER ————————————————————————————————————
+  {
+    id: 'foodie-puppies-car-cover',
+    name: 'Foodie Puppies Waterproof Dog Car Seat Cover (Universal)',
+    brand: 'Foodie Puppies',
+    category: 'travel',
+    subCategory: 'Car Seat Cover',
+    petType: 'dog',
+    price: '699',
+    rating: 4.1,
+    reviews: 6780,
+    image: '/images/products/dry-food-generic.png',
+    badge: 'Best Seller',
+    desc: 'Waterproof back seat cover protects car interior. Universal fit for all cars & SUVs.',
+    benefits: ['100% waterproof protection', 'Universal fit — all cars', 'Non-slip backing'],
+    affiliateUrl: 'https://www.amazon.in/s?k=waterproof+dog+car+seat+cover+universal&tag=mypawcare-21'
+  },
+
+  // ——— 3. PORTABLE WATER BOTTLE ——————————————————————————————
+  {
+    id: 'foodie-puppies-water-bottle',
+    name: 'Foodie Puppies Portable Dog Water Bottle with Bowl (550ml)',
+    brand: 'Foodie Puppies',
+    category: 'travel',
+    subCategory: 'Portable Water Bottle',
+    petType: 'dog',
+    price: '349',
+    rating: 4.2,
+    reviews: 8900,
+    image: '/images/products/dry-food-generic.png',
+    badge: 'Best Seller',
+    desc: 'One-touch water dispenser with built-in bowl. Leak-proof design for walks & travel.',
+    benefits: ['One-touch dispenser', 'Built-in drinking bowl', 'Leak-proof & BPA-free'],
+    affiliateUrl: 'https://www.amazon.in/s?k=Foodie+Puppies+Portable+Dog+Water+Bottle+Bowl+550ml&tag=mypawcare-21'
+  },
+  {
+    id: 'trixie-travel-bowl',
+    name: 'Trixie Collapsible Silicone Travel Bowl for Dogs (500ml)',
+    brand: 'Trixie',
+    category: 'travel',
+    subCategory: 'Travel Bowl',
+    petType: 'dog',
+    price: '250',
+    rating: 4.1,
+    reviews: 3450,
+    image: '/images/products/dry-food-generic.png',
+    badge: 'Top Rated',
+    desc: 'Foldable silicone bowl clips to leash or bag. Perfect for on-the-go hydration & feeding.',
+    benefits: ['Folds flat for portability', 'Clips to bag or leash', 'Food-grade silicone'],
+    affiliateUrl: 'https://www.amazon.in/s?k=Trixie+Collapsible+Silicone+Travel+Bowl+Dog+500ml&tag=mypawcare-21'
+  },
+
+  // ============================================================
+  // DOG → HEALTH & CARE — Complete Product Catalog
+  // ============================================================
+
+  // ——— 1. TICK & FLEA SPRAY ——————————————————————————————————
+  {
+    id: 'himalaya-tick-spray',
+    name: 'Himalaya Erina-EP Tick & Flea Control Spray (100ml)',
+    brand: 'Himalaya',
+    category: 'health',
+    subCategory: 'Tick & Flea Spray',
+    petType: 'dog',
+    price: '199',
+    rating: 4.1,
+    reviews: 7890,
+    image: '/images/products/supplements-generic.png',
+    badge: 'Best Seller',
+    desc: 'Herbal tick & flea spray with natural extracts. Safe for daily use on dogs & puppies.',
+    benefits: ['Natural herbal formula', 'Safe for puppies too', 'Controls ticks, fleas & lice'],
+    affiliateUrl: 'https://www.amazon.in/s?k=Himalaya+Erina+EP+Tick+Flea+Control+Spray+100ml&tag=mypawcare-21'
+  },
+  {
+    id: 'beaphar-flea-spray',
+    name: 'Beaphar Caniguard Spot-On for Dogs (3 Pipettes)',
+    brand: 'Beaphar',
+    category: 'health',
+    subCategory: 'Tick & Flea Spray',
+    petType: 'dog',
+    price: '499',
+    rating: 4.2,
+    reviews: 4560,
+    image: '/images/products/supplements-generic.png',
+    badge: 'Top Rated',
+    desc: 'Spot-on treatment kills ticks & fleas for 4 weeks. Easy squeeze pipette application.',
+    benefits: ['4 weeks protection per pipette', 'Easy squeeze application', '3 pipettes — 12 weeks coverage'],
+    affiliateUrl: 'https://www.amazon.in/s?k=Beaphar+Caniguard+Spot+On+Dogs+3+Pipettes&tag=mypawcare-21'
+  },
+
+  // ——— 2. DEWORMING ——————————————————————————————————————————
+  {
+    id: 'drools-dewormer',
+    name: 'Drools Absolute Deworming Tablets for Dogs (10 Tabs)',
+    brand: 'Drools',
+    category: 'health',
+    subCategory: 'Deworming',
+    petType: 'dog',
+    price: '199',
+    rating: 4.1,
+    reviews: 8900,
+    image: '/images/products/supplements-generic.png',
+    badge: 'Best Seller',
+    desc: 'Broad-spectrum dewormer effective against all major worms. Easy-to-feed flavored tablets.',
+    benefits: ['Kills all major worms', 'Flavored — easy to feed', 'Vet recommended brand'],
+    affiliateUrl: 'https://www.amazon.in/s?k=Drools+Absolute+Deworming+Tablets+Dogs+10&tag=mypawcare-21'
+  },
+  {
+    id: 'beaphar-wormer',
+    name: 'Beaphar WORMclear Tablets for Dogs (2 Tabs)',
+    brand: 'Beaphar',
+    category: 'health',
+    subCategory: 'Deworming',
+    petType: 'dog',
+    price: '350',
+    rating: 4.0,
+    reviews: 3450,
+    image: '/images/products/supplements-generic.png',
+    badge: 'Premium',
+    desc: 'European-grade dewormer effective against roundworms & tapeworms. One tablet per treatment.',
+    benefits: ['European veterinary grade', 'Single tablet dosing', 'Effective against all worms'],
+    affiliateUrl: 'https://www.amazon.in/s?k=Beaphar+WORMclear+Tablets+Dogs&tag=mypawcare-21'
+  },
+
+  // ——— 3. JOINT SUPPLEMENTS ——————————————————————————————————
+  {
+    id: 'drools-joint-tabs',
+    name: 'Drools Absolute Joint Health Supplement for Dogs (50 Tabs)',
+    brand: 'Drools',
+    category: 'health',
+    subCategory: 'Joint Supplement',
+    petType: 'dog',
+    price: '449',
+    rating: 4.2,
+    reviews: 6780,
+    image: '/images/products/supplements-generic.png',
+    badge: 'Best Seller',
+    desc: 'Glucosamine & chondroitin formula for healthy joints. Ideal for senior & large breed dogs.',
+    benefits: ['Glucosamine & chondroitin', 'Supports joint mobility', 'Ideal for senior dogs'],
+    affiliateUrl: 'https://www.amazon.in/s?k=Drools+Absolute+Joint+Health+Supplement+Dogs+50&tag=mypawcare-21'
+  },
+  {
+    id: 'himalaya-joint-guard',
+    name: 'Himalaya Joint Guard for Dogs, Joint Care (60 Tabs)',
+    brand: 'Himalaya',
+    category: 'health',
+    subCategory: 'Joint Supplement',
+    petType: 'dog',
+    price: '299',
+    rating: 4.1,
+    reviews: 4560,
+    image: '/images/products/supplements-generic.png',
+    badge: 'Top Rated',
+    desc: 'Herbal joint care with Boswellia & Ashwagandha. Natural anti-inflammatory for active dogs.',
+    benefits: ['Natural herbal ingredients', 'Anti-inflammatory action', 'Boswellia & Ashwagandha'],
+    affiliateUrl: 'https://www.amazon.in/s?k=Himalaya+Joint+Guard+Dogs+Joint+Care+60&tag=mypawcare-21'
+  },
+
+  // ——— 4. FIRST AID ——————————————————————————————————————————
+  {
+    id: 'pet-first-aid-kit',
+    name: 'RC Pet First Aid Kit for Dogs & Cats (45 Pieces)',
+    brand: 'RC Pet',
+    category: 'health',
+    subCategory: 'First Aid Kit',
+    petType: 'dog',
+    price: '699',
+    rating: 4.0,
+    reviews: 2340,
+    image: '/images/products/supplements-generic.png',
+    badge: 'Trending',
+    desc: 'Complete 45-piece pet first aid kit for emergencies. Includes bandages, antiseptic & tweezers.',
+    benefits: ['45-piece complete kit', 'Compact travel-friendly case', 'Essential emergency supplies'],
+    affiliateUrl: 'https://www.amazon.in/s?k=pet+first+aid+kit+dogs+cats+45+pieces&tag=mypawcare-21'
+  },
+  {
+    id: 'himalaya-antiseptic-cream',
+    name: 'Himalaya Wound Care Spray for Dogs & Cats (75ml)',
+    brand: 'Himalaya',
+    category: 'health',
+    subCategory: 'First Aid',
+    petType: 'dog',
+    price: '149',
+    rating: 4.2,
+    reviews: 5670,
+    image: '/images/products/supplements-generic.png',
+    badge: 'Best Seller',
+    desc: 'Herbal wound care spray with antiseptic & healing properties. Safe for all pets.',
+    benefits: ['Natural antiseptic formula', 'Promotes faster healing', 'No-sting spray application'],
+    affiliateUrl: 'https://www.amazon.in/s?k=Himalaya+Wound+Care+Spray+Dogs+Cats+75ml&tag=mypawcare-21'
   }
 ];
 
