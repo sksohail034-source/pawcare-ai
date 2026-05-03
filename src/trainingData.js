@@ -66,9 +66,9 @@ export const dogTraining = [
     milestones: ['Reliable Down command', 'Leave it with high value', 'Drop it during play'],
     tasks: ['Practice Leave-it daily', 'Down-stay sessions', 'Drop-it games'],
     videos: [
-      { id: 'ByISA_lJYaA', title: 'Video 1: Down Command', dur: '10 min' },
-      { id: 'ndTiVOCNY4M', title: 'Video 2: Leave It', dur: '12 min' },
-      { id: '9rz9LGHDGSM', title: 'Video 3: Drop It', dur: '8 min' },
+      { id: 'DYWTarzD2u4', title: 'Video 1: Down Command', dur: '7 min' },
+      { id: 'umt0jF9MHeI', title: 'Video 2: Leave It', dur: '8 min' },
+      { id: 'kI52HYbnQX8', title: 'Video 3: Drop It', dur: '9 min' },
     ]
   },
   { 
