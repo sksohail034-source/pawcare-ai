@@ -146,6 +146,39 @@ export default function TrainingPage() {
             </div>
           </div>
 
+          {/* Milestones & Tasks Section */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 16, marginBottom: 24 }}>
+            <div className="card" style={{ padding: 20, borderLeft: '4px solid var(--primary)' }}>
+              <h4 style={{ fontSize: 16, fontWeight: 800, marginBottom: 12, display: 'flex', alignItems: 'center', gap: 8 }}>
+                🎯 Monthly Milestones
+              </h4>
+              <ul style={{ paddingLeft: 20, margin: 0 }}>
+                {current?.milestones?.map((m, i) => (
+                  <li key={i} style={{ fontSize: 13, color: 'var(--text-main)', marginBottom: 6 }}>{m}</li>
+                ))}
+              </ul>
+            </div>
+            <div className="card" style={{ padding: 20, borderLeft: '4px solid #3b82f6' }}>
+              <h4 style={{ fontSize: 16, fontWeight: 800, marginBottom: 12, display: 'flex', alignItems: 'center', gap: 8 }}>
+                📋 Daily Checklist
+              </h4>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                {current?.tasks?.map((t, i) => (
+                  <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 13, color: 'var(--text-muted)' }}>
+                    <div style={{ width: 18, height: 18, borderRadius: 4, border: '2px solid #3b82f6', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <CheckCircle size={12} color="#3b82f6" />
+                    </div>
+                    {t}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <h4 style={{ fontFamily: 'var(--font-display)', marginBottom: 16, fontSize: 18, fontWeight: 800 }}>
+            🎥 Video Lessons
+          </h4>
+
           {/* Video Cards */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
             {current?.videos.map((video, idx) => (
@@ -171,12 +204,17 @@ export default function TrainingPage() {
                       position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.3)',
                       display: 'flex', alignItems: 'center', justifyContent: 'center',
                     }}>
+                    </div>
+                    <div style={{
+                      position: 'absolute', inset: 0,
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    }}>
                       <div style={{
-                        width: 64, height: 64, borderRadius: '50%', background: 'rgba(255,255,255,0.95)',
+                        width: 56, height: 56, borderRadius: '50%', background: 'rgba(255,255,255,0.95)',
                         display: 'flex', alignItems: 'center', justifyContent: 'center',
                         boxShadow: '0 4px 20px rgba(0,0,0,0.3)',
                       }}>
-                        <Play size={28} color="var(--primary-dark)" fill="var(--primary)" />
+                        <Play size={24} color="var(--primary-dark)" fill="var(--primary)" />
                       </div>
                     </div>
                     {isWatched(video.id) && (
