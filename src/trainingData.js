@@ -42,9 +42,9 @@ export const dogTraining = [
     milestones: ['Walk on loose leash', 'Stop pulling when asked', 'Maintain walking discipline'],
     tasks: ['Daily walking sessions', 'Stop-start practice', 'Focusing during walks'],
     videos: [
-      { id: 'sFgtqgiAKoQ', title: 'Video 1: Loose Leash Walking', dur: '15 min' },
-      { id: 'P8yc5J6Quqc', title: 'Video 2: Stop Pulling', dur: '11 min' },
-      { id: '77c2UoMzIBQ', title: 'Video 3: Walking Discipline', dur: '10 min' },
+      { id: 'twktHg0_CKM', title: 'Video 1: Loose Leash Walking', dur: '8 min' },
+      { id: 'cR1SDaAvS6Y', title: 'Video 2: Stop Pulling', dur: '9 min' },
+      { id: 'grHN_MIexVo', title: 'Video 3: Walking Discipline', dur: '9 min' },
     ]
   },
   { 
