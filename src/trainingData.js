@@ -126,9 +126,9 @@ export const dogTraining = [
     milestones: ['Completes agility tunnel', 'Jumps obstacle safely', 'Solves advanced brain games'],
     tasks: ['Agility course setup', 'Daily brain game session', 'Obstacle navigation'],
     videos: [
-      { id: 'bWFnilLKsi4', title: 'Video 1: Agility Training', dur: '12 min' },
-      { id: 'bkC_CjrSa6k', title: 'Video 2: Obstacle Training', dur: '10 min' },
-      { id: 'w0K9Bk_McHI', title: 'Video 3: Brain Games', dur: '9 min' },
+      { id: '70q00hAtXpE', title: 'Video 1: Agility Training', dur: '9 min' },
+      { id: 'XOvOp_T0cdo', title: 'Video 2: Obstacle Training', dur: '8 min' },
+      { id: '_5GrbJkTXKo', title: 'Video 3: Brain Games', dur: '9 min' },
     ]
   },
   { 
