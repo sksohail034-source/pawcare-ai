@@ -18,9 +18,9 @@ export const dogTraining = [
     milestones: ['Perfect sit on command', 'Stay for 30 seconds', 'Reliable indoor recall'],
     tasks: ['Daily stay practice', 'Recall games', 'Perfecting the sit posture'],
     videos: [
-      { id: 'Lqf_iP2L6eU', title: 'Video 1: Sit (Perfecting)', dur: '11 min' },
-      { id: 'VnN_pAnW4u4', title: 'Video 2: Stay Command', dur: '14 min' },
-      { id: 'UxHIm0Bskms', title: 'Video 3: Come When Called (Recall)', dur: '13 min' },
+      { id: '3gaGsebCRhs', title: 'Video 1: Sit (Perfecting & Posture)', dur: '11 min' },
+      { id: '2EGY6fNHESc', title: 'Video 2: Stay Command (5 Min Plan)', dur: '14 min' },
+      { id: 'xHdiXy2hPCY', title: 'Video 3: Come When Called (Recall)', dur: '13 min' },
     ]
   },
   { 
