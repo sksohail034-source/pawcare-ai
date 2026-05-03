@@ -114,9 +114,9 @@ export const dogTraining = [
     milestones: ['Alert barking on cue', 'Awareness of territory', 'Basic protection stance'],
     tasks: ['Alert cue practice', 'Boundary training', 'Confidence building'],
     videos: [
-      { id: 'rUBi2SmznDo', title: 'Video 1: Alert Training Basics', dur: '13 min' },
-      { id: 'PI5W2Stv0Ik', title: 'Video 2: Territory Awareness', dur: '11 min' },
-      { id: '4n0eY80Vl5k', title: 'Video 3: Basic Protection', dur: '14 min' },
+      { id: 'CRYSNymBE_A', title: 'Video 1: Alert Training', dur: '8 min' },
+      { id: 'zbx1Ywo1gTc', title: 'Video 2: Territory Awareness', dur: '10 min' },
+      { id: 'AGoXobRlDaE', title: 'Video 3: Basic Protection', dur: '8 min' },
     ]
   },
   { 
