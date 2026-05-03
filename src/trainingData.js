@@ -154,7 +154,7 @@ export const catTraining = [
     tasks: ['Name call sessions', 'Litter box maintenance', 'Gentle play time'],
     videos: [
       { id: 'LmK-rqaVKYE', title: 'Video 1: Name Recognition', dur: '5 min' },
-      { id: 'TqRhrC-tPwg', title: 'Video 2: Litter Training', dur: '9 min' },
+      { id: 'njfr-DvmzIo', title: 'Video 2: Litter Training', dur: '5 min' },
       { id: 'ASy8m01iXtM', title: 'Video 3: Trust Building', dur: '10 min' },
     ]
   },
