@@ -249,8 +249,8 @@ export const catTraining = [
     milestones: ['Solves food puzzles', 'Plays hide & seek', 'Engages in hunting play'],
     tasks: ['DIY puzzle setup', 'Hide & seek sessions', 'Hunting wand games'],
     videos: [
-      { id: '_5GrbJkTXKo', title: 'Video 1: Puzzle Games', dur: '9 min' },
-      { id: 'lBGpHyF_Vz8', title: 'Video 2: Hide & Seek', dur: '5 min' },
+      { id: 'PeYAM-ybngI', title: 'Video 1: Puzzle Games', dur: '9 min' },
+      { id: 'GBN0Y9sA6W8', title: 'Video 2: Hide & Seek', dur: '5 min' },
       { id: 'aPm2MapiVQY', title: 'Video 3: Hunting Simulation', dur: '8 min' },
     ]
   },
