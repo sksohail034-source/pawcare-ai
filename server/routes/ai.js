@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { getDb, saveDatabase } from '../database.js';
 import { authenticateToken } from '../middleware/auth.js';
+import { products } from '../data/products.js';
 
 const router = Router();
 
@@ -92,10 +93,15 @@ function checkScanLimit(db, userId) {
   return { allowed: false };
 }
 
-// Increment scan count
 function incrementScan(db, userId, scanCount) {
   db.run(`UPDATE users SET scan_count = ? WHERE id = ?`, [(scanCount || 0) + 1, userId]);
   saveDatabase();
+}
+
+function getProductSuggestions(petType, count = 3) {
+  const filtered = products.filter(p => p.petType.toLowerCase() === petType.toLowerCase());
+  // Shuffle and pick
+  return filtered.sort(() => 0.5 - Math.random()).slice(0, count);
 }
 
 
@@ -209,9 +215,14 @@ IMPORTANT: Respond with EXACTLY ONE WORD from the list above. No punctuation, no
     if (!limitCheck.allowed) return res.status(403).json({ error: 'No scans remaining. Watch an ad to continue.' });
     
     incrementScan(db, req.user.id, limitCheck.scanCount);
+    
+    // Suggest relevant products
+    const suggestions = getProductSuggestions(expectedType, 4);
+
     res.json({ 
       success: true, 
-      message: 'Analysis verified by Real AI Vision.' 
+      message: 'Analysis verified by Real AI Vision.',
+      productSuggestions: suggestions
     });
   } catch (err) { 
     console.error('Analysis error:', err);
@@ -257,6 +268,7 @@ router.post('/style/:petId', authenticateToken, (req, res) => {
     res.json({
       pet: { name: pet.name, type: pet.type, breed: pet.breed },
       styles: selectedStyles,
+      productSuggestions: products.filter(p => p.petType.toLowerCase() === petType && p.category === 'grooming').slice(0, 3),
       resultId,
       generatedAt: new Date().toISOString()
     });
@@ -302,6 +314,7 @@ router.post('/health/:petId', authenticateToken, (req, res) => {
     res.json({
       pet: { name: pet.name, type: pet.type, breed: pet.breed },
       tips: personalizedTips,
+      productSuggestions: products.filter(p => p.petType.toLowerCase() === petType && (p.category === 'health' || p.category === 'food')).slice(0, 3),
       resultId,
       generatedAt: new Date().toISOString()
     });

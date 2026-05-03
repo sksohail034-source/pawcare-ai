@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { api } from '../api';
 import { getPetEmoji, PET_TYPES, petImages } from '../utils';
+import { useCart } from '../context/CartContext';
+import { FiShoppingCart, FiArrowRight, FiCheck } from 'react-icons/fi';
 import toast from 'react-hot-toast';
 
 function AdRewardModal({ onClose, onReward }) {
@@ -38,6 +40,79 @@ function AdRewardModal({ onClose, onReward }) {
         <button className="btn btn-primary btn-full" onClick={claimReward}>Claim Free Scan 🐾</button>
       </>)}
     </div></div>
+  );
+}
+
+function ProductSuggestions({ products }) {
+  const { addToCart } = useCart();
+  if (!products || products.length === 0) return null;
+
+  return (
+    <div style={{ marginTop: 32, marginBottom: 40 }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
+        <h4 style={{ fontFamily: 'var(--font-display)', margin: 0, display: 'flex', alignItems: 'center', gap: 8 }}>
+          🛒 AI Recommended Products
+        </h4>
+        <a href="/products" style={{ fontSize: 13, color: 'var(--primary)', fontWeight: 600, display: 'flex', alignItems: 'center', gap: 4 }}>
+          Visit Store <FiArrowRight size={14} />
+        </a>
+      </div>
+      
+      <div style={{ 
+        display: 'grid', 
+        gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', 
+        gap: 16 
+      }}>
+        {products.map((p, i) => (
+          <div key={i} className="card" style={{ 
+            padding: 12, 
+            borderRadius: 20, 
+            display: 'flex', 
+            flexDirection: 'column', 
+            gap: 8,
+            transition: 'transform 0.2s',
+            border: '1px solid rgba(0,0,0,0.05)'
+          }}>
+            <div style={{ 
+              width: '100%', 
+              aspectRatio: '1', 
+              background: '#f8fafc', 
+              borderRadius: 12, 
+              overflow: 'hidden',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}>
+              <img src={p.image} alt={p.name} style={{ maxWidth: '80%', maxHeight: '80%', objectFit: 'contain' }} />
+            </div>
+            <div style={{ flex: 1 }}>
+              <h5 style={{ fontSize: 12, fontWeight: 700, margin: '4px 0', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                {p.name}
+              </h5>
+              <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--primary)' }}>₹{p.price}</div>
+            </div>
+            <button 
+              onClick={() => { addToCart(p); toast.success('Added to Cart!'); }}
+              className="btn btn-sm btn-full"
+              style={{ 
+                background: '#fbbf24', 
+                color: '#000', 
+                fontWeight: 700,
+                fontSize: 11,
+                padding: '6px 0',
+                borderRadius: 8,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: 4
+              }}
+            >
+              <FiShoppingCart size={12} /> Add to Cart
+            </button>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }
 
@@ -312,6 +387,8 @@ export default function AIPage() {
               <div className="ai-tags" style={{ marginTop: 8 }}>{s.tags.map((t, j) => <span className="ai-tag" key={j}>{t}</span>)}</div>
             </div>
           ))}</div>
+
+          <ProductSuggestions products={results.productSuggestions} />
         </div>
       )}
 
@@ -327,6 +404,7 @@ export default function AIPage() {
               <div className="ai-tags">{s.tags?.map((t, j) => <span className="ai-tag" key={j}>{t}</span>)}</div>
             </div>
           ))}</div>
+          <ProductSuggestions products={results.productSuggestions} />
         </div>
       )}
 
@@ -340,6 +418,7 @@ export default function AIPage() {
               <div className="personal-note">📝 {tip.personalNote}</div>
             </div>
           ))}</div>
+          <ProductSuggestions products={results.productSuggestions} />
         </div>
       )}
 
