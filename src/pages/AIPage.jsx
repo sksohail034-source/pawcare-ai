@@ -43,74 +43,111 @@ function AdRewardModal({ onClose, onReward }) {
   );
 }
 
-function ProductSuggestions({ products }) {
+function CareKitSection({ careKit }) {
   const { addToCart } = useCart();
-  if (!products || products.length === 0) return null;
+  if (!careKit || !careKit.items || careKit.items.length === 0) return null;
+
+  const items = careKit.items;
+  
+  const handleAddAll = () => {
+    items.forEach(p => addToCart(p));
+    toast.success('📦 Complete Care Kit added to cart!');
+  };
 
   return (
-    <div style={{ marginTop: 32, marginBottom: 40 }}>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
-        <h4 style={{ fontFamily: 'var(--font-display)', margin: 0, display: 'flex', alignItems: 'center', gap: 8 }}>
-          🛒 AI Recommended Products
-        </h4>
-        <a href="/products" style={{ fontSize: 13, color: 'var(--primary)', fontWeight: 600, display: 'flex', alignItems: 'center', gap: 4 }}>
-          Visit Store <FiArrowRight size={14} />
-        </a>
-      </div>
-      
+    <div style={{ marginTop: 40, marginBottom: 60 }} className="animate-in">
       <div style={{ 
-        display: 'grid', 
-        gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', 
-        gap: 16 
+        background: 'linear-gradient(135deg, #fbbf24, #f59e0b)', 
+        borderRadius: '24px 24px 0 0', 
+        padding: '24px', 
+        color: 'white',
+        position: 'relative',
+        overflow: 'hidden'
       }}>
-        {products.map((p, i) => (
-          <div key={i} className="card" style={{ 
-            padding: 12, 
-            borderRadius: 20, 
-            display: 'flex', 
-            flexDirection: 'column', 
-            gap: 8,
-            transition: 'transform 0.2s',
-            border: '1px solid rgba(0,0,0,0.05)'
-          }}>
-            <div style={{ 
-              width: '100%', 
-              aspectRatio: '1', 
-              background: '#f8fafc', 
-              borderRadius: 12, 
-              overflow: 'hidden',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center'
+        <div style={{ position: 'relative', zIndex: 1 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
+            <span style={{ fontSize: 24 }}>📦</span>
+            <h3 style={{ fontFamily: 'var(--font-display)', margin: 0, fontSize: 22, fontWeight: 800 }}>
+              {careKit.title || 'Complete Care Kit'}
+            </h3>
+          </div>
+          <p style={{ margin: 0, opacity: 0.9, fontSize: 14, maxWidth: '80%' }}>
+            {careKit.description || 'AI-curated essentials for your pet\'s daily needs and overall health.'}
+          </p>
+        </div>
+        <div style={{ 
+          position: 'absolute', right: -20, top: -20, fontSize: 120, opacity: 0.15, transform: 'rotate(15deg)' 
+        }}>🐾</div>
+      </div>
+
+      <div style={{ 
+        background: 'var(--bg-card)', 
+        borderRadius: '0 0 24px 24px', 
+        padding: '24px',
+        border: '1px solid rgba(0,0,0,0.05)',
+        borderTop: 'none'
+      }}>
+        <div style={{ 
+          display: 'grid', 
+          gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', 
+          gap: 16,
+          marginBottom: 24
+        }}>
+          {items.map((p, i) => (
+            <div key={i} style={{ 
+              display: 'flex', 
+              flexDirection: 'column', 
+              gap: 8,
+              position: 'relative'
             }}>
-              <img src={p.image} alt={p.name} style={{ maxWidth: '80%', maxHeight: '80%', objectFit: 'contain' }} />
-            </div>
-            <div style={{ flex: 1 }}>
-              <h5 style={{ fontSize: 12, fontWeight: 700, margin: '4px 0', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
-                {p.name}
-              </h5>
-              <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--primary)' }}>₹{p.price}</div>
-            </div>
-            <button 
-              onClick={() => { addToCart(p); toast.success('Added to Cart!'); }}
-              className="btn btn-sm btn-full"
-              style={{ 
-                background: '#fbbf24', 
-                color: '#000', 
-                fontWeight: 700,
-                fontSize: 11,
-                padding: '6px 0',
-                borderRadius: 8,
+              <div style={{ 
+                width: '100%', 
+                aspectRatio: '1', 
+                background: '#f8fafc', 
+                borderRadius: '16px', 
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                gap: 4
-              }}
-            >
-              <FiShoppingCart size={12} /> Add to Cart
-            </button>
-          </div>
-        ))}
+                border: '1px solid rgba(0,0,0,0.05)'
+              }}>
+                <img src={p.image} alt={p.name} style={{ maxWidth: '80%', maxHeight: '80%', objectFit: 'contain' }} />
+                <div style={{ 
+                  position: 'absolute', top: 6, left: 6,
+                  background: 'rgba(255,255,255,0.9)', 
+                  padding: '2px 8px', borderRadius: '20px', 
+                  fontSize: 9, fontWeight: 800, color: 'var(--primary)',
+                  textTransform: 'uppercase', border: '1px solid rgba(0,0,0,0.05)'
+                }}>{p.category}</div>
+              </div>
+              <div style={{ flex: 1 }}>
+                <h5 style={{ fontSize: 11, fontWeight: 700, margin: '2px 0', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden', lineHeight: 1.3 }}>
+                  {p.name}
+                </h5>
+                <div style={{ fontSize: 13, fontWeight: 800, color: '#000' }}>₹{p.price.split('-')[0]}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <button 
+          onClick={handleAddAll}
+          className="btn btn-primary btn-lg btn-full"
+          style={{ 
+            background: '#000', 
+            color: '#fff', 
+            borderRadius: '16px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 12,
+            padding: '16px',
+            fontSize: 16,
+            fontWeight: 800,
+            boxShadow: '0 10px 20px rgba(0,0,0,0.1)'
+          }}
+        >
+          <FiShoppingCart /> Add Complete Kit to Cart
+        </button>
       </div>
     </div>
   );
@@ -388,7 +425,7 @@ export default function AIPage() {
             </div>
           ))}</div>
 
-          <ProductSuggestions products={results.productSuggestions} />
+          <CareKitSection careKit={results.careKit} />
         </div>
       )}
 
@@ -404,7 +441,7 @@ export default function AIPage() {
               <div className="ai-tags">{s.tags?.map((t, j) => <span className="ai-tag" key={j}>{t}</span>)}</div>
             </div>
           ))}</div>
-          <ProductSuggestions products={results.productSuggestions} />
+          <CareKitSection careKit={results.careKit} />
         </div>
       )}
 
@@ -418,7 +455,7 @@ export default function AIPage() {
               <div className="personal-note">📝 {tip.personalNote}</div>
             </div>
           ))}</div>
-          <ProductSuggestions products={results.productSuggestions} />
+          <CareKitSection careKit={results.careKit} />
         </div>
       )}
 

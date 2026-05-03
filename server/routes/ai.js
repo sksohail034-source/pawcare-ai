@@ -228,13 +228,17 @@ IMPORTANT: Respond with EXACTLY ONE WORD from the list above. No punctuation, no
     
     incrementScan(db, req.user.id, limitCheck.scanCount);
     
-    // Suggest relevant products from all 6 major categories
-    const suggestions = getProductSuggestions(expectedType, 6);
+    // Bundle a "Complete Care Kit" from all 6 major categories
+    const careKit = getProductSuggestions(expectedType, 6);
 
     res.json({ 
       success: true, 
       message: 'Analysis verified by Real AI Vision.',
-      productSuggestions: suggestions
+      careKit: {
+        items: careKit,
+        title: `Complete Care Kit for ${selectedPet.name}`,
+        description: `Our AI has bundled these essentials based on ${selectedPet.name}'s specific needs.`
+      }
     });
   } catch (err) { 
     console.error('Analysis error:', err);
