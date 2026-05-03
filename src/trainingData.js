@@ -201,7 +201,7 @@ export const catTraining = [
     milestones: ['Accepts the harness', 'Walks indoors on leash', 'Calm in safe outdoors'],
     tasks: ['Harness indoor practice', 'Leash dragging sessions', 'Backyard exploration'],
     videos: [
-      { id: '6OUz0cyI09I', title: 'Video 1: Harness Training', dur: '7 min' },
+      { id: '6OUz0cyI0Ok', title: 'Video 1: Harness Training', dur: '7 min' },
       { id: 'gnGWApxCGZ8', title: 'Video 2: Walking Practice', dur: '6 min' },
       { id: 'RjvTseSmTP4', title: 'Video 3: Outdoor Safety', dur: '9 min' },
     ]
@@ -225,7 +225,7 @@ export const catTraining = [
     milestones: ['No aggression shown', 'Calm during night', 'Reduced meowing'],
     tasks: ['Aggression redirection', 'Pre-sleep play session', 'Quiet reward sessions'],
     videos: [
-      { id: 'bdjEKMsKZ-M', title: 'Video 1: Aggression Control', dur: '6 min' },
+      { id: 'C-qmDbMPb6c', title: 'Video 1: Aggression Control', dur: '6 min' },
       { id: 'zgGBzWwp1Cg', title: 'Video 2: Night Hyperactivity', dur: '10 min' },
       { id: 'GNMG1G5FaNU', title: 'Video 3: Excessive Meowing', dur: '9 min' },
     ]
