@@ -1722,6 +1722,7 @@ const CAT_REMAINING = [
 
 
 export default function ProductsPage() {
+  const { addToCart, totalItems, setIsCartOpen } = useCart();
   const [searchParams, setSearchParams] = useSearchParams();
   const [activePet, setActivePet] = useState(searchParams.get('type') || 'dog');
   const [activeCategory, setActiveCategory] = useState('all');
