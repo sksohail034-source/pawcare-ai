@@ -179,7 +179,7 @@ export const catTraining = [
     videos: [
       { id: '57OhKuneQeE', title: 'Video 1: Feeding Schedule', dur: '9 min' },
       { id: 'uWVWXDnprNQ', title: 'Video 2: Sleep Routine', dur: '8 min' },
-      { id: 'aPm2MapiVQY', title: 'Video 3: Play Discipline', dur: '8 min' },
+      { id: 'VIcWa0wcFNc', title: 'Video 3: Play Discipline', dur: '9 min' },
     ]
   },
   { 
