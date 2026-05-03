@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { useCart } from '../context/CartContext';
+import CartDrawer from '../components/CartDrawer';
 import { FiSearch, FiShoppingCart, FiChevronRight, FiGrid, FiBox, FiActivity, FiTruck, FiHeart, FiTag, FiHome, FiBriefcase } from 'react-icons/fi';
 import { GiDogBowl, GiCat, GiComb, GiTennisBall, GiFirstAidKit } from 'react-icons/gi';
 import { FaDove, FaFish, FaHorse, FaPaw } from 'react-icons/fa';
@@ -1798,6 +1800,54 @@ export default function ProductsPage() {
   };
 
   return (
+    <>
+      <CartDrawer />
+      {/* Floating Cart Button */}
+      <button
+        onClick={() => setIsCartOpen(true)}
+        style={{
+          position: 'fixed',
+          bottom: '2rem',
+          right: '2rem',
+          backgroundColor: '#fff',
+          color: '#0f1111',
+          width: '60px',
+          height: '60px',
+          borderRadius: '50%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          boxShadow: '0 4px 15px rgba(0,0,0,0.15)',
+          border: '1px solid #e2e8f0',
+          cursor: 'pointer',
+          zIndex: 9998,
+          transition: 'transform 0.2s',
+        }}
+        onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+        onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+      >
+        <FiShoppingCart size={24} />
+        {totalItems > 0 && (
+          <div style={{
+            position: 'absolute',
+            top: '-5px',
+            right: '-5px',
+            backgroundColor: '#B12704',
+            color: 'white',
+            borderRadius: '50%',
+            width: '24px',
+            height: '24px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: '0.8rem',
+            fontWeight: 'bold',
+            boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
+          }}>
+            {totalItems}
+          </div>
+        )}
+      </button>
     <div className="products-container" style={{ background: '#f8fafc', minHeight: '100vh', paddingBottom: '6rem' }}>
       {/* Premium Hero Section */}
       <div className="store-hero" style={{
@@ -2128,6 +2178,7 @@ export default function ProductsPage() {
                         <button 
                           onClick={(e) => {
                             e.stopPropagation();
+                            addToCart(product);
                             toast.success('Added to Cart!');
                           }}
                           style={{
@@ -2253,5 +2304,6 @@ export default function ProductsPage() {
         </div>
       </div>
     </div>
+    </>
   );
 }
