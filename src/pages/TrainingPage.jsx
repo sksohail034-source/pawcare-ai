@@ -245,6 +245,17 @@ export default function TrainingPage() {
                     {isWatched(video.id) ? 'Completed' : 'Mark Done'}
                   </button>
                 </div>
+
+                {/* Affiliate Suggestion Section (Paise kamane ke liye) */}
+                <div style={{ padding: '12px 16px', background: 'rgba(59, 130, 246, 0.05)', borderTop: '1px solid rgba(0,0,0,0.05)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                   <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                     <span style={{ fontSize: 18 }}>💡</span>
+                     <span style={{ fontSize: 12, fontWeight: 600, color: '#1e40af' }}>Recommended for this Lesson:</span>
+                   </div>
+                   <a href="/products" className="btn btn-sm" style={{ background: '#3b82f6', color: '#fff', fontSize: 11, padding: '4px 10px' }}>
+                     View Gear
+                   </a>
+                </div>
               </div>
             ))}
           </div>

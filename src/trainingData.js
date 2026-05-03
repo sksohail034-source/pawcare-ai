@@ -8,7 +8,7 @@ export const dogTraining = [
     videos: [
       { id: '1oDGA2yPcRo', title: 'Video 1: Name Recognition', dur: '10 min' },
       { id: 'uH3uN9pYwU0', title: 'Video 2: Eye Contact / Focus', dur: '12 min' },
-      { id: '1oDGA2yPcRo', title: 'Video 3: Sit Command (Basic)', dur: '15 min' },
+      { id: 'EDu_O9G_HFE', title: 'Video 3: Sit Command (Basic)', dur: '15 min' },
     ]
   },
   { 
@@ -18,7 +18,7 @@ export const dogTraining = [
     milestones: ['Perfect sit on command', 'Stay for 30 seconds', 'Reliable indoor recall'],
     tasks: ['Daily stay practice', 'Recall games', 'Perfecting the sit posture'],
     videos: [
-      { id: 'L-N4T6G7S8U', title: 'Video 1: Sit (Perfecting)', dur: '11 min' },
+      { id: 'Lqf_iP2L6eU', title: 'Video 1: Sit (Perfecting)', dur: '11 min' },
       { id: 'm4I09Xv8W5A', title: 'Video 2: Stay Command', dur: '14 min' },
       { id: 'UxHIm0Bskms', title: 'Video 3: Come When Called (Recall)', dur: '13 min' },
     ]
@@ -114,9 +114,9 @@ export const dogTraining = [
     milestones: ['Alert barking on cue', 'Awareness of territory', 'Basic protection stance'],
     tasks: ['Alert cue practice', 'Boundary training', 'Confidence building'],
     videos: [
-      { id: 'Y_T6G7S8U9V', title: 'Video 1: Alert Training', dur: '13 min' },
-      { id: 'Z_S9U0V1W2X', title: 'Video 2: Territory Awareness', dur: '11 min' },
-      { id: 'A_V3W4X5Y6Z', title: 'Video 3: Basic Protection', dur: '14 min' },
+      { id: '4n0eY80Vl5k', title: 'Video 1: Alert Training', dur: '13 min' },
+      { id: 't2L_GvO4F_k', title: 'Video 2: Territory Awareness', dur: '11 min' },
+      { id: 'O3C822fPZpw', title: 'Video 3: Basic Protection', dur: '14 min' },
     ]
   },
   { 
@@ -138,8 +138,8 @@ export const dogTraining = [
     milestones: ['Emergency recall mastered', 'No-treat obedience', 'Real-life focus success'],
     tasks: ['High-distraction recall', 'Review all 12 months', 'Graduation ceremony'],
     videos: [
-      { id: 'B_X7Y8Z9A0B', title: 'Video 1: Advanced Recall', dur: '15 min' },
-      { id: 'C_D1E2F3G4H', title: 'Video 2: Discipline Without Treats', dur: '13 min' },
+      { id: 'UxHIm0Bskms', title: 'Video 1: Advanced Recall', dur: '15 min' },
+      { id: 'EZb_FKxHGBk', title: 'Video 2: Discipline Without Treats', dur: '13 min' },
       { id: 'EF4Q2xMyVxo', title: 'Video 3: Real-Life Situation Training', dur: '14 min' },
     ]
   },
@@ -177,7 +177,7 @@ export const catTraining = [
     milestones: ['Stable feeding schedule', 'Predictable sleep routine', 'Structured play discipline'],
     tasks: ['Timed feedings', 'Night-time routine', 'Interactive play sessions'],
     videos: [
-      { id: 'I_U0V1W2X3Y', title: 'Video 1: Feeding Schedule', dur: '10 min' },
+      { id: 'VfIunA565R4', title: 'Video 1: Feeding Schedule', dur: '10 min' },
       { id: 'FSMIgJx_OMU', title: 'Video 2: Sleep Routine', dur: '9 min' },
       { id: 'GbycvPwr1Wg', title: 'Video 3: Play Discipline', dur: '12 min' },
     ]
@@ -226,7 +226,7 @@ export const catTraining = [
     tasks: ['Aggression redirection', 'Pre-sleep play session', 'Quiet reward sessions'],
     videos: [
       { id: 'p_CnSj2sJCM', title: 'Video 1: Aggression Control', dur: '12 min' },
-      { id: 'G_K5L6M7N8O', title: 'Video 2: Night Hyperactivity (Zoomies)', dur: '10 min' },
+      { id: 'O6u27vJz6_Q', title: 'Video 2: Night Hyperactivity (Zoomies)', dur: '10 min' },
       { id: 'H_P9Q0R1S2T', title: 'Video 3: Excessive Meowing', dur: '9 min' },
     ]
   },
@@ -237,7 +237,7 @@ export const catTraining = [
     milestones: ['Jumps on command', 'Follows target stick', 'Fetches small toys'],
     tasks: ['Jump hoop practice', 'Target stick sessions', 'Small toy fetch games'],
     videos: [
-      { id: 'P_rVBm_W5Lg', title: 'Video 1: Jump Training', dur: '11 min' },
+      { id: 'S4eXGzKj_Qo', title: 'Video 1: Jump Training', dur: '11 min' },
       { id: 'WjqBPRGOhTk', title: 'Video 2: Target Training', dur: '10 min' },
       { id: '3_BN24Y15Hk', title: 'Video 3: Fetch', dur: '12 min' },
     ]
@@ -251,7 +251,7 @@ export const catTraining = [
     videos: [
       { id: '4txZnpYK7Ok', title: 'Video 1: Clicker Training', dur: '11 min' },
       { id: '5830M7JFQkI', title: 'Video 2: Multi-Step Commands', dur: '13 min' },
-      { id: 'J_U3V4W5X6Y', title: 'Video 3: Reaction Training', dur: '10 min' },
+      { id: 'uH3uN9pYwU0', title: 'Video 3: Reaction Training', dur: '10 min' },
     ]
   },
   { 
@@ -262,7 +262,7 @@ export const catTraining = [
     tasks: ['DIY puzzle setup', 'Hide & seek sessions', 'Hunting wand games'],
     videos: [
       { id: '3TLSk5NPe04', title: 'Video 1: Puzzle Games', dur: '10 min' },
-      { id: 'K_L7M8N9O0P', title: 'Video 2: Hide & Seek', dur: '9 min' },
+      { id: '6D-F1U_uYvM', title: 'Video 2: Hide & Seek', dur: '9 min' },
       { id: 'ubLKQFnivOo', title: 'Video 3: Hunting Simulation', dur: '12 min' },
     ]
   },
@@ -273,8 +273,8 @@ export const catTraining = [
     milestones: ['Calm during travel', 'Stay still for vet exams', 'Cooperative grooming'],
     tasks: ['Car ride practice', 'Mock vet exam', 'Nail trim focus'],
     videos: [
-      { id: 'L_Q1R2S3T4U', title: 'Video 1: Travel Training', dur: '12 min' },
-      { id: 'M_V5W6X7Y8Z', title: 'Video 2: Vet Visit Calmness', dur: '10 min' },
+      { id: '56I_pB_XoN8', title: 'Video 1: Travel Training', dur: '12 min' },
+      { id: 'NcUrbCafCrQ', title: 'Video 2: Vet Visit Calmness', dur: '10 min' },
       { id: 'lMwWFGmCeZk', title: 'Video 3: Grooming Cooperation', dur: '11 min' },
     ]
   },
@@ -285,7 +285,7 @@ export const catTraining = [
     milestones: ['Completed complex tricks', 'Perfect discipline review', 'Smart social interactions'],
     tasks: ['Review all months', 'Video graduation session', 'Celebrate success'],
     videos: [
-      { id: 'N_A9B0C1D2E', title: 'Video 1: Complex Tricks', dur: '14 min' },
+      { id: 'P_rVBm_W5Lg', title: 'Video 1: Complex Tricks', dur: '14 min' },
       { id: 'O_F3G4H5I6J', title: 'Video 2: Discipline Training', dur: '13 min' },
       { id: 'EF4Q2xMyVxo', title: 'Video 3: Smart Interaction', dur: '12 min' },
     ]
