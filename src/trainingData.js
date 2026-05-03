@@ -166,7 +166,7 @@ export const catTraining = [
     tasks: ['Scratching post setup', 'Stopping play if biting occurs', 'Gentle redirection'],
     videos: [
       { id: 'be5x5u5i09I', title: 'Video 1: Scratching Control', dur: '10 min' },
-      { id: 'ASy8m01iXtM', title: 'Video 2: Stop Biting', dur: '10 min' },
+      { id: '73Rn963gGdQ', title: 'Video 2: Stop Biting', dur: '10 min' },
       { id: 'oX7vgQTK9fo', title: 'Video 3: Basic Response Training', dur: '6 min' },
     ]
   },
@@ -263,7 +263,7 @@ export const catTraining = [
     videos: [
       { id: 'YxxCqtJ93zU', title: 'Video 1: Clicker Training', dur: '8 min' },
       { id: 'srYbiHDh6mo', title: 'Video 2: Multi-Step Commands', dur: '9 min' },
-      { id: '5Lmhh75CKyU', title: 'Video 3: Reaction Training', dur: '6 min' },
+      { id: 'SSRXzcNuLzk', title: 'Video 3: Reaction Training', dur: '6 min' },
     ]
   },
   { 
@@ -274,7 +274,7 @@ export const catTraining = [
     tasks: ['Car ride practice', 'Mock vet exam', 'Nail trim focus'],
     videos: [
       { id: 'RjvTseSmTP4', title: 'Video 1: Travel Training', dur: '9 min' },
-      { id: 'TqRhrC-tPwg', title: 'Video 2: Vet Visit Calmness', dur: '9 min' },
+      { id: 'NdZt9NP7DvY', title: 'Video 2: Vet Visit Calmness', dur: '9 min' },
       { id: '3JjTLFaRMl0', title: 'Video 3: Grooming Cooperation', dur: '8 min' },
     ]
   },
@@ -285,7 +285,7 @@ export const catTraining = [
     milestones: ['Completed complex tricks', 'Perfect discipline review', 'Smart social interactions'],
     tasks: ['Review all months', 'Video graduation session', 'Celebrate success'],
     videos: [
-      { id: '5Lmhh75CKyU', title: 'Video 1: Complex Tricks', dur: '6 min' },
+      { id: 'lBAt_Oh9gis', title: 'Video 1: Complex Tricks', dur: '6 min' },
       { id: 'VEhOk3E4d98', title: 'Video 2: Discipline Training', dur: '8 min' },
       { id: 'wo-W0UtTbXs', title: 'Video 3: Smart Interaction', dur: '8 min' },
     ]
