@@ -98,10 +98,22 @@ function incrementScan(db, userId, scanCount) {
   saveDatabase();
 }
 
-function getProductSuggestions(petType, count = 3) {
-  const filtered = products.filter(p => p.petType.toLowerCase() === petType.toLowerCase());
-  // Shuffle and pick
-  return filtered.sort(() => 0.5 - Math.random()).slice(0, count);
+function getProductSuggestions(petType, count = 6) {
+  const categories = ['food', 'grooming', 'toys', 'accessories', 'essentials', 'health'];
+  const suggestions = [];
+  
+  const typeFiltered = products.filter(p => p.petType.toLowerCase() === petType.toLowerCase());
+
+  categories.forEach(cat => {
+    const catProducts = typeFiltered.filter(p => p.category === cat);
+    if (catProducts.length > 0) {
+      // Pick one random from this category
+      const random = catProducts[Math.floor(Math.random() * catProducts.length)];
+      suggestions.push(random);
+    }
+  });
+
+  return suggestions.slice(0, count);
 }
 
 
@@ -216,8 +228,8 @@ IMPORTANT: Respond with EXACTLY ONE WORD from the list above. No punctuation, no
     
     incrementScan(db, req.user.id, limitCheck.scanCount);
     
-    // Suggest relevant products
-    const suggestions = getProductSuggestions(expectedType, 4);
+    // Suggest relevant products from all 6 major categories
+    const suggestions = getProductSuggestions(expectedType, 6);
 
     res.json({ 
       success: true, 
