@@ -117,31 +117,16 @@ export function formatTime(timeStr) {
 
 export function formatCurrency(amount) {
   if (!amount) return '';
-  const isIndia = Intl.DateTimeFormat().resolvedOptions().timeZone === 'Asia/Kolkata' || 
-                  navigator.language === 'en-IN' || 
-                  navigator.languages?.includes('en-IN');
   
   const processAmount = (val) => {
     const num = parseFloat(val.toString().replace(/[^0-9,.]/g, '').replace(/,/g, ''));
     if (isNaN(num)) return val;
     
-    if (isIndia) {
-      // Heuristic: if num > 500, it's likely already in INR
-      const inrAmount = num > 500 ? num : Math.round(num * 80);
-      return new Intl.NumberFormat('en-IN', {
-        style: 'currency',
-        currency: 'INR',
-        maximumFractionDigits: 0
-      }).format(inrAmount);
-    }
-    
-    // Convert INR to USD if needed
-    const usdAmount = num > 500 ? Math.round(num / 80) : num;
-    return new Intl.NumberFormat('en-US', {
+    return new Intl.NumberFormat('en-IN', {
       style: 'currency',
-      currency: 'USD',
+      currency: 'INR',
       maximumFractionDigits: 0
-    }).format(usdAmount);
+    }).format(num);
   };
 
   if (amount.toString().includes('-')) {
