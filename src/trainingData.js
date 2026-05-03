@@ -155,7 +155,7 @@ export const catTraining = [
     videos: [
       { id: 'LmK-rqaVKYE', title: 'Video 1: Name Recognition', dur: '5 min' },
       { id: 'njfr-DvmzIo', title: 'Video 2: Litter Training', dur: '5 min' },
-      { id: 'ASy8m01iXtM', title: 'Video 3: Trust Building', dur: '10 min' },
+      { id: 'yEQBSNG90Lc', title: 'Video 3: Trust Building', dur: '10 min' },
     ]
   },
   { 
