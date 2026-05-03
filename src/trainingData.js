@@ -153,9 +153,9 @@ export const catTraining = [
     milestones: ['Responds to name', '100% litter box success', 'Building trust with owner'],
     tasks: ['Name call sessions', 'Litter box maintenance', 'Gentle play time'],
     videos: [
-      { id: 'EJ3sMlJgXPo', title: 'Video 1: Name Recognition', dur: '8 min' },
-      { id: '29kOb3vQ33w', title: 'Video 2: Litter Training', dur: '10 min' },
-      { id: 'G6GWjnb0dDM', title: 'Video 3: Trust Building', dur: '9 min' },
+      { id: 'LmK-rqaVKYE', title: 'Video 1: Name Recognition', dur: '5 min' },
+      { id: 'TqRhrC-tPwg', title: 'Video 2: Litter Training', dur: '9 min' },
+      { id: 'ASy8m01iXtM', title: 'Video 3: Trust Building', dur: '10 min' },
     ]
   },
   { 
@@ -165,9 +165,9 @@ export const catTraining = [
     milestones: ['Uses scratching posts', 'No biting during play', 'Basic response to cues'],
     tasks: ['Scratching post setup', 'Stopping play if biting occurs', 'Gentle redirection'],
     videos: [
-      { id: '88ZPNzJaH4I', title: 'Video 1: Scratching Control', dur: '7 min' },
-      { id: 'QcBjJXc_8Y8', title: 'Video 2: Stop Biting', dur: '11 min' },
-      { id: 'sPSGJp2JFyw', title: 'Video 3: Basic Response Training', dur: '8 min' },
+      { id: 'be5x5u5i09I', title: 'Video 1: Scratching Control', dur: '10 min' },
+      { id: 'ASy8m01iXtM', title: 'Video 2: Stop Biting', dur: '10 min' },
+      { id: 'oX7vgQTK9fo', title: 'Video 3: Basic Response Training', dur: '6 min' },
     ]
   },
   { 
@@ -177,9 +177,9 @@ export const catTraining = [
     milestones: ['Stable feeding schedule', 'Predictable sleep routine', 'Structured play discipline'],
     tasks: ['Timed feedings', 'Night-time routine', 'Interactive play sessions'],
     videos: [
-      { id: 'VfIunA565R4', title: 'Video 1: Feeding Schedule', dur: '10 min' },
-      { id: 'FSMIgJx_OMU', title: 'Video 2: Sleep Routine', dur: '9 min' },
-      { id: 'GbycvPwr1Wg', title: 'Video 3: Play Discipline', dur: '12 min' },
+      { id: '57OhKuneQeE', title: 'Video 1: Feeding Schedule', dur: '9 min' },
+      { id: 'uWVWXDnprNQ', title: 'Video 2: Sleep Routine', dur: '8 min' },
+      { id: 'aPm2MapiVQY', title: 'Video 3: Play Discipline', dur: '8 min' },
     ]
   },
   { 
@@ -189,9 +189,9 @@ export const catTraining = [
     milestones: ['Friendly with humans', 'Neutral with other pets', 'Adjusts to new rooms'],
     tasks: ['Guest meetings', 'Safe pet intros', 'New room exploration'],
     videos: [
-      { id: 'TRqL8XFJtPI', title: 'Video 1: Interaction with Humans', dur: '8 min' },
-      { id: 'B6RN0l_ZqCE', title: 'Video 2: Interaction with Pets', dur: '11 min' },
-      { id: 'SI0yFUPeha4', title: 'Video 3: New Environment Adjustment', dur: '10 min' },
+      { id: 'wo-W0UtTbXs', title: 'Video 1: Interaction with Humans', dur: '8 min' },
+      { id: 'wUo8Ocgbgs8', title: 'Video 2: Interaction with Pets', dur: '10 min' },
+      { id: 'TqRhrC-tPwg', title: 'Video 3: New Environment Adjustment', dur: '9 min' },
     ]
   },
   { 
@@ -201,9 +201,9 @@ export const catTraining = [
     milestones: ['Accepts the harness', 'Walks indoors on leash', 'Calm in safe outdoors'],
     tasks: ['Harness indoor practice', 'Leash dragging sessions', 'Backyard exploration'],
     videos: [
-      { id: 'cPsBRJRyKp4', title: 'Video 1: Harness Training', dur: '12 min' },
-      { id: 'dNmGpvPBMlQ', title: 'Video 2: Walking Practice', dur: '14 min' },
-      { id: 'YQEKb4_17WQ', title: 'Video 3: Outdoor Safety', dur: '9 min' },
+      { id: '6OUz0cyI09I', title: 'Video 1: Harness Training', dur: '7 min' },
+      { id: 'gnGWApxCGZ8', title: 'Video 2: Walking Practice', dur: '6 min' },
+      { id: 'RjvTseSmTP4', title: 'Video 3: Outdoor Safety', dur: '9 min' },
     ]
   },
   { 
@@ -213,9 +213,9 @@ export const catTraining = [
     milestones: ['Comes when called', 'Mastered the Sit command', 'Learned High Five trick'],
     tasks: ['Daily recall sessions', 'Sit practice with treats', 'High-five reward session'],
     videos: [
-      { id: 'bQcMSbhlq4M', title: 'Video 1: Come When Called', dur: '11 min' },
-      { id: 'F1ZLPSjOqIk', title: 'Video 2: Sit Command', dur: '8 min' },
-      { id: 'ZrgsjuMG9UE', title: 'Video 3: High Five Trick', dur: '7 min' },
+      { id: 'u23qeh974RI', title: 'Video 1: Come When Called', dur: '6 min' },
+      { id: 'D7b7Zvepb4c', title: 'Video 2: Sit Command', dur: '5 min' },
+      { id: 'xKaq3OEvp4c', title: 'Video 3: High Five Trick', dur: '7 min' },
     ]
   },
   { 
@@ -225,9 +225,9 @@ export const catTraining = [
     milestones: ['No aggression shown', 'Calm during night', 'Reduced meowing'],
     tasks: ['Aggression redirection', 'Pre-sleep play session', 'Quiet reward sessions'],
     videos: [
-      { id: 'p_CnSj2sJCM', title: 'Video 1: Aggression Control', dur: '12 min' },
-      { id: 'O6u27vJz6_Q', title: 'Video 2: Night Hyperactivity (Zoomies)', dur: '10 min' },
-      { id: 'H_P9Q0R1S2T', title: 'Video 3: Excessive Meowing', dur: '9 min' },
+      { id: 'bdjEKMsKZ-M', title: 'Video 1: Aggression Control', dur: '6 min' },
+      { id: 'zgGBzWwp1Cg', title: 'Video 2: Night Hyperactivity', dur: '10 min' },
+      { id: 'GNMG1G5FaNU', title: 'Video 3: Excessive Meowing', dur: '9 min' },
     ]
   },
   { 
@@ -237,21 +237,9 @@ export const catTraining = [
     milestones: ['Jumps on command', 'Follows target stick', 'Fetches small toys'],
     tasks: ['Jump hoop practice', 'Target stick sessions', 'Small toy fetch games'],
     videos: [
-      { id: 'S4eXGzKj_Qo', title: 'Video 1: Jump Training', dur: '11 min' },
-      { id: 'WjqBPRGOhTk', title: 'Video 2: Target Training', dur: '10 min' },
-      { id: '3_BN24Y15Hk', title: 'Video 3: Fetch', dur: '12 min' },
-    ]
-  },
-  { 
-    month: 10, 
-    title: 'Advanced Training', 
-    desc: 'Total mastery of cat training.', 
-    milestones: ['Responsive to clicker', 'Performs multi-step tasks', 'Fast reaction to cues'],
-    tasks: ['Clicker review', 'Compound command practice', 'Speed reward sessions'],
-    videos: [
-      { id: '4txZnpYK7Ok', title: 'Video 1: Clicker Training', dur: '11 min' },
-      { id: '5830M7JFQkI', title: 'Video 2: Multi-Step Commands', dur: '13 min' },
-      { id: 'uH3uN9pYwU0', title: 'Video 3: Reaction Training', dur: '10 min' },
+      { id: 'WGZ_0MWC6dg', title: 'Video 1: Jump Training', dur: '6 min' },
+      { id: '3JjTLFaRMl0', title: 'Video 2: Target Training', dur: '8 min' },
+      { id: 'uK4Zne6mXG8', title: 'Video 3: Fetch', dur: '6 min' },
     ]
   },
   { 
@@ -261,9 +249,21 @@ export const catTraining = [
     milestones: ['Solves food puzzles', 'Plays hide & seek', 'Engages in hunting play'],
     tasks: ['DIY puzzle setup', 'Hide & seek sessions', 'Hunting wand games'],
     videos: [
-      { id: '3TLSk5NPe04', title: 'Video 1: Puzzle Games', dur: '10 min' },
-      { id: '6D-F1U_uYvM', title: 'Video 2: Hide & Seek', dur: '9 min' },
-      { id: 'ubLKQFnivOo', title: 'Video 3: Hunting Simulation', dur: '12 min' },
+      { id: '_5GrbJkTXKo', title: 'Video 1: Puzzle Games', dur: '9 min' },
+      { id: 'lBGpHyF_Vz8', title: 'Video 2: Hide & Seek', dur: '5 min' },
+      { id: 'aPm2MapiVQY', title: 'Video 3: Hunting Simulation', dur: '8 min' },
+    ]
+  },
+  { 
+    month: 10, 
+    title: 'Advanced Training', 
+    desc: 'Total mastery of cat training.', 
+    milestones: ['Responsive to clicker', 'Performs multi-step tasks', 'Fast reaction to cues'],
+    tasks: ['Clicker review', 'Compound command practice', 'Speed reward sessions'],
+    videos: [
+      { id: 'YxxCqtJ93zU', title: 'Video 1: Clicker Training', dur: '8 min' },
+      { id: 'srYbiHDh6mo', title: 'Video 2: Multi-Step Commands', dur: '9 min' },
+      { id: '5Lmhh75CKyU', title: 'Video 3: Reaction Training', dur: '6 min' },
     ]
   },
   { 
@@ -273,9 +273,9 @@ export const catTraining = [
     milestones: ['Calm during travel', 'Stay still for vet exams', 'Cooperative grooming'],
     tasks: ['Car ride practice', 'Mock vet exam', 'Nail trim focus'],
     videos: [
-      { id: '56I_pB_XoN8', title: 'Video 1: Travel Training', dur: '12 min' },
-      { id: 'NcUrbCafCrQ', title: 'Video 2: Vet Visit Calmness', dur: '10 min' },
-      { id: 'lMwWFGmCeZk', title: 'Video 3: Grooming Cooperation', dur: '11 min' },
+      { id: 'RjvTseSmTP4', title: 'Video 1: Travel Training', dur: '9 min' },
+      { id: 'TqRhrC-tPwg', title: 'Video 2: Vet Visit Calmness', dur: '9 min' },
+      { id: '3JjTLFaRMl0', title: 'Video 3: Grooming Cooperation', dur: '8 min' },
     ]
   },
   { 
@@ -285,9 +285,9 @@ export const catTraining = [
     milestones: ['Completed complex tricks', 'Perfect discipline review', 'Smart social interactions'],
     tasks: ['Review all months', 'Video graduation session', 'Celebrate success'],
     videos: [
-      { id: 'P_rVBm_W5Lg', title: 'Video 1: Complex Tricks', dur: '14 min' },
-      { id: 'O_F3G4H5I6J', title: 'Video 2: Discipline Training', dur: '13 min' },
-      { id: 'EF4Q2xMyVxo', title: 'Video 3: Smart Interaction', dur: '12 min' },
+      { id: '5Lmhh75CKyU', title: 'Video 1: Complex Tricks', dur: '6 min' },
+      { id: 'VEhOk3E4d98', title: 'Video 2: Discipline Training', dur: '8 min' },
+      { id: 'wo-W0UtTbXs', title: 'Video 3: Smart Interaction', dur: '8 min' },
     ]
   },
 ];
