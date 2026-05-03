@@ -138,9 +138,9 @@ export const dogTraining = [
     milestones: ['Emergency recall mastered', 'No-treat obedience', 'Real-life focus success'],
     tasks: ['High-distraction recall', 'Review all 12 months', 'Graduation ceremony'],
     videos: [
-      { id: 'UxHIm0Bskms', title: 'Video 1: Advanced Recall', dur: '15 min' },
-      { id: 'EZb_FKxHGBk', title: 'Video 2: Discipline Without Treats', dur: '13 min' },
-      { id: 'EF4Q2xMyVxo', title: 'Video 3: Real-Life Situation Training', dur: '14 min' },
+      { id: '--PXr3edQDo', title: 'Video 1: Advanced Recall', dur: '8 min' },
+      { id: 'yZ74wVgoEzY', title: 'Video 2: Discipline Without Treats', dur: '8 min' },
+      { id: 'CYf7xuupWnI', title: 'Video 3: Real-Life Situation Training', dur: '9 min' },
     ]
   },
 ];
