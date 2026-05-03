@@ -190,7 +190,7 @@ export const catTraining = [
     tasks: ['Guest meetings', 'Safe pet intros', 'New room exploration'],
     videos: [
       { id: 'wo-W0UtTbXs', title: 'Video 1: Interaction with Humans', dur: '8 min' },
-      { id: 'wUo8Ocgbgs8', title: 'Video 2: Interaction with Pets', dur: '10 min' },
+      { id: '8RQotaLRLRc', title: 'Video 2: Interaction with Pets', dur: '6 min' },
       { id: 'TqRhrC-tPwg', title: 'Video 3: New Environment Adjustment', dur: '9 min' },
     ]
   },
