@@ -135,6 +135,50 @@ export default function EmergencyVetPage() {
         </div>
       )}
 
+      <div className="card animate-in" style={{ 
+        background: 'linear-gradient(135deg, #22c55e, #16a34a)', 
+        color: 'white', 
+        padding: '24px', 
+        borderRadius: '24px',
+        marginBottom: '24px',
+        boxShadow: '0 10px 20px rgba(34, 197, 94, 0.2)'
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 16 }}>
+          <div style={{ background: 'rgba(255,255,255,0.2)', padding: 12, borderRadius: 16 }}>
+            <Navigation size={24} />
+          </div>
+          <div>
+            <h3 style={{ margin: 0, fontSize: 18, fontWeight: 800 }}>Verified Google Search</h3>
+            <p style={{ margin: 0, fontSize: 13, opacity: 0.9 }}>Get 100% live results from Google Maps</p>
+          </div>
+        </div>
+        <button 
+          onClick={() => window.open('https://www.google.com/maps/search/Veterinary+clinics+near+me/', '_blank')}
+          style={{ 
+            width: '100%', 
+            padding: '14px', 
+            borderRadius: '14px', 
+            border: 'none', 
+            background: 'white', 
+            color: '#16a34a', 
+            fontWeight: 800, 
+            fontSize: 15,
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 8
+          }}
+        >
+          🔍 Search Verified Vets on Google
+        </button>
+      </div>
+
+      <div style={{ marginBottom: 16 }}>
+        <h3 style={{ fontSize: 16, fontWeight: 800 }}>📍 Nearby Clinics (Automated)</h3>
+        <p style={{ fontSize: 12, color: 'var(--text-muted)' }}>Powered by OpenStreetMap. Please verify before visiting.</p>
+      </div>
+
       {loading && (
         <div style={{ textAlign: 'center', padding: 40 }}>
           <Loader size={40} className="animate-spin" style={{ color: 'var(--primary)', marginBottom: 16 }} />
@@ -201,10 +245,21 @@ export default function EmergencyVetPage() {
                     )}
                     <button 
                       className="btn btn-secondary"
+                      onClick={(e) => { 
+                        e.stopPropagation(); 
+                        const searchUrl = `https://www.google.com/search?q=${encodeURIComponent(clinic.name + ' Veterinary Clinic')}`;
+                        window.open(searchUrl, '_blank');
+                      }}
+                      style={{ flex: 1, background: '#f1f5f9', color: '#334155' }}
+                    >
+                      🔍 Verify on Google
+                    </button>
+                    <button 
+                      className="btn btn-secondary"
                       onClick={(e) => { e.stopPropagation(); openMaps(clinic.lat, clinic.lon, clinic.name); }}
                       style={{ flex: 1 }}
                     >
-                      <Navigation size={16} /> Directions
+                      <Navigation size={16} /> Map
                     </button>
                   </div>
                 </div>
