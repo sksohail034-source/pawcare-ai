@@ -11,6 +11,17 @@ function getProgress() {
 }
 function saveProgress(p) { localStorage.setItem(STORAGE_KEY, JSON.stringify(p)); }
 
+const getRecommendedGear = (title) => {
+  const t = title.toLowerCase();
+  if (t.includes('potty') || t.includes('litter')) return { name: 'Premium Training Pads', img: '/images/products/pawpaya-dog-wipes.jpg', link: '/products?category=essentials', price: '₹199' };
+  if (t.includes('crate')) return { name: 'Comfort Pet Bed', img: '/images/products/himalaya-healthy-treats.png', link: '/products?category=accessories', price: '₹799' };
+  if (t.includes('walk') || t.includes('leash') || t.includes('pulling')) return { name: 'Adjustable Harness', img: '/images/products/captain-zack-anti-tick.jpg', link: '/products?category=accessories', price: '₹549' };
+  if (t.includes('bite') || t.includes('chew')) return { name: 'Durable Chew Toy', img: '/images/products/purepet-chew-sticks.png', link: '/products?category=toys', price: '₹299' };
+  if (t.includes('grooming') || t.includes('brush')) return { name: 'Slicker Brush Pro', img: '/images/products/slicker-brush-pro.webp', link: '/products?category=grooming', price: '₹249' };
+  if (t.includes('health') || t.includes('vet')) return { name: 'Multivitamin Supplements', img: '/images/products/himalaya-multivit.jpeg', link: '/products?category=health', price: '₹219' };
+  return { name: 'Training Treats & Rewards', img: '/images/products/pedigree-meat-jerky.png', link: '/products?category=food', price: '₹339' };
+};
+
 export default function TrainingPage() {
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -183,7 +194,7 @@ export default function TrainingPage() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
             {current?.videos.map((video, idx) => (
               <div key={video.id} className="card" style={{ padding: 0, overflow: 'hidden' }}>
-                {/* Video Player / Thumbnail */}
+              {/* Video Player / Thumbnail */}
                 {playingVideo === video.id ? (
                   <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0 }}>
                     <iframe
@@ -246,16 +257,31 @@ export default function TrainingPage() {
                   </button>
                 </div>
 
-                {/* Affiliate Suggestion Section (Paise kamane ke liye) */}
-                <div style={{ padding: '12px 16px', background: 'rgba(59, 130, 246, 0.05)', borderTop: '1px solid rgba(0,0,0,0.05)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                   <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                     <span style={{ fontSize: 18 }}>💡</span>
-                     <span style={{ fontSize: 12, fontWeight: 600, color: '#1e40af' }}>Recommended for this Lesson:</span>
-                   </div>
-                   <a href="/products" className="btn btn-sm" style={{ background: '#3b82f6', color: '#fff', fontSize: 11, padding: '4px 10px' }}>
-                     View Gear
-                   </a>
-                </div>
+                {/* Affiliate Suggestion Section */}
+                {(() => {
+                  const gear = getRecommendedGear(video.title);
+                  return (
+                    <div style={{ padding: '12px 16px', background: 'rgba(59, 130, 246, 0.04)', borderTop: '1px solid rgba(0,0,0,0.05)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                        <div style={{ background: '#fff', borderRadius: 8, padding: 2, border: '1px solid rgba(0,0,0,0.08)' }}>
+                          <img src={gear.img} alt={gear.name} style={{ width: 44, height: 44, borderRadius: 6, objectFit: 'contain' }} />
+                        </div>
+                        <div>
+                          <div style={{ fontSize: 10, fontWeight: 800, color: '#3b82f6', textTransform: 'uppercase', letterSpacing: 0.5, marginBottom: 2, display: 'flex', alignItems: 'center', gap: 4 }}>
+                            <Crown size={10} /> Recommended Gear
+                          </div>
+                          <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--text-main)' }}>{gear.name}</div>
+                        </div>
+                      </div>
+                      <div style={{ textAlign: 'right' }}>
+                        <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--text-main)', marginBottom: 4 }}>{gear.price}</div>
+                        <button onClick={() => navigate(gear.link)} className="btn btn-sm btn-primary" style={{ fontSize: 11, padding: '4px 12px', height: 'auto', minHeight: 28 }}>
+                          Buy Now
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })()}
               </div>
             ))}
           </div>
