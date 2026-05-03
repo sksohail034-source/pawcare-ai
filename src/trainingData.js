@@ -6,9 +6,9 @@ export const dogTraining = [
     milestones: ['Respond to name consistently', 'Focus on owner for 10s', 'Basic sit foundation'],
     tasks: ['Practice name recall 10x', 'Maintain eye contact 5x', 'Basic sit sessions'],
     videos: [
-      { id: 'EDu_O9G_HFE', title: 'Video 1: Name Recognition & Sit', dur: '10 min' },
-      { id: 'uH3uN9pYwU0', title: 'Video 2: Eye Contact / Focus', dur: '12 min' },
-      { id: '1oDGA2yPcRo', title: 'Video 3: Puppy Training Basics', dur: '15 min' },
+      { id: 'TsVz8LbjwEA', title: 'Video 1: Name Recognition', dur: '10 min' },
+      { id: 'jFMA5ggFsXU', title: 'Video 2: Dog Training 101 Basics', dur: '12 min' },
+      { id: 'kGbYT5zMRVk', title: 'Video 3: Puppy Survival Guide', dur: '15 min' },
     ]
   },
   { 
@@ -114,9 +114,9 @@ export const dogTraining = [
     milestones: ['Alert barking on cue', 'Awareness of territory', 'Basic protection stance'],
     tasks: ['Alert cue practice', 'Boundary training', 'Confidence building'],
     videos: [
-      { id: '4n0eY80Vl5k', title: 'Video 1: Alert Training', dur: '13 min' },
-      { id: 't2L_GvO4F_k', title: 'Video 2: Territory Awareness', dur: '11 min' },
-      { id: 'O3C822fPZpw', title: 'Video 3: Basic Protection', dur: '14 min' },
+      { id: 'rUBi2SmznDo', title: 'Video 1: Alert Training Basics', dur: '13 min' },
+      { id: 'PI5W2Stv0Ik', title: 'Video 2: Territory Awareness', dur: '11 min' },
+      { id: '4n0eY80Vl5k', title: 'Video 3: Basic Protection', dur: '14 min' },
     ]
   },
   { 
