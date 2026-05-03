@@ -102,9 +102,9 @@ export const dogTraining = [
     milestones: ['Learned Shake hand', 'Mastered Roll over', 'Can Spin on command'],
     tasks: ['Teach one trick per week', 'Show-off sessions', 'Fun-filled training'],
     videos: [
-      { id: 'iQRfb0wJJnM', title: 'Video 1: Shake Hand', dur: '8 min' },
-      { id: 'P_rVBm_W5Lg', title: 'Video 2: Roll Over', dur: '10 min' },
-      { id: 'sTb9jJOYjcg', title: 'Video 3: Spin', dur: '12 min' },
+      { id: '8_SpZUTuRgE', title: 'Video 1: Shake Hand', dur: '7 min' },
+      { id: 'Ke-6iCZ7jqA', title: 'Video 2: Roll Over', dur: '5 min' },
+      { id: '1FUqREededA', title: 'Video 3: Spin Trick', dur: '5 min' },
     ]
   },
   { 
