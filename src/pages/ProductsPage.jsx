@@ -480,7 +480,7 @@ const CURATED_PRODUCTS = [
     price: '325',
     rating: 4.3,
     reviews: 4520,
-    image: '/images/products/wahl-oatmeal-shampoo.webp',
+    image: '/images/products/wahl-oatmeal-shampoo.jpg',
     badge: 'Top Rated',
     desc: 'Oatmeal-infused formula soothes dry & itchy skin. Leaves coat silky smooth & shiny.',
     benefits: ['Soothes dry & itchy skin', 'Oatmeal & coconut extracts', 'Silky smooth coat'],
@@ -498,7 +498,7 @@ const CURATED_PRODUCTS = [
     price: '349',
     rating: 4.2,
     reviews: 2890,
-    image: '/images/products/wahl-dog-conditioner.webp',
+    image: '/images/products/wahl-dog-conditioner.png',
     badge: 'Premium',
     desc: 'Deep conditioning with oatmeal & coconut lime. Detangles matted fur & restores shine.',
     benefits: ['Deep conditioning formula', 'Detangles matted fur', 'Coconut lime fragrance'],
@@ -650,7 +650,7 @@ const CURATED_PRODUCTS = [
     price: '299',
     rating: 4.1,
     reviews: 15670,
-    image: '/images/products/slicker-brush-pro.jpg',
+    image: '/images/products/slicker-brush-pro.webp',
     badge: 'Best Seller',
     desc: 'Self-cleaning slicker brush removes loose fur & tangles. One-click cleaning button saves time.',
     benefits: ['Self-cleaning one-click button', 'Removes tangles & loose fur', 'Gentle on skin'],
@@ -700,7 +700,7 @@ const CURATED_PRODUCTS = [
     price: '199',
     rating: 4.1,
     reviews: 18920,
-    image: '/images/products/nail-clipper-pro.png',
+    image: '/images/products/nail-clipper-pro.jpg',
     badge: 'Best Seller',
     desc: 'Professional nail clipper with safety guard to prevent over-cutting. Sharp stainless steel blade.',
     benefits: ['Safety guard prevents over-cutting', 'Sharp stainless steel', 'Ergonomic grip handle'],
@@ -1600,12 +1600,12 @@ const CURATED_PRODUCTS = [
   { id: 'whiskas-dry-adult', name: 'Whiskas Adult Dry Cat Food, Tuna Flavour (1.2kg)', brand: 'Whiskas', category: 'food', subCategory: 'Dry Cat Food', petType: 'cat', price: '399', rating: 4.3, reviews: 18450, image: '/images/products/whiskas-dry-adult.jpg', badge: 'Best Seller', desc: 'India\'s most popular dry cat food with real tuna flavor. Complete nutrition for adult cats.', benefits: ['Real tuna flavour cats love', 'Complete balanced nutrition', 'Crunchy for dental health'], affiliateUrl: 'https://www.amazon.in/s?k=Whiskas+Adult+Dry+Cat+Food+Tuna+1.2kg&tag=mypawcare-21' },
   { id: 'royal-canin-cat-adult', name: 'Royal Canin Indoor Adult Dry Cat Food (2kg)', brand: 'Royal Canin', category: 'food', subCategory: 'Dry Cat Food', petType: 'cat', price: '1,599', rating: 4.5, reviews: 8900, image: '/images/products/royal-canin-cat-adult.jpg', badge: 'Premium', desc: 'Vet-recommended indoor formula with reduced calories. Controls hairballs & maintains ideal weight.', benefits: ['Hairball reduction formula', 'Weight management for indoor cats', 'Vet recommended worldwide'], affiliateUrl: 'https://www.amazon.in/s?k=Royal+Canin+Indoor+Adult+Dry+Cat+Food+2kg&tag=mypawcare-21' },
   { id: 'drools-cat-dry', name: 'Drools Adult Dry Cat Food, Ocean Fish (3kg)', brand: 'Drools', category: 'food', subCategory: 'Dry Cat Food', petType: 'cat', price: '599', rating: 4.2, reviews: 6780, image: '/images/products/drools-cat-dry.png', badge: 'Amazon Choice', desc: 'Affordable ocean fish flavored complete cat food. Rich in Omega-3 for healthy skin & coat.', benefits: ['Real ocean fish protein', 'Omega-3 for shiny coat', 'Great value 3kg pack'], affiliateUrl: 'https://www.amazon.in/s?k=Drools+Adult+Dry+Cat+Food+Ocean+Fish+3kg&tag=mypawcare-21' },
-  { id: 'meo-persian-cat', name: 'Me-O Persian Cat Food, Dry (1.1kg)', brand: 'Me-O', category: 'food', subCategory: 'Dry Cat Food', petType: 'cat', price: '449', rating: 4.1, reviews: 5670, image: '/images/products/meo-persian-cat.jpg', badge: 'Top Rated', desc: 'Specially formulated for Persian cats with hairball control. Supports long coat health.', benefits: ['Persian breed specific', 'Hairball control formula', 'Long coat nourishment'], affiliateUrl: 'https://www.amazon.in/s?k=Me-O+Persian+Cat+Food+Dry+1.1kg&tag=mypawcare-21' },
+  { id: 'meo-persian-cat', name: 'Me-O Persian Cat Food, Dry (1.1kg)', brand: 'Me-O', category: 'food', subCategory: 'Dry Cat Food', petType: 'cat', price: '449', rating: 4.1, reviews: 5670, image: '/images/products/meo-persian-cat.png', badge: 'Top Rated', desc: 'Specially formulated for Persian cats with hairball control. Supports long coat health.', benefits: ['Persian breed specific', 'Hairball control formula', 'Long coat nourishment'], affiliateUrl: 'https://www.amazon.in/s?k=Me-O+Persian+Cat+Food+Dry+1.1kg&tag=mypawcare-21' },
   { id: 'whiskas-wet-tuna', name: 'Whiskas Wet Cat Food, Tuna in Jelly (85g x 12)', brand: 'Whiskas', category: 'food', subCategory: 'Wet Cat Food', petType: 'cat', price: '540', rating: 4.3, reviews: 14560, image: '/images/products/whiskas-wet-tuna.png', badge: 'Best Seller', desc: 'Juicy tuna chunks in delicious jelly. Cats go crazy for this — perfect for picky eaters.', benefits: ['Real tuna chunks in jelly', '12-pouch mega value pack', 'Irresistible for picky eaters'], affiliateUrl: 'https://www.amazon.in/s?k=Whiskas+Wet+Cat+Food+Tuna+Jelly+85g+12+pack&tag=mypawcare-21' },
   { id: 'sheba-wet-cat', name: 'Sheba Rich Premium Wet Cat Food, Fish Mix (85g x 12)', brand: 'Sheba', category: 'food', subCategory: 'Wet Cat Food', petType: 'cat', price: '780', rating: 4.4, reviews: 7890, image: '/images/products/sheba-wet-cat.jpg', badge: 'Premium', desc: 'Premium fish mix wet food in succulent gravy. Restaurant-quality meal for your cat.', benefits: ['Premium fish & seafood mix', 'Rich succulent gravy', 'Individually sealed freshness'], affiliateUrl: 'https://www.amazon.in/s?k=Sheba+Rich+Premium+Wet+Cat+Food+Fish+Mix+85g+12&tag=mypawcare-21' },
   { id: 'whiskas-kitten-food', name: 'Whiskas Kitten Dry Food, Chicken Flavour (1.1kg)', brand: 'Whiskas', category: 'food', subCategory: 'Kitten Food', petType: 'cat', price: '399', rating: 4.3, reviews: 9870, image: '/images/products/whiskas-kitten-food.jpeg', badge: 'Best Seller', desc: 'Complete kitten nutrition with real chicken. DHA for brain development & calcium for bones.', benefits: ['DHA for brain development', 'Calcium for strong bones', 'Real chicken protein'], affiliateUrl: 'https://www.amazon.in/s?k=Whiskas+Kitten+Dry+Food+Chicken+1.1kg&tag=mypawcare-21' },
-  { id: 'royal-canin-kitten', name: 'Royal Canin Kitten Dry Cat Food (2kg)', brand: 'Royal Canin', category: 'food', subCategory: 'Kitten Food', petType: 'cat', price: '1,499', rating: 4.5, reviews: 5670, image: '/images/products/royal-canin-kitten.png', badge: 'Premium', desc: 'Vet-recommended kitten formula for 4-12 months. Supports immune system & healthy growth.', benefits: ['Immune system support', 'Digestive health formula', 'Optimal growth nutrition'], affiliateUrl: 'https://www.amazon.in/s?k=Royal+Canin+Kitten+Dry+Cat+Food+2kg&tag=mypawcare-21' },
-  { id: 'purepet-cat-treats', name: 'Purepet Cat Treats, Tuna Flavour (30g x 6)', brand: 'Purepet', category: 'food', subCategory: 'Cat Treats', petType: 'cat', price: '199', rating: 4.1, reviews: 8900, image: '/images/products/purepet-cat-treats.webp', badge: 'Best Seller', desc: 'Crunchy cat treats perfect for training & rewards. Real tuna flavour cats can\'t resist.', benefits: ['Real tuna flavour', 'Perfect for training rewards', '6-pack value bundle'], affiliateUrl: 'https://www.amazon.in/s?k=Purepet+Cat+Treats+Tuna+30g+6+pack&tag=mypawcare-21' },
+  { id: 'royal-canin-kitten', name: 'Royal Canin Kitten Dry Cat Food (2kg)', brand: 'Royal Canin', category: 'food', subCategory: 'Kitten Food', petType: 'cat', price: '1,499', rating: 4.5, reviews: 5670, image: '/images/products/royal-canin-kitten.jpg', badge: 'Premium', desc: 'Vet-recommended kitten formula for 4-12 months. Supports immune system & healthy growth.', benefits: ['Immune system support', 'Digestive health formula', 'Optimal growth nutrition'], affiliateUrl: 'https://www.amazon.in/s?k=Royal+Canin+Kitten+Dry+Cat+Food+2kg&tag=mypawcare-21' },
+  { id: 'purepet-cat-treats', name: 'Purepet Cat Treats, Tuna Flavour (30g x 6)', brand: 'Purepet', category: 'food', subCategory: 'Cat Treats', petType: 'cat', price: '199', rating: 4.1, reviews: 8900, image: '/images/products/purepet-cat-treats.jpg', badge: 'Best Seller', desc: 'Crunchy cat treats perfect for training & rewards. Real tuna flavour cats can\'t resist.', benefits: ['Real tuna flavour', 'Perfect for training rewards', '6-pack value bundle'], affiliateUrl: 'https://www.amazon.in/s?k=Purepet+Cat+Treats+Tuna+30g+6+pack&tag=mypawcare-21' },
   { id: 'temptations-cat-treats', name: 'Temptations Cat Treats, Chicken Flavour (85g)', brand: 'Temptations', category: 'food', subCategory: 'Cat Treats', petType: 'cat', price: '149', rating: 4.3, reviews: 11230, image: '/images/products/temptations-cat-treats.jpg', badge: 'Amazon Choice', desc: 'Irresistible crunchy outside, soft inside treats. Shake the pack & watch your cat come running.', benefits: ['Crunchy outside, soft inside', 'Under 2 calories per treat', 'Cats come running for it'], affiliateUrl: 'https://www.amazon.in/s?k=Temptations+Cat+Treats+Chicken+85g&tag=mypawcare-21' },
   { id: 'petvit-cat-multivitamin', name: 'Petvit Multivitamin Tablets for Cats (60 Tabs)', brand: 'Petvit', category: 'food', subCategory: 'Cat Supplements', petType: 'cat', price: '349', rating: 4.1, reviews: 3450, image: '/images/products/petvit-cat-multivitamin.png', badge: 'Top Rated', desc: 'Complete multivitamin with taurine for heart & eye health. Daily nutrition insurance for cats.', benefits: ['Taurine for heart & eyes', '18 essential vitamins', 'Flavored — easy to feed'], affiliateUrl: 'https://www.amazon.in/s?k=Petvit+Multivitamin+Tablets+Cats+60&tag=mypawcare-21' },
 
@@ -1626,11 +1626,11 @@ const CAT_REMAINING = [
   { id: 'cat-teaser-wand', name: 'Foodie Puppies Interactive Cat Teaser Wand (Set of 5)', brand: 'Foodie Puppies', category: 'toys', subCategory: 'Teaser Toys', petType: 'cat', price: '249', rating: 4.1, reviews: 11230, image: '/images/products/cat-teaser-wand.png', badge: 'Best Seller', desc: '5-piece feather teaser set triggers hunting instinct. Hours of interactive play.', benefits: ['5 interchangeable feathers', 'Triggers hunting instinct', 'Great bonding activity'], affiliateUrl: 'https://www.amazon.in/s?k=cat+teaser+wand+toy+feather+set+5&tag=mypawcare-21' },
   { id: 'cat-laser-toy', name: 'Foodie Puppies LED Laser Pointer Toy for Cats', brand: 'Foodie Puppies', category: 'toys', subCategory: 'Laser Toys', petType: 'cat', price: '149', rating: 4.0, reviews: 8900, image: '/images/products/cat-laser-toy.jpg', badge: 'Amazon Choice', desc: 'Red LED laser pointer drives cats wild. Perfect for exercise & mental stimulation.', benefits: ['Red laser cats love', 'Promotes exercise', 'Compact & portable'], affiliateUrl: 'https://www.amazon.in/s?k=LED+laser+pointer+toy+cats&tag=mypawcare-21' },
   { id: 'cat-ball-toy-set', name: 'Pets Empire Cat Ball Toys with Bell (Set of 12)', brand: 'Pets Empire', category: 'toys', subCategory: 'Ball Toys', petType: 'cat', price: '199', rating: 4.1, reviews: 6780, image: '/images/products/cat-ball-toy-set.jpg', badge: 'Best Seller', desc: 'Colorful jingling balls cats love to bat around. Keeps indoor cats active.', benefits: ['12-piece value set', 'Bell inside each ball', 'Colorful & lightweight'], affiliateUrl: 'https://www.amazon.in/s?k=cat+ball+toys+bell+set+12&tag=mypawcare-21' },
-  { id: 'cat-catnip-toy', name: 'Foodie Puppies Catnip Plush Toy for Cats (Set of 3)', brand: 'Foodie Puppies', category: 'toys', subCategory: 'Catnip Toys', petType: 'cat', price: '249', rating: 4.2, reviews: 5670, image: '/images/products/cat-catnip-toy.png', badge: 'Top Rated', desc: 'Premium catnip-filled plush toys. Cats go crazy — roll, flip & play for hours.', benefits: ['Premium catnip filling', 'Soft plush — safe to bite', 'Set of 3 fun shapes'], affiliateUrl: 'https://www.amazon.in/s?k=catnip+plush+toy+cats+set+3&tag=mypawcare-21' },
+  { id: 'cat-catnip-toy', name: 'Foodie Puppies Catnip Plush Toy for Cats (Set of 3)', brand: 'Foodie Puppies', category: 'toys', subCategory: 'Catnip Toys', petType: 'cat', price: '249', rating: 4.2, reviews: 5670, image: '/images/products/cat-catnip-toy.jpg', badge: 'Top Rated', desc: 'Premium catnip-filled plush toys. Cats go crazy — roll, flip & play for hours.', benefits: ['Premium catnip filling', 'Soft plush — safe to bite', 'Set of 3 fun shapes'], affiliateUrl: 'https://www.amazon.in/s?k=catnip+plush+toy+cats+set+3&tag=mypawcare-21' },
   { id: 'cat-scratching-toy', name: 'Foodie Puppies Corrugated Cardboard Cat Scratcher', brand: 'Foodie Puppies', category: 'toys', subCategory: 'Scratching Toy', petType: 'cat', price: '299', rating: 4.0, reviews: 4560, image: '/images/products/cat-scratching-toy.jpg', badge: 'Best Seller', desc: 'Cardboard scratcher satisfies scratching urge. Saves furniture from claws.', benefits: ['Saves furniture', 'Includes free catnip', 'Eco-friendly cardboard'], affiliateUrl: 'https://www.amazon.in/s?k=corrugated+cardboard+cat+scratcher&tag=mypawcare-21' },
   { id: 'cat-collar-bell', name: 'Pets Empire Cat Collar with Bell (Pack of 2)', brand: 'Pets Empire', category: 'accessories', subCategory: 'Cat Collar', petType: 'cat', price: '149', rating: 4.1, reviews: 9870, image: '/images/products/cat-collar-bell.jpg', badge: 'Best Seller', desc: 'Cute adjustable collars with bells. Breakaway buckle for cat safety.', benefits: ['Breakaway safety buckle', 'Cute bell attached', 'Pack of 2 colors'], affiliateUrl: 'https://www.amazon.in/s?k=cat+collar+bell+adjustable+pack+2&tag=mypawcare-21' },
   { id: 'cat-harness-leash', name: 'Pets Empire Cat Harness & Leash Set', brand: 'Pets Empire', category: 'accessories', subCategory: 'Harness & Leash', petType: 'cat', price: '299', rating: 4.0, reviews: 5670, image: '/images/products/cat-harness-leash.jpg', badge: 'Top Rated', desc: 'Escape-proof harness with matching leash. Safe outdoor adventures.', benefits: ['Escape-proof design', 'Breathable mesh', 'Leash included'], affiliateUrl: 'https://www.amazon.in/s?k=cat+harness+leash+set+adjustable&tag=mypawcare-21' },
-  { id: 'cat-litter-box', name: 'Foodie Puppies Enclosed Cat Litter Box with Scoop', brand: 'Foodie Puppies', category: 'essentials', subCategory: 'Litter Box', petType: 'cat', price: '799', rating: 4.1, reviews: 7890, image: '/images/products/cat-litter-box.png', badge: 'Best Seller', desc: 'Enclosed litter box with odor-trapping lid. Includes free scoop.', benefits: ['Enclosed — traps odor', 'Free scoop included', 'Easy top-entry'], affiliateUrl: 'https://www.amazon.in/s?k=enclosed+cat+litter+box+scoop+large&tag=mypawcare-21' },
+  { id: 'cat-litter-box', name: 'Foodie Puppies Enclosed Cat Litter Box with Scoop', brand: 'Foodie Puppies', category: 'essentials', subCategory: 'Litter Box', petType: 'cat', price: '799', rating: 4.1, reviews: 7890, image: '/images/products/cat-litter-box.jpg', badge: 'Best Seller', desc: 'Enclosed litter box with odor-trapping lid. Includes free scoop.', benefits: ['Enclosed — traps odor', 'Free scoop included', 'Easy top-entry'], affiliateUrl: 'https://www.amazon.in/s?k=enclosed+cat+litter+box+scoop+large&tag=mypawcare-21' },
   { id: 'drools-cat-litter', name: 'Drools Clumping Cat Litter, Lavender (5kg)', brand: 'Drools', category: 'essentials', subCategory: 'Cat Litter', petType: 'cat', price: '399', rating: 4.2, reviews: 11230, image: '/images/products/drools-cat-litter.jpg', badge: 'Best Seller', desc: 'Fast-clumping bentonite litter with lavender scent. Superior odor control.', benefits: ['Fast clumping', 'Lavender odor control', '99% dust-free'], affiliateUrl: 'https://www.amazon.in/s?k=Drools+Clumping+Cat+Litter+Lavender+5kg&tag=mypawcare-21' },
   { id: 'purepet-cat-litter', name: 'Purepet Clumping Cat Litter, Lemon (5kg)', brand: 'Purepet', category: 'essentials', subCategory: 'Cat Litter', petType: 'cat', price: '349', rating: 4.1, reviews: 8900, image: '/images/products/purepet-cat-litter.jpg', badge: 'Amazon Choice', desc: 'Budget-friendly clumping litter with lemon freshness.', benefits: ['Budget-friendly', 'Lemon scented', 'Low dust'], affiliateUrl: 'https://www.amazon.in/s?k=Purepet+Clumping+Cat+Litter+Lemon+5kg&tag=mypawcare-21' },
   { id: 'cat-bed-donut', name: 'Pets Empire Donut Cat Bed, Calming (Medium)', brand: 'Pets Empire', category: 'essentials', subCategory: 'Cat Bed', petType: 'cat', price: '599', rating: 4.2, reviews: 6780, image: '/images/products/cat-bed-donut.jpg', badge: 'Best Seller', desc: 'Donut-shaped calming bed. Cats love to curl up & feel secure.', benefits: ['Calming raised-edge', 'Super soft faux fur', 'Machine washable'], affiliateUrl: 'https://www.amazon.in/s?k=donut+cat+bed+calming+washable&tag=mypawcare-21' },
@@ -1983,8 +1983,8 @@ export default function ProductsPage() {
 
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
                       <div style={{ display: 'flex', color: '#f59e0b', fontSize: '0.8rem' }}>
-                        {'â˜…'.repeat(Math.floor(product.rating))}
-                        <span style={{ color: '#e2e8f0' }}>{'â˜…'.repeat(5 - Math.floor(product.rating))}</span>
+                        {'⭐'.repeat(Math.floor(product.rating))}
+                        <span style={{ color: '#e2e8f0' }}>{'⭐'.repeat(5 - Math.floor(product.rating))}</span>
                       </div>
                       <span style={{ fontSize: '0.65rem', color: '#64748b', fontWeight: '600' }}>({product.reviews?.toLocaleString()})</span>
                     </div>
@@ -2015,7 +2015,7 @@ export default function ProductsPage() {
                             gap: '4px',
                             marginBottom: '2px'
                           }}>
-                            <span style={{ color: '#22c55e', fontWeight: '700' }}>âœ“</span> {b}
+                            <span style={{ color: '#22c55e', fontWeight: '700' }}>✔</span> {b}
                           </div>
                         ))}
                       </div>
@@ -2023,7 +2023,7 @@ export default function ProductsPage() {
 
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 'auto', paddingTop: '0.5rem', borderTop: '1px solid #f1f5f9' }}>
                       <div>
-                        <span style={{ fontSize: '0.75rem', fontWeight: '600', color: '#64748b', marginRight: '2px' }}>â‚¹</span>
+                        <span style={{ fontSize: '0.75rem', fontWeight: '600', color: '#64748b', marginRight: '2px' }}>₹</span>
                         <span style={{ fontSize: '1.3rem', fontWeight: '900', color: '#1f2937' }}>{product.price}</span>
                       </div>
                       <button 
