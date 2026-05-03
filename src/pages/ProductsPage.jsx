@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { FiSearch, FiShoppingCart, FiChevronRight, FiGrid, FiBox, FiActivity, FiTruck, FiHeart, FiTag, FiHome, FiBriefcase } from 'react-icons/fi';
 import { GiDogBowl, GiCat, GiComb, GiTennisBall, GiFirstAidKit } from 'react-icons/gi';
+import { FaDove, FaFish, FaHorse, FaPaw } from 'react-icons/fa';
 import toast from 'react-hot-toast';
 import { api } from '../api';
 
@@ -26,6 +27,49 @@ const CAT_CATEGORIES = [
   { id: 'health', name: 'Health & Care', icon: <GiFirstAidKit /> }
 ];
 
+
+const BIRD_CATEGORIES = [
+  { id: 'food', name: 'Bird Food & Seeds', icon: <GiDogBowl /> },
+  { id: 'cages', name: 'Cages & Accessories', icon: <FiHome /> },
+  { id: 'toys', name: 'Toys & Feeders', icon: <GiTennisBall /> }
+];
+
+const RABBIT_CATEGORIES = [
+  { id: 'food', name: 'Hay & Pellets', icon: <GiDogBowl /> },
+  { id: 'cages', name: 'Cages & Bedding', icon: <FiHome /> },
+  { id: 'grooming', name: 'Grooming & Toys', icon: <GiComb /> }
+];
+
+const FISH_CATEGORIES = [
+  { id: 'food', name: 'Fish Food', icon: <GiDogBowl /> },
+  { id: 'aquarium', name: 'Aquarium & Filters', icon: <FiBox /> },
+  { id: 'accessories', name: 'Decor & Accessories', icon: <FiTag /> }
+];
+
+const HAMSTER_CATEGORIES = [
+  { id: 'food', name: 'Hamster Food', icon: <GiDogBowl /> },
+  { id: 'cages', name: 'Cages & Wheels', icon: <FiActivity /> },
+  { id: 'bedding', name: 'Bedding', icon: <FiBox /> }
+];
+
+const GOAT_CATEGORIES = [
+  { id: 'feed', name: 'Goat Feed & Supplements', icon: <GiDogBowl /> },
+  { id: 'grooming', name: 'Grooming & Health', icon: <GiFirstAidKit /> },
+  { id: 'accessories', name: 'Accessories', icon: <FiTag /> }
+];
+
+const HORSE_CATEGORIES = [
+  { id: 'feed', name: 'Horse Feed & Supplements', icon: <GiDogBowl /> },
+  { id: 'grooming', name: 'Grooming & Hoof Care', icon: <GiComb /> },
+  { id: 'accessories', name: 'Saddles & Gear', icon: <FiBriefcase /> }
+];
+
+const COW_CATEGORIES = [
+  { id: 'feed', name: 'Cattle Feed & Minerals', icon: <GiDogBowl /> },
+  { id: 'health', name: 'Health & Supplements', icon: <GiFirstAidKit /> },
+  { id: 'equipment', name: 'Milking Equipment', icon: <FiBox /> }
+];
+
 const STORE_THEMES = {
   dog: {
     heroImage: 'https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?w=1600&q=80',
@@ -34,6 +78,34 @@ const STORE_THEMES = {
   cat: {
     heroImage: 'https://images.unsplash.com/photo-1592194996308-7b43878e84a6?w=1600&q=80',
     position: 'center 40%'
+  },
+  bird: {
+    heroImage: 'https://images.unsplash.com/photo-1552728089-571ebd6a45cb?w=1600&q=80',
+    position: 'center 30%'
+  },
+  rabbit: {
+    heroImage: 'https://images.unsplash.com/photo-1585110396000-c9fd4e4e5030?w=1600&q=80',
+    position: 'center 40%'
+  },
+  fish: {
+    heroImage: 'https://images.unsplash.com/photo-1522069169874-c58ec4b76be5?w=1600&q=80',
+    position: 'center 50%'
+  },
+  hamster: {
+    heroImage: 'https://images.unsplash.com/photo-1425082661705-1834bfddef6d?w=1600&q=80',
+    position: 'center 50%'
+  },
+  goat: {
+    heroImage: 'https://images.unsplash.com/photo-1524024973431-2ad916746881?w=1600&q=80',
+    position: 'center 60%'
+  },
+  horse: {
+    heroImage: 'https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=1600&q=80',
+    position: 'center 40%'
+  },
+  cow: {
+    heroImage: 'https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?w=1600&q=80',
+    position: 'center 50%'
   }
 };
 
@@ -1767,50 +1839,45 @@ export default function ProductsPage() {
       </div>
 
       <div style={{ padding: '1.5rem' }}>
+        
         {/* Pet Type Selector */}
-        <div style={{ display: 'flex', gap: '1rem', marginBottom: '2rem' }}>
-          <button 
-            onClick={() => handlePetChange('dog')}
-            style={{
-              flex: 1,
-              padding: '1.5rem',
-              borderRadius: '24px',
-              border: '2px solid',
-              borderColor: activePet === 'dog' ? '#22c55e' : 'transparent',
-              background: activePet === 'dog' ? '#fff' : '#f1f5f9',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              gap: '0.5rem',
-              cursor: 'pointer',
-              transition: 'all 0.3s ease',
-              boxShadow: activePet === 'dog' ? '0 10px 20px rgba(34, 197, 94, 0.1)' : 'none'
-            }}
-          >
-            <GiDogBowl size={32} color={activePet === 'dog' ? '#22c55e' : '#64748b'} />
-            <span style={{ fontWeight: '800', color: activePet === 'dog' ? '#1f2937' : '#64748b', fontSize: '1.1rem' }}>DOG STORE</span>
-          </button>
-          <button 
-            onClick={() => handlePetChange('cat')}
-            style={{
-              flex: 1,
-              padding: '1.5rem',
-              borderRadius: '24px',
-              border: '2px solid',
-              borderColor: activePet === 'cat' ? '#22c55e' : 'transparent',
-              background: activePet === 'cat' ? '#fff' : '#f1f5f9',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              gap: '0.5rem',
-              cursor: 'pointer',
-              transition: 'all 0.3s ease',
-              boxShadow: activePet === 'cat' ? '0 10px 20px rgba(34, 197, 94, 0.1)' : 'none'
-            }}
-          >
-            <GiCat size={32} color={activePet === 'cat' ? '#22c55e' : '#64748b'} />
-            <span style={{ fontWeight: '800', color: activePet === 'cat' ? '#1f2937' : '#64748b', fontSize: '1.1rem' }}>CAT STORE</span>
-          </button>
+        <div style={{ display: 'flex', gap: '0.8rem', overflowX: 'auto', paddingBottom: '1rem', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+          {[
+            { id: 'dog', name: 'DOG', icon: <GiDogBowl size={24} /> },
+            { id: 'cat', name: 'CAT', icon: <GiCat size={24} /> },
+            { id: 'bird', name: 'BIRD', icon: <FaDove size={24} /> },
+            { id: 'rabbit', name: 'RABBIT', icon: <FaPaw size={24} /> },
+            { id: 'fish', name: 'FISH', icon: <FaFish size={24} /> },
+            { id: 'hamster', name: 'HAMSTER', icon: <FaPaw size={24} /> },
+            { id: 'goat', name: 'GOAT', icon: <FaPaw size={24} /> },
+            { id: 'horse', name: 'HORSE', icon: <FaHorse size={24} /> },
+            { id: 'cow', name: 'COW', icon: <FaPaw size={24} /> }
+          ].map((pet) => (
+            <button 
+              key={pet.id}
+              onClick={() => handlePetChange(pet.id)}
+              style={{
+                flex: '0 0 auto',
+                padding: '1rem',
+                minWidth: '110px',
+                borderRadius: '20px',
+                border: '2px solid',
+                borderColor: activePet === pet.id ? '#22c55e' : 'transparent',
+                background: activePet === pet.id ? '#fff' : '#f1f5f9',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: '0.5rem',
+                cursor: 'pointer',
+                transition: 'all 0.3s ease',
+                boxShadow: activePet === pet.id ? '0 10px 20px rgba(34, 197, 94, 0.1)' : 'none',
+                color: activePet === pet.id ? '#22c55e' : '#64748b'
+              }}
+            >
+              {pet.icon}
+              <span style={{ fontWeight: '800', color: activePet === pet.id ? '#1f2937' : '#64748b', fontSize: '0.85rem' }}>{pet.name}</span>
+            </button>
+          ))}
         </div>
 
         {/* Section Header */}
