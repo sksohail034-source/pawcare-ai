@@ -54,9 +54,9 @@ export const dogTraining = [
     milestones: ['Calm around other dogs', 'Friendly with strangers', 'Good public behavior'],
     tasks: ['Park visits', 'Meeting new friends', 'Quiet time in public places'],
     videos: [
-      { id: 'W3onxKYBM_Q', title: 'Video 1: Meeting Other Dogs', dur: '12 min' },
-      { id: 'HMleqP5x1Yc', title: 'Video 2: Meeting Strangers', dur: '13 min' },
-      { id: 'pEbMbCCp5L8', title: 'Video 3: Public Behavior', dur: '11 min' },
+      { id: 'dn2SL40AktI', title: 'Video 1: Meeting Other Dogs', dur: '8 min' },
+      { id: '0KKop8OvzVI', title: 'Video 2: Meeting Strangers', dur: '9 min' },
+      { id: 'i3kv4G5Xzv8', title: 'Video 3: Public Behavior', dur: '7 min' },
     ]
   },
   { 
