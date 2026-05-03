@@ -226,7 +226,7 @@ export const catTraining = [
     tasks: ['Aggression redirection', 'Pre-sleep play session', 'Quiet reward sessions'],
     videos: [
       { id: 'C-qmDbMPb6c', title: 'Video 1: Aggression Control', dur: '6 min' },
-      { id: 'zgGBzWwp1Cg', title: 'Video 2: Night Hyperactivity', dur: '10 min' },
+      { id: 'uWVWXDnprNQ', title: 'Video 2: Night Hyperactivity', dur: '8 min' },
       { id: 'GNMG1G5FaNU', title: 'Video 3: Excessive Meowing', dur: '9 min' },
     ]
   },
