@@ -78,9 +78,9 @@ export const dogTraining = [
     milestones: ['Reduced barking at door', 'No jumping on guests', 'Calm when owner leaves'],
     tasks: ['Guest arrival practice', 'Quiet command sessions', 'Alone time buildup'],
     videos: [
-      { id: 'ObMQ-S3wGGo', title: 'Video 1: Excessive Barking Control', dur: '14 min' },
-      { id: 'lC9OwtIkYbY', title: 'Video 2: Jumping on People', dur: '10 min' },
-      { id: 'HWT9oYGVYeo', title: 'Video 3: Separation Anxiety', dur: '15 min' },
+      { id: 'JVFfLJ2qMXo', title: 'Video 1: Excessive Barking Control', dur: '7 min' },
+      { id: 'g6PVdqinCUk', title: 'Video 2: Jumping on People', dur: '8 min' },
+      { id: '_uInQUHhZaA', title: 'Video 3: Separation Anxiety', dur: '10 min' },
     ]
   },
   { 
