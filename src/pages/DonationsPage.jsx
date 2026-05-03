@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { api } from '../api';
 import { formatDate } from '../utils';
-import { Heart, ShieldCheck, Gift, ArrowRight } from 'lucide-react';
+import { Heart, ShieldCheck, Gift, ArrowRight, Camera } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 export default function DonationsPage() {
@@ -18,6 +18,25 @@ export default function DonationsPage() {
 
   // Replace this with your actual Razorpay Payment Link
   const razorpayLink = "https://rzp.io/l/pawcare-support";
+
+  const galleryImages = [
+    {
+      url: "https://images.unsplash.com/photo-1548681528-6a5c45b66b42?q=80&w=600&auto=format&fit=crop",
+      alt: "Feeding a stray dog"
+    },
+    {
+      url: "https://images.unsplash.com/photo-1544929841-f09bc1d52926?q=80&w=600&auto=format&fit=crop",
+      alt: "Street cat getting milk"
+    },
+    {
+      url: "https://images.unsplash.com/photo-1537151608804-ea6f11dc3d89?q=80&w=600&auto=format&fit=crop",
+      alt: "Happy stray dog after a meal"
+    },
+    {
+      url: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?q=80&w=600&auto=format&fit=crop",
+      alt: "Volunteer feeding stray puppies"
+    }
+  ];
 
   return (
     <div className="page-container">
@@ -146,7 +165,7 @@ export default function DonationsPage() {
         {totalDonated > 0 ? (
           <div className="card" style={{ padding: 32, textAlign: 'center', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
             <div style={{ fontSize: 14, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 8 }}>Your Impact</div>
-            <div style={{ fontSize: 48, fontWeight: 900, color: 'var(--primary)' }}>${totalDonated.toFixed(2)}</div>
+            <div style={{ fontSize: 48, fontWeight: 900, color: 'var(--primary)' }}>₹{totalDonated.toFixed(2)}</div>
             <p style={{ marginTop: 12, color: 'var(--text-muted)' }}>Thank you for your incredible generosity! 🐾</p>
           </div>
         ) : (
@@ -156,6 +175,61 @@ export default function DonationsPage() {
             </p>
           </div>
         )}
+      </div>
+
+      {/* Real Impact Photo Gallery */}
+      <div style={{ marginTop: 60, marginBottom: 40 }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 24 }}>
+          <h3 style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: '1.5rem' }}>
+            <Camera className="text-primary" size={28} /> Our On-Ground Impact
+          </h3>
+          <span style={{ fontSize: '0.9rem', color: 'var(--text-muted)', fontWeight: 600 }}>Real stories, real lives saved</span>
+        </div>
+        
+        <div style={{ 
+          display: 'grid', 
+          gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', 
+          gap: '20px' 
+        }}>
+          {galleryImages.map((img, idx) => (
+            <div key={idx} style={{ 
+              borderRadius: '20px', 
+              overflow: 'hidden', 
+              boxShadow: '0 10px 25px rgba(0,0,0,0.08)',
+              position: 'relative',
+              aspectRatio: '4/3',
+              background: '#f1f5f9'
+            }}>
+              <img 
+                src={img.url} 
+                alt={img.alt} 
+                style={{ 
+                  width: '100%', 
+                  height: '100%', 
+                  objectFit: 'cover',
+                  transition: 'transform 0.3s ease'
+                }} 
+                onMouseOver={e => e.currentTarget.style.transform = 'scale(1.05)'}
+                onMouseOut={e => e.currentTarget.style.transform = 'scale(1)'}
+              />
+              <div style={{
+                position: 'absolute',
+                bottom: 0, left: 0, right: 0,
+                background: 'linear-gradient(to top, rgba(0,0,0,0.8), transparent)',
+                padding: '20px 15px 15px',
+                color: 'white',
+                fontSize: '0.9rem',
+                fontWeight: 600,
+                pointerEvents: 'none'
+              }}>
+                {img.alt}
+              </div>
+            </div>
+          ))}
+        </div>
+        <p style={{ textAlign: 'center', marginTop: 24, fontSize: '0.95rem', color: 'var(--text-muted)' }}>
+          These are just a few examples of the beautiful souls that receive meals and care daily thanks to contributors like you.
+        </p>
       </div>
 
       {history.length > 0 && (
@@ -174,7 +248,7 @@ export default function DonationsPage() {
                 {history.map(d => (
                   <tr key={d.id}>
                     <td>{formatDate(d.created_at)}</td>
-                    <td style={{ fontWeight: 700, color: 'var(--primary)' }}>${d.amount?.toFixed(2)}</td>
+                    <td style={{ fontWeight: 700, color: 'var(--primary)' }}>₹{d.amount?.toFixed(2)}</td>
                     <td><span className="badge badge-success">Completed</span></td>
                   </tr>
                 ))}
