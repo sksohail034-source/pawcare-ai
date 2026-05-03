@@ -7,6 +7,7 @@ import { GiDogBowl, GiCat, GiComb, GiTennisBall, GiFirstAidKit } from 'react-ico
 import { FaDove, FaFish, FaHorse, FaPaw } from 'react-icons/fa';
 import toast from 'react-hot-toast';
 import { api } from '../api';
+import { formatCurrency } from '../utils';
 
 const DOG_CATEGORIES = [
   { id: 'food', name: 'Food & Nutrition', icon: <GiDogBowl /> },
@@ -2171,8 +2172,7 @@ export default function ProductsPage() {
 
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem', marginTop: 'auto', paddingTop: '0.5rem', borderTop: '1px solid #f1f5f9' }}>
                       <div style={{ display: 'flex', alignItems: 'center' }}>
-                        <span style={{ fontSize: '0.85rem', fontWeight: '600', color: '#64748b', marginRight: '2px' }}>₹</span>
-                        <span style={{ fontSize: '1.25rem', fontWeight: '900', color: '#B12704' }}>{product.price}</span>
+                        <span style={{ fontSize: '1.25rem', fontWeight: '900', color: '#B12704' }}>{formatCurrency(product.price)}</span>
                       </div>
                       
                       <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', width: '100%' }}>

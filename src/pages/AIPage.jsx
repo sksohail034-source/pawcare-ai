@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { api } from '../api';
-import { getPetEmoji, PET_TYPES, petImages } from '../utils';
+import { getPetEmoji, PET_TYPES, petImages, formatCurrency } from '../utils';
 import { useCart } from '../context/CartContext';
 import { FiShoppingCart, FiArrowRight, FiCheck } from 'react-icons/fi';
 import toast from 'react-hot-toast';
@@ -123,7 +123,7 @@ function CareKitSection({ careKit }) {
                 <h5 style={{ fontSize: 11, fontWeight: 700, margin: '2px 0', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden', lineHeight: 1.3 }}>
                   {p.name}
                 </h5>
-                <div style={{ fontSize: 13, fontWeight: 800, color: '#000' }}>₹{p.price.split('-')[0]}</div>
+                <div style={{ fontSize: 13, fontWeight: 800, color: '#000' }}>{formatCurrency(p.price)}</div>
               </div>
             </div>
           ))}
@@ -437,7 +437,10 @@ export default function AIPage() {
               <div className="ai-result-header"><h4>{s.name}</h4><span className="badge badge-success">{(s.confidence * 100).toFixed(0)}%</span></div>
               <p style={{ color: 'var(--text-muted)', fontSize: 14 }}>{s.description}</p>
               <div className="confidence-bar"><div className="confidence-fill" style={{ width: `${s.confidence * 100}%` }}></div></div>
-              <div className="flex-row justify-between" style={{ fontSize: 13, color: 'var(--text-muted)', margin: '12px 0' }}><span>💰 {s.estimatedCost}</span><span>⏱️ {s.estimatedTime}</span></div>
+              <div className="flex-row justify-between" style={{ fontSize: 13, color: 'var(--text-muted)', margin: '12px 0' }}>
+                <span>💰 {formatCurrency(s.estimatedCost)}</span>
+                <span>⏱️ {s.estimatedTime}</span>
+              </div>
               <div className="ai-tags">{s.tags?.map((t, j) => <span className="ai-tag" key={j}>{t}</span>)}</div>
             </div>
           ))}</div>

@@ -271,7 +271,7 @@ router.post('/style/:petId', authenticateToken, (req, res) => {
     const selectedStyles = styles.map(s => ({
       ...s,
       confidence: +(s.confidence + (Math.random() * 0.05 - 0.025)).toFixed(2),
-      estimatedCost: `$${(30 + Math.random() * 70).toFixed(0)}`,
+      estimatedCost: (30 + Math.random() * 70).toFixed(0),
       estimatedTime: `${(30 + Math.floor(Math.random() * 60))} minutes`
     }));
 

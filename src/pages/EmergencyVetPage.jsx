@@ -42,14 +42,13 @@ export default function EmergencyVetPage() {
   async function fetchNearbyClinics(lat, lng) {
     setLoading(true);
     try {
-      const radius = 10000;
+      const radius = 15000; // 15km
       const query = `
         [out:json][timeout:25];
         (
-          node["amenity"="clinic"](around:${radius},${lat},${lng});
-          node["amenity"="hospital"](around:${radius},${lat},${lng});
-          way["amenity"="clinic"](around:${radius},${lat},${lng});
-          way["amenity"="hospital"](around:${radius},${lat},${lng});
+          node["amenity"="veterinary"](around:${radius},${lat},${lng});
+          way["amenity"="veterinary"](around:${radius},${lat},${lng});
+          node["healthcare"="veterinary"](around:${radius},${lat},${lng});
         );
         out center;
       `;
@@ -66,11 +65,12 @@ export default function EmergencyVetPage() {
         name: el.tags?.name || 'Veterinary Clinic',
         lat: el.lat || el.center?.lat,
         lon: el.lon || el.center?.lon,
-        address: el.tags?.['addr:street'] ? 
-          `${el.tags['addr:housenumber'] || ''} ${el.tags['addr:street']}, ${el.tags['addr:city'] || ''}` : 
-          'Address not available',
-        phone: el.tags?.phone || el.tags?.['contact:phone'] || '',
-        openingHours: el.tags?.opening_hours || 'Hours not available',
+        address: el.tags?.['addr:full'] || 
+                 (el.tags?.['addr:street'] ? `${el.tags['addr:housenumber'] || ''} ${el.tags['addr:street']}, ${el.tags['addr:city'] || ''}`.trim() : null) ||
+                 el.tags?.['place_name'] ||
+                 'Address available on map',
+        phone: el.tags?.phone || el.tags?.['contact:phone'] || el.tags?.['phone:emergency'] || '',
+        openingHours: el.tags?.opening_hours || '24/7 (Verify by calling)',
         website: el.tags?.website || '',
       }));
 
