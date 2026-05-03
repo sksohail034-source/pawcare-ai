@@ -90,9 +90,9 @@ export const dogTraining = [
     milestones: ['Reliable off-leash recall', 'Commands at 20ft distance', 'Response to hand signals'],
     tasks: ['Off-leash park practice', 'Distance-stay games', 'Silent signal sessions'],
     videos: [
-      { id: 'IpFjHwzjFjo', title: 'Video 1: Off-Leash Training', dur: '15 min' },
-      { id: 'R9bJUWminRg', title: 'Video 2: Distance Commands', dur: '12 min' },
-      { id: 'QSl92MwyKjI', title: 'Video 3: Hand Signal Training', dur: '9 min' },
+      { id: '--PXr3edQDo', title: 'Video 1: Off-Leash Training', dur: '8 min' },
+      { id: 'dK-VC7xC-OI', title: 'Video 2: Distance Commands', dur: '8 min' },
+      { id: 'Y0pamvXAXpA', title: 'Video 3: Hand Signal Training', dur: '9 min' },
     ]
   },
   { 
