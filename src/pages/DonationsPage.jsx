@@ -21,20 +21,20 @@ export default function DonationsPage() {
 
   const galleryImages = [
     {
-      url: "https://images.unsplash.com/photo-1548681528-6a5c45b66b42?q=80&w=600&auto=format&fit=crop",
-      alt: "Feeding a stray dog"
+      url: "https://images.pexels.com/photos/35020401/pexels-photo-35020401.jpeg?auto=compress&cs=tinysrgb&w=600&auto=format&fit=crop",
+      alt: "Street dog nursing her puppies in India"
     },
     {
-      url: "https://images.unsplash.com/photo-1544929841-f09bc1d52926?q=80&w=600&auto=format&fit=crop",
-      alt: "Street cat getting milk"
+      url: "https://images.pexels.com/photos/15295292/pexels-photo-15295292.jpeg?auto=compress&cs=tinysrgb&w=600&auto=format&fit=crop",
+      alt: "Feeding stray dogs at Chennai Marina Beach"
     },
     {
-      url: "https://images.unsplash.com/photo-1537151608804-ea6f11dc3d89?q=80&w=600&auto=format&fit=crop",
-      alt: "Happy stray dog after a meal"
+      url: "https://images.pexels.com/photos/36090473/pexels-photo-36090473.jpeg?auto=compress&cs=tinysrgb&w=600&auto=format&fit=crop",
+      alt: "Feeding a stray cat in Kerala"
     },
     {
-      url: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?q=80&w=600&auto=format&fit=crop",
-      alt: "Volunteer feeding stray puppies"
+      url: "https://images.pexels.com/photos/32513713/pexels-photo-32513713.jpeg?auto=compress&cs=tinysrgb&w=600&auto=format&fit=crop",
+      alt: "Kittens feeding on a dusty Indian street"
     }
   ];
 
