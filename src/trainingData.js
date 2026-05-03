@@ -7,8 +7,8 @@ export const dogTraining = [
     tasks: ['Practice name recall 10x', 'Maintain eye contact 5x', 'Basic sit sessions'],
     videos: [
       { id: 'TsVz8LbjwEA', title: 'Video 1: Name Recognition', dur: '10 min' },
-      { id: 'jFMA5ggFsXU', title: 'Video 2: Dog Training 101 Basics', dur: '12 min' },
-      { id: 'kGbYT5zMRVk', title: 'Video 3: Puppy Survival Guide', dur: '15 min' },
+      { id: 'uH3uN9pYwU0', title: 'Video 2: Focus Training', dur: '12 min' },
+      { id: 'Lqf_iP2L6eU', title: 'Video 3: Sit Command (Basic)', dur: '11 min' },
     ]
   },
   { 
@@ -18,7 +18,7 @@ export const dogTraining = [
     milestones: ['Perfect sit on command', 'Stay for 30 seconds', 'Reliable indoor recall'],
     tasks: ['Daily stay practice', 'Recall games', 'Perfecting the sit posture'],
     videos: [
-      { id: 'Lqf_iP2L6eU', title: 'Video 1: Sit (Perfecting)', dur: '11 min' },
+      { id: 'vA2_o9Gv6oY', title: 'Video 1: Sit (Perfecting)', dur: '11 min' },
       { id: 'VnN_pAnW4u4', title: 'Video 2: Stay Command', dur: '14 min' },
       { id: 'UxHIm0Bskms', title: 'Video 3: Come When Called (Recall)', dur: '13 min' },
     ]
