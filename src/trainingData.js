@@ -227,17 +227,20 @@ export const dogTraining = [
       {
         id: 'JVFfLJ2qMXo',
         title: 'Video 1: Excessive Barking Control',
-        dur: '7 min'
+        dur: '7 min',
+        shortVideoId: 'TvNzLmBBIJ0'
       },
       {
         id: 'g6PVdqinCUk',
         title: 'Video 2: Jumping on People',
-        dur: '8 min'
+        dur: '8 min',
+        shortVideoId: 'jIw-xrjPPh8'
       },
       {
         id: '_uInQUHhZaA',
         title: 'Video 3: Separation Anxiety',
-        dur: '10 min'
+        dur: '10 min',
+        shortVideoId: 'Re1FQzGXxJU'
       }
     ]
   },
@@ -259,17 +262,20 @@ export const dogTraining = [
       {
         id: '--PXr3edQDo',
         title: 'Video 1: Off-Leash Training',
-        dur: '8 min'
+        dur: '8 min',
+        shortVideoId: 'Gj4TLN50_5M'
       },
       {
         id: 'dK-VC7xC-OI',
         title: 'Video 2: Distance Commands',
-        dur: '8 min'
+        dur: '8 min',
+        shortVideoId: 'HcNEe43RdBs'
       },
       {
         id: 'Y0pamvXAXpA',
         title: 'Video 3: Hand Signal Training',
-        dur: '9 min'
+        dur: '9 min',
+        shortVideoId: 'KTTVJ5fYxYo'
       }
     ]
   },
