@@ -87,17 +87,20 @@ export const dogTraining = [
       {
         id: 'sZTmIMpvHJ8',
         title: 'Video 1: Potty Train FAST!',
-        dur: '15 min'
+        dur: '15 min',
+        shortVideoId: 'QjndGxZ5x7U'
       },
       {
         id: 'PJlXZhtkZ3E',
         title: 'Video 2: Ultimate Crate Training',
-        dur: '14 min'
+        dur: '14 min',
+        shortVideoId: 'Re1FQzGXxJU'
       },
       {
         id: 'Qm2E5nldfcQ',
         title: 'Video 3: Stop Biting Today',
-        dur: '11 min'
+        dur: '11 min',
+        shortVideoId: 'wapF44ASmKo'
       }
     ]
   },
@@ -117,19 +120,22 @@ export const dogTraining = [
     ],
     videos: [
       {
-        id: 'twktHg0_CKM',
+        id: '4cve9mG7u2s',
         title: 'Video 1: Loose Leash Walking',
-        dur: '8 min'
+        dur: '16 min',
+        shortVideoId: 'Wmt_PDtc5cM'
       },
       {
-        id: 'cR1SDaAvS6Y',
-        title: 'Video 2: Stop Pulling',
-        dur: '9 min'
+        id: 'tVjJg8B244w',
+        title: 'Video 2: Stop Pulling instantly',
+        dur: '12 min',
+        shortVideoId: 'Gj4TLN50_5M'
       },
       {
-        id: 'grHN_MIexVo',
-        title: 'Video 3: Walking Discipline',
-        dur: '9 min'
+        id: 'U98jM4H3Hw8',
+        title: 'Video 3: Walk with Discipline',
+        dur: '10 min',
+        shortVideoId: 'pCY16jY4RD0'
       }
     ]
   },
