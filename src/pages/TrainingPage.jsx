@@ -1,6 +1,21 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Play, CheckCircle, Lock, Crown, ChevronRight } from 'lucide-react';
+import { Play, CheckCircle, Lock, Crown, ChevronRight, Target, Activity, Home, Navigation, Users, ArrowDownCircle, ShieldAlert, Command, Star, Shield, Brain, Award, PlayCircle } from 'lucide-react';
+
+const shortsCurriculum = [
+  { month: 1, title: 'Foundation', topics: ['Name Recognition', 'Focus / Eye Contact', 'Sit Command'], icon: Target },
+  { month: 2, title: 'Basic Commands', topics: ['Sit Improve', 'Stay', 'Come When Called'], icon: Activity },
+  { month: 3, title: 'Home Training', topics: ['Potty Training', 'Crate Training', 'Stop Biting'], icon: Home },
+  { month: 4, title: 'Leash Training', topics: ['Loose Leash Walking', 'Stop Pulling', 'Walking Discipline'], icon: Navigation },
+  { month: 5, title: 'Socialization', topics: ['Meeting Other Dogs', 'Meeting Strangers', 'Public Behavior'], icon: Users },
+  { month: 6, title: 'Intermediate Commands', topics: ['Down', 'Leave It', 'Drop It'], icon: ArrowDownCircle },
+  { month: 7, title: 'Behavior Correction', topics: ['Barking Control', 'Jumping on People', 'Separation Anxiety'], icon: ShieldAlert },
+  { month: 8, title: 'Advanced Control', topics: ['Off-Leash Training', 'Distance Commands', 'Hand Signals'], icon: Command },
+  { month: 9, title: 'Tricks', topics: ['Shake Hand', 'Roll Over', 'Spin'], icon: Star },
+  { month: 10, title: 'Guard & Alert Basics', topics: ['Alert Training', 'Territory Awareness', 'Basic Protection'], icon: Shield },
+  { month: 11, title: 'Fitness & Mental', topics: ['Agility', 'Obstacle Training', 'Brain Games'], icon: Brain },
+  { month: 12, title: 'Pro Level', topics: ['Advanced Recall', 'Discipline', 'Real-Life Training'], icon: Award }
+];
 import { useAuth } from '../context/AuthContext';
 import { dogTraining, catTraining } from '../trainingData';
 
@@ -286,64 +301,93 @@ export default function TrainingPage() {
             ))}
           </div>
 
-          {/* Quick Revision Shorts Section */}
-          {current?.videos.some(v => v.shortVideoId) && (
-            <div style={{ marginTop: 32 }}>
-              <h4 style={{ fontFamily: 'var(--font-display)', marginBottom: 16, fontSize: 18, fontWeight: 800 }}>
-                📱 Quick Revision (Hindi Shorts)
-              </h4>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 16 }}>
-                {current?.videos.filter(v => v.shortVideoId).map((video, idx) => (
-                  <div key={`short-${video.id}`} className="card" style={{ padding: 0, overflow: 'hidden' }}>
-                    {playingVideo === video.shortVideoId ? (
-                      <div style={{ position: 'relative', paddingBottom: '177.77%', height: 0 }}>
-                        <iframe
-                          src={`https://www.youtube.com/embed/${video.shortVideoId}?autoplay=1&rel=0`}
-                          title={`Short ${video.title}`}
-                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                          allowFullScreen
-                          style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 'none' }}
-                        />
-                      </div>
-                    ) : (
-                      <div onClick={() => setPlayingVideo(video.shortVideoId)}
-                        style={{
-                          position: 'relative', paddingBottom: '177.77%', height: 0, cursor: 'pointer',
-                          background: `url(https://img.youtube.com/vi/${video.shortVideoId}/hqdefault.jpg) center/cover`,
-                        }}>
-                        <div style={{
-                          position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.3)',
-                          display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        }}>
-                        </div>
-                        <div style={{
-                          position: 'absolute', inset: 0,
-                          display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        }}>
-                          <div style={{
-                            width: 48, height: 48, borderRadius: '50%', background: 'rgba(255,255,255,0.95)',
-                            display: 'flex', alignItems: 'center', justifyContent: 'center',
-                            boxShadow: '0 4px 20px rgba(0,0,0,0.3)',
-                          }}>
-                            <Play size={20} color="var(--primary-dark)" fill="var(--primary)" />
-                          </div>
-                        </div>
-                        <div style={{ position: 'absolute', bottom: 8, right: 8, background: 'rgba(0,0,0,0.8)', color: '#fff', padding: '2px 8px', borderRadius: 4, fontSize: 11, fontWeight: 600 }}>
-                          Short
-                        </div>
-                      </div>
-                    )}
-                    <div style={{ padding: '12px', background: 'var(--bg-input)' }}>
-                      <div style={{ fontSize: 10, color: 'var(--text-light)', fontWeight: 600, marginBottom: 2 }}>
-                        STEP {idx + 1}
-                      </div>
-                      <h4 style={{ fontSize: 13, fontWeight: 700, color: 'var(--text-main)', lineHeight: 1.3 }}>{video.title.replace(/Video \d+: /, '')}</h4>
-                    </div>
-                  </div>
-                ))}
+          {/* Quick Tips (Hindi Shorts) Section - Netflix Style */}
+          <div style={{ marginTop: 40, paddingTop: 24, borderTop: '2px solid var(--border)', margin: '40px -16px 0 -16px' }}>
+            <div style={{ padding: '0 16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
+              <div>
+                <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 20, fontWeight: 800, color: 'var(--text-main)', display: 'flex', alignItems: 'center', gap: 8 }}>
+                  📱 Quick Tips (Hindi Shorts)
+                </h3>
+                <p style={{ fontSize: 13, color: 'var(--text-light)', marginTop: 4 }}>Bite-sized visual guides for rapid revision</p>
+              </div>
+              <div style={{ background: 'var(--bg-input)', padding: '6px 12px', borderRadius: 20, display: 'flex', alignItems: 'center', gap: 6 }}>
+                <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--text-main)' }}>0%</span>
+                <div style={{ width: 60, height: 6, background: 'var(--border)', borderRadius: 4, overflow: 'hidden' }}>
+                  <div style={{ width: '0%', height: '100%', background: 'var(--primary)' }} />
+                </div>
               </div>
             </div>
-          )}
+
+            {/* Horizontal Scroll Container */}
+            <div style={{ 
+              display: 'flex', overflowX: 'auto', gap: 20, padding: '0 16px 24px 16px', 
+              scrollSnapType: 'x mandatory', WebkitOverflowScrolling: 'touch',
+              scrollbarWidth: 'none', msOverflowStyle: 'none'
+            }}>
+              {shortsCurriculum.map((monthData, mIdx) => {
+                const Icon = monthData.icon;
+                return (
+                  <div key={monthData.month} style={{ 
+                    flex: '0 0 auto', width: '300px', scrollSnapAlign: 'start',
+                    background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 16, overflow: 'hidden',
+                    boxShadow: '0 4px 12px rgba(0,0,0,0.03)'
+                  }}>
+                    {/* Month Header */}
+                    <div style={{ padding: 16, borderBottom: '1px solid var(--border)', background: 'var(--bg-input)' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
+                        <div style={{ width: 28, height: 28, borderRadius: 8, background: 'var(--primary-light)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--primary-dark)' }}>
+                          <Icon size={16} />
+                        </div>
+                        <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--primary)', textTransform: 'uppercase', letterSpacing: 0.5 }}>Month {monthData.month}</div>
+                      </div>
+                      <h4 style={{ fontSize: 16, fontWeight: 800, color: 'var(--text-main)' }}>{monthData.title}</h4>
+                    </div>
+
+                    {/* Topics List */}
+                    <div style={{ padding: 16, display: 'flex', flexDirection: 'column', gap: 20 }}>
+                      {monthData.topics.map((topic, tIdx) => (
+                        <div key={tIdx}>
+                          <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--text-main)', marginBottom: 12, display: 'flex', alignItems: 'center', gap: 6 }}>
+                            <div style={{ width: 18, height: 18, borderRadius: '50%', background: 'var(--border)', color: 'var(--text-light)', fontSize: 10, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700 }}>{tIdx + 1}</div>
+                            {topic}
+                          </div>
+                          
+                          {/* Placeholder Video Grid */}
+                          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
+                            <div style={{ background: 'var(--bg-input)', borderRadius: 8, paddingBottom: '177%', position: 'relative', overflow: 'hidden', border: '1px dashed var(--border)' }}>
+                              <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: 'var(--text-muted)' }}>
+                                <PlayCircle size={24} style={{ marginBottom: 6, opacity: 0.5 }} />
+                                <span style={{ fontSize: 10, fontWeight: 600 }}>Coming Soon</span>
+                              </div>
+                            </div>
+                            <div style={{ background: 'var(--bg-input)', borderRadius: 8, paddingBottom: '177%', position: 'relative', overflow: 'hidden', border: '1px dashed var(--border)' }}>
+                              <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: 'var(--text-muted)' }}>
+                                <PlayCircle size={24} style={{ marginBottom: 6, opacity: 0.5 }} />
+                                <span style={{ fontSize: 10, fontWeight: 600 }}>Add Video</span>
+                              </div>
+                            </div>
+                          </div>
+                          
+                          {/* Mark as Completed Toggle (Disabled) */}
+                          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 12, padding: '8px 10px', background: 'var(--bg-input)', borderRadius: 8, opacity: 0.6, cursor: 'not-allowed' }}>
+                            <span style={{ fontSize: 11, fontWeight: 600, color: 'var(--text-light)' }}>Mark as Completed</span>
+                            <div style={{ width: 32, height: 18, background: 'var(--border)', borderRadius: 16, position: 'relative' }}>
+                              <div style={{ width: 14, height: 14, background: '#fff', borderRadius: '50%', position: 'absolute', top: 2, left: 2, boxShadow: '0 1px 3px rgba(0,0,0,0.2)' }} />
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+            
+            {/* CSS to hide scrollbar */}
+            <style>{`
+              div::-webkit-scrollbar { display: none; }
+            `}</style>
+          </div>
 
           {/* Next Month CTA */}
           {month < 12 && (
