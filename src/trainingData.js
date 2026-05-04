@@ -17,20 +17,17 @@ export const dogTraining = [
       {
         id: 'o2rtu5BBCrA',
         title: 'Video 1: Name Recognition (3 Steps)',
-        dur: '8 min',
-        shortVideoId: 'vdfMFL5xAeY'
+        dur: '8 min'
       },
       {
         id: 'PHmkK4QA8gI',
         title: 'Video 2: Focus Training (Instantly)',
-        dur: '10 min',
-        shortVideoId: 'zDeL2fAC1q8'
+        dur: '10 min'
       },
       {
         id: '5kVahj499r8',
         title: 'Video 3: Sit Command (Service Dog Method)',
-        dur: '11 min',
-        shortVideoId: 'j79L5fZTbL8'
+        dur: '11 min'
       }
     ]
   },
@@ -52,20 +49,17 @@ export const dogTraining = [
       {
         id: '3gaGsebCRhs',
         title: 'Video 1: Sit (Perfecting & Posture)',
-        dur: '11 min',
-        shortVideoId: 'nZg3e9HcylU'
+        dur: '11 min'
       },
       {
         id: '2MANkW5Dj6w',
         title: 'Video 2: Stay Command (Avoid Mistakes!)',
-        dur: '12 min',
-        shortVideoId: 'f-gGvTuRkgI'
+        dur: '12 min'
       },
       {
         id: 'xHdiXy2hPCY',
         title: 'Video 3: Come When Called (Recall)',
-        dur: '13 min',
-        shortVideoId: 'WpZC-jQuAq4'
+        dur: '13 min'
       }
     ]
   },
@@ -87,20 +81,17 @@ export const dogTraining = [
       {
         id: 'sZTmIMpvHJ8',
         title: 'Video 1: Potty Train FAST!',
-        dur: '15 min',
-        shortVideoId: 't3T7LS1isc0'
+        dur: '15 min'
       },
       {
         id: 'PJlXZhtkZ3E',
         title: 'Video 2: Ultimate Crate Training',
-        dur: '14 min',
-        shortVideoId: 'xWq0NGtHeiI'
+        dur: '14 min'
       },
       {
         id: 'Qm2E5nldfcQ',
         title: 'Video 3: Stop Biting Today',
-        dur: '11 min',
-        shortVideoId: 'j_xDv_rFH_Y'
+        dur: '11 min'
       }
     ]
   },
@@ -122,20 +113,17 @@ export const dogTraining = [
       {
         id: 'twktHg0_CKM',
         title: 'Video 1: Loose Leash Walking',
-        dur: '8 min',
-        shortVideoId: 'hb5aECtq6EM'
+        dur: '8 min'
       },
       {
         id: 'cR1SDaAvS6Y',
         title: 'Video 2: Stop Pulling',
-        dur: '9 min',
-        shortVideoId: 'IvOki7qDXA8'
+        dur: '9 min'
       },
       {
         id: 'grHN_MIexVo',
         title: 'Video 3: Walking Discipline',
-        dur: '9 min',
-        shortVideoId: 'HcNEe43RdBs'
+        dur: '9 min'
       }
     ]
   },
@@ -157,20 +145,17 @@ export const dogTraining = [
       {
         id: 'dn2SL40AktI',
         title: 'Video 1: Meeting Other Dogs',
-        dur: '8 min',
-        shortVideoId: '7htNnVY53E4'
+        dur: '8 min'
       },
       {
         id: '0KKop8OvzVI',
         title: 'Video 2: Meeting Strangers',
-        dur: '9 min',
-        shortVideoId: 'Gec15ExR7Io'
+        dur: '9 min'
       },
       {
         id: 'i3kv4G5Xzv8',
         title: 'Video 3: Public Behavior',
-        dur: '7 min',
-        shortVideoId: 'XByWcZerSxs'
+        dur: '7 min'
       }
     ]
   },
@@ -192,20 +177,17 @@ export const dogTraining = [
       {
         id: 'DYWTarzD2u4',
         title: 'Video 1: Down Command',
-        dur: '7 min',
-        shortVideoId: 'pYfQOUms5Pg'
+        dur: '7 min'
       },
       {
         id: 'umt0jF9MHeI',
         title: 'Video 2: Leave It',
-        dur: '8 min',
-        shortVideoId: 'Z7BHMlEuR3o'
+        dur: '8 min'
       },
       {
         id: 'kI52HYbnQX8',
         title: 'Video 3: Drop It',
-        dur: '9 min',
-        shortVideoId: 'qMmyq5XIy_Q'
+        dur: '9 min'
       }
     ]
   },
@@ -227,20 +209,17 @@ export const dogTraining = [
       {
         id: 'JVFfLJ2qMXo',
         title: 'Video 1: Excessive Barking Control',
-        dur: '7 min',
-        shortVideoId: 'udS62CxygM8'
+        dur: '7 min'
       },
       {
         id: 'g6PVdqinCUk',
         title: 'Video 2: Jumping on People',
-        dur: '8 min',
-        shortVideoId: '6gYKLZ5YDzw'
+        dur: '8 min'
       },
       {
         id: '_uInQUHhZaA',
         title: 'Video 3: Separation Anxiety',
-        dur: '10 min',
-        shortVideoId: 'cykcNvbueWo'
+        dur: '10 min'
       }
     ]
   },
@@ -262,20 +241,17 @@ export const dogTraining = [
       {
         id: '--PXr3edQDo',
         title: 'Video 1: Off-Leash Training',
-        dur: '8 min',
-        shortVideoId: 'Io8VSxOQ2E8'
+        dur: '8 min'
       },
       {
         id: 'dK-VC7xC-OI',
         title: 'Video 2: Distance Commands',
-        dur: '8 min',
-        shortVideoId: 'YwjVHIyRago'
+        dur: '8 min'
       },
       {
         id: 'Y0pamvXAXpA',
         title: 'Video 3: Hand Signal Training',
-        dur: '9 min',
-        shortVideoId: 'KP1vURIXFvs'
+        dur: '9 min'
       }
     ]
   },
@@ -297,20 +273,17 @@ export const dogTraining = [
       {
         id: '8_SpZUTuRgE',
         title: 'Video 1: Shake Hand',
-        dur: '7 min',
-        shortVideoId: 'QJ1s0DawUtY'
+        dur: '7 min'
       },
       {
         id: 'Ke-6iCZ7jqA',
         title: 'Video 2: Roll Over',
-        dur: '5 min',
-        shortVideoId: 'fSPCjc997l4'
+        dur: '5 min'
       },
       {
         id: '1FUqREededA',
         title: 'Video 3: Spin Trick',
-        dur: '5 min',
-        shortVideoId: 'wtcN07hFa_M'
+        dur: '5 min'
       }
     ]
   },
@@ -332,20 +305,17 @@ export const dogTraining = [
       {
         id: 'CRYSNymBE_A',
         title: 'Video 1: Alert Training',
-        dur: '8 min',
-        shortVideoId: '4WCpyfDjBbw'
+        dur: '8 min'
       },
       {
         id: 'zbx1Ywo1gTc',
         title: 'Video 2: Territory Awareness',
-        dur: '10 min',
-        shortVideoId: 'nk-yfiPmzX4'
+        dur: '10 min'
       },
       {
         id: 'AGoXobRlDaE',
         title: 'Video 3: Basic Protection',
-        dur: '8 min',
-        shortVideoId: '418KU2hC-S4'
+        dur: '8 min'
       }
     ]
   },
@@ -367,20 +337,17 @@ export const dogTraining = [
       {
         id: '70q00hAtXpE',
         title: 'Video 1: Agility Training',
-        dur: '9 min',
-        shortVideoId: 'Tk1YKXDrISg'
+        dur: '9 min'
       },
       {
         id: 'XOvOp_T0cdo',
         title: 'Video 2: Obstacle Training',
-        dur: '8 min',
-        shortVideoId: '7veZas7NpEs'
+        dur: '8 min'
       },
       {
         id: '_5GrbJkTXKo',
         title: 'Video 3: Brain Games',
-        dur: '9 min',
-        shortVideoId: 'uWKWt-s3D-U'
+        dur: '9 min'
       }
     ]
   },
@@ -402,20 +369,17 @@ export const dogTraining = [
       {
         id: '--PXr3edQDo',
         title: 'Video 1: Advanced Recall',
-        dur: '8 min',
-        shortVideoId: 'A5Yhu3mceSs'
+        dur: '8 min'
       },
       {
         id: 'yZ74wVgoEzY',
         title: 'Video 2: Discipline Without Treats',
-        dur: '8 min',
-        shortVideoId: 'ygKdJOLJaH4'
+        dur: '8 min'
       },
       {
         id: 'CYf7xuupWnI',
         title: 'Video 3: Real-Life Situation Training',
-        dur: '9 min',
-        shortVideoId: '6L0ti6UwvNc'
+        dur: '9 min'
       }
     ]
   }
@@ -440,20 +404,17 @@ export const catTraining = [
       {
         id: 'LmK-rqaVKYE',
         title: 'Video 1: Name Recognition',
-        dur: '5 min',
-        shortVideoId: 'Ja4OPVJY-BY'
+        dur: '5 min'
       },
       {
         id: 'njfr-DvmzIo',
         title: 'Video 2: Litter Training',
-        dur: '5 min',
-        shortVideoId: 'aziswRnwhjE'
+        dur: '5 min'
       },
       {
         id: 'yEQBSNG90Lc',
         title: 'Video 3: Trust Building',
-        dur: '10 min',
-        shortVideoId: 'bQvsKNHf4Jg'
+        dur: '10 min'
       }
     ]
   },
@@ -475,20 +436,17 @@ export const catTraining = [
       {
         id: 'be5x5u5i09I',
         title: 'Video 1: Scratching Control',
-        dur: '10 min',
-        shortVideoId: 'IALi3QPogbQ'
+        dur: '10 min'
       },
       {
         id: '73Rn963gGdQ',
         title: 'Video 2: Stop Biting',
-        dur: '10 min',
-        shortVideoId: 'kuuyAtf-M8c'
+        dur: '10 min'
       },
       {
         id: 'oX7vgQTK9fo',
         title: 'Video 3: Basic Response Training',
-        dur: '6 min',
-        shortVideoId: 'zYTzDO_7vKw'
+        dur: '6 min'
       }
     ]
   },
@@ -510,20 +468,17 @@ export const catTraining = [
       {
         id: '57OhKuneQeE',
         title: 'Video 1: Feeding Schedule',
-        dur: '9 min',
-        shortVideoId: '91CZYTfTLYM'
+        dur: '9 min'
       },
       {
         id: 'uWVWXDnprNQ',
         title: 'Video 2: Sleep Routine',
-        dur: '8 min',
-        shortVideoId: 'k25kY9YU-dY'
+        dur: '8 min'
       },
       {
         id: 'VIcWa0wcFNc',
         title: 'Video 3: Play Discipline',
-        dur: '9 min',
-        shortVideoId: '21ZvpsclAGk'
+        dur: '9 min'
       }
     ]
   },
@@ -545,20 +500,17 @@ export const catTraining = [
       {
         id: 'wo-W0UtTbXs',
         title: 'Video 1: Interaction with Humans',
-        dur: '8 min',
-        shortVideoId: 'tYvf-ppdlCE'
+        dur: '8 min'
       },
       {
         id: '8RQotaLRLRc',
         title: 'Video 2: Interaction with Pets',
-        dur: '6 min',
-        shortVideoId: 'PDkqgVLghQ0'
+        dur: '6 min'
       },
       {
         id: 'TqRhrC-tPwg',
         title: 'Video 3: New Environment Adjustment',
-        dur: '9 min',
-        shortVideoId: '4w_P5vfb1Jc'
+        dur: '9 min'
       }
     ]
   },
@@ -580,20 +532,17 @@ export const catTraining = [
       {
         id: '6OUz0cyI0Ok',
         title: 'Video 1: Harness Training',
-        dur: '7 min',
-        shortVideoId: 'twE1jAmFeTQ'
+        dur: '7 min'
       },
       {
         id: 'gnGWApxCGZ8',
         title: 'Video 2: Walking Practice',
-        dur: '6 min',
-        shortVideoId: 'zN4Tn5rOP2g'
+        dur: '6 min'
       },
       {
         id: 'RjvTseSmTP4',
         title: 'Video 3: Outdoor Safety',
-        dur: '9 min',
-        shortVideoId: 'Yb5yOsWoAlc'
+        dur: '9 min'
       }
     ]
   },
@@ -615,20 +564,17 @@ export const catTraining = [
       {
         id: 'u23qeh974RI',
         title: 'Video 1: Come When Called',
-        dur: '6 min',
-        shortVideoId: 'nPVyZznSoRI'
+        dur: '6 min'
       },
       {
         id: 'D7b7Zvepb4c',
         title: 'Video 2: Sit Command',
-        dur: '5 min',
-        shortVideoId: 'V-EDkx906qs'
+        dur: '5 min'
       },
       {
         id: 'xKaq3OEvp4c',
         title: 'Video 3: High Five Trick',
-        dur: '7 min',
-        shortVideoId: 'waaODrkquJM'
+        dur: '7 min'
       }
     ]
   },
@@ -650,20 +596,17 @@ export const catTraining = [
       {
         id: 'C-qmDbMPb6c',
         title: 'Video 1: Aggression Control',
-        dur: '6 min',
-        shortVideoId: 'myJLzkqgZgk'
+        dur: '6 min'
       },
       {
         id: 'uWVWXDnprNQ',
         title: 'Video 2: Night Hyperactivity',
-        dur: '8 min',
-        shortVideoId: 'ETFonrg9qto'
+        dur: '8 min'
       },
       {
         id: 'GNMG1G5FaNU',
         title: 'Video 3: Excessive Meowing',
-        dur: '9 min',
-        shortVideoId: 'd_MExZpabls'
+        dur: '9 min'
       }
     ]
   },
@@ -685,20 +628,17 @@ export const catTraining = [
       {
         id: 'WGZ_0MWC6dg',
         title: 'Video 1: Jump Training',
-        dur: '6 min',
-        shortVideoId: 'CxZCZW0VGgk'
+        dur: '6 min'
       },
       {
         id: '3JjTLFaRMl0',
         title: 'Video 2: Target Training',
-        dur: '8 min',
-        shortVideoId: 'H7hpIxntuaw'
+        dur: '8 min'
       },
       {
         id: 'uK4Zne6mXG8',
         title: 'Video 3: Fetch',
-        dur: '6 min',
-        shortVideoId: 'AiH2azZIs70'
+        dur: '6 min'
       }
     ]
   },
@@ -720,20 +660,17 @@ export const catTraining = [
       {
         id: 'PeYAM-ybngI',
         title: 'Video 1: Puzzle Games',
-        dur: '9 min',
-        shortVideoId: 'fUwXjv-9VZU'
+        dur: '9 min'
       },
       {
         id: 'GBN0Y9sA6W8',
         title: 'Video 2: Hide & Seek',
-        dur: '5 min',
-        shortVideoId: '2iQxQHF5fhw'
+        dur: '5 min'
       },
       {
         id: 'KjEf3CdWwyw',
         title: 'Video 3: Hunting Simulation',
-        dur: '8 min',
-        shortVideoId: 'U4z4lcNELIY'
+        dur: '8 min'
       }
     ]
   },
@@ -755,14 +692,12 @@ export const catTraining = [
       {
         id: 'YxxCqtJ93zU',
         title: 'Video 1: Clicker Training',
-        dur: '8 min',
-        shortVideoId: 'hPhJQ3iknXQ'
+        dur: '8 min'
       },
       {
         id: 'srYbiHDh6mo',
         title: 'Video 2: Multi-Step Commands',
-        dur: '9 min',
-        shortVideoId: '2MQ0WYndT6w'
+        dur: '9 min'
       },
       {
         id: 'SSRXzcNuLzk',
@@ -790,20 +725,17 @@ export const catTraining = [
       {
         id: 'RjvTseSmTP4',
         title: 'Video 1: Travel Training',
-        dur: '9 min',
-        shortVideoId: 'vnds3D2RlC8'
+        dur: '9 min'
       },
       {
         id: 'NdZt9NP7DvY',
         title: 'Video 2: Vet Visit Calmness',
-        dur: '9 min',
-        shortVideoId: 'ZQjVyLA4iMM'
+        dur: '9 min'
       },
       {
         id: '3JjTLFaRMl0',
         title: 'Video 3: Grooming Cooperation',
-        dur: '8 min',
-        shortVideoId: 'RmlGrKDCE-Y'
+        dur: '8 min'
       }
     ]
   },
@@ -825,20 +757,17 @@ export const catTraining = [
       {
         id: 'lBAt_Oh9gis',
         title: 'Video 1: Complex Tricks',
-        dur: '6 min',
-        shortVideoId: 'ZeHvktL5d9c'
+        dur: '6 min'
       },
       {
         id: 'VEhOk3E4d98',
         title: 'Video 2: Discipline Training',
-        dur: '8 min',
-        shortVideoId: 'NmiRnnjfY5A'
+        dur: '8 min'
       },
       {
         id: 'wo-W0UtTbXs',
         title: 'Video 3: Smart Interaction',
-        dur: '8 min',
-        shortVideoId: 'lHLmVt0bXTU'
+        dur: '8 min'
       }
     ]
   }
