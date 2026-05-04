@@ -157,17 +157,20 @@ export const dogTraining = [
       {
         id: 'dn2SL40AktI',
         title: 'Video 1: Meeting Other Dogs',
-        dur: '8 min'
+        dur: '8 min',
+        shortVideoId: 'qMmyq5XIy_Q'
       },
       {
         id: '0KKop8OvzVI',
         title: 'Video 2: Meeting Strangers',
-        dur: '9 min'
+        dur: '9 min',
+        shortVideoId: 'HcNEe43RdBs'
       },
       {
         id: 'i3kv4G5Xzv8',
         title: 'Video 3: Public Behavior',
-        dur: '7 min'
+        dur: '7 min',
+        shortVideoId: '21ZvpsclAGk'
       }
     ]
   },
@@ -189,17 +192,20 @@ export const dogTraining = [
       {
         id: 'DYWTarzD2u4',
         title: 'Video 1: Down Command',
-        dur: '7 min'
+        dur: '7 min',
+        shortVideoId: '22kWMllBzP0'
       },
       {
         id: 'umt0jF9MHeI',
         title: 'Video 2: Leave It',
-        dur: '8 min'
+        dur: '8 min',
+        shortVideoId: 'TvNzLmBBIJ0'
       },
       {
         id: 'kI52HYbnQX8',
         title: 'Video 3: Drop It',
-        dur: '9 min'
+        dur: '9 min',
+        shortVideoId: 'CnI9W5lC1GY'
       }
     ]
   },
