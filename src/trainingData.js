@@ -18,7 +18,7 @@ export const dogTraining = [
         id: 'o2rtu5BBCrA',
         title: 'Video 1: Name Recognition (3 Steps)',
         dur: '8 min',
-        shortVideoId: '22kWMllBzP0'
+        shortVideoId: 'VFzJuSG479U'
       },
       {
         id: 'PHmkK4QA8gI',
@@ -30,7 +30,7 @@ export const dogTraining = [
         id: '5kVahj499r8',
         title: 'Video 3: Sit Command (Service Dog Method)',
         dur: '11 min',
-        shortVideoId: '7PuOVt0MNqM'
+        shortVideoId: 'cL1BSGIYCkg'
       }
     ]
   },
