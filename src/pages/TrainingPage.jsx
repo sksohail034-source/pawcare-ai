@@ -195,10 +195,10 @@ export default function TrainingPage() {
             {current?.videos.map((video, idx) => (
               <div key={video.id} className="card" style={{ padding: 0, overflow: 'hidden' }}>
               {/* Video Player / Thumbnail */}
-                {playingVideo === video.id || (video.shortVideoId && playingVideo === video.shortVideoId) ? (
+                {playingVideo === video.id ? (
                   <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0 }}>
                     <iframe
-                      src={`https://www.youtube.com/embed/${playingVideo}?autoplay=1&rel=0`}
+                      src={`https://www.youtube.com/embed/${video.id}?autoplay=1&rel=0`}
                       title={video.title}
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
@@ -245,16 +245,7 @@ export default function TrainingPage() {
                     <div style={{ fontSize: 11, color: 'var(--text-light)', fontWeight: 600, marginBottom: 2 }}>
                       VIDEO {idx + 1} OF {current.videos.length}
                     </div>
-                    <h4 style={{ fontSize: 15, fontWeight: 700, color: 'var(--text-main)', marginBottom: video.shortVideoId ? 8 : 0 }}>{video.title}</h4>
-                    {video.shortVideoId && (
-                      <button 
-                        onClick={() => setPlayingVideo(video.shortVideoId)}
-                        className="btn btn-sm btn-secondary"
-                        style={{ fontSize: 11, padding: '4px 10px', background: 'var(--bg-input)', color: 'var(--text-main)', border: '1px solid var(--border)', display: 'flex', alignItems: 'center', gap: 6, width: 'fit-content' }}
-                      >
-                        📱 Quick Revision (Hindi)
-                      </button>
-                    )}
+                    <h4 style={{ fontSize: 15, fontWeight: 700, color: 'var(--text-main)' }}>{video.title}</h4>
                   </div>
                   <button
                     onClick={() => toggleWatched(video.id)}
@@ -294,6 +285,65 @@ export default function TrainingPage() {
               </div>
             ))}
           </div>
+
+          {/* Quick Revision Shorts Section */}
+          {current?.videos.some(v => v.shortVideoId) && (
+            <div style={{ marginTop: 32 }}>
+              <h4 style={{ fontFamily: 'var(--font-display)', marginBottom: 16, fontSize: 18, fontWeight: 800 }}>
+                📱 Quick Revision (Hindi Shorts)
+              </h4>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 16 }}>
+                {current?.videos.filter(v => v.shortVideoId).map((video, idx) => (
+                  <div key={`short-${video.id}`} className="card" style={{ padding: 0, overflow: 'hidden' }}>
+                    {playingVideo === video.shortVideoId ? (
+                      <div style={{ position: 'relative', paddingBottom: '177.77%', height: 0 }}>
+                        <iframe
+                          src={`https://www.youtube.com/embed/${video.shortVideoId}?autoplay=1&rel=0`}
+                          title={`Short ${video.title}`}
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                          style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 'none' }}
+                        />
+                      </div>
+                    ) : (
+                      <div onClick={() => setPlayingVideo(video.shortVideoId)}
+                        style={{
+                          position: 'relative', paddingBottom: '177.77%', height: 0, cursor: 'pointer',
+                          background: `url(https://img.youtube.com/vi/${video.shortVideoId}/hqdefault.jpg) center/cover`,
+                        }}>
+                        <div style={{
+                          position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.3)',
+                          display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        }}>
+                        </div>
+                        <div style={{
+                          position: 'absolute', inset: 0,
+                          display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        }}>
+                          <div style={{
+                            width: 48, height: 48, borderRadius: '50%', background: 'rgba(255,255,255,0.95)',
+                            display: 'flex', alignItems: 'center', justifyContent: 'center',
+                            boxShadow: '0 4px 20px rgba(0,0,0,0.3)',
+                          }}>
+                            <Play size={20} color="var(--primary-dark)" fill="var(--primary)" />
+                          </div>
+                        </div>
+                        <div style={{ position: 'absolute', bottom: 8, right: 8, background: 'rgba(0,0,0,0.8)', color: '#fff', padding: '2px 8px', borderRadius: 4, fontSize: 11, fontWeight: 600 }}>
+                          Short
+                        </div>
+                      </div>
+                    )}
+                    <div style={{ padding: '12px', background: 'var(--bg-input)' }}>
+                      <div style={{ fontSize: 10, color: 'var(--text-light)', fontWeight: 600, marginBottom: 2 }}>
+                        STEP {idx + 1}
+                      </div>
+                      <h4 style={{ fontSize: 13, fontWeight: 700, color: 'var(--text-main)', lineHeight: 1.3 }}>{video.title.replace(/Video \d+: /, '')}</h4>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
 
           {/* Next Month CTA */}
           {month < 12 && (
