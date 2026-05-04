@@ -326,6 +326,8 @@ export default function TrainingPage() {
             }}>
               {shortsCurriculum.map((monthData, mIdx) => {
                 const Icon = monthData.icon;
+                const mData = schedule.find(m => m.month === monthData.month);
+                
                 return (
                   <div key={monthData.month} style={{ 
                     flex: '0 0 auto', width: '300px', scrollSnapAlign: 'start',
@@ -345,21 +347,62 @@ export default function TrainingPage() {
 
                     {/* Topics List */}
                     <div style={{ padding: 16, display: 'flex', flexDirection: 'column', gap: 20 }}>
-                      {monthData.topics.map((topic, tIdx) => (
+                      {monthData.topics.map((topic, tIdx) => {
+                        const shortId = mData?.videos[tIdx]?.shortVideoId;
+                        return (
                         <div key={tIdx}>
                           <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--text-main)', marginBottom: 12, display: 'flex', alignItems: 'center', gap: 6 }}>
                             <div style={{ width: 18, height: 18, borderRadius: '50%', background: 'var(--border)', color: 'var(--text-light)', fontSize: 10, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700 }}>{tIdx + 1}</div>
                             {topic}
                           </div>
                           
-                          {/* Placeholder Video Grid */}
+                          {/* Video or Placeholder */}
                           <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 10, maxWidth: 180, margin: '0 auto', width: '100%' }}>
-                            <div style={{ background: 'var(--bg-input)', borderRadius: 12, paddingBottom: '177%', position: 'relative', overflow: 'hidden', border: '2px dashed var(--border)' }}>
-                              <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: 'var(--text-muted)', background: 'rgba(0,0,0,0.02)' }}>
-                                <PlayCircle size={32} style={{ marginBottom: 8, opacity: 0.5 }} />
-                                <span style={{ fontSize: 12, fontWeight: 700 }}>Coming Soon</span>
+                            {shortId ? (
+                              playingVideo === shortId ? (
+                                <div style={{ position: 'relative', paddingBottom: '177.77%', height: 0, borderRadius: 12, overflow: 'hidden' }}>
+                                  <iframe
+                                    src={`https://www.youtube.com/embed/${shortId}?autoplay=1&rel=0`}
+                                    title={`Short`}
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowFullScreen
+                                    style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 'none' }}
+                                  />
+                                </div>
+                              ) : (
+                                <div onClick={() => setPlayingVideo(shortId)}
+                                  style={{
+                                    position: 'relative', paddingBottom: '177.77%', height: 0, cursor: 'pointer',
+                                    background: `url(https://img.youtube.com/vi/${shortId}/hqdefault.jpg) center/cover`,
+                                    borderRadius: 12, overflow: 'hidden'
+                                  }}>
+                                  <div style={{
+                                    position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.3)',
+                                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                  }}>
+                                  </div>
+                                  <div style={{
+                                    position: 'absolute', inset: 0,
+                                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                  }}>
+                                    <div style={{
+                                      width: 48, height: 48, borderRadius: '50%', background: 'rgba(255,255,255,0.95)',
+                                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                      boxShadow: '0 4px 20px rgba(0,0,0,0.3)',
+                                    }}>
+                                      <Play size={20} color="var(--primary-dark)" fill="var(--primary)" />
+                                    </div>
+                                  </div>
+                                </div>
+                              )
+                            ) : (
+                              <div style={{ background: 'var(--bg-input)', borderRadius: 12, paddingBottom: '177%', position: 'relative', overflow: 'hidden', border: '2px dashed var(--border)' }}>
+                                <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: 'var(--text-muted)', background: 'rgba(0,0,0,0.02)' }}>
+                                  <PlayCircle size={32} style={{ marginBottom: 8, opacity: 0.5 }} />
+                                  <span style={{ fontSize: 12, fontWeight: 700 }}>Coming Soon</span>
+                                </div>
                               </div>
-                            </div>
+                            )}
                           </div>
                           
                           {/* Mark as Completed Toggle (Disabled) */}
@@ -370,7 +413,8 @@ export default function TrainingPage() {
                             </div>
                           </div>
                         </div>
-                      ))}
+                        );
+                      })}
                     </div>
                   </div>
                 );
