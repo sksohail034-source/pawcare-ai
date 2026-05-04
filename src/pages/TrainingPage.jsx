@@ -195,10 +195,10 @@ export default function TrainingPage() {
             {current?.videos.map((video, idx) => (
               <div key={video.id} className="card" style={{ padding: 0, overflow: 'hidden' }}>
               {/* Video Player / Thumbnail */}
-                {playingVideo === video.id ? (
+                {playingVideo === video.id || (video.shortVideoId && playingVideo === video.shortVideoId) ? (
                   <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0 }}>
                     <iframe
-                      src={`https://www.youtube.com/embed/${video.id}?autoplay=1&rel=0`}
+                      src={`https://www.youtube.com/embed/${playingVideo}?autoplay=1&rel=0`}
                       title={video.title}
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
@@ -245,7 +245,16 @@ export default function TrainingPage() {
                     <div style={{ fontSize: 11, color: 'var(--text-light)', fontWeight: 600, marginBottom: 2 }}>
                       VIDEO {idx + 1} OF {current.videos.length}
                     </div>
-                    <h4 style={{ fontSize: 15, fontWeight: 700, color: 'var(--text-main)' }}>{video.title}</h4>
+                    <h4 style={{ fontSize: 15, fontWeight: 700, color: 'var(--text-main)', marginBottom: video.shortVideoId ? 8 : 0 }}>{video.title}</h4>
+                    {video.shortVideoId && (
+                      <button 
+                        onClick={() => setPlayingVideo(video.shortVideoId)}
+                        className="btn btn-sm btn-secondary"
+                        style={{ fontSize: 11, padding: '4px 10px', background: 'var(--bg-input)', color: 'var(--text-main)', border: '1px solid var(--border)', display: 'flex', alignItems: 'center', gap: 6, width: 'fit-content' }}
+                      >
+                        📱 Quick Revision (Hindi)
+                      </button>
+                    )}
                   </div>
                   <button
                     onClick={() => toggleWatched(video.id)}

@@ -1,293 +1,845 @@
 export const dogTraining = [
-  { 
-    month: 1, 
-    title: 'Foundation (Beginner)', 
-    desc: 'Setting the groundwork for a well-behaved dog.', 
-    milestones: ['Respond to name consistently', 'Focus on owner for 10s', 'Basic sit foundation'],
-    tasks: ['Practice name recall 10x', 'Maintain eye contact 5x', 'Basic sit sessions'],
+  {
+    month: 1,
+    title: 'Foundation (Beginner)',
+    desc: 'Setting the groundwork for a well-behaved dog.',
+    milestones: [
+      'Respond to name consistently',
+      'Focus on owner for 10s',
+      'Basic sit foundation'
+    ],
+    tasks: [
+      'Practice name recall 10x',
+      'Maintain eye contact 5x',
+      'Basic sit sessions'
+    ],
     videos: [
-      { id: 'o2rtu5BBCrA', title: 'Video 1: Name Recognition (3 Steps)', dur: '8 min' },
-      { id: 'PHmkK4QA8gI', title: 'Video 2: Focus Training (Instantly)', dur: '10 min' },
-      { id: '5kVahj499r8', title: 'Video 3: Sit Command (Service Dog Method)', dur: '11 min' },
+      {
+        id: 'o2rtu5BBCrA',
+        title: 'Video 1: Name Recognition (3 Steps)',
+        dur: '8 min',
+        shortVideoId: '22kWMllBzP0'
+      },
+      {
+        id: 'PHmkK4QA8gI',
+        title: 'Video 2: Focus Training (Instantly)',
+        dur: '10 min',
+        shortVideoId: 'HcNEe43RdBs'
+      },
+      {
+        id: '5kVahj499r8',
+        title: 'Video 3: Sit Command (Service Dog Method)',
+        dur: '11 min',
+        shortVideoId: '22kWMllBzP0'
+      }
     ]
   },
-  { 
-    month: 2, 
-    title: 'Basic Obedience', 
-    desc: 'Mastering the core commands for everyday life.', 
-    milestones: ['Perfect sit on command', 'Stay for 30 seconds', 'Reliable indoor recall'],
-    tasks: ['Daily stay practice', 'Recall games', 'Perfecting the sit posture'],
+  {
+    month: 2,
+    title: 'Basic Obedience',
+    desc: 'Mastering the core commands for everyday life.',
+    milestones: [
+      'Perfect sit on command',
+      'Stay for 30 seconds',
+      'Reliable indoor recall'
+    ],
+    tasks: [
+      'Daily stay practice',
+      'Recall games',
+      'Perfecting the sit posture'
+    ],
     videos: [
-      { id: '3gaGsebCRhs', title: 'Video 1: Sit (Perfecting & Posture)', dur: '11 min' },
-      { id: '2MANkW5Dj6w', title: 'Video 2: Stay Command (Avoid Mistakes!)', dur: '12 min' },
-      { id: 'xHdiXy2hPCY', title: 'Video 3: Come When Called (Recall)', dur: '13 min' },
+      {
+        id: '3gaGsebCRhs',
+        title: 'Video 1: Sit (Perfecting & Posture)',
+        dur: '11 min',
+        shortVideoId: '418KU2hC-S4'
+      },
+      {
+        id: '2MANkW5Dj6w',
+        title: 'Video 2: Stay Command (Avoid Mistakes!)',
+        dur: '12 min',
+        shortVideoId: '7PuOVt0MNqM'
+      },
+      {
+        id: 'xHdiXy2hPCY',
+        title: 'Video 3: Come When Called (Recall)',
+        dur: '13 min',
+        shortVideoId: 'n9OSYQRrFlY'
+      }
     ]
   },
-  { 
-    month: 3, 
-    title: 'Home Manners', 
-    desc: 'Making your home a happy place for everyone.', 
-    milestones: ['Zero potty accidents', 'Happy in the crate', 'No more nipping'],
-    tasks: ['Scheduled potty breaks', 'Positive crate time', 'Redirecting biting to toys'],
+  {
+    month: 3,
+    title: 'Home Manners',
+    desc: 'Making your home a happy place for everyone.',
+    milestones: [
+      'Zero potty accidents',
+      'Happy in the crate',
+      'No more nipping'
+    ],
+    tasks: [
+      'Scheduled potty breaks',
+      'Positive crate time',
+      'Redirecting biting to toys'
+    ],
     videos: [
-      { id: 'sZTmIMpvHJ8', title: 'Video 1: Potty Train FAST!', dur: '15 min' },
-      { id: 'PJlXZhtkZ3E', title: 'Video 2: Ultimate Crate Training', dur: '14 min' },
-      { id: 'Qm2E5nldfcQ', title: 'Video 3: Stop Biting Today', dur: '11 min' },
+      {
+        id: 'sZTmIMpvHJ8',
+        title: 'Video 1: Potty Train FAST!',
+        dur: '15 min',
+        shortVideoId: '0VahK2sdl3Y'
+      },
+      {
+        id: 'PJlXZhtkZ3E',
+        title: 'Video 2: Ultimate Crate Training',
+        dur: '14 min',
+        shortVideoId: 'PVd3OPUIG1Y'
+      },
+      {
+        id: 'Qm2E5nldfcQ',
+        title: 'Video 3: Stop Biting Today',
+        dur: '11 min',
+        shortVideoId: 'MgfwMlT8om4'
+      }
     ]
   },
-  { 
-    month: 4, 
-    title: 'Leash Training', 
-    desc: 'Stress-free walks without the pulling.', 
-    milestones: ['Walk on loose leash', 'Stop pulling when asked', 'Maintain walking discipline'],
-    tasks: ['Daily walking sessions', 'Stop-start practice', 'Focusing during walks'],
+  {
+    month: 4,
+    title: 'Leash Training',
+    desc: 'Stress-free walks without the pulling.',
+    milestones: [
+      'Walk on loose leash',
+      'Stop pulling when asked',
+      'Maintain walking discipline'
+    ],
+    tasks: [
+      'Daily walking sessions',
+      'Stop-start practice',
+      'Focusing during walks'
+    ],
     videos: [
-      { id: 'twktHg0_CKM', title: 'Video 1: Loose Leash Walking', dur: '8 min' },
-      { id: 'cR1SDaAvS6Y', title: 'Video 2: Stop Pulling', dur: '9 min' },
-      { id: 'grHN_MIexVo', title: 'Video 3: Walking Discipline', dur: '9 min' },
+      {
+        id: 'twktHg0_CKM',
+        title: 'Video 1: Loose Leash Walking',
+        dur: '8 min',
+        shortVideoId: 'ZYUdXubJyO4'
+      },
+      {
+        id: 'cR1SDaAvS6Y',
+        title: 'Video 2: Stop Pulling',
+        dur: '9 min',
+        shortVideoId: 'Wmt_PDtc5cM'
+      },
+      {
+        id: 'grHN_MIexVo',
+        title: 'Video 3: Walking Discipline',
+        dur: '9 min',
+        shortVideoId: 'ZYUdXubJyO4'
+      }
     ]
   },
-  { 
-    month: 5, 
-    title: 'Socialization', 
-    desc: 'Confident interactions with the world.', 
-    milestones: ['Calm around other dogs', 'Friendly with strangers', 'Good public behavior'],
-    tasks: ['Park visits', 'Meeting new friends', 'Quiet time in public places'],
+  {
+    month: 5,
+    title: 'Socialization',
+    desc: 'Confident interactions with the world.',
+    milestones: [
+      'Calm around other dogs',
+      'Friendly with strangers',
+      'Good public behavior'
+    ],
+    tasks: [
+      'Park visits',
+      'Meeting new friends',
+      'Quiet time in public places'
+    ],
     videos: [
-      { id: 'dn2SL40AktI', title: 'Video 1: Meeting Other Dogs', dur: '8 min' },
-      { id: '0KKop8OvzVI', title: 'Video 2: Meeting Strangers', dur: '9 min' },
-      { id: 'i3kv4G5Xzv8', title: 'Video 3: Public Behavior', dur: '7 min' },
+      {
+        id: 'dn2SL40AktI',
+        title: 'Video 1: Meeting Other Dogs',
+        dur: '8 min',
+        shortVideoId: 'HcNEe43RdBs'
+      },
+      {
+        id: '0KKop8OvzVI',
+        title: 'Video 2: Meeting Strangers',
+        dur: '9 min',
+        shortVideoId: 'Z7BHMlEuR3o'
+      },
+      {
+        id: 'i3kv4G5Xzv8',
+        title: 'Video 3: Public Behavior',
+        dur: '7 min',
+        shortVideoId: '6cdyXNGCjxg'
+      }
     ]
   },
-  { 
-    month: 6, 
-    title: 'Intermediate Commands', 
-    desc: 'Leveling up your dogs vocabulary.', 
-    milestones: ['Reliable Down command', 'Leave it with high value', 'Drop it during play'],
-    tasks: ['Practice Leave-it daily', 'Down-stay sessions', 'Drop-it games'],
+  {
+    month: 6,
+    title: 'Intermediate Commands',
+    desc: 'Leveling up your dogs vocabulary.',
+    milestones: [
+      'Reliable Down command',
+      'Leave it with high value',
+      'Drop it during play'
+    ],
+    tasks: [
+      'Practice Leave-it daily',
+      'Down-stay sessions',
+      'Drop-it games'
+    ],
     videos: [
-      { id: 'DYWTarzD2u4', title: 'Video 1: Down Command', dur: '7 min' },
-      { id: 'umt0jF9MHeI', title: 'Video 2: Leave It', dur: '8 min' },
-      { id: 'kI52HYbnQX8', title: 'Video 3: Drop It', dur: '9 min' },
+      {
+        id: 'DYWTarzD2u4',
+        title: 'Video 1: Down Command',
+        dur: '7 min',
+        shortVideoId: '22kWMllBzP0'
+      },
+      {
+        id: 'umt0jF9MHeI',
+        title: 'Video 2: Leave It',
+        dur: '8 min',
+        shortVideoId: 'UrW7D5gg4Ik'
+      },
+      {
+        id: 'kI52HYbnQX8',
+        title: 'Video 3: Drop It',
+        dur: '9 min',
+        shortVideoId: 'GGJnSM2uBiE'
+      }
     ]
   },
-  { 
-    month: 7, 
-    title: 'Behavior Correction', 
-    desc: 'Fixing common household issues.', 
-    milestones: ['Reduced barking at door', 'No jumping on guests', 'Calm when owner leaves'],
-    tasks: ['Guest arrival practice', 'Quiet command sessions', 'Alone time buildup'],
+  {
+    month: 7,
+    title: 'Behavior Correction',
+    desc: 'Fixing common household issues.',
+    milestones: [
+      'Reduced barking at door',
+      'No jumping on guests',
+      'Calm when owner leaves'
+    ],
+    tasks: [
+      'Guest arrival practice',
+      'Quiet command sessions',
+      'Alone time buildup'
+    ],
     videos: [
-      { id: 'JVFfLJ2qMXo', title: 'Video 1: Excessive Barking Control', dur: '7 min' },
-      { id: 'g6PVdqinCUk', title: 'Video 2: Jumping on People', dur: '8 min' },
-      { id: '_uInQUHhZaA', title: 'Video 3: Separation Anxiety', dur: '10 min' },
+      {
+        id: 'JVFfLJ2qMXo',
+        title: 'Video 1: Excessive Barking Control',
+        dur: '7 min',
+        shortVideoId: 'JDskBzc4iEw'
+      },
+      {
+        id: 'g6PVdqinCUk',
+        title: 'Video 2: Jumping on People',
+        dur: '8 min',
+        shortVideoId: 'klonjPSLBo8'
+      },
+      {
+        id: '_uInQUHhZaA',
+        title: 'Video 3: Separation Anxiety',
+        dur: '10 min',
+        shortVideoId: 'Re1FQzGXxJU'
+      }
     ]
   },
-  { 
-    month: 8, 
-    title: 'Advanced Control', 
-    desc: 'Total control, even from a distance.', 
-    milestones: ['Reliable off-leash recall', 'Commands at 20ft distance', 'Response to hand signals'],
-    tasks: ['Off-leash park practice', 'Distance-stay games', 'Silent signal sessions'],
+  {
+    month: 8,
+    title: 'Advanced Control',
+    desc: 'Total control, even from a distance.',
+    milestones: [
+      'Reliable off-leash recall',
+      'Commands at 20ft distance',
+      'Response to hand signals'
+    ],
+    tasks: [
+      'Off-leash park practice',
+      'Distance-stay games',
+      'Silent signal sessions'
+    ],
     videos: [
-      { id: '--PXr3edQDo', title: 'Video 1: Off-Leash Training', dur: '8 min' },
-      { id: 'dK-VC7xC-OI', title: 'Video 2: Distance Commands', dur: '8 min' },
-      { id: 'Y0pamvXAXpA', title: 'Video 3: Hand Signal Training', dur: '9 min' },
+      {
+        id: '--PXr3edQDo',
+        title: 'Video 1: Off-Leash Training',
+        dur: '8 min',
+        shortVideoId: 'cncj0IsQQXM'
+      },
+      {
+        id: 'dK-VC7xC-OI',
+        title: 'Video 2: Distance Commands',
+        dur: '8 min',
+        shortVideoId: 'HcNEe43RdBs'
+      },
+      {
+        id: 'Y0pamvXAXpA',
+        title: 'Video 3: Hand Signal Training',
+        dur: '9 min',
+        shortVideoId: 'aRpOYrPaikE'
+      }
     ]
   },
-  { 
-    month: 9, 
-    title: 'Tricks Training', 
-    desc: 'Fun and mental stimulation through play.', 
-    milestones: ['Learned Shake hand', 'Mastered Roll over', 'Can Spin on command'],
-    tasks: ['Teach one trick per week', 'Show-off sessions', 'Fun-filled training'],
+  {
+    month: 9,
+    title: 'Tricks Training',
+    desc: 'Fun and mental stimulation through play.',
+    milestones: [
+      'Learned Shake hand',
+      'Mastered Roll over',
+      'Can Spin on command'
+    ],
+    tasks: [
+      'Teach one trick per week',
+      'Show-off sessions',
+      'Fun-filled training'
+    ],
     videos: [
-      { id: '8_SpZUTuRgE', title: 'Video 1: Shake Hand', dur: '7 min' },
-      { id: 'Ke-6iCZ7jqA', title: 'Video 2: Roll Over', dur: '5 min' },
-      { id: '1FUqREededA', title: 'Video 3: Spin Trick', dur: '5 min' },
+      {
+        id: '8_SpZUTuRgE',
+        title: 'Video 1: Shake Hand',
+        dur: '7 min',
+        shortVideoId: 'y1tg0-a9yfU'
+      },
+      {
+        id: 'Ke-6iCZ7jqA',
+        title: 'Video 2: Roll Over',
+        dur: '5 min',
+        shortVideoId: 'BlVXUAUQqtE'
+      },
+      {
+        id: '1FUqREededA',
+        title: 'Video 3: Spin Trick',
+        dur: '5 min',
+        shortVideoId: 'xbgj3UdZ2zU'
+      }
     ]
   },
-  { 
-    month: 10, 
-    title: 'Guard & Alert Basics', 
-    desc: 'Teaching awareness and basic protection.', 
-    milestones: ['Alert barking on cue', 'Awareness of territory', 'Basic protection stance'],
-    tasks: ['Alert cue practice', 'Boundary training', 'Confidence building'],
+  {
+    month: 10,
+    title: 'Guard & Alert Basics',
+    desc: 'Teaching awareness and basic protection.',
+    milestones: [
+      'Alert barking on cue',
+      'Awareness of territory',
+      'Basic protection stance'
+    ],
+    tasks: [
+      'Alert cue practice',
+      'Boundary training',
+      'Confidence building'
+    ],
     videos: [
-      { id: 'CRYSNymBE_A', title: 'Video 1: Alert Training', dur: '8 min' },
-      { id: 'zbx1Ywo1gTc', title: 'Video 2: Territory Awareness', dur: '10 min' },
-      { id: 'AGoXobRlDaE', title: 'Video 3: Basic Protection', dur: '8 min' },
+      {
+        id: 'CRYSNymBE_A',
+        title: 'Video 1: Alert Training',
+        dur: '8 min',
+        shortVideoId: '418KU2hC-S4'
+      },
+      {
+        id: 'zbx1Ywo1gTc',
+        title: 'Video 2: Territory Awareness',
+        dur: '10 min',
+        shortVideoId: '22kWMllBzP0'
+      },
+      {
+        id: 'AGoXobRlDaE',
+        title: 'Video 3: Basic Protection',
+        dur: '8 min',
+        shortVideoId: 'WpZC-jQuAq4'
+      }
     ]
   },
-  { 
-    month: 11, 
-    title: 'Fitness & Mental Stimulation', 
-    desc: 'Keeping the body and mind sharp.', 
-    milestones: ['Completes agility tunnel', 'Jumps obstacle safely', 'Solves advanced brain games'],
-    tasks: ['Agility course setup', 'Daily brain game session', 'Obstacle navigation'],
+  {
+    month: 11,
+    title: 'Fitness & Mental Stimulation',
+    desc: 'Keeping the body and mind sharp.',
+    milestones: [
+      'Completes agility tunnel',
+      'Jumps obstacle safely',
+      'Solves advanced brain games'
+    ],
+    tasks: [
+      'Agility course setup',
+      'Daily brain game session',
+      'Obstacle navigation'
+    ],
     videos: [
-      { id: '70q00hAtXpE', title: 'Video 1: Agility Training', dur: '9 min' },
-      { id: 'XOvOp_T0cdo', title: 'Video 2: Obstacle Training', dur: '8 min' },
-      { id: '_5GrbJkTXKo', title: 'Video 3: Brain Games', dur: '9 min' },
+      {
+        id: '70q00hAtXpE',
+        title: 'Video 1: Agility Training',
+        dur: '9 min',
+        shortVideoId: 'aRmdHRHZ2iw'
+      },
+      {
+        id: 'XOvOp_T0cdo',
+        title: 'Video 2: Obstacle Training',
+        dur: '8 min',
+        shortVideoId: 'HcNEe43RdBs'
+      },
+      {
+        id: '_5GrbJkTXKo',
+        title: 'Video 3: Brain Games',
+        dur: '9 min',
+        shortVideoId: 'nkxFstk9_e8'
+      }
     ]
   },
-  { 
-    month: 12, 
-    title: 'Pro Level Training', 
-    desc: 'The ultimate graduation to mastery.', 
-    milestones: ['Emergency recall mastered', 'No-treat obedience', 'Real-life focus success'],
-    tasks: ['High-distraction recall', 'Review all 12 months', 'Graduation ceremony'],
+  {
+    month: 12,
+    title: 'Pro Level Training',
+    desc: 'The ultimate graduation to mastery.',
+    milestones: [
+      'Emergency recall mastered',
+      'No-treat obedience',
+      'Real-life focus success'
+    ],
+    tasks: [
+      'High-distraction recall',
+      'Review all 12 months',
+      'Graduation ceremony'
+    ],
     videos: [
-      { id: '--PXr3edQDo', title: 'Video 1: Advanced Recall', dur: '8 min' },
-      { id: 'yZ74wVgoEzY', title: 'Video 2: Discipline Without Treats', dur: '8 min' },
-      { id: 'CYf7xuupWnI', title: 'Video 3: Real-Life Situation Training', dur: '9 min' },
+      {
+        id: '--PXr3edQDo',
+        title: 'Video 1: Advanced Recall',
+        dur: '8 min',
+        shortVideoId: 'cncj0IsQQXM'
+      },
+      {
+        id: 'yZ74wVgoEzY',
+        title: 'Video 2: Discipline Without Treats',
+        dur: '8 min',
+        shortVideoId: '22kWMllBzP0'
+      },
+      {
+        id: 'CYf7xuupWnI',
+        title: 'Video 3: Real-Life Situation Training',
+        dur: '9 min',
+        shortVideoId: '418KU2hC-S4'
+      }
     ]
-  },
+  }
 ];
 
 export const catTraining = [
-  { 
-    month: 1, 
-    title: 'Basics', 
-    desc: 'The foundation of a happy indoor cat.', 
-    milestones: ['Responds to name', '100% litter box success', 'Building trust with owner'],
-    tasks: ['Name call sessions', 'Litter box maintenance', 'Gentle play time'],
+  {
+    month: 1,
+    title: 'Basics',
+    desc: 'The foundation of a happy indoor cat.',
+    milestones: [
+      'Responds to name',
+      '100% litter box success',
+      'Building trust with owner'
+    ],
+    tasks: [
+      'Name call sessions',
+      'Litter box maintenance',
+      'Gentle play time'
+    ],
     videos: [
-      { id: 'LmK-rqaVKYE', title: 'Video 1: Name Recognition', dur: '5 min' },
-      { id: 'njfr-DvmzIo', title: 'Video 2: Litter Training', dur: '5 min' },
-      { id: 'yEQBSNG90Lc', title: 'Video 3: Trust Building', dur: '10 min' },
+      {
+        id: 'LmK-rqaVKYE',
+        title: 'Video 1: Name Recognition',
+        dur: '5 min',
+        shortVideoId: '-DqsvlGtQzY'
+      },
+      {
+        id: 'njfr-DvmzIo',
+        title: 'Video 2: Litter Training',
+        dur: '5 min',
+        shortVideoId: '8-uCScu4A_M'
+      },
+      {
+        id: 'yEQBSNG90Lc',
+        title: 'Video 3: Trust Building',
+        dur: '10 min',
+        shortVideoId: 'BvQpnSHw6Zg'
+      }
     ]
   },
-  { 
-    month: 2, 
-    title: 'Behavior Setup', 
-    desc: 'Correcting unwanted behaviors early.', 
-    milestones: ['Uses scratching posts', 'No biting during play', 'Basic response to cues'],
-    tasks: ['Scratching post setup', 'Stopping play if biting occurs', 'Gentle redirection'],
+  {
+    month: 2,
+    title: 'Behavior Setup',
+    desc: 'Correcting unwanted behaviors early.',
+    milestones: [
+      'Uses scratching posts',
+      'No biting during play',
+      'Basic response to cues'
+    ],
+    tasks: [
+      'Scratching post setup',
+      'Stopping play if biting occurs',
+      'Gentle redirection'
+    ],
     videos: [
-      { id: 'be5x5u5i09I', title: 'Video 1: Scratching Control', dur: '10 min' },
-      { id: '73Rn963gGdQ', title: 'Video 2: Stop Biting', dur: '10 min' },
-      { id: 'oX7vgQTK9fo', title: 'Video 3: Basic Response Training', dur: '6 min' },
+      {
+        id: 'be5x5u5i09I',
+        title: 'Video 1: Scratching Control',
+        dur: '10 min',
+        shortVideoId: 'ggwtxTdAS6I'
+      },
+      {
+        id: '73Rn963gGdQ',
+        title: 'Video 2: Stop Biting',
+        dur: '10 min',
+        shortVideoId: 'A3T9pbizz-k'
+      },
+      {
+        id: 'oX7vgQTK9fo',
+        title: 'Video 3: Basic Response Training',
+        dur: '6 min',
+        shortVideoId: 'BvQpnSHw6Zg'
+      }
     ]
   },
-  { 
-    month: 3, 
-    title: 'Routine Building', 
-    desc: 'Creating a structured daily life.', 
-    milestones: ['Stable feeding schedule', 'Predictable sleep routine', 'Structured play discipline'],
-    tasks: ['Timed feedings', 'Night-time routine', 'Interactive play sessions'],
+  {
+    month: 3,
+    title: 'Routine Building',
+    desc: 'Creating a structured daily life.',
+    milestones: [
+      'Stable feeding schedule',
+      'Predictable sleep routine',
+      'Structured play discipline'
+    ],
+    tasks: [
+      'Timed feedings',
+      'Night-time routine',
+      'Interactive play sessions'
+    ],
     videos: [
-      { id: '57OhKuneQeE', title: 'Video 1: Feeding Schedule', dur: '9 min' },
-      { id: 'uWVWXDnprNQ', title: 'Video 2: Sleep Routine', dur: '8 min' },
-      { id: 'VIcWa0wcFNc', title: 'Video 3: Play Discipline', dur: '9 min' },
+      {
+        id: '57OhKuneQeE',
+        title: 'Video 1: Feeding Schedule',
+        dur: '9 min',
+        shortVideoId: 'zkyO8O-BuaA'
+      },
+      {
+        id: 'uWVWXDnprNQ',
+        title: 'Video 2: Sleep Routine',
+        dur: '8 min',
+        shortVideoId: 'zkyO8O-BuaA'
+      },
+      {
+        id: 'VIcWa0wcFNc',
+        title: 'Video 3: Play Discipline',
+        dur: '9 min',
+        shortVideoId: 'zkyO8O-BuaA'
+      }
     ]
   },
-  { 
-    month: 4, 
-    title: 'Socialization', 
-    desc: 'Learning to interact with the world.', 
-    milestones: ['Friendly with humans', 'Neutral with other pets', 'Adjusts to new rooms'],
-    tasks: ['Guest meetings', 'Safe pet intros', 'New room exploration'],
+  {
+    month: 4,
+    title: 'Socialization',
+    desc: 'Learning to interact with the world.',
+    milestones: [
+      'Friendly with humans',
+      'Neutral with other pets',
+      'Adjusts to new rooms'
+    ],
+    tasks: [
+      'Guest meetings',
+      'Safe pet intros',
+      'New room exploration'
+    ],
     videos: [
-      { id: 'wo-W0UtTbXs', title: 'Video 1: Interaction with Humans', dur: '8 min' },
-      { id: '8RQotaLRLRc', title: 'Video 2: Interaction with Pets', dur: '6 min' },
-      { id: 'TqRhrC-tPwg', title: 'Video 3: New Environment Adjustment', dur: '9 min' },
+      {
+        id: 'wo-W0UtTbXs',
+        title: 'Video 1: Interaction with Humans',
+        dur: '8 min',
+        shortVideoId: 'BvQpnSHw6Zg'
+      },
+      {
+        id: '8RQotaLRLRc',
+        title: 'Video 2: Interaction with Pets',
+        dur: '6 min',
+        shortVideoId: 'CEkBI13jAto'
+      },
+      {
+        id: 'TqRhrC-tPwg',
+        title: 'Video 3: New Environment Adjustment',
+        dur: '9 min',
+        shortVideoId: 'cyjZmxTtgNY'
+      }
     ]
   },
-  { 
-    month: 5, 
-    title: 'Leash & Outdoor', 
-    desc: 'Safe adventures beyond the walls.', 
-    milestones: ['Accepts the harness', 'Walks indoors on leash', 'Calm in safe outdoors'],
-    tasks: ['Harness indoor practice', 'Leash dragging sessions', 'Backyard exploration'],
+  {
+    month: 5,
+    title: 'Leash & Outdoor',
+    desc: 'Safe adventures beyond the walls.',
+    milestones: [
+      'Accepts the harness',
+      'Walks indoors on leash',
+      'Calm in safe outdoors'
+    ],
+    tasks: [
+      'Harness indoor practice',
+      'Leash dragging sessions',
+      'Backyard exploration'
+    ],
     videos: [
-      { id: '6OUz0cyI0Ok', title: 'Video 1: Harness Training', dur: '7 min' },
-      { id: 'gnGWApxCGZ8', title: 'Video 2: Walking Practice', dur: '6 min' },
-      { id: 'RjvTseSmTP4', title: 'Video 3: Outdoor Safety', dur: '9 min' },
+      {
+        id: '6OUz0cyI0Ok',
+        title: 'Video 1: Harness Training',
+        dur: '7 min',
+        shortVideoId: 'edFBy9M38ZE'
+      },
+      {
+        id: 'gnGWApxCGZ8',
+        title: 'Video 2: Walking Practice',
+        dur: '6 min',
+        shortVideoId: 'zkyO8O-BuaA'
+      },
+      {
+        id: 'RjvTseSmTP4',
+        title: 'Video 3: Outdoor Safety',
+        dur: '9 min',
+        shortVideoId: 'IEYRUrk-BBc'
+      }
     ]
   },
-  { 
-    month: 6, 
-    title: 'Commands Training', 
-    desc: 'Learning to follow cues.', 
-    milestones: ['Comes when called', 'Mastered the Sit command', 'Learned High Five trick'],
-    tasks: ['Daily recall sessions', 'Sit practice with treats', 'High-five reward session'],
+  {
+    month: 6,
+    title: 'Commands Training',
+    desc: 'Learning to follow cues.',
+    milestones: [
+      'Comes when called',
+      'Mastered the Sit command',
+      'Learned High Five trick'
+    ],
+    tasks: [
+      'Daily recall sessions',
+      'Sit practice with treats',
+      'High-five reward session'
+    ],
     videos: [
-      { id: 'u23qeh974RI', title: 'Video 1: Come When Called', dur: '6 min' },
-      { id: 'D7b7Zvepb4c', title: 'Video 2: Sit Command', dur: '5 min' },
-      { id: 'xKaq3OEvp4c', title: 'Video 3: High Five Trick', dur: '7 min' },
+      {
+        id: 'u23qeh974RI',
+        title: 'Video 1: Come When Called',
+        dur: '6 min',
+        shortVideoId: 'TEcl3N-ly7Y'
+      },
+      {
+        id: 'D7b7Zvepb4c',
+        title: 'Video 2: Sit Command',
+        dur: '5 min',
+        shortVideoId: 'cyjZmxTtgNY'
+      },
+      {
+        id: 'xKaq3OEvp4c',
+        title: 'Video 3: High Five Trick',
+        dur: '7 min',
+        shortVideoId: 'zkyO8O-BuaA'
+      }
     ]
   },
-  { 
-    month: 7, 
-    title: 'Behavior Fixing', 
-    desc: 'Solving more complex cat issues.', 
-    milestones: ['No aggression shown', 'Calm during night', 'Reduced meowing'],
-    tasks: ['Aggression redirection', 'Pre-sleep play session', 'Quiet reward sessions'],
+  {
+    month: 7,
+    title: 'Behavior Fixing',
+    desc: 'Solving more complex cat issues.',
+    milestones: [
+      'No aggression shown',
+      'Calm during night',
+      'Reduced meowing'
+    ],
+    tasks: [
+      'Aggression redirection',
+      'Pre-sleep play session',
+      'Quiet reward sessions'
+    ],
     videos: [
-      { id: 'C-qmDbMPb6c', title: 'Video 1: Aggression Control', dur: '6 min' },
-      { id: 'uWVWXDnprNQ', title: 'Video 2: Night Hyperactivity', dur: '8 min' },
-      { id: 'GNMG1G5FaNU', title: 'Video 3: Excessive Meowing', dur: '9 min' },
+      {
+        id: 'C-qmDbMPb6c',
+        title: 'Video 1: Aggression Control',
+        dur: '6 min',
+        shortVideoId: 'XLxRyE_tyfE'
+      },
+      {
+        id: 'uWVWXDnprNQ',
+        title: 'Video 2: Night Hyperactivity',
+        dur: '8 min',
+        shortVideoId: 'zkyO8O-BuaA'
+      },
+      {
+        id: 'GNMG1G5FaNU',
+        title: 'Video 3: Excessive Meowing',
+        dur: '9 min',
+        shortVideoId: '_k0OPnTd_dA'
+      }
     ]
   },
-  { 
-    month: 8, 
-    title: 'Tricks Training', 
-    desc: 'Fun tricks for mental exercise.', 
-    milestones: ['Jumps on command', 'Follows target stick', 'Fetches small toys'],
-    tasks: ['Jump hoop practice', 'Target stick sessions', 'Small toy fetch games'],
+  {
+    month: 8,
+    title: 'Tricks Training',
+    desc: 'Fun tricks for mental exercise.',
+    milestones: [
+      'Jumps on command',
+      'Follows target stick',
+      'Fetches small toys'
+    ],
+    tasks: [
+      'Jump hoop practice',
+      'Target stick sessions',
+      'Small toy fetch games'
+    ],
     videos: [
-      { id: 'WGZ_0MWC6dg', title: 'Video 1: Jump Training', dur: '6 min' },
-      { id: '3JjTLFaRMl0', title: 'Video 2: Target Training', dur: '8 min' },
-      { id: 'uK4Zne6mXG8', title: 'Video 3: Fetch', dur: '6 min' },
+      {
+        id: 'WGZ_0MWC6dg',
+        title: 'Video 1: Jump Training',
+        dur: '6 min',
+        shortVideoId: 'BvQpnSHw6Zg'
+      },
+      {
+        id: '3JjTLFaRMl0',
+        title: 'Video 2: Target Training',
+        dur: '8 min',
+        shortVideoId: 'WJvLkSzxFsE'
+      },
+      {
+        id: 'uK4Zne6mXG8',
+        title: 'Video 3: Fetch',
+        dur: '6 min',
+        shortVideoId: 'BvQpnSHw6Zg'
+      }
     ]
   },
-  { 
-    month: 9, 
-    title: 'Mental Stimulation', 
-    desc: 'Keeping the predator instinct sharp.', 
-    milestones: ['Solves food puzzles', 'Plays hide & seek', 'Engages in hunting play'],
-    tasks: ['DIY puzzle setup', 'Hide & seek sessions', 'Hunting wand games'],
+  {
+    month: 9,
+    title: 'Mental Stimulation',
+    desc: 'Keeping the predator instinct sharp.',
+    milestones: [
+      'Solves food puzzles',
+      'Plays hide & seek',
+      'Engages in hunting play'
+    ],
+    tasks: [
+      'DIY puzzle setup',
+      'Hide & seek sessions',
+      'Hunting wand games'
+    ],
     videos: [
-      { id: 'PeYAM-ybngI', title: 'Video 1: Puzzle Games', dur: '9 min' },
-      { id: 'GBN0Y9sA6W8', title: 'Video 2: Hide & Seek', dur: '5 min' },
-      { id: 'KjEf3CdWwyw', title: 'Video 3: Hunting Simulation', dur: '8 min' },
+      {
+        id: 'PeYAM-ybngI',
+        title: 'Video 1: Puzzle Games',
+        dur: '9 min',
+        shortVideoId: 'ooMYJNJ54S8'
+      },
+      {
+        id: 'GBN0Y9sA6W8',
+        title: 'Video 2: Hide & Seek',
+        dur: '5 min',
+        shortVideoId: 'PiPMhv0HlYk'
+      },
+      {
+        id: 'KjEf3CdWwyw',
+        title: 'Video 3: Hunting Simulation',
+        dur: '8 min',
+        shortVideoId: 'zqj4GC0Xcco'
+      }
     ]
   },
-  { 
-    month: 10, 
-    title: 'Advanced Training', 
-    desc: 'Total mastery of cat training.', 
-    milestones: ['Responsive to clicker', 'Performs multi-step tasks', 'Fast reaction to cues'],
-    tasks: ['Clicker review', 'Compound command practice', 'Speed reward sessions'],
+  {
+    month: 10,
+    title: 'Advanced Training',
+    desc: 'Total mastery of cat training.',
+    milestones: [
+      'Responsive to clicker',
+      'Performs multi-step tasks',
+      'Fast reaction to cues'
+    ],
+    tasks: [
+      'Clicker review',
+      'Compound command practice',
+      'Speed reward sessions'
+    ],
     videos: [
-      { id: 'YxxCqtJ93zU', title: 'Video 1: Clicker Training', dur: '8 min' },
-      { id: 'srYbiHDh6mo', title: 'Video 2: Multi-Step Commands', dur: '9 min' },
-      { id: 'SSRXzcNuLzk', title: 'Video 3: Reaction Training', dur: '6 min' },
+      {
+        id: 'YxxCqtJ93zU',
+        title: 'Video 1: Clicker Training',
+        dur: '8 min',
+        shortVideoId: 'lfu7UruEtHo'
+      },
+      {
+        id: 'srYbiHDh6mo',
+        title: 'Video 2: Multi-Step Commands',
+        dur: '9 min',
+        shortVideoId: 'BvQpnSHw6Zg'
+      },
+      {
+        id: 'SSRXzcNuLzk',
+        title: 'Video 3: Reaction Training',
+        dur: '6 min',
+        shortVideoId: 'nyFcu-ZcfNg'
+      }
     ]
   },
-  { 
-    month: 11, 
-    title: 'Lifestyle Training', 
-    desc: 'Practical skills for a safe life.', 
-    milestones: ['Calm during travel', 'Stay still for vet exams', 'Cooperative grooming'],
-    tasks: ['Car ride practice', 'Mock vet exam', 'Nail trim focus'],
+  {
+    month: 11,
+    title: 'Lifestyle Training',
+    desc: 'Practical skills for a safe life.',
+    milestones: [
+      'Calm during travel',
+      'Stay still for vet exams',
+      'Cooperative grooming'
+    ],
+    tasks: [
+      'Car ride practice',
+      'Mock vet exam',
+      'Nail trim focus'
+    ],
     videos: [
-      { id: 'RjvTseSmTP4', title: 'Video 1: Travel Training', dur: '9 min' },
-      { id: 'NdZt9NP7DvY', title: 'Video 2: Vet Visit Calmness', dur: '9 min' },
-      { id: '3JjTLFaRMl0', title: 'Video 3: Grooming Cooperation', dur: '8 min' },
+      {
+        id: 'RjvTseSmTP4',
+        title: 'Video 1: Travel Training',
+        dur: '9 min',
+        shortVideoId: 'IEYRUrk-BBc'
+      },
+      {
+        id: 'NdZt9NP7DvY',
+        title: 'Video 2: Vet Visit Calmness',
+        dur: '9 min',
+        shortVideoId: 'TQ13uPztCSI'
+      },
+      {
+        id: '3JjTLFaRMl0',
+        title: 'Video 3: Grooming Cooperation',
+        dur: '8 min',
+        shortVideoId: 'WJvLkSzxFsE'
+      }
     ]
   },
-  { 
-    month: 12, 
-    title: 'Pro Level', 
-    desc: 'The graduate cat experience.', 
-    milestones: ['Completed complex tricks', 'Perfect discipline review', 'Smart social interactions'],
-    tasks: ['Review all months', 'Video graduation session', 'Celebrate success'],
+  {
+    month: 12,
+    title: 'Pro Level',
+    desc: 'The graduate cat experience.',
+    milestones: [
+      'Completed complex tricks',
+      'Perfect discipline review',
+      'Smart social interactions'
+    ],
+    tasks: [
+      'Review all months',
+      'Video graduation session',
+      'Celebrate success'
+    ],
     videos: [
-      { id: 'lBAt_Oh9gis', title: 'Video 1: Complex Tricks', dur: '6 min' },
-      { id: 'VEhOk3E4d98', title: 'Video 2: Discipline Training', dur: '8 min' },
-      { id: 'wo-W0UtTbXs', title: 'Video 3: Smart Interaction', dur: '8 min' },
+      {
+        id: 'lBAt_Oh9gis',
+        title: 'Video 1: Complex Tricks',
+        dur: '6 min',
+        shortVideoId: 'mSDPoXK4L7o'
+      },
+      {
+        id: 'VEhOk3E4d98',
+        title: 'Video 2: Discipline Training',
+        dur: '8 min',
+        shortVideoId: 'zkyO8O-BuaA'
+      },
+      {
+        id: 'wo-W0UtTbXs',
+        title: 'Video 3: Smart Interaction',
+        dur: '8 min',
+        shortVideoId: 'BvQpnSHw6Zg'
+      }
     ]
-  },
+  }
 ];
