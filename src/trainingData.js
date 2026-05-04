@@ -297,17 +297,20 @@ export const dogTraining = [
       {
         id: '8_SpZUTuRgE',
         title: 'Video 1: Shake Hand',
-        dur: '7 min'
+        dur: '7 min',
+        shortVideoId: 'evh_W3Dl1o8'
       },
       {
         id: 'Ke-6iCZ7jqA',
         title: 'Video 2: Roll Over',
-        dur: '5 min'
+        dur: '5 min',
+        shortVideoId: 'JdcseUbyakU'
       },
       {
         id: '1FUqREededA',
         title: 'Video 3: Spin Trick',
-        dur: '5 min'
+        dur: '5 min',
+        shortVideoId: 'QJ1s0DawUtY'
       }
     ]
   },
@@ -329,17 +332,20 @@ export const dogTraining = [
       {
         id: 'CRYSNymBE_A',
         title: 'Video 1: Alert Training',
-        dur: '8 min'
+        dur: '8 min',
+        shortVideoId: 'GCCR_BXDiZU'
       },
       {
         id: 'zbx1Ywo1gTc',
         title: 'Video 2: Territory Awareness',
-        dur: '10 min'
+        dur: '10 min',
+        shortVideoId: 'Io8VSxOQ2E8'
       },
       {
         id: 'AGoXobRlDaE',
         title: 'Video 3: Basic Protection',
-        dur: '8 min'
+        dur: '8 min',
+        shortVideoId: 'tFXsk08Lh4U'
       }
     ]
   },
