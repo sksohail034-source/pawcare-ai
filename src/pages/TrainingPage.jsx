@@ -353,17 +353,11 @@ export default function TrainingPage() {
                           </div>
                           
                           {/* Placeholder Video Grid */}
-                          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
-                            <div style={{ background: 'var(--bg-input)', borderRadius: 8, paddingBottom: '177%', position: 'relative', overflow: 'hidden', border: '1px dashed var(--border)' }}>
-                              <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: 'var(--text-muted)' }}>
-                                <PlayCircle size={24} style={{ marginBottom: 6, opacity: 0.5 }} />
-                                <span style={{ fontSize: 10, fontWeight: 600 }}>Coming Soon</span>
-                              </div>
-                            </div>
-                            <div style={{ background: 'var(--bg-input)', borderRadius: 8, paddingBottom: '177%', position: 'relative', overflow: 'hidden', border: '1px dashed var(--border)' }}>
-                              <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: 'var(--text-muted)' }}>
-                                <PlayCircle size={24} style={{ marginBottom: 6, opacity: 0.5 }} />
-                                <span style={{ fontSize: 10, fontWeight: 600 }}>Add Video</span>
+                          <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 10, maxWidth: 180, margin: '0 auto', width: '100%' }}>
+                            <div style={{ background: 'var(--bg-input)', borderRadius: 12, paddingBottom: '177%', position: 'relative', overflow: 'hidden', border: '2px dashed var(--border)' }}>
+                              <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: 'var(--text-muted)', background: 'rgba(0,0,0,0.02)' }}>
+                                <PlayCircle size={32} style={{ marginBottom: 8, opacity: 0.5 }} />
+                                <span style={{ fontSize: 12, fontWeight: 700 }}>Coming Soon</span>
                               </div>
                             </div>
                           </div>
