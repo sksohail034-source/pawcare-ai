@@ -793,17 +793,20 @@ export const catTraining = [
       {
         id: 'lBAt_Oh9gis',
         title: 'Video 1: Complex Tricks',
-        dur: '6 min'
+        dur: '6 min',
+        shortVideoId: 'zkyO8O-BuaA'
       },
       {
         id: 'VEhOk3E4d98',
         title: 'Video 2: Discipline Training',
-        dur: '8 min'
+        dur: '8 min',
+        shortVideoId: 'HeCPcY7QvyU'
       },
       {
         id: 'wo-W0UtTbXs',
         title: 'Video 3: Smart Interaction',
-        dur: '8 min'
+        dur: '8 min',
+        shortVideoId: 'EcrRtwl9vVo'
       }
     ]
   }
