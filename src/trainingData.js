@@ -402,17 +402,20 @@ export const dogTraining = [
       {
         id: '--PXr3edQDo',
         title: 'Video 1: Advanced Recall',
-        dur: '8 min'
+        dur: '8 min',
+        shortVideoId: 'qMy3zMQRing'
       },
       {
         id: 'yZ74wVgoEzY',
         title: 'Video 2: Discipline Without Treats',
-        dur: '8 min'
+        dur: '8 min',
+        shortVideoId: '21ZvpsclAGk'
       },
       {
         id: 'CYf7xuupWnI',
         title: 'Video 3: Real-Life Situation Training',
-        dur: '9 min'
+        dur: '9 min',
+        shortVideoId: 'oP18WX7G1Yc'
       }
     ]
   }
