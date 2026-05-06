@@ -367,17 +367,20 @@ export const dogTraining = [
       {
         id: '70q00hAtXpE',
         title: 'Video 1: Agility Training',
-        dur: '9 min'
+        dur: '9 min',
+        shortVideoId: 'Buh_6Iu8LTI'
       },
       {
         id: 'XOvOp_T0cdo',
         title: 'Video 2: Obstacle Training',
-        dur: '8 min'
+        dur: '8 min',
+        shortVideoId: 'RPLFsHfgck8'
       },
       {
         id: '_5GrbJkTXKo',
         title: 'Video 3: Brain Games',
-        dur: '9 min'
+        dur: '9 min',
+        shortVideoId: '-kyry9Acarc'
       }
     ]
   },
