@@ -440,17 +440,20 @@ export const catTraining = [
       {
         id: 'LmK-rqaVKYE',
         title: 'Video 1: Name Recognition',
-        dur: '5 min'
+        dur: '5 min',
+        shortVideoId: 'EcrRtwl9vVo'
       },
       {
         id: 'njfr-DvmzIo',
         title: 'Video 2: Litter Training',
-        dur: '5 min'
+        dur: '5 min',
+        shortVideoId: 'IEYRUrk-BBc'
       },
       {
         id: 'yEQBSNG90Lc',
         title: 'Video 3: Trust Building',
-        dur: '10 min'
+        dur: '10 min',
+        shortVideoId: 'EBT2uW30mIw'
       }
     ]
   },
